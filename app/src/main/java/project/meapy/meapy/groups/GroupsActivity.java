@@ -1,14 +1,13 @@
-package project.meapy.meapy;
+package project.meapy.meapy.groups;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.SimpleAdapter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+
+import project.meapy.meapy.R;
 
 /**
  * Created by sansaoui on 12/02/18.

@@ -1,4 +1,4 @@
-package project.meapy.meapy;
+package project.meapy.meapy.groups;
 
 /**
  * Created by sansaoui on 19/02/18.
