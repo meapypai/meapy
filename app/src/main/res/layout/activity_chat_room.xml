@@ -11,14 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/scrollMessagesChat"
+        android:layout_alignParentStart="true"
         >
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        
 
     </ScrollView>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -38,5 +37,5 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="send"/>
-    </RelativeLayout>
+    </LinearLayout>
 </RelativeLayout>
