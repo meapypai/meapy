@@ -5,18 +5,20 @@
 
     <ImageView
         android:id="@+id/imgGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
 
     <TextView
         android:id="@+id/nameGroup"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/imgGroup"/>
 
     <TextView
         android:id="@+id/lastMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/nameGroup"/>
+        android:layout_below="@+id/nameGroup"
+        android:layout_toRightOf="@id/imgGroup"/>
     
 </RelativeLayout>

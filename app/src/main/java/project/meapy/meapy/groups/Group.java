@@ -10,8 +10,8 @@ public class Group {
     private String name;
     private String lastMessage;
 
-    public Group(int d, String name, String lastMessage) {
-        this.idDrawable = d;
+    public Group(int id, String name, String lastMessage) {
+        this.idDrawable = id;
         this.name = name;
         this.lastMessage = lastMessage;
     }
