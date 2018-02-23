@@ -16,4 +16,7 @@
         completions."
     </string>
     <string name="send_file">send a file</string>
+
+    <!-- Strings related to Groups -->
+    <string name="groups_label_name">My Groups</string>
 </resources>
