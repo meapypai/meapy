@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="project.meapy.meapy.CreateGroupActivity">
+    <TextView
+        android:id="@+id/headTextSend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="create group"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:textSize="30dp"/>
+   <RelativeLayout
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_centerInParent="true">
+    <EditText
+        android:id="@+id/nameCreateGroup"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:hint="name"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        />
+
+    <EditText
+        android:id="@+id/imageCreateGroup"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:hint="image"
+        android:layout_below="@id/nameCreateGroup"
+        android:layout_margin="@dimen/activity_horizontal_margin"/>
+
+    <EditText
+        android:id="@+id/limiteCreateGroup"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:hint="limite"
+        android:layout_below="@id/imageCreateGroup"
+        android:layout_margin="@dimen/activity_horizontal_margin"/>
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/limiteCreateGroup"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:text="CREATE"
+        android:background="@color/colorButton"/>
+   </RelativeLayout>
+</RelativeLayout>

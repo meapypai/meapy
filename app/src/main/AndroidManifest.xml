@@ -29,7 +29,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".SendFileActivity" />
-        <activity android:name=".ChatRoomActivity"></activity>
+        <activity android:name=".ChatRoomActivity" />
+        <activity android:name=".CreateGroupActivity" />
+        <activity android:name=".PostDetailsActivity"></activity>
     </application>
 
 </manifest>
