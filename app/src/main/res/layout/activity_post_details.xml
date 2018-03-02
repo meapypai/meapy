@@ -4,12 +4,75 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="project.meapy.meapy.PostDetailsActivity">
+    tools:context="project.meapy.meapy.PostDetailsActivity"
+    android:background="@color/background">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/headerPostDetails"
+        >
+            <RelativeLayout
+                android:id="@+id/areaPostDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:padding="25dp"
+                android:background="@color/white">
+                <TextView
+                    android:id="@+id/titlePostDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Titre du post"
+                    />
+                <TextView
+                    android:id="@+id/contentPostDetails"
+                    android:layout_below="@id/titlePostDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="description du contenu"/>
+
+            </RelativeLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/areaPostDetails"
+            android:layout_margin="30dp"
+            android:text="Download"/>
+
+    </RelativeLayout>
     <ScrollView
+        android:id="@+id/commentsPostDetails"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
+        android:layout_height="match_parent"
+        android:layout_below
+            ="@id/headerPostDetails"
+        android:layout_above="@id/writeCommentPostDetails"
+        >
     </ScrollView>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="bottom"
+        android:id="@+id/writeCommentPostDetails"
+        android:layout_below="@id/scrollMessagesChat"
+        >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+"/>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="write your message here"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="send"/>
+    </LinearLayout>
+
 
 </RelativeLayout>

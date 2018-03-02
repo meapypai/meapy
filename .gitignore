@@ -1,10 +1,12 @@
-*.iml
+meapy.iml
 .gradle
 /local.properties
 /.idea/workspace.xml
-/.idea/libraries
-.idea
+/.idea/libraries/
+.idea/libraries/
 .DS_Store
 /build
 /captures
 .externalNativeBuild
+build.gradle
+.idea/modules.xml
