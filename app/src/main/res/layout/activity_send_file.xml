@@ -20,41 +20,59 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         >
-
-        <EditText
-            android:id="@+id/fileNameSend"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:hint="filename"
-            />
-        <Button
-            android:id="@+id/fileButtonSend"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/fileNameSend"
-            android:text="+"/>
+            android:id="@+id/fileSendFile"
+            android:layout_marginBottom="15dp">
+            <EditText
+                android:id="@+id/fileNameSend"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:hint="filename"
+                />
+            <Button
+                android:id="@+id/fileButtonSend"
+                android:background="@color/colorButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/fileNameSend"
+                android:text="+"/>
 
-        <EditText
-            android:id="@+id/groupNameSend"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/fileNameSend"
-            android:hint="groupname" />
 
-        <Button
-            android:id="@+id/groupButtonSend"
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/groupSendFile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/groupNameSend"
-            android:layout_below="@id/fileButtonSend"
-            android:text="+"/>
+            android:layout_below="@id/fileSendFile">
+
+            <EditText
+                android:id="@+id/groupNameSend"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:hint="groupname" />
+
+            <Button
+                android:id="@+id/groupButtonSend"
+                android:background="@color/colorButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/groupNameSend"
+                android:text="+"/>
+
+
+
+        </RelativeLayout>
+
 
         <EditText
             android:id="@+id/descTextSend"
             android:layout_width="250dp"
             android:layout_height="200dp"
-            android:layout_below="@id/groupNameSend"
-            android:hint="description" />
+            android:hint="description"
+            android:layout_below="@id/groupSendFile"/>
     </RelativeLayout>
 
     <Button
