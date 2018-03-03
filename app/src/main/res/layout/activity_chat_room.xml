@@ -7,22 +7,24 @@
     android:orientation="vertical"
     tools:context="project.meapy.meapy.ChatRoomActivity">
 
-    <ScrollView
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/scrollMessagesChat"
         android:layout_alignParentStart="true"
         >
 
-    </ScrollView>
+
+    </ListView>
 
     <LinearLayout
+        android:id="@+id/writeMessageChatroom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:gravity="bottom"
-        android:layout_below="@id/scrollMessagesChat"
+
         >
 
         <Button

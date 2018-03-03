@@ -41,7 +41,8 @@
             android:text="Download"/>
 
     </RelativeLayout>
-    <ScrollView
+
+    <ListView
         android:id="@+id/commentsPostDetails"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -49,7 +50,8 @@
             ="@id/headerPostDetails"
         android:layout_above="@id/writeCommentPostDetails"
         >
-    </ScrollView>
+
+    </ListView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
