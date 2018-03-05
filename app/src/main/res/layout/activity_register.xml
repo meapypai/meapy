@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="project.meapy.meapy.RegisterActivity">
+
+    <TextView
+        android:layout_marginTop="@dimen/sign_up_margin_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/first_name_register"
+        android:layout_gravity="center"/>
+
+    <EditText
+        android:id="@+id/firstNameId"
+        android:layout_width="@dimen/sign_up_text_view_width"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/last_name_register"
+        android:layout_gravity="center"/>
+
+    <EditText
+        android:id="@+id/lastNameId"
+        android:layout_width="@dimen/sign_up_text_view_width"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/prompt_email"
+        android:layout_gravity="center"/>
+
+
+    <EditText
+        android:id="@+id/emailId"
+        android:layout_width="@dimen/sign_up_text_view_width"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/prompt_password"
+        android:layout_gravity="center"/>
+
+    <EditText
+        android:id="@+id/passwordId"
+        android:layout_width="@dimen/sign_up_text_view_width"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:inputType="textPassword"/>
+
+
+    <Button
+        android:id="@+id/signUpBtnId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/sign_up_button"/>
+
+</LinearLayout>

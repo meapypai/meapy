@@ -19,4 +19,10 @@
 
     <!-- Strings related to Groups -->
     <string name="groups_label_name">My Groups</string>
+
+    <!--Strings related to Register Activity-->
+    <string name="first_name_register">First name</string>
+    <string name="last_name_register">Last name</string>
+    <string name="sign_up_button">Sign Up</string>
+
 </resources>
