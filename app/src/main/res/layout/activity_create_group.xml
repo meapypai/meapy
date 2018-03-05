@@ -9,7 +9,7 @@
         android:id="@+id/headTextSend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="create group"
+        android:text="Create a group"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:textSize="30dp"/>
@@ -21,7 +21,7 @@
         android:id="@+id/nameCreateGroup"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:hint="name"
+        android:hint="Name"
         android:layout_margin="@dimen/activity_horizontal_margin"
         />
 
@@ -29,7 +29,7 @@
         android:id="@+id/imageCreateGroup"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:hint="image"
+        android:hint="Image"
         android:layout_below="@id/nameCreateGroup"
         android:layout_margin="@dimen/activity_horizontal_margin"/>
 
@@ -37,7 +37,7 @@
         android:id="@+id/limiteCreateGroup"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:hint="limite"
+        android:hint="Limit"
         android:layout_below="@id/imageCreateGroup"
         android:layout_margin="@dimen/activity_horizontal_margin"/>
     <Button
@@ -46,6 +46,7 @@
         android:layout_below="@id/limiteCreateGroup"
         android:layout_margin="@dimen/activity_horizontal_margin"
         android:text="CREATE"
+        android:textColor="@color/white"
         android:background="@color/colorButton"/>
    </RelativeLayout>
 </RelativeLayout>

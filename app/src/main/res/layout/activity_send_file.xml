@@ -29,7 +29,7 @@
                 android:id="@+id/fileNameSend"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:hint="filename"
+                android:hint="Filename"
                 />
             <Button
                 android:id="@+id/fileButtonSend"
@@ -37,6 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/fileNameSend"
+                android:textColor="@color/white"
                 android:text="+"/>
 
 
@@ -52,7 +53,7 @@
                 android:id="@+id/groupNameSend"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:hint="groupname" />
+                android:hint="Groupname" />
 
             <Button
                 android:id="@+id/groupButtonSend"
@@ -60,6 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/groupNameSend"
+                android:textColor="@color/white"
                 android:text="+"/>
 
 
@@ -71,7 +73,7 @@
             android:id="@+id/descTextSend"
             android:layout_width="250dp"
             android:layout_height="200dp"
-            android:hint="description"
+            android:hint="Description"
             android:layout_below="@id/groupSendFile"/>
     </RelativeLayout>
 
@@ -83,5 +85,6 @@
         android:layout_centerInParent="true"
         android:layout_marginBottom="20dp"
         android:background="@color/colorButton"
+        android:textColor="@color/white"
         />
 </RelativeLayout>
