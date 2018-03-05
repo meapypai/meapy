@@ -5,8 +5,12 @@
     <item
         android:icon="@drawable/ic_note_add_black_24dp"
         android:title="add_file"
-        app:showAsAction="always"></item>
+        android:visible="true"
+        android:id="@+id/addFileId"
+        app:showAsAction="ifRoom"></item>
     <item android:icon="@drawable/ic_chat_black_24dp"
-        app:showAsAction="always" android:title="my_message">
+        android:id="@+id/discussionsId"
+        android:visible="true"
+        app:showAsAction="ifRoom" android:title="my_message">
     </item>
 </menu>
