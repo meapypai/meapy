@@ -2,6 +2,7 @@ package project.meapy.meapy.groups.discussions;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import project.meapy.meapy.groups.GroupAdapter;
  * Created by sansaoui on 12/02/18.
  */
 
-public class DiscussionGroupsActivity extends Activity {
+public class DiscussionGroupsActivity extends AppCompatActivity {
 
     private ListView listView;
 
