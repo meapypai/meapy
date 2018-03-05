@@ -48,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private Button mRegisterBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +56,20 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         mSignButton = (Button)findViewById(R.id.email_sign_in_button);
+        mRegisterBtn = (Button)findViewById(R.id.register);
 
         mSignButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, MyGroupsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        mRegisterBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }
         });

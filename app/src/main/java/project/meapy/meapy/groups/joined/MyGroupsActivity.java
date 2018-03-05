@@ -19,9 +19,9 @@ public class MyGroupsActivity extends Activity {
         setContentView(R.layout.activity_my_groups);
     }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_my_groups, menu);
-        return true;
-    }
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.menu_my_groups, menu);
+//        return true;
+//    }
 }
