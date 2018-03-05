@@ -14,22 +14,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
         <activity
             android:name=".groups.discussions.DiscussionGroupsActivity"
             android:label="@string/groups_label_name">
+
+        </activity>
+        <activity android:name=".SendFileActivity" />
+        <activity android:name=".ChatRoomActivity" />
+        <activity android:name=".CreateGroupActivity" />
+        <activity android:name=".PostDetailsActivity"></activity>
+        <activity android:name=".groups.joined.MyGroupsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SendFileActivity" />
-        <activity android:name=".ChatRoomActivity" />
-        <activity android:name=".CreateGroupActivity" />
-        <activity android:name=".PostDetailsActivity"></activity>
     </application>
 
 </manifest>
