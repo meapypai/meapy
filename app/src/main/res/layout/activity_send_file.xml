@@ -33,7 +33,7 @@
                 />
             <Button
                 android:id="@+id/fileButtonSend"
-                android:background="@color/colorButton"
+                android:background="@drawable/round"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/fileNameSend"
@@ -57,7 +57,7 @@
 
             <Button
                 android:id="@+id/groupButtonSend"
-                android:background="@color/colorButton"
+                android:background="@drawable/round"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/groupNameSend"
@@ -84,7 +84,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:layout_marginBottom="20dp"
-        android:background="@color/colorButton"
+        android:background="@drawable/rounded_button"
         android:textColor="@color/white"
         />
 </RelativeLayout>

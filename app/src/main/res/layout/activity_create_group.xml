@@ -48,6 +48,6 @@
         android:layout_margin="@dimen/activity_horizontal_margin"
         android:text="CREATE"
         android:textColor="@color/white"
-        android:background="@color/colorButton"/>
+        android:background="@drawable/rounded_button"/>
    </RelativeLayout>
 </RelativeLayout>
