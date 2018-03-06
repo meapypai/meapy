@@ -82,7 +82,21 @@
                 android:textStyle="bold"
                 android:background="@color/colorButton"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
                 />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sign in with Facebook"
+                android:background="#3B5998"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="center_horizontal"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sign in with Gmail"
+                android:background="#c71610"
+                android:layout_gravity="center_horizontal"/>
         </LinearLayout>
         <Button
             android:id="@+id/register"
