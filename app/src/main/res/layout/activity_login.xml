@@ -90,12 +90,14 @@
                 android:text="Sign in with Facebook"
                 android:background="#3B5998"
                 android:layout_marginBottom="10dp"
+                android:textColor="@android:color/white"
                 android:layout_gravity="center_horizontal"/>
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Sign in with Gmail"
                 android:background="#c71610"
+                android:textColor="@android:color/white"
                 android:layout_gravity="center_horizontal"/>
         </LinearLayout>
         <Button
