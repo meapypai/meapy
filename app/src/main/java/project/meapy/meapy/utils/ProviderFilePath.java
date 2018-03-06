@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.widget.Toast;
 
 /**
  * Created by yassi on 06/03/2018.
@@ -25,17 +26,21 @@ public class ProviderFilePath {
     public  String getPath(Uri uri) {
         String path = "";
         String autority = uri.getAuthority();
+        Toast.makeText(context,"okkkkk",Toast.LENGTH_SHORT).show();
 
         if(autority.equals("com.android.providers.media.documents")) {
             String[] split = uri.getLastPathSegment().split(":"); //on recupere le dernier segment de l'uri ( image:48414)
             String type = split[0];
             String id   = split[1];
 
+            System.out.println(type);
+            System.out.println(id);
+
             //si le  document est une image
             if(type.equals("image")) {
-                Cursor cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, new String[] {MediaStore.Images.Media.DATA},"_ID = ?", new String[]{id},null);
+                Cursor cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, new String[] {MediaStore.Images.Media.DATA},"_id=?", new String[]{id},null);
                 if(cursor.moveToNext()) {
-                    path = cursor.getColumnName(0);
+                    path = cursor.getString(0);
                 }
             }
         }

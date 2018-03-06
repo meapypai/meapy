@@ -32,7 +32,7 @@
                 android:hint="Filename"
                 />
             <Button
-                android:id="@+id/fileButtonSend"
+                android:id="@+id/importFileBtnSend"
                 android:background="@drawable/round"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -78,13 +78,13 @@
     </RelativeLayout>
 
     <Button
+        android:id="@+id/fileBtnSend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Send"
         android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="19dp"
         android:background="@drawable/rounded_button"
-        android:textColor="@color/white"
-        />
+        android:text="Send"
+        android:textColor="@color/white" />
 </RelativeLayout>
