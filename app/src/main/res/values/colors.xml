@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#1abc9c</color>
+    <color name="colorPrimary">#57b99e</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="colorButton">#1abc9c</color>
+    <color name="colorButton">#57b99e</color>
     <color name="background">#507091</color>
     <color name="white">#ffffff</color>
     <color name="topbottomchat">#A6A6A6</color>
     <color name="input">#F5F6FA</color>
+    <color name="facebook">#3B5998</color>
+    <color name="gmail">#c71610</color>
 </resources>

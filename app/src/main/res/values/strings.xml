@@ -16,6 +16,8 @@
         completions."
     </string>
     <string name="send_file">send a file</string>
+   <string name="sign_in_fb">Sign in with Facebook</string>
+    <string name="sign_in_gm">Sign in with Gmail</string>
 
     <!-- Strings related to Groups -->
     <string name="groups_label_name">My Groups</string>
