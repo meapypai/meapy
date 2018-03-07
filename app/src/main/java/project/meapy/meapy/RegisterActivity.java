@@ -21,7 +21,7 @@ import project.meapy.meapy.groups.joined.MyGroupsActivity;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private TextView errorView; //vu pour afficher l'erreur
+    private ErrorView errorView; //vu pour afficher l'erreur
 
     private Button signUpBtnIdRegister;
 
@@ -55,6 +55,9 @@ public class RegisterActivity extends AppCompatActivity {
                     if(isValidName(lastName)) {
                         if(isValidMail(email)) {
                             if(isValidPassword(password)) {
+
+                                //TODO : ajout dans la bdd
+
                                 Intent intent = new Intent(RegisterActivity.this, MyGroupsActivity.class);
                                 startActivity(intent);
                             }
@@ -76,8 +79,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 //creation de la vue d'erreur
                 if(errorView == null) {
-                    errorView = new TextView(RegisterActivity.this);
-                    errorView.setTextColor(getResources().getColor(R.color.error));
+                    errorView = new ErrorView(RegisterActivity.this);
 
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
