@@ -15,7 +15,7 @@
         android:layout_gravity="center"/>
 
     <EditText
-        android:id="@+id/firstNameId"
+        android:id="@+id/firstNameIdRegister"
         android:layout_width="@dimen/sign_up_text_view_width"
         android:layout_height="wrap_content"
         android:layout_gravity="center"/>
@@ -27,7 +27,7 @@
         android:layout_gravity="center"/>
 
     <EditText
-        android:id="@+id/lastNameId"
+        android:id="@+id/lastNameIdRegister"
         android:layout_width="@dimen/sign_up_text_view_width"
         android:layout_height="wrap_content"
         android:layout_gravity="center"/>
@@ -40,7 +40,7 @@
 
 
     <EditText
-        android:id="@+id/emailId"
+        android:id="@+id/emailIdRegister"
         android:layout_width="@dimen/sign_up_text_view_width"
         android:layout_height="wrap_content"
         android:layout_gravity="center"/>
@@ -52,7 +52,7 @@
         android:layout_gravity="center"/>
 
     <EditText
-        android:id="@+id/passwordId"
+        android:id="@+id/passwordIdRegister"
         android:layout_width="@dimen/sign_up_text_view_width"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -60,7 +60,7 @@
 
 
     <Button
-        android:id="@+id/signUpBtnId"
+        android:id="@+id/signUpBtnIdRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

@@ -10,4 +10,6 @@
     <color name="input">#F5F6FA</color>
     <color name="facebook">#3B5998</color>
     <color name="gmail">#c71610</color>
+
+    <color name="error">#FA1414</color>
 </resources>
