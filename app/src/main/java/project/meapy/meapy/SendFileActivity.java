@@ -77,7 +77,7 @@ public class SendFileActivity extends AppCompatActivity {
                     //TODO : verifier que le groupe existe
 
                         if(description.length() >= 50) {
-                            //TODO : ajout du fichier 
+                            //TODO : ajout du fichier
                         }
                         else {
                             Toast.makeText(SendFileActivity.this, "Description length must be highter than 50", Toast.LENGTH_SHORT).show();
