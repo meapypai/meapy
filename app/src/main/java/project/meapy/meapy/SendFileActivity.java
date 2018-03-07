@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.io.File;
+
 import project.meapy.meapy.utils.ProviderFilePath;
 
 public class SendFileActivity extends AppCompatActivity {
@@ -28,6 +30,8 @@ public class SendFileActivity extends AppCompatActivity {
     private Button fileBtnSend;
 
     private EditText fileNameSend;
+    private EditText groupNameSend;
+    private EditText descTextSend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +43,9 @@ public class SendFileActivity extends AppCompatActivity {
         fileBtnSend       = (Button)findViewById(R.id.fileBtnSend);
 
         //edittext
-        fileNameSend      = (EditText) findViewById(R.id.fileNameSend);
-
+        fileNameSend      = (EditText)findViewById(R.id.fileNameSend);
+        groupNameSend     = (EditText)findViewById(R.id.groupNameSend);
+        descTextSend      = (EditText)findViewById(R.id.descTextSend);
 
         //permission
         if(ContextCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -55,6 +60,32 @@ public class SendFileActivity extends AppCompatActivity {
                 intent.setType("image/*"); //on se limite aux images pour le moment
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
                 startActivityForResult(Intent.createChooser(intent,"Load a file"), REQUEST_LOAD_FILE);
+            }
+        });
+
+        fileBtnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String path = fileNameSend.getText().toString();
+                File file = new File(path);
+                String description = descTextSend.getText().toString();
+                String groupName = groupNameSend.getText().toString();
+
+                if(!file.exists()) {
+                    Toast.makeText(SendFileActivity.this,"File doesn't exists",Toast.LENGTH_SHORT).show();
+
+                    //TODO : verifier que le groupe existe
+
+                        if(description.length() >= 50) {
+                            //TODO : ajout du fichier 
+                        }
+                        else {
+                            Toast.makeText(SendFileActivity.this, "Description length must be highter than 50", Toast.LENGTH_SHORT).show();
+                        }
+                }
+                else {
+                    Toast.makeText(SendFileActivity.this, "ok", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
