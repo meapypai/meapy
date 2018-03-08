@@ -2,6 +2,8 @@ package project.meapy.meapy.database;
 
 import com.google.firebase.database.DatabaseReference;
 
+import java.util.List;
+
 import project.meapy.meapy.bean.DomainObject;
 import project.meapy.meapy.bean.Post;
 
@@ -36,6 +38,10 @@ public abstract class Mapper {
     }
 
     public DomainObject findById(int id) {
+        return null;
+    }
+
+    public List<DomainObject> findAll(){
         return null;
     }
 }

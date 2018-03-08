@@ -13,6 +13,7 @@ import android.view.View;
 import project.meapy.meapy.CreateGroupActivity;
 import project.meapy.meapy.R;
 import project.meapy.meapy.SendFileActivity;
+import project.meapy.meapy.database.GroupsMapper;
 import project.meapy.meapy.groups.discussions.DiscussionGroupsActivity;
 
 /**
@@ -37,6 +38,7 @@ public class MyGroupsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        GroupsMapper mapper = new GroupsMapper();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
