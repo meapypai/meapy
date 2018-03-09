@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -16,11 +17,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import project.meapy.meapy.CreateGroupActivity;
 import project.meapy.meapy.R;
 import project.meapy.meapy.SendFileActivity;
 import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.database.GroupsMapper;
+import project.meapy.meapy.groups.Group;
+import project.meapy.meapy.groups.GroupAdapter;
 import project.meapy.meapy.groups.discussions.DiscussionGroupsActivity;
 
 /**
@@ -30,7 +36,7 @@ import project.meapy.meapy.groups.discussions.DiscussionGroupsActivity;
 public class MyGroupsActivity extends AppCompatActivity {
 
     private FloatingActionButton createGroupId;
-    private FirebaseDatabase database;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +52,18 @@ public class MyGroupsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        List<Group> groups = new ArrayList<>();
+        final ListView listView = findViewById(R.id.listMyGroups);
+        final GroupAdapter adapter = new GroupAdapter(MyGroupsActivity.this,android.R.layout.simple_expandable_list_item_2,groups);
+        listView.setAdapter(adapter);
         DatabaseReference groupsRef = database.getReference("groups");
         groupsRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Groups added = dataSnapshot.getValue(Groups.class);
                 // UPDATE UI
+                adapter.add(new Group(R.drawable.web,added.getName(),added.getLimitUsers()+""));
+
             }
 
             @Override

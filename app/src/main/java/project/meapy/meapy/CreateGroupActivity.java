@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import java.io.File;
+import java.util.Random;
 
 import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.bean.Post;
@@ -73,6 +74,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                             Groups newGroup = new Groups();
                             newGroup.setLimitUsers(l);
                             newGroup.setName(nameGroup);
+                            newGroup.setId(new Random().nextInt());
 
                             GroupsMapper mapper = new GroupsMapper();
                             mapper.insert(newGroup);
