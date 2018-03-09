@@ -7,4 +7,29 @@ package project.meapy.meapy.bean;
 public class Groups extends DomainObject{
     private String name;
     private int idUserAdmin;
+    private int limitUsers;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getIdUserAdmin() {
+        return idUserAdmin;
+    }
+
+    public void setIdUserAdmin(int idUserAdmin) {
+        this.idUserAdmin = idUserAdmin;
+    }
+
+    public int getLimitUsers() {
+        return limitUsers;
+    }
+
+    public void setLimitUsers(int limitUsers) {
+        this.limitUsers = limitUsers;
+    }
 }

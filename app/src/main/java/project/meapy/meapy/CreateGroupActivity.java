@@ -11,6 +11,11 @@ import android.widget.LinearLayout;
 
 import java.io.File;
 
+import project.meapy.meapy.bean.Groups;
+import project.meapy.meapy.bean.Post;
+import project.meapy.meapy.database.GroupsMapper;
+import project.meapy.meapy.database.PostMapper;
+import project.meapy.meapy.groups.Group;
 import project.meapy.meapy.groups.joined.MyGroupsActivity;
 import project.meapy.meapy.utils.ProviderFilePath;
 
@@ -64,6 +69,14 @@ public class CreateGroupActivity extends AppCompatActivity {
                     if (nameGroup.length() >= MIN_LENGTH_NAME_GROUP) {
                         int l = Integer.parseInt(limit);
                         if(l <= MIN_LIMIT_GROUP) {
+                            // START TEST INSERTION INTO DATABASE WITHOUT FILE
+                            Groups newGroup = new Groups();
+                            newGroup.setLimitUsers(l);
+                            newGroup.setName(nameGroup);
+
+                            GroupsMapper mapper = new GroupsMapper();
+                            mapper.insert(newGroup);
+                            // END TEST
                             File file = new File(path);
                             if(file.exists()) {
 
@@ -98,6 +111,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                 errorView.setText(errorMessage);
             }
         });
+
     }
 
     @Override
