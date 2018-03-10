@@ -11,3 +11,5 @@ meapy.iml
 .idea/modules.xml
 .idea
 app/google-services.json
+app/app.iml
+*.iml
