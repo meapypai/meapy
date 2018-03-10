@@ -4,13 +4,13 @@ package project.meapy.meapy.groups;
  * Created by sansaoui on 19/02/18.
  */
 
-public class Group {
+public class DiscussionGroup {
 
     private int idDrawable;
     private String name;
     private String lastMessage;
 
-    public Group(int id, String name, String lastMessage) {
+    public DiscussionGroup(int id, String name, String lastMessage) {
         this.idDrawable = id;
         this.name = name;
         this.lastMessage = lastMessage;

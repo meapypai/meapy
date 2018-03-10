@@ -17,9 +17,9 @@ import java.util.List;
  * Created by sansaoui on 19/02/18.
  */
 
-public class GroupAdapter extends ArrayAdapter<Group> {
+public class GroupAdapter extends ArrayAdapter<DiscussionGroup> {
 
-    public GroupAdapter(@NonNull Context context, int resource, @NonNull List<Group> objects) {
+    public GroupAdapter(@NonNull Context context, int resource, @NonNull List<DiscussionGroup> objects) {
         super(context, resource, objects);
     }
 
@@ -41,7 +41,7 @@ public class GroupAdapter extends ArrayAdapter<Group> {
             holder = (GroupHolder) convertView.getTag();
         }
 
-        Group g = getItem(position);
+        DiscussionGroup g = getItem(position);
         holder.drawable.setImageResource(g.getDrawable());
         holder.nameGroup.setText(g.getName());
         holder.lastMessage.setText(g.getLastMessage());

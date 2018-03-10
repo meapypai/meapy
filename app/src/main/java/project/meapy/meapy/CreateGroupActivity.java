@@ -13,10 +13,7 @@ import java.io.File;
 import java.util.Random;
 
 import project.meapy.meapy.bean.Groups;
-import project.meapy.meapy.bean.Post;
 import project.meapy.meapy.database.GroupsMapper;
-import project.meapy.meapy.database.PostMapper;
-import project.meapy.meapy.groups.Group;
 import project.meapy.meapy.groups.joined.MyGroupsActivity;
 import project.meapy.meapy.utils.ProviderFilePath;
 

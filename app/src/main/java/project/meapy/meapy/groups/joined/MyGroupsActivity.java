@@ -1,6 +1,5 @@
 package project.meapy.meapy.groups.joined;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.firebase.database.ChildEventListener;
@@ -18,15 +18,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import project.meapy.meapy.ChatRoomActivity;
 import project.meapy.meapy.CreateGroupActivity;
 import project.meapy.meapy.R;
 import project.meapy.meapy.SendFileActivity;
 import project.meapy.meapy.bean.Groups;
-import project.meapy.meapy.database.GroupsMapper;
-import project.meapy.meapy.groups.Group;
+import project.meapy.meapy.groups.DiscussionGroup;
 import project.meapy.meapy.groups.GroupAdapter;
+import project.meapy.meapy.groups.OneGroupActivity;
 import project.meapy.meapy.groups.discussions.DiscussionGroupsActivity;
 
 /**
@@ -52,18 +55,26 @@ public class MyGroupsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        List<Group> groups = new ArrayList<>();
+        List<DiscussionGroup> groups = new ArrayList<>();
         final ListView listView = findViewById(R.id.listMyGroups);
         final GroupAdapter adapter = new GroupAdapter(MyGroupsActivity.this,android.R.layout.simple_expandable_list_item_2,groups);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                startActivity(new Intent(MyGroupsActivity.this, OneGroupActivity.class));
+            }
+        });
+        final Map<Integer,DiscussionGroup> idGroups = new HashMap<>();
         DatabaseReference groupsRef = database.getReference("groups");
         groupsRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Groups added = dataSnapshot.getValue(Groups.class);
                 // UPDATE UI
-                adapter.add(new Group(R.drawable.web,added.getName(),added.getLimitUsers()+""));
-
+                DiscussionGroup dGrp = new DiscussionGroup(R.drawable.web,added.getName(),added.getLimitUsers()+"");
+                idGroups.put(added.getId(),dGrp);
+                adapter.add(dGrp);
             }
 
             @Override
@@ -76,6 +87,9 @@ public class MyGroupsActivity extends AppCompatActivity {
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 Groups removed = dataSnapshot.getValue(Groups.class);
                 // UPDATE UI
+                DiscussionGroup dGrp = idGroups.get(removed.getId());
+                adapter.remove(dGrp);
+                idGroups.remove(removed.getId());
             }
 
             @Override
