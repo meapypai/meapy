@@ -10,7 +10,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/headerOneGroup">
+        android:id="@+id/headerOneGroup"
+        android:layout_margin="10dp">
         <ImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -18,15 +19,22 @@
             android:src="@drawable/logo_app1"/>
 
         <TextView
-            android:layout_centerHorizontal="true"
+            android:layout_toRightOf="@id/imageGroumOneGroup"
+            android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:text="GROUP NAME"
             android:id="@+id/groupNameOneGroup"/>
 
     </RelativeLayout>
-
+    
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_add_black_24dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="20dp"/>
     <GridView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
