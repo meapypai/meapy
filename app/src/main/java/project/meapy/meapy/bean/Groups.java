@@ -35,10 +35,6 @@ public class Groups extends DomainObject{
 
     @Override
     public String toString() {
-        return "Groups{" +
-                "name='" + name + '\'' +
-                ", idUserAdmin=" + idUserAdmin +
-                ", limitUsers=" + limitUsers +
-                '}';
+        return name;
     }
 }

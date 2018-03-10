@@ -14,22 +14,19 @@ import android.widget.ListView;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import project.meapy.meapy.ChatRoomActivity;
 import project.meapy.meapy.CreateGroupActivity;
 import project.meapy.meapy.R;
 import project.meapy.meapy.SendFileActivity;
 import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.groups.DiscussionGroup;
-import project.meapy.meapy.groups.GroupAdapter;
+import project.meapy.meapy.groups.DiscussionGroupAdapter;
 import project.meapy.meapy.groups.OneGroupActivity;
 import project.meapy.meapy.groups.discussions.DiscussionGroupsActivity;
 
@@ -58,7 +55,7 @@ public class MyGroupsActivity extends AppCompatActivity {
         });
         List<DiscussionGroup> groups = new ArrayList<>();
         final ListView listView = findViewById(R.id.listMyGroups);
-        final GroupAdapter adapter = new GroupAdapter(MyGroupsActivity.this,android.R.layout.simple_expandable_list_item_2,groups);
+        final DiscussionGroupAdapter adapter = new DiscussionGroupAdapter(MyGroupsActivity.this,android.R.layout.simple_expandable_list_item_2,groups);
         listView.setAdapter(adapter);
         final Map<Integer,DiscussionGroup> idGroups = new HashMap<Integer, DiscussionGroup>();
         final Map<DiscussionGroup, Groups> viewToBean = new HashMap<>();

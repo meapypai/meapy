@@ -3,22 +3,34 @@ package project.meapy.meapy;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
+import android.database.DataSetObserver;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
+import project.meapy.meapy.bean.Groups;
+import project.meapy.meapy.groups.DiscussionGroup;
+import project.meapy.meapy.groups.DiscussionGroupAdapter;
+import project.meapy.meapy.groups.joined.MyGroupsActivity;
 import project.meapy.meapy.utils.ProviderFilePath;
 
 public class SendFileActivity extends AppCompatActivity {
@@ -30,7 +42,7 @@ public class SendFileActivity extends AppCompatActivity {
     private Button fileBtnSend;
 
     private EditText fileNameSend;
-    private EditText groupNameSend;
+    private Spinner groupNameSend;
     private EditText descTextSend;
 
     @Override
@@ -44,7 +56,7 @@ public class SendFileActivity extends AppCompatActivity {
 
         //edittext
         fileNameSend      = (EditText)findViewById(R.id.fileNameSend);
-        groupNameSend     = (EditText)findViewById(R.id.groupNameSend);
+        groupNameSend     = (Spinner)findViewById(R.id.groupNameSend);
         descTextSend      = (EditText)findViewById(R.id.descTextSend);
 
         //permission
@@ -69,7 +81,7 @@ public class SendFileActivity extends AppCompatActivity {
                 String path = fileNameSend.getText().toString();
                 File file = new File(path);
                 String description = descTextSend.getText().toString();
-                String groupName = groupNameSend.getText().toString();
+                //String groupName = groupNameSend.getText().toString();
 
                 if(!file.exists()) {
                     Toast.makeText(SendFileActivity.this,"File doesn't exists",Toast.LENGTH_SHORT).show();
@@ -87,6 +99,42 @@ public class SendFileActivity extends AppCompatActivity {
                     Toast.makeText(SendFileActivity.this, "ok", Toast.LENGTH_SHORT).show();
                 }
             }
+        });
+
+        // loading groups
+        List<Groups> list = new ArrayList<Groups>();
+        final ArrayAdapter<Groups> dataAdapter = new ArrayAdapter<Groups>(this,
+                android.R.layout.simple_spinner_item, list);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        groupNameSend.setAdapter(dataAdapter);
+        FirebaseDatabase.getInstance().getReference("groups").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Groups added = dataSnapshot.getValue(Groups.class);
+                // UPDATE UI
+                dataAdapter.add(added);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                Groups changed = dataSnapshot.getValue(Groups.class);
+                // UPDATE UI
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                Groups removed = dataSnapshot.getValue(Groups.class);
+                // UPDATE UI
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                Groups moved = dataSnapshot.getValue(Groups.class);
+                // UPDATE UI
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
         });
     }
 
