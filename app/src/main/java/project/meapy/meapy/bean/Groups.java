@@ -32,4 +32,13 @@ public class Groups extends DomainObject{
     public void setLimitUsers(int limitUsers) {
         this.limitUsers = limitUsers;
     }
+
+    @Override
+    public String toString() {
+        return "Groups{" +
+                "name='" + name + '\'' +
+                ", idUserAdmin=" + idUserAdmin +
+                ", limitUsers=" + limitUsers +
+                '}';
+    }
 }

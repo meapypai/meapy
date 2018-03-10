@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -59,21 +60,26 @@ public class MyGroupsActivity extends AppCompatActivity {
         final ListView listView = findViewById(R.id.listMyGroups);
         final GroupAdapter adapter = new GroupAdapter(MyGroupsActivity.this,android.R.layout.simple_expandable_list_item_2,groups);
         listView.setAdapter(adapter);
+        final Map<Integer,DiscussionGroup> idGroups = new HashMap<Integer, DiscussionGroup>();
+        final Map<DiscussionGroup, Groups> viewToBean = new HashMap<>();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                startActivity(new Intent(MyGroupsActivity.this, OneGroupActivity.class));
+                DiscussionGroup dGrp = adapter.getItem(i);
+                Groups grp = viewToBean.get(dGrp);
+                Intent intent = new Intent(MyGroupsActivity.this, OneGroupActivity.class);
+                intent.putExtra("GROUP",grp);
+                startActivity(intent);
             }
         });
-        final Map<Integer,DiscussionGroup> idGroups = new HashMap<>();
-        DatabaseReference groupsRef = database.getReference("groups");
-        groupsRef.addChildEventListener(new ChildEventListener() {
+        database.getReference("groups").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Groups added = dataSnapshot.getValue(Groups.class);
                 // UPDATE UI
                 DiscussionGroup dGrp = new DiscussionGroup(R.drawable.web,added.getName(),added.getLimitUsers()+"");
                 idGroups.put(added.getId(),dGrp);
+                viewToBean.put(dGrp,added);
                 adapter.add(dGrp);
             }
 

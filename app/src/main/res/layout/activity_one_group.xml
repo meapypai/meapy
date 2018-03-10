@@ -7,22 +7,25 @@
     android:background="@color/background"
     tools:context="project.meapy.meapy.groups.OneGroupActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/headerOneGroup">
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageGroumOneGroup"/>
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/imageGroumOneGroup"
+            android:src="@drawable/logo_app1"/>
 
         <TextView
+            android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:text="GROUP NAME"
             android:id="@+id/groupNameOneGroup"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <GridView
         android:layout_width="match_parent"
