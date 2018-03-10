@@ -7,7 +7,26 @@ package project.meapy.meapy.bean;
 public class Post extends DomainObject{
     private int user_id;
     private String textContent;
-    private int idFileAssocied;
+    private String filePath;
+    private int groupId;
+
+    public int getGroupId() {
+        return groupId;
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "user_id=" + user_id +
+                ", textContent='" + textContent + '\'' +
+                ", filePath='" + filePath + '\'' +
+                ", groupId=" + groupId +
+                '}';
+    }
+
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
+    }
 
     public Post() {
 
@@ -29,11 +48,11 @@ public class Post extends DomainObject{
         this.textContent = textContent;
     }
 
-    public int getIdFileAssocied() {
-        return idFileAssocied;
+    public String getFilePath() {
+        return filePath;
     }
 
-    public void setIdFileAssocied(int idFileAssocied) {
-        this.idFileAssocied = idFileAssocied;
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 }

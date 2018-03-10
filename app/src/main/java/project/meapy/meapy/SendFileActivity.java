@@ -18,16 +18,26 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
+import java.security.acl.Group;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import project.meapy.meapy.bean.Groups;
+import project.meapy.meapy.bean.Post;
+import project.meapy.meapy.database.PostMapper;
 import project.meapy.meapy.groups.DiscussionGroup;
 import project.meapy.meapy.groups.DiscussionGroupAdapter;
 import project.meapy.meapy.groups.joined.MyGroupsActivity;
@@ -82,21 +92,41 @@ public class SendFileActivity extends AppCompatActivity {
                 File file = new File(path);
                 String description = descTextSend.getText().toString();
                 //String groupName = groupNameSend.getText().toString();
+                final Groups group = (Groups) groupNameSend.getSelectedItem();
 
-                if(!file.exists()) {
-                    Toast.makeText(SendFileActivity.this,"File doesn't exists",Toast.LENGTH_SHORT).show();
-
-                    //TODO : verifier que le groupe existe
+                if(file.exists()) {
+                    //TODO : verifier que le groupe existe//
+                    // on force maintenant l'utilisateur a prendre des groupes existants//
 
                         if(description.length() >= 50) {
                             //TODO : ajout du fichier
+                            final Post post = new Post();
+                            post.setTextContent(description);
+
+                            // inserer le fichier
+                            FirebaseStorage storage = FirebaseStorage.getInstance();
+                            final Uri uriFile = Uri.fromFile(file);
+                            StorageReference filesRef = storage.getReference();
+
+                            StorageReference groupFiles = filesRef.child("data_groups/"+group.getId()+"/"+uriFile.getLastPathSegment());
+                            groupFiles.putFile(uriFile).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    post.setFilePath(uriFile.getLastPathSegment());
+                                    // inserer le lien group post dans database
+                                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                    DatabaseReference groupspost = database.getReference("groups/"+group.getId()+"/posts/"+post.getId());
+                                    groupspost.setValue(post);
+                                }
+                            });
+
                         }
                         else {
                             Toast.makeText(SendFileActivity.this, "Description length must be highter than 50", Toast.LENGTH_SHORT).show();
                         }
                 }
                 else {
-                    Toast.makeText(SendFileActivity.this, "ok", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SendFileActivity.this,"File doesn't exists",Toast.LENGTH_SHORT).show();
                 }
             }
         });
