@@ -24,6 +24,7 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:id="@+id/fileSendFile"
             android:layout_marginBottom="15dp">
             <EditText
@@ -48,22 +49,21 @@
             android:id="@+id/groupSendFile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:layout_below="@id/fileSendFile">
 
-            <EditText
-                android:id="@+id/groupNameSend"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:hint="Groupname" />
-
-            <Button
-                android:id="@+id/groupButtonSend"
-                android:background="@drawable/round"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/groupNameSend"
-                android:textColor="@color/white"
-                android:text="+"/>
+                android:text="Group"
+                />
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/groupNameSend"
+
+                ></Spinner>
+
 
 
 
@@ -71,6 +71,7 @@
 
 
         <EditText
+            android:layout_centerHorizontal="true"
             android:id="@+id/descTextSend"
             android:layout_width="250dp"
             android:layout_height="200dp"

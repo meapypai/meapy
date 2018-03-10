@@ -17,9 +17,9 @@ import java.util.List;
  * Created by sansaoui on 19/02/18.
  */
 
-public class GroupAdapter extends ArrayAdapter<DiscussionGroup> {
+public class DiscussionGroupAdapter extends ArrayAdapter<DiscussionGroup> {
 
-    public GroupAdapter(@NonNull Context context, int resource, @NonNull List<DiscussionGroup> objects) {
+    public DiscussionGroupAdapter(@NonNull Context context, int resource, @NonNull List<DiscussionGroup> objects) {
         super(context, resource, objects);
     }
 

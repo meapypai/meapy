@@ -13,7 +13,7 @@ import java.util.List;
 import project.meapy.meapy.ChatRoomActivity;
 import project.meapy.meapy.R;
 import project.meapy.meapy.groups.DiscussionGroup;
-import project.meapy.meapy.groups.GroupAdapter;
+import project.meapy.meapy.groups.DiscussionGroupAdapter;
 
 /**
  * Created by sansaoui on 12/02/18.
@@ -36,7 +36,7 @@ public class DiscussionGroupsActivity extends AppCompatActivity {
         groups.add(new DiscussionGroup(R.drawable.maths,"Groupe 2","Il y a des erreurs"));
         groups.add(new DiscussionGroup(R.drawable.web,"Groupe 3","merci"));
 
-        final GroupAdapter adapter = new GroupAdapter(this,android.R.layout.simple_expandable_list_item_2,groups);
+        final DiscussionGroupAdapter adapter = new DiscussionGroupAdapter(this,android.R.layout.simple_expandable_list_item_2,groups);
 
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

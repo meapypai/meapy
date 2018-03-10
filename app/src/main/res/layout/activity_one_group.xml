@@ -31,14 +31,21 @@
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/sendFileOneGroup"
         android:src="@drawable/ic_add_black_24dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_margin="20dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/testPosts"
+        android:layout_below="@id/headerOneGroup"/>
     <GridView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/headerOneGroup">
+        android:layout_below="@id/headerOneGroup"
+        android:id="@+id/postsOneGroup">
 
         <!-- mettre les differentes matieres ici -->
 

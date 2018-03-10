@@ -3,22 +3,44 @@ package project.meapy.meapy;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
+import android.database.DataSetObserver;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
+import java.security.acl.Group;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import project.meapy.meapy.bean.Groups;
+import project.meapy.meapy.bean.Post;
+import project.meapy.meapy.database.PostMapper;
+import project.meapy.meapy.groups.DiscussionGroup;
+import project.meapy.meapy.groups.DiscussionGroupAdapter;
+import project.meapy.meapy.groups.joined.MyGroupsActivity;
 import project.meapy.meapy.utils.ProviderFilePath;
 
 public class SendFileActivity extends AppCompatActivity {
@@ -30,7 +52,7 @@ public class SendFileActivity extends AppCompatActivity {
     private Button fileBtnSend;
 
     private EditText fileNameSend;
-    private EditText groupNameSend;
+    private Spinner groupNameSend;
     private EditText descTextSend;
 
     @Override
@@ -44,7 +66,7 @@ public class SendFileActivity extends AppCompatActivity {
 
         //edittext
         fileNameSend      = (EditText)findViewById(R.id.fileNameSend);
-        groupNameSend     = (EditText)findViewById(R.id.groupNameSend);
+        groupNameSend     = (Spinner)findViewById(R.id.groupNameSend);
         descTextSend      = (EditText)findViewById(R.id.descTextSend);
 
         //permission
@@ -69,24 +91,80 @@ public class SendFileActivity extends AppCompatActivity {
                 String path = fileNameSend.getText().toString();
                 File file = new File(path);
                 String description = descTextSend.getText().toString();
-                String groupName = groupNameSend.getText().toString();
+                //String groupName = groupNameSend.getText().toString();
+                final Groups group = (Groups) groupNameSend.getSelectedItem();
 
-                if(!file.exists()) {
-                    Toast.makeText(SendFileActivity.this,"File doesn't exists",Toast.LENGTH_SHORT).show();
-
-                    //TODO : verifier que le groupe existe
+                if(file.exists()) {
+                    //TODO : verifier que le groupe existe//
+                    // on force maintenant l'utilisateur a prendre des groupes existants//
 
                         if(description.length() >= 50) {
                             //TODO : ajout du fichier
+                            final Post post = new Post();
+                            post.setTextContent(description);
+
+                            // inserer le fichier
+                            FirebaseStorage storage = FirebaseStorage.getInstance();
+                            final Uri uriFile = Uri.fromFile(file);
+                            StorageReference filesRef = storage.getReference();
+
+                            StorageReference groupFiles = filesRef.child("data_groups/"+group.getId()+"/"+uriFile.getLastPathSegment());
+                            groupFiles.putFile(uriFile).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    post.setFilePath(uriFile.getLastPathSegment());
+                                    // inserer le lien group post dans database
+                                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                    DatabaseReference groupspost = database.getReference("groups/"+group.getId()+"/posts/"+post.getId());
+                                    groupspost.setValue(post);
+                                }
+                            });
+
                         }
                         else {
                             Toast.makeText(SendFileActivity.this, "Description length must be highter than 50", Toast.LENGTH_SHORT).show();
                         }
                 }
                 else {
-                    Toast.makeText(SendFileActivity.this, "ok", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SendFileActivity.this,"File doesn't exists",Toast.LENGTH_SHORT).show();
                 }
             }
+        });
+
+        // loading groups
+        List<Groups> list = new ArrayList<Groups>();
+        final ArrayAdapter<Groups> dataAdapter = new ArrayAdapter<Groups>(this,
+                android.R.layout.simple_spinner_item, list);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        groupNameSend.setAdapter(dataAdapter);
+        FirebaseDatabase.getInstance().getReference("groups").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Groups added = dataSnapshot.getValue(Groups.class);
+                // UPDATE UI
+                dataAdapter.add(added);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                Groups changed = dataSnapshot.getValue(Groups.class);
+                // UPDATE UI
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                Groups removed = dataSnapshot.getValue(Groups.class);
+                // UPDATE UI
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                Groups moved = dataSnapshot.getValue(Groups.class);
+                // UPDATE UI
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
         });
     }
 
