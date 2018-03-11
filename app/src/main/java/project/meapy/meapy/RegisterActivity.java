@@ -21,6 +21,7 @@ import java.util.regex.Pattern;
 import project.meapy.meapy.bean.User;
 import project.meapy.meapy.database.UserMapper;
 import project.meapy.meapy.groups.joined.MyGroupsActivity;
+import project.meapy.meapy.utils.Registration;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -66,8 +67,8 @@ public class RegisterActivity extends AppCompatActivity {
                                 UserMapper mapper = new UserMapper();
                                 mapper.insert(user);
 
-                                Intent intent = new Intent(RegisterActivity.this, MyGroupsActivity.class);
-                                startActivity(intent);
+                                Registration registration = new Registration(RegisterActivity.this,email,password);
+                                registration.register();
                             }
                             else {
                                 errorMessage = "Password not valid";

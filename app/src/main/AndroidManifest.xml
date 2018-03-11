@@ -15,7 +15,7 @@
         android:roundIcon="@drawable/logo_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        
+
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait"
