@@ -14,9 +14,12 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import project.meapy.meapy.bean.User;
+import project.meapy.meapy.database.UserMapper;
 import project.meapy.meapy.groups.joined.MyGroupsActivity;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -56,7 +59,12 @@ public class RegisterActivity extends AppCompatActivity {
                         if(isValidMail(email)) {
                             if(isValidPassword(password)) {
 
-                                //TODO : ajout dans la bdd
+                                //insertion d'un nouvel user
+                                User user = new User(firstName,lastName,password,email);
+                                user.setId(new Random().nextInt());
+
+                                UserMapper mapper = new UserMapper();
+                                mapper.insert(user);
 
                                 Intent intent = new Intent(RegisterActivity.this, MyGroupsActivity.class);
                                 startActivity(intent);
