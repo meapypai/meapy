@@ -29,10 +29,6 @@ public abstract class Mapper {
         postRef.setValue(o);
     }
 
-    public void update(DomainObject o) {
-        insert(o);
-    }
-
     public void delete(DomainObject o) {
         DatabaseReference ref = getReference();
         DatabaseReference postRef = ref.child(o.getId()+"");
@@ -44,31 +40,4 @@ public abstract class Mapper {
         DatabaseReference postRef = ref.child(id+"");
         postRef.removeValue();
     }
-
-    public DomainObject findById(final int id) {
-        DomainObject obj = null;
-        getReference().child(id+"").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                DomainObject obj = (DomainObject)dataSnapshot.getValue(getClassObject());
-                objects.put(id,obj);
-                objects.notifyAll();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        
-        return objects.get(id);
-    }
-
-    public abstract Class getClassObject();
-
-    public List<DomainObject> findAll(){
-        return null;
-    }
-
-
 }
