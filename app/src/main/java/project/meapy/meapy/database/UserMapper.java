@@ -16,7 +16,6 @@ public class UserMapper extends Mapper {
         return FirebaseDatabase.getInstance().getReference("users");
     }
 
-    @Override
     public Class getClassObject() {
         return User.class;
     }

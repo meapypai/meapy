@@ -15,7 +15,6 @@ public class GroupsMapper extends Mapper {
         return FirebaseDatabase.getInstance().getReference("groups");
     }
 
-    @Override
     public Class getClassObject() {
         return Groups.class;
     }

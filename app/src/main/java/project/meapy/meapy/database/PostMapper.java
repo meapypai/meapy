@@ -14,7 +14,6 @@ public class PostMapper extends Mapper{
         return FirebaseDatabase.getInstance().getReference("posts");
     }
 
-    @Override
     public Class getClassObject() {
         return Post.class;
     }

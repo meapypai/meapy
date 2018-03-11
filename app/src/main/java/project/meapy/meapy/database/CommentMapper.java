@@ -15,7 +15,6 @@ public class CommentMapper extends Mapper {
         return FirebaseDatabase.getInstance().getReference("comments");
     }
 
-    @Override
     public Class getClassObject() {
         return Comment.class;
     }
