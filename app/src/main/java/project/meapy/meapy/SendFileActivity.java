@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -51,7 +52,7 @@ public class SendFileActivity extends AppCompatActivity {
     private Button importFileBtnSend;
     private Button fileBtnSend;
 
-    private EditText fileNameSend;
+    private TextView fileNameSend;
     private Spinner groupNameSend;
     private EditText descTextSend;
 
@@ -65,7 +66,7 @@ public class SendFileActivity extends AppCompatActivity {
         fileBtnSend       = (Button)findViewById(R.id.fileBtnSend);
 
         //edittext
-        fileNameSend      = (EditText)findViewById(R.id.fileNameSend);
+        fileNameSend      = (TextView)findViewById(R.id.fileNameSend);
         groupNameSend     = (Spinner)findViewById(R.id.groupNameSend);
         descTextSend      = (EditText)findViewById(R.id.descTextSend);
 
@@ -79,7 +80,7 @@ public class SendFileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT); //intent pour récupérer un fichier
-                intent.setType("image/*"); //on se limite aux images pour le moment
+                intent.setType("*/*"); //on se limite aux images pour le moment
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
                 startActivityForResult(Intent.createChooser(intent,"Load a file"), REQUEST_LOAD_FILE);
             }
@@ -175,7 +176,7 @@ public class SendFileActivity extends AppCompatActivity {
                 Toast.makeText(this,"okkk",Toast.LENGTH_SHORT).show();
                 Uri uri = data.getData();
                 ProviderFilePath pfp = new ProviderFilePath(this);
-                String path = pfp.getPath(uri);
+                String path = pfp.getPathFromUri(uri);
                 fileNameSend.setText(path);
             }
         }

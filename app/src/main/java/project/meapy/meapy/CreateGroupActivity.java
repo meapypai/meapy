@@ -119,7 +119,7 @@ public class CreateGroupActivity extends AppCompatActivity {
             if(resultCode == RESULT_OK) {
                 Uri uri =  data.getData();
                 ProviderFilePath pfp = new ProviderFilePath(this);
-                String path = pfp.getPath(uri);
+                String path = pfp.getPathFromUri(uri);
                 imageCreateGroup.setText(path);
             }
         }
