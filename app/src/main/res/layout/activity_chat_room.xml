@@ -47,6 +47,7 @@
         android:padding="5dp">
 
         <EditText
+            android:id="@+id/messageIdChatRoom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@id/sendChatRoom"
