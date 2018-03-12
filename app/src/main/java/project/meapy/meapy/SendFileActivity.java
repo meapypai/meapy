@@ -101,7 +101,7 @@ public class SendFileActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 dataDiscsAdapter.clear();
                 Groups grp = (Groups) groupNameSend.getSelectedItem();
-                FirebaseDatabase.getInstance().getReference("groups/"+grp.getId()+"/disciplines/").addChildEventListener(new ChildEventListener() {
+                FirebaseDatabase.getInstance().getReference("groups/"+grp.getId()+"/disciplines").addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                         Discipline disc = dataSnapshot.getValue(Discipline.class);
@@ -169,11 +169,9 @@ public class SendFileActivity extends AppCompatActivity {
                                         post.setFilePath(uriFile.getLastPathSegment());
                                         // inserer le lien group post dans database
                                         FirebaseDatabase database = FirebaseDatabase.getInstance();
-                                        DatabaseReference groupsDisc = database.getReference("groups/"+ group.getId() + "/disciplines/"+disc.getId());
+                                        //DatabaseReference groupsDisc = database.getReference("groups/"+ group.getId() + "/disciplines/"+disc.getId());
 
-                                        groupsDisc.setValue(disc);
-
-                                        DatabaseReference groupspost = database.getReference("groups/"+ group.getId() + "/disciplines/"+disc.getId()+ "/posts/" + post.getId());
+                                        DatabaseReference groupspost = database.getReference("groups/"+ group.getId() + "/disciplines/"+disc.getId()+ "/posts/").child(post.getId()+"");
                                         groupspost.setValue(post);
                                     }
                                 });

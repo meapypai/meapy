@@ -29,7 +29,8 @@ public class AddDisciplineActivity extends AppCompatActivity {
                 Discipline disc = new Discipline();
                 disc.setName(discName);
                 FirebaseDatabase.getInstance().getReference("groups/"+grp.getId()+"/disciplines/"+disc.getId()).setValue(disc);
-                Toast.makeText(AddDisciplineActivity.this,"adding "+discName,Toast.LENGTH_LONG).show();
+                Toast.makeText(AddDisciplineActivity.this,"discipline added "+discName,Toast.LENGTH_LONG).show();
+                finish();
             }
         });
     }
