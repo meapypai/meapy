@@ -9,11 +9,21 @@ public class DiscussionGroup {
     private int idDrawable;
     private String name;
     private String lastMessage;
+    private String nameRef;
 
-    public DiscussionGroup(int id, String name, String lastMessage) {
+    public DiscussionGroup(int id, String name, String lastMessage, String nameRef) {
         this.idDrawable = id;
         this.name = name;
         this.lastMessage = lastMessage;
+        this.nameRef = nameRef;
+    }
+
+    public String getNameRef() {
+        return nameRef;
+    }
+
+    public void setNameRef(String nameRef) {
+        this.nameRef = nameRef;
     }
 
     public int getDrawable() {

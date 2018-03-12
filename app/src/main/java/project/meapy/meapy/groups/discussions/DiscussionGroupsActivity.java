@@ -32,9 +32,9 @@ public class DiscussionGroupsActivity extends AppCompatActivity {
         listView = (ListView)findViewById(R.id.listDiscussionGroups);
 
         List<DiscussionGroup> groups = new ArrayList<>();
-        groups.add(new DiscussionGroup(R.drawable.bdd,"Groupe 1","Je ne comprends pas..."));
-        groups.add(new DiscussionGroup(R.drawable.maths,"Groupe 2","Il y a des erreurs"));
-        groups.add(new DiscussionGroup(R.drawable.web,"Groupe 3","merci"));
+        groups.add(new DiscussionGroup(R.drawable.bdd,"Groupe 1","Je ne comprends pas...",null));
+        groups.add(new DiscussionGroup(R.drawable.maths,"Groupe 2","Il y a des erreurs",null));
+        groups.add(new DiscussionGroup(R.drawable.web,"Groupe 3","merci",null));
 
         final DiscussionGroupAdapter adapter = new DiscussionGroupAdapter(this,android.R.layout.simple_expandable_list_item_2,groups);
 

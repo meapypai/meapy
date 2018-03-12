@@ -9,6 +9,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import project.meapy.meapy.R;
 
 import java.util.List;
@@ -19,8 +24,11 @@ import java.util.List;
 
 public class DiscussionGroupAdapter extends ArrayAdapter<DiscussionGroup> {
 
+    private Context context;
+
     public DiscussionGroupAdapter(@NonNull Context context, int resource, @NonNull List<DiscussionGroup> objects) {
         super(context, resource, objects);
+        this.context = context;
     }
 
     @Override
@@ -42,7 +50,9 @@ public class DiscussionGroupAdapter extends ArrayAdapter<DiscussionGroup> {
         }
 
         DiscussionGroup g = getItem(position);
-        holder.drawable.setImageResource(g.getDrawable());
+        StorageReference ref = FirebaseStorage.getInstance().getReferenceFromUrl("gs://meapy-4700d.appspot.com/data_groups/" + g.getNameRef());
+        Glide.with(context).using(new FirebaseImageLoader()).load(ref).asBitmap().into(holder.drawable); //image à partir de la réference passée
+
         holder.nameGroup.setText(g.getName());
         holder.lastMessage.setText(g.getLastMessage());
 

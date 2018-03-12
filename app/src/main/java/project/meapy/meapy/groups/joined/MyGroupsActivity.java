@@ -48,16 +48,12 @@ public class MyGroupsActivity extends AppCompatActivity {
     private FloatingActionButton createGroupId;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-    private Bitmap bitmap;
-
-    private ImageView testImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_groups);
 
-        testImage = (ImageView)findViewById(R.id.testImage);
 
         createGroupId = (FloatingActionButton)findViewById(R.id.createGroupId);
 
@@ -90,7 +86,7 @@ public class MyGroupsActivity extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Groups added = dataSnapshot.getValue(Groups.class);
                 // UPDATE UI
-                DiscussionGroup dGrp = new DiscussionGroup(R.drawable.bdd,added.getName(),added.getLimitUsers()+"");
+                DiscussionGroup dGrp = new DiscussionGroup(R.drawable.bdd,added.getName(),added.getLimitUsers()+"", added.getId()+"/"+added.getImageName());
                 idGroups.put(added.getId(),dGrp);
                 viewToBean.put(dGrp,added);
                 adapter.add(dGrp);
