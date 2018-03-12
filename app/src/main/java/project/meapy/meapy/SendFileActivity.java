@@ -96,7 +96,7 @@ public class SendFileActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_item, listDisc);
         dataDiscsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         discTextSend.setAdapter(dataDiscsAdapter);
-        discTextSend.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        groupNameSend.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 dataDiscsAdapter.clear();
@@ -104,7 +104,7 @@ public class SendFileActivity extends AppCompatActivity {
                 FirebaseDatabase.getInstance().getReference("groups/"+grp.getId()+"/disciplines/").addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        Discipline disc = (Discipline) dataSnapshot.getValue();
+                        Discipline disc = dataSnapshot.getValue(Discipline.class);
                         dataDiscsAdapter.add(disc);
                     }
 

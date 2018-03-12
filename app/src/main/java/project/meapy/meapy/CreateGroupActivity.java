@@ -71,11 +71,10 @@ public class CreateGroupActivity extends AppCompatActivity {
                             Groups newGroup = new Groups();
                             newGroup.setLimitUsers(l);
                             newGroup.setName(nameGroup);
-                            newGroup.setId(new Random().nextInt());
 
                             // END TEST
                             File file = new File(path);
-                            if(file.exists()) {
+                            if(/*file.exists()*/true) {
                                 newGroup.setImageName(file.getName());
 
                                 //insertion of group

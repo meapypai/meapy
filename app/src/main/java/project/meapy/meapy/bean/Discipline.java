@@ -6,6 +6,7 @@ package project.meapy.meapy.bean;
 
 public class Discipline extends DomainObject {
     String name;
+    public Discipline(){super();}
 
     public String getName() {
         return name;

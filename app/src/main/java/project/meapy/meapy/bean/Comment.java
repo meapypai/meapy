@@ -10,6 +10,7 @@ public class Comment extends DomainObject {
     private int postId;
     private int userId;
     private Timestamp date;
+    public Comment(){super();}
 
     public int getPostId() {
         return postId;

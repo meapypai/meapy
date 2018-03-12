@@ -9,6 +9,7 @@ public class Post extends DomainObject{
     private String textContent;
     private String filePath;
     private int groupId;
+    public Post(){super();}
 
     public int getGroupId() {
         return groupId;
@@ -26,10 +27,6 @@ public class Post extends DomainObject{
 
     public void setGroupId(int groupId) {
         this.groupId = groupId;
-    }
-
-    public Post() {
-
     }
 
     public int getUser_id() {

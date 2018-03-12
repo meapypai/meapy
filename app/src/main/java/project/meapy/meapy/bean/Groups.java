@@ -10,6 +10,8 @@ public class Groups extends DomainObject{
     private int limitUsers;
     private String imageName;
 
+    public Groups(){super();}
+
     public String getName() {
         return name;
     }
