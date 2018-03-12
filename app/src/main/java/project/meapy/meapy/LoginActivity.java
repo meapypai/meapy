@@ -44,6 +44,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import project.meapy.meapy.groups.joined.MyGroupsActivity;
+import project.meapy.meapy.logins.DefaultLogin;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -62,8 +63,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText emailLogin;
     private EditText passwordLogin;
 
-    private FirebaseAuth mAuth;
-
+    private DefaultLogin defaultLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
 
         mSignButton = (Button)findViewById(R.id.email_sign_in_button);
         mRegisterBtn = (Button)findViewById(R.id.register);
-        mAuth = FirebaseAuth.getInstance();
+
 
         emailLogin = (EditText)findViewById(R.id.emailLogin);
         passwordLogin = (EditText)findViewById(R.id.passwordLogin);
@@ -84,20 +84,8 @@ public class LoginActivity extends AppCompatActivity {
                 String password = passwordLogin.getText().toString();
 
                 if(!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
-                    mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                FirebaseUser user = mAuth.getCurrentUser();
-
-                                Intent intent = new Intent(LoginActivity.this, MyGroupsActivity.class);
-                                startActivity(intent);
-                            } else {
-                                Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+                    defaultLogin = new DefaultLogin(LoginActivity.this,email,password);
+                    defaultLogin.signIn();
                 }
             }
         });
@@ -114,8 +102,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         if (currentUser != null){
 

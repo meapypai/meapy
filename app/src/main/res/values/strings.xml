@@ -26,5 +26,10 @@
     <string name="first_name_register">First name</string>
     <string name="last_name_register">Last name</string>
     <string name="sign_up_button">Sign Up</string>
+    
+    
+    <!-- Google Login strings -->
+    <string name="default_web_client_id">meapyid</string>
+
 
 </resources>
