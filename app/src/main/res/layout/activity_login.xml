@@ -41,11 +41,12 @@
             android:orientation="vertical">
 
                 <AutoCompleteTextView
-                    android:id="@+id/email"
+                    android:id="@+id/emailLogin"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:hint="@string/prompt_email"
                     android:inputType="textEmailAddress"
+                    android:textColor="@color/white"
                     android:backgroundTint="@color/white"
                     android:maxLines="1"
                     android:singleLine="true"
@@ -54,7 +55,7 @@
                     android:padding="4dp"/>
 
                 <EditText
-                    android:id="@+id/password"
+                    android:id="@+id/passwordLogin"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:hint="@string/prompt_password"
