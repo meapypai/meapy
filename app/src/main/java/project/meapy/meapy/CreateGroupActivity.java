@@ -8,6 +8,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.util.Random;
@@ -68,21 +76,35 @@ public class CreateGroupActivity extends AppCompatActivity {
                         int l = Integer.parseInt(limit);
                         if(l <= MIN_LIMIT_GROUP) {
                             // START TEST INSERTION INTO DATABASE WITHOUT FILE
-                            Groups newGroup = new Groups();
+                            final Groups newGroup = new Groups();
                             newGroup.setLimitUsers(l);
                             newGroup.setName(nameGroup);
 
                             // END TEST
-                            File file = new File(path);
-                            if(/*file.exists()*/true) {
-                                newGroup.setImageName(file.getName());
+                            final File file = new File(path);
+                            if(file.exists()) {
 
-                                //insertion of group
-                                GroupsMapper mapper = new GroupsMapper();
-                                mapper.insert(newGroup);
+                                FirebaseStorage storage = FirebaseStorage.getInstance();
+                                final Uri uriFile = Uri.fromFile(file);
+                                StorageReference filesRef = storage.getReference();
 
-                                Intent intent = new Intent(CreateGroupActivity.this, MyGroupsActivity.class);
-                                startActivity(intent);
+                                StorageReference groupFiles = filesRef.child("data_groups/" + newGroup.getId() + "/" + uriFile.getLastPathSegment());
+                                groupFiles.putFile(uriFile).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        Toast.makeText(CreateGroupActivity.this, "inserting group", Toast.LENGTH_LONG).show();
+                                        newGroup.setImageName(uriFile.getLastPathSegment());
+                                        Toast.makeText(CreateGroupActivity.this,"group created",Toast.LENGTH_LONG).show();
+                                        newGroup.setImageName(file.getName());
+                                        //insertion of group
+                                        GroupsMapper mapper = new GroupsMapper();
+                                        mapper.insert(newGroup);
+                                        finish();
+                                        Intent intent = new Intent(CreateGroupActivity.this, MyGroupsActivity.class);
+                                        startActivity(intent);
+                                    }
+                                });
+
                             }
                             else {
                                 errorMessage = "File doesn't exist";

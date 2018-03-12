@@ -59,6 +59,7 @@ public class SendFileActivity extends AppCompatActivity {
     private Spinner groupNameSend;
     private EditText descTextSend;
     private Spinner discTextSend;
+    private EditText titleTextSend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,9 +72,11 @@ public class SendFileActivity extends AppCompatActivity {
 
         //edittext
         fileNameSend      = (TextView)findViewById(R.id.fileNameSend);
+        descTextSend      = (EditText)findViewById(R.id.descTextSend);
+        titleTextSend     = (EditText)findViewById(R.id.titleTextSend);
         groupNameSend     = (Spinner)findViewById(R.id.groupNameSend);
         discTextSend      = (Spinner) findViewById(R.id.discNameSend);
-        descTextSend      = (EditText)findViewById(R.id.descTextSend);
+
 
         //permission
         if(ContextCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -145,6 +148,7 @@ public class SendFileActivity extends AppCompatActivity {
                 //String groupName = groupNameSend.getText().toString();
                 final Groups group = (Groups) groupNameSend.getSelectedItem();
                 final Discipline disc = (Discipline) discTextSend.getSelectedItem();
+                String title = titleTextSend.getText().toString();
 
                 if(file.exists()) {
                     //TODO : verifier que le groupe existe//
@@ -152,11 +156,11 @@ public class SendFileActivity extends AppCompatActivity {
 
                         if(description.length() >= 50) {
 
-                            if(disc != null && group != null) {
+                            if(disc != null && group != null && title!=null) {
                                 //TODO : ajout du fichier
                                 final Post post = new Post();
                                 post.setTextContent(description);
-
+                                post.setTitle(title);
                                 // inserer le fichier
                                 FirebaseStorage storage = FirebaseStorage.getInstance();
                                 final Uri uriFile = Uri.fromFile(file);
@@ -173,10 +177,12 @@ public class SendFileActivity extends AppCompatActivity {
 
                                         DatabaseReference groupspost = database.getReference("groups/"+ group.getId() + "/disciplines/"+disc.getId()+ "/posts/").child(post.getId()+"");
                                         groupspost.setValue(post);
+                                        Toast.makeText(SendFileActivity.this,"post added",Toast.LENGTH_LONG).show();
+                                        finish();
                                     }
                                 });
                             }else{
-                                Toast.makeText(SendFileActivity.this, "you must choose groups and discipline", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SendFileActivity.this, "you must choose groups and discipline and title", Toast.LENGTH_SHORT).show();
                             }
                         }
                         else {

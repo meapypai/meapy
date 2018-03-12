@@ -9,7 +9,16 @@ public class Post extends DomainObject{
     private String textContent;
     private String filePath;
     private int groupId;
+    private String title;
     public Post(){super();}
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public int getGroupId() {
         return groupId;
