@@ -29,7 +29,6 @@
     
     
     <!-- Google Login strings -->
-    <string name="default_web_client_id">meapyid</string>
-
+    <!--<string name="default_web_client_id">meapyid</string>-->
 
 </resources>
