@@ -8,6 +8,7 @@ public class Groups extends DomainObject{
     private String name;
     private int idUserAdmin;
     private int limitUsers;
+    private String imageName;
 
     public String getName() {
         return name;
@@ -31,6 +32,14 @@ public class Groups extends DomainObject{
 
     public void setLimitUsers(int limitUsers) {
         this.limitUsers = limitUsers;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 
     @Override
