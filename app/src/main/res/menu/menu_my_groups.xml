@@ -8,6 +8,7 @@
         android:visible="true"
         android:id="@+id/addFileId"
         app:showAsAction="ifRoom"></item>
+    
     <item android:icon="@drawable/ic_chat_black_24dp"
         android:id="@+id/discussionsId"
         android:visible="true"
