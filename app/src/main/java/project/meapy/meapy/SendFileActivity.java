@@ -36,6 +36,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import project.meapy.meapy.bean.Discipline;
 import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.bean.Post;
 import project.meapy.meapy.database.PostMapper;
@@ -55,6 +56,7 @@ public class SendFileActivity extends AppCompatActivity {
     private TextView fileNameSend;
     private Spinner groupNameSend;
     private EditText descTextSend;
+    private Spinner discTextSend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,7 @@ public class SendFileActivity extends AppCompatActivity {
         //edittext
         fileNameSend      = (TextView)findViewById(R.id.fileNameSend);
         groupNameSend     = (Spinner)findViewById(R.id.groupNameSend);
+        discTextSend      = (Spinner) findViewById(R.id.discNameSend);
         descTextSend      = (EditText)findViewById(R.id.descTextSend);
 
         //permission
@@ -94,33 +97,42 @@ public class SendFileActivity extends AppCompatActivity {
                 String description = descTextSend.getText().toString();
                 //String groupName = groupNameSend.getText().toString();
                 final Groups group = (Groups) groupNameSend.getSelectedItem();
+                final Discipline disc = (Discipline) discTextSend.getSelectedItem();
 
                 if(file.exists()) {
                     //TODO : verifier que le groupe existe//
                     // on force maintenant l'utilisateur a prendre des groupes existants//
 
                         if(description.length() >= 50) {
-                            //TODO : ajout du fichier
-                            final Post post = new Post();
-                            post.setTextContent(description);
 
-                            // inserer le fichier
-                            FirebaseStorage storage = FirebaseStorage.getInstance();
-                            final Uri uriFile = Uri.fromFile(file);
-                            StorageReference filesRef = storage.getReference();
+                            if(disc != null && group != null) {
+                                //TODO : ajout du fichier
+                                final Post post = new Post();
+                                post.setTextContent(description);
 
-                            StorageReference groupFiles = filesRef.child("data_groups/"+group.getId()+"/"+uriFile.getLastPathSegment());
-                            groupFiles.putFile(uriFile).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                    post.setFilePath(uriFile.getLastPathSegment());
-                                    // inserer le lien group post dans database
-                                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                                    DatabaseReference groupspost = database.getReference("groups/"+group.getId()+"/posts/"+post.getId());
-                                    groupspost.setValue(post);
-                                }
-                            });
+                                // inserer le fichier
+                                FirebaseStorage storage = FirebaseStorage.getInstance();
+                                final Uri uriFile = Uri.fromFile(file);
+                                StorageReference filesRef = storage.getReference();
 
+                                StorageReference groupFiles = filesRef.child("data_groups/" + group.getId() + "/" + uriFile.getLastPathSegment());
+                                groupFiles.putFile(uriFile).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        post.setFilePath(uriFile.getLastPathSegment());
+                                        // inserer le lien group post dans database
+                                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                        DatabaseReference groupsDisc = database.getReference("groups/"+ group.getId() + "/discipline/"+disc.getId());
+
+                                        groupsDisc.setValue(disc);
+
+                                        DatabaseReference groupspost = database.getReference("groups/"+ group.getId() + "/discipline/"+disc.getId()+ "/posts/" + post.getId());
+                                        groupspost.setValue(post);
+                                    }
+                                });
+                            }else{
+                                Toast.makeText(SendFileActivity.this, "you must choose groups and discipline", Toast.LENGTH_SHORT).show();
+                            }
                         }
                         else {
                             Toast.makeText(SendFileActivity.this, "Description length must be highter than 50", Toast.LENGTH_SHORT).show();
@@ -133,17 +145,32 @@ public class SendFileActivity extends AppCompatActivity {
         });
 
         // loading groups
-        List<Groups> list = new ArrayList<Groups>();
-        final ArrayAdapter<Groups> dataAdapter = new ArrayAdapter<Groups>(this,
-                android.R.layout.simple_spinner_item, list);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        groupNameSend.setAdapter(dataAdapter);
+        loadingGroups();
+    }
+
+    private void loadingGroups(){
+        List<Groups> listGroups = new ArrayList<Groups>();
+        final ArrayAdapter<Groups> dataGroupsAdapter = new ArrayAdapter<Groups>(this,
+                android.R.layout.simple_spinner_item, listGroups);
+        dataGroupsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        groupNameSend.setAdapter(dataGroupsAdapter);
+
+        List<Discipline> listDisc = new ArrayList<Discipline>();
+        final ArrayAdapter<Discipline> dataDiscsAdapter = new ArrayAdapter<Discipline>(this,
+                android.R.layout.simple_spinner_item, listDisc);
+        dataDiscsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        groupNameSend.setAdapter(dataDiscsAdapter);
         FirebaseDatabase.getInstance().getReference("groups").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Groups added = dataSnapshot.getValue(Groups.class);
                 // UPDATE UI
-                dataAdapter.add(added);
+                dataGroupsAdapter.add(added);
+                Iterable<DataSnapshot> iter = dataSnapshot.child("discipline").getChildren();
+                for(DataSnapshot data : iter){
+                    Discipline disc = data.getValue(Discipline.class);
+                    dataDiscsAdapter.add(disc);
+                }
             }
 
             @Override

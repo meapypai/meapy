@@ -11,7 +11,24 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <LinearLayout
+            android:background="@color/colorButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/toolbar_oneGroup"
+            android:padding="3dp">
+           <ImageButton
+               android:id="@+id/openDrawerBtn"
+               android:backgroundTint="@android:color/transparent"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:src="@drawable/ic_dehaze_white_24dp"
+               />
+        </LinearLayout>
+
         <RelativeLayout
+            android:layout_below="@id/toolbar_oneGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/headerOneGroup"

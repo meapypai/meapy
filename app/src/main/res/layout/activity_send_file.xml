@@ -56,18 +56,40 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Group"
+                android:id="@+id/txtGrp"/>
                 />
             <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/groupNameSend"
+                android:layout_toRightOf="@id/txtGrp"
 
                 ></Spinner>
-
-
-
-
         </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/discSendFile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/groupSendFile">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Discipline"
+                android:id="@+id/txtDisc"/>
+            />
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/discNameSend"
+                android:layout_toRightOf="@id/txtDisc"
+
+                ></Spinner>
+        </RelativeLayout>
+
+
 
 
         <EditText

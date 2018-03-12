@@ -69,6 +69,7 @@ public class MyGroupsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         database.getReference("groups").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
