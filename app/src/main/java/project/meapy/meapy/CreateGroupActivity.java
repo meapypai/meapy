@@ -73,13 +73,14 @@ public class CreateGroupActivity extends AppCompatActivity {
                             newGroup.setName(nameGroup);
                             newGroup.setId(new Random().nextInt());
 
-                            GroupsMapper mapper = new GroupsMapper();
-                            mapper.insert(newGroup);
                             // END TEST
                             File file = new File(path);
                             if(file.exists()) {
+                                newGroup.setImageName(file.getName());
 
-                                //TODO : insert in bdd
+                                //insertion of group
+                                GroupsMapper mapper = new GroupsMapper();
+                                mapper.insert(newGroup);
 
                                 Intent intent = new Intent(CreateGroupActivity.this, MyGroupsActivity.class);
                                 startActivity(intent);
