@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.DataSetObserver;
 import android.net.Uri;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -89,6 +91,51 @@ public class SendFileActivity extends AppCompatActivity {
             }
         });
 
+        List<Discipline> listDisc = new ArrayList<Discipline>();
+        final ArrayAdapter<Discipline> dataDiscsAdapter = new ArrayAdapter<Discipline>(this,
+                android.R.layout.simple_spinner_item, listDisc);
+        dataDiscsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        discTextSend.setAdapter(dataDiscsAdapter);
+        discTextSend.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                dataDiscsAdapter.clear();
+                Groups grp = (Groups) groupNameSend.getSelectedItem();
+                FirebaseDatabase.getInstance().getReference("groups/"+grp.getId()+"/disciplines/").addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        Discipline disc = (Discipline) dataSnapshot.getValue();
+                        dataDiscsAdapter.add(disc);
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         fileBtnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,11 +169,11 @@ public class SendFileActivity extends AppCompatActivity {
                                         post.setFilePath(uriFile.getLastPathSegment());
                                         // inserer le lien group post dans database
                                         FirebaseDatabase database = FirebaseDatabase.getInstance();
-                                        DatabaseReference groupsDisc = database.getReference("groups/"+ group.getId() + "/discipline/"+disc.getId());
+                                        DatabaseReference groupsDisc = database.getReference("groups/"+ group.getId() + "/disciplines/"+disc.getId());
 
                                         groupsDisc.setValue(disc);
 
-                                        DatabaseReference groupspost = database.getReference("groups/"+ group.getId() + "/discipline/"+disc.getId()+ "/posts/" + post.getId());
+                                        DatabaseReference groupspost = database.getReference("groups/"+ group.getId() + "/disciplines/"+disc.getId()+ "/posts/" + post.getId());
                                         groupspost.setValue(post);
                                     }
                                 });
@@ -155,22 +202,12 @@ public class SendFileActivity extends AppCompatActivity {
         dataGroupsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         groupNameSend.setAdapter(dataGroupsAdapter);
 
-        List<Discipline> listDisc = new ArrayList<Discipline>();
-        final ArrayAdapter<Discipline> dataDiscsAdapter = new ArrayAdapter<Discipline>(this,
-                android.R.layout.simple_spinner_item, listDisc);
-        dataDiscsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        groupNameSend.setAdapter(dataDiscsAdapter);
         FirebaseDatabase.getInstance().getReference("groups").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Groups added = dataSnapshot.getValue(Groups.class);
                 // UPDATE UI
                 dataGroupsAdapter.add(added);
-                Iterable<DataSnapshot> iter = dataSnapshot.child("discipline").getChildren();
-                for(DataSnapshot data : iter){
-                    Discipline disc = data.getValue(Discipline.class);
-                    dataDiscsAdapter.add(disc);
-                }
             }
 
             @Override

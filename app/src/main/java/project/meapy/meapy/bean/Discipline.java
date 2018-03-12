@@ -15,4 +15,6 @@ public class Discipline extends DomainObject {
         this.name = name;
     }
 
+    public String toString(){return name;}
+
 }

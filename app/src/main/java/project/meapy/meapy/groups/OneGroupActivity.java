@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+import project.meapy.meapy.AddDisciplineActivity;
 import project.meapy.meapy.R;
 import project.meapy.meapy.SendFileActivity;
 import project.meapy.meapy.bean.Groups;
@@ -35,6 +36,7 @@ public class OneGroupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_one_group);
+        final Groups grp = (Groups) getIntent().getSerializableExtra("GROUP");
 
         // A REVOIR
         ImageButton openDrawer = findViewById(R.id.openDrawerBtn);
@@ -57,6 +59,9 @@ public class OneGroupActivity extends AppCompatActivity {
                             Toast.makeText(OneGroupActivity.this,"add groups",Toast.LENGTH_LONG).show();
                             DrawerLayout drawer = findViewById(R.id.drawer_one_group);
                             drawer.closeDrawer(GravityCompat.START);
+                            Intent intent = new Intent(OneGroupActivity.this, AddDisciplineActivity.class);
+                            intent.putExtra("GROUP",grp);
+                            startActivity(intent);
                         }
 
                         // Add code here to update the UI based on the item selected
@@ -68,7 +73,7 @@ public class OneGroupActivity extends AppCompatActivity {
 
 
 
-        Groups grp = (Groups) getIntent().getSerializableExtra("GROUP");
+
         TextView titleGroup = findViewById(R.id.groupNameOneGroup);
         String name = grp.getName();
         int idAdmin = grp.getIdUserAdmin();

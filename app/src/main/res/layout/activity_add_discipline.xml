@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="project.meapy.meapy.AddDisciplineActivity">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="50dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Creation of Discipline"
+        android:id="@+id/tvAddDisc"
+        />
+    <EditText
+        android:id="@+id/disciplineNameAddDisc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="discipline name"
+        android:layout_below="@id/tvAddDisc"/>
+    <Button
+        android:id="@+id/okBtnAddDisc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/disciplineNameAddDisc"
+        android:text="ok"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
