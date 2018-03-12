@@ -4,19 +4,13 @@
 
     <item
         android:icon="@drawable/ic_note_add_black_24dp"
-        android:title="Add a file"
+        android:title="add_file"
         android:visible="true"
         android:id="@+id/addFileId"
         app:showAsAction="ifRoom"></item>
     <item android:icon="@drawable/ic_chat_black_24dp"
         android:id="@+id/discussionsId"
         android:visible="true"
-        app:showAsAction="ifRoom" android:title="My messages">
+        app:showAsAction="ifRoom" android:title="my_message">
     </item>
-
-    <item android:id="@+id/disconnect"
-        android:title="Disconnect"
-        app:showAsAction="ifRoom">
-    </item>
-
 </menu>
