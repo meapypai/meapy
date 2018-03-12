@@ -30,11 +30,21 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import project.meapy.meapy.groups.joined.MyGroupsActivity;
+import project.meapy.meapy.logins.DefaultLogin;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -50,6 +60,11 @@ public class LoginActivity extends AppCompatActivity {
     private View mLoginFormView;
     private Button mRegisterBtn;
 
+    private EditText emailLogin;
+    private EditText passwordLogin;
+
+    private DefaultLogin defaultLogin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,11 +73,20 @@ public class LoginActivity extends AppCompatActivity {
         mSignButton = (Button)findViewById(R.id.email_sign_in_button);
         mRegisterBtn = (Button)findViewById(R.id.register);
 
+
+        emailLogin = (EditText)findViewById(R.id.emailLogin);
+        passwordLogin = (EditText)findViewById(R.id.passwordLogin);
+
         mSignButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, MyGroupsActivity.class);
-                startActivity(intent);
+                String email = emailLogin.getText().toString();
+                String password = passwordLogin.getText().toString();
+
+                if(!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
+                    defaultLogin = new DefaultLogin(LoginActivity.this,email,password);
+                    defaultLogin.signIn();
+                }
             }
         });
 
@@ -74,5 +98,21 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-}
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (currentUser != null){
+
+            Intent intent = new Intent(LoginActivity.this, MyGroupsActivity.class);
+            startActivity(intent);
+
+        }
+    }
+
+
+
+
+}

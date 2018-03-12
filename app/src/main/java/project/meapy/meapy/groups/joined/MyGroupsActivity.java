@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 import project.meapy.meapy.CreateGroupActivity;
+import project.meapy.meapy.LoginActivity;
 import project.meapy.meapy.R;
 import project.meapy.meapy.SendFileActivity;
 import project.meapy.meapy.bean.Groups;
@@ -126,6 +128,10 @@ public class MyGroupsActivity extends AppCompatActivity {
 
             case R.id.discussionsId:
                 intent = new Intent(this, DiscussionGroupsActivity.class);
+                break;
+            case R.id.disconnect:
+                intent = new Intent(this, LoginActivity.class);
+                FirebaseAuth.getInstance().signOut();
                 break;
         }
         startActivity(intent);
