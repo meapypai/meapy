@@ -30,6 +30,15 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +59,12 @@ public class LoginActivity extends AppCompatActivity {
     private View mLoginFormView;
     private Button mRegisterBtn;
 
+    private EditText emailLogin;
+    private EditText passwordLogin;
+
+    private FirebaseAuth mAuth;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,12 +72,33 @@ public class LoginActivity extends AppCompatActivity {
 
         mSignButton = (Button)findViewById(R.id.email_sign_in_button);
         mRegisterBtn = (Button)findViewById(R.id.register);
+        mAuth = FirebaseAuth.getInstance();
+
+        emailLogin = (EditText)findViewById(R.id.emailLogin);
+        passwordLogin = (EditText)findViewById(R.id.passwordLogin);
 
         mSignButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, MyGroupsActivity.class);
-                startActivity(intent);
+                String email = emailLogin.getText().toString();
+                String password = passwordLogin.getText().toString();
+
+                if(!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
+                    mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                FirebaseUser user = mAuth.getCurrentUser();
+
+                                Intent intent = new Intent(LoginActivity.this, MyGroupsActivity.class);
+                                startActivity(intent);
+                            } else {
+                                Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
             }
         });
 
@@ -74,5 +110,23 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if (currentUser != null){
+
+            Intent intent = new Intent(LoginActivity.this, MyGroupsActivity.class);
+            startActivity(intent);
+
+        }
+    }
+
+
+
+
 }
 
