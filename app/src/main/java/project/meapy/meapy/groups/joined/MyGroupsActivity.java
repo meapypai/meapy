@@ -1,6 +1,7 @@
 package project.meapy.meapy.groups.joined;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -9,18 +10,24 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import project.meapy.meapy.CreateGroupActivity;
 import project.meapy.meapy.LoginActivity;
@@ -41,10 +48,16 @@ public class MyGroupsActivity extends AppCompatActivity {
     private FloatingActionButton createGroupId;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
+    private Bitmap bitmap;
+
+    private ImageView testImage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_groups);
+
+        testImage = (ImageView)findViewById(R.id.testImage);
 
         createGroupId = (FloatingActionButton)findViewById(R.id.createGroupId);
 
@@ -77,7 +90,7 @@ public class MyGroupsActivity extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Groups added = dataSnapshot.getValue(Groups.class);
                 // UPDATE UI
-                DiscussionGroup dGrp = new DiscussionGroup(R.drawable.web,added.getName(),added.getLimitUsers()+"");
+                DiscussionGroup dGrp = new DiscussionGroup(R.drawable.bdd,added.getName(),added.getLimitUsers()+"");
                 idGroups.put(added.getId(),dGrp);
                 viewToBean.put(dGrp,added);
                 adapter.add(dGrp);
@@ -107,7 +120,6 @@ public class MyGroupsActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
-
 
     }
 
