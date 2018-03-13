@@ -3,6 +3,7 @@ package project.meapy.meapy;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -11,11 +12,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseListAdapter;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.w3c.dom.Text;
 
+import java.util.Date;
+
+import project.meapy.meapy.bean.Message;
 import project.meapy.meapy.groups.discussions.DiscussionGroupsActivity;
 
 public class ChatRoomActivity extends AppCompatActivity {
@@ -24,7 +29,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     private EditText messageIdChatRoom;
     private ListView scrollMessagesChat;
 
-    private FirebaseListAdapter<String> adapter;
+    private FirebaseListAdapter<Message> adapter;
     private FirebaseDatabase database;
 
     @Override
@@ -41,15 +46,18 @@ public class ChatRoomActivity extends AppCompatActivity {
         Intent i = getIntent();
         String idGroup = i.getStringExtra(DiscussionGroupsActivity.EXTRA_GROUP_ID);
 
-        Toast.makeText(ChatRoomActivity.this,idGroup,Toast.LENGTH_SHORT).show();
-
         final DatabaseReference ref = database.getReferenceFromUrl("https://meapy-4700d.firebaseio.com/groups/"+idGroup+"/discussions");
 
-        adapter = new FirebaseListAdapter<String>(this, String.class, android.R.layout.simple_list_item_1,ref) {
+        adapter = new FirebaseListAdapter<Message>(this,Message.class,R.layout.message_view,ref) {
             @Override
-            protected void populateView(View v, String model, int position) {
-                TextView tv  = (TextView)v;
-                tv.setText(model);
+            protected void populateView(View v, Message model, int position) {
+                TextView user = (TextView)v.findViewById(R.id.usernameMessage);
+                TextView content = (TextView)v.findViewById(R.id.contentMessage);
+                TextView date = (TextView)v.findViewById(R.id.date);
+
+                date.setText(model.getDate().toString());
+                user.setText(model.getUser());
+                content.setText(model.getContent());
             }
         };
 
@@ -58,9 +66,17 @@ public class ChatRoomActivity extends AppCompatActivity {
         sendChatRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String message = messageIdChatRoom.getText().toString();
+                String contentMessage = messageIdChatRoom.getText().toString();
 
-                ref.push().setValue(message);
+                messageIdChatRoom.setText("");
+
+                Message m = new Message();
+                m.setContent(contentMessage);
+
+                m.setUser(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                m.setDate(new Date());
+
+                ref.push().setValue(m);
             }
         });
     }
