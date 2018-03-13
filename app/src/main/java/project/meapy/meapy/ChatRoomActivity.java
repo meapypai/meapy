@@ -1,5 +1,6 @@
 package project.meapy.meapy;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -7,12 +8,15 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.w3c.dom.Text;
+
+import project.meapy.meapy.groups.discussions.DiscussionGroupsActivity;
 
 public class ChatRoomActivity extends AppCompatActivity {
 
@@ -33,7 +37,13 @@ public class ChatRoomActivity extends AppCompatActivity {
         messageIdChatRoom  = (EditText)findViewById(R.id.messageIdChatRoom);
 
         database = FirebaseDatabase.getInstance();
-        final DatabaseReference ref = database.getReferenceFromUrl("https://meapy-4700d.firebaseio.com/messages");
+
+        Intent i = getIntent();
+        String idGroup = i.getStringExtra(DiscussionGroupsActivity.EXTRA_GROUP_ID);
+
+        Toast.makeText(ChatRoomActivity.this,idGroup,Toast.LENGTH_SHORT).show();
+
+        final DatabaseReference ref = database.getReferenceFromUrl("https://meapy-4700d.firebaseio.com/groups/"+idGroup+"/discussions");
 
         adapter = new FirebaseListAdapter<String>(this, String.class, android.R.layout.simple_list_item_1,ref) {
             @Override

@@ -8,10 +8,18 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseListAdapter;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.w3c.dom.Text;
 
@@ -30,6 +38,8 @@ import project.meapy.meapy.groups.DiscussionGroupAdapter;
 
 public class DiscussionGroupsActivity extends AppCompatActivity {
 
+    public static final String EXTRA_GROUP_ID = "group_id";
+
     private ListView listView;
     private FirebaseDatabase database;
     private FirebaseListAdapter<Groups> adapter;
@@ -42,15 +52,17 @@ public class DiscussionGroupsActivity extends AppCompatActivity {
 
         listView = (ListView)findViewById(R.id.listDiscussionGroups);
 
-        List<DiscussionGroup> groups = new ArrayList<>();
-
         adapter = new FirebaseListAdapter<Groups>(this,Groups.class, R.layout.group_view,FirebaseDatabase.getInstance().getReference("groups")) {
             @Override
             protected void populateView(View v, Groups model, int position) {
+                String id = String.valueOf(model.getId());
+
                 ImageView image = (ImageView)v.findViewById(R.id.imgGroup);
                 TextView name = (TextView)v.findViewById(R.id.nameGroup);
                 TextView message = (TextView)v.findViewById(R.id.lastMessage);
 
+                StorageReference ref = FirebaseStorage.getInstance().getReferenceFromUrl("gs://meapy-4700d.appspot.com/data_groups/" + model.getId() + "/" + model.getImageName());
+                Glide.with(DiscussionGroupsActivity.this).using(new FirebaseImageLoader()).load(ref).asBitmap().into(image); //image à partir de la réference passée
                 name.setText(model.getName());
                 message.setText(model.getIdUserAdmin()+"");
             }
@@ -61,7 +73,11 @@ public class DiscussionGroupsActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                startActivity(new Intent(DiscussionGroupsActivity.this, ChatRoomActivity.class));
+                Groups g = adapter.getItem(i);
+                Intent intent = new Intent(DiscussionGroupsActivity.this, ChatRoomActivity.class);
+                intent.putExtra(EXTRA_GROUP_ID,g.getId()+"");
+//                Toast.makeText(DiscussionGroupsActivity.this,g.getId()+"",Toast.LENGTH_SHORT).show();
+                startActivity(intent);
             }
         });
     }
