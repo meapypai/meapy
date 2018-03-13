@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.view.menu.MenuAdapter;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -70,7 +71,7 @@ public class OneGroupActivity extends AppCompatActivity {
         //toggle = new ActionBarDrawerToggle(this,drawerLayout,0,0);
         //drawerLayout.setDrawerListener(toggle);
         //FIN A REVOIR
-        Menu menu = ((NavigationView)findViewById(R.id.side_menu_one_group)).getMenu();
+        final Menu menu = ((NavigationView)findViewById(R.id.side_menu_one_group)).getMenu();
         final SubMenu subMenuDisc = menu.addSubMenu("Discipline");
         Button addDisc = findViewById(R.id.addDiscOneGroup);
         addDisc.setOnClickListener(new View.OnClickListener() {
@@ -113,14 +114,12 @@ public class OneGroupActivity extends AppCompatActivity {
         List<Post> list = new ArrayList<Post>();
         final ArrayAdapter adapterPost = new PostAdapter(OneGroupActivity.this, android.R.layout.simple_expandable_list_item_1,list);
         listView.setAdapter(adapterPost);
-
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference postsRef = database.getReference("groups/"+grp.getId()+"/disciplines/");
         postsRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Discipline disc = dataSnapshot.getValue(Discipline.class);
-                subMenuDisc.add(disc.getName());
                 dataSnapshot.getRef().child("posts").addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
