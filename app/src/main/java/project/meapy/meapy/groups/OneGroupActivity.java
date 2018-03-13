@@ -41,6 +41,7 @@ import project.meapy.meapy.SendFileActivity;
 import project.meapy.meapy.bean.Discipline;
 import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.bean.Post;
+import project.meapy.meapy.posts.PostAdapter;
 
 public class OneGroupActivity extends AppCompatActivity {
 
@@ -110,7 +111,7 @@ public class OneGroupActivity extends AppCompatActivity {
 
         final ListView listView = findViewById(R.id.postsOneGroup);
         List<Post> list = new ArrayList<Post>();
-        final ArrayAdapter adapterPost = new ArrayAdapter<Post>(OneGroupActivity.this, android.R.layout.simple_expandable_list_item_1,list);
+        final ArrayAdapter adapterPost = new PostAdapter(OneGroupActivity.this, android.R.layout.simple_expandable_list_item_1,list);
         listView.setAdapter(adapterPost);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();

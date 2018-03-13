@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp"
+    android:paddingLeft="15dp"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/titlePostViewOneGroup"
+        android:gravity="left"
+        android:textStyle="bold"
+        android:layout_marginRight="20dp"
+        android:text="TITLE"/>
+
+    <TextView
+        android:layout_toRightOf="@id/titlePostViewOneGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:textStyle="italic"
+        android:id="@+id/discPostViewOneGroup"
+        android:text="DISCIPLINE"/>
+
+    <TextView
+        android:layout_below="@id/titlePostViewOneGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/descrPostViewOneGroup"
+        android:text="DESCRIPTION..."/>
+
+
+</RelativeLayout>
