@@ -22,6 +22,7 @@ import java.util.Random;
 
 import project.meapy.meapy.bean.Discussion;
 import project.meapy.meapy.bean.Groups;
+import project.meapy.meapy.bean.Message;
 import project.meapy.meapy.database.GroupsMapper;
 import project.meapy.meapy.groups.joined.MyGroupsActivity;
 import project.meapy.meapy.utils.ProviderFilePath;
@@ -103,7 +104,10 @@ public class CreateGroupActivity extends AppCompatActivity {
 
                                         //insertion of node discussion
                                         Discussion discussion = new Discussion();
-                                        FirebaseDatabase.getInstance().getReference("groups/"+newGroup.getId()+"/discussions/" + discussion.getId()).setValue("");
+                                        Message m = new Message();
+                                        m.setUser("yassine");
+                                        m.setContent("ok");
+                                        FirebaseDatabase.getInstance().getReference("groups/"+newGroup.getId()+"/discussions/" + discussion.getId()).setValue(m);
 
                                         finish();
                                         Intent intent = new Intent(CreateGroupActivity.this, MyGroupsActivity.class);

@@ -4,20 +4,22 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <TextView
-        android:id="@+id/username"
+        android:id="@+id/usernameMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
     <TextView
-        android:id="@+id/messageContent"
+        android:id="@+id/contentMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/username"/>
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@id/usernameMessage"/>
 
     <TextView
+        android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/messageContent"
+        android:layout_toRightOf="@+id/contentMessage"
         android:layout_alignParentRight="true"/>
 
 </RelativeLayout>
