@@ -59,13 +59,31 @@
                 android:id="@+id/imageGroumOneGroup"
                 android:src="@drawable/logo_app1"/>
 
-            <TextView
-                android:layout_toRightOf="@id/imageGroumOneGroup"
-                android:layout_marginLeft="10dp"
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="GROUP NAME"
-                android:id="@+id/groupNameOneGroup"/>
+                android:layout_toRightOf="@id/imageGroumOneGroup">
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:text="GROUP NAME"
+                    android:id="@+id/groupNameOneGroup"
+                    />
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/limitOneGroup"
+                    android:layout_below="@id/groupNameOneGroup"
+                    android:text="LIMITATIONS"
+                    />
+
+            </RelativeLayout>
+
+
 
         </RelativeLayout>
 

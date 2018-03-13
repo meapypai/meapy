@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import project.meapy.meapy.AddDisciplineActivity;
+import project.meapy.meapy.ChatRoomActivity;
 import project.meapy.meapy.PostDetailsActivity;
 import project.meapy.meapy.R;
 import project.meapy.meapy.SendFileActivity;
@@ -52,6 +53,40 @@ public class OneGroupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_one_group);
         final Groups grp = (Groups) getIntent().getSerializableExtra("GROUP");
 
+        TextView titleGroup = findViewById(R.id.groupNameOneGroup);
+        String name = grp.getName();
+        final int limituser = grp.getLimitUsers();
+        titleGroup.setText(name);
+        final TextView limitationTv = findViewById(R.id.limitOneGroup);
+        limitationTv.setText(limituser + " users");
+        int i = new Integer(0);
+        FirebaseDatabase.getInstance().getReference("groups/"+grp.getId()+"/usersId/").addChildEventListener(new ChildEventListener() {
+            private int i =  0;
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                limitationTv.setText(++i+"/"+limituser+" users");
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         // A REVOIR ( mettre une toolbar)
         ImageButton openDrawer = findViewById(R.id.openDrawerBtn);
         openDrawer.setOnClickListener(new View.OnClickListener() {
@@ -61,15 +96,6 @@ public class OneGroupActivity extends AppCompatActivity {
                 drawer.openDrawer(GravityCompat.START);
             }
         });
-        //Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar_oneGroup);
-        //setSupportActionBar(myToolbar);
-       /* getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);*/
-        //ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, (DrawerLayout) findViewById(R.id.drawer_one_group),myToolbar,R.string.app_name,R.string.app_name);
-        //DrawerLayout drawerLayout = ((DrawerLayout) findViewById(R.id.drawer_one_group));
-
-        //toggle = new ActionBarDrawerToggle(this,drawerLayout,0,0);
-        //drawerLayout.setDrawerListener(toggle);
         //FIN A REVOIR
         final Menu menu = ((NavigationView)findViewById(R.id.side_menu_one_group)).getMenu();
         final SubMenu subMenuDisc = menu.addSubMenu("Discipline");
@@ -100,16 +126,6 @@ public class OneGroupActivity extends AppCompatActivity {
                     }
                 });
 
-
-
-
-        TextView titleGroup = findViewById(R.id.groupNameOneGroup);
-        String name = grp.getName();
-        int idAdmin = grp.getIdUserAdmin();
-        int idGrp = grp.getId();
-        int limituser = grp.getLimitUsers();
-        titleGroup.setText(String.format("group name :%s\nid group :%d\nid admin :%d\nlimit user :%d",name,idGrp,idAdmin,limituser));
-
         final ListView listView = findViewById(R.id.postsOneGroup);
         List<Post> list = new ArrayList<Post>();
         final ArrayAdapter adapterPost = new PostAdapter(OneGroupActivity.this, android.R.layout.simple_expandable_list_item_1,list);
@@ -128,46 +144,23 @@ public class OneGroupActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                    }
-
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
                     @Override
-                    public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                    }
-
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {}
                     @Override
-                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                    }
-
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
+                    public void onCancelled(DatabaseError databaseError) {}
                 });
             }
-
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
             @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
+            public void onChildRemoved(DataSnapshot dataSnapshot) {}
             @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

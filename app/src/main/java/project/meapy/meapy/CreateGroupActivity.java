@@ -28,6 +28,7 @@ import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.bean.Message;
 import project.meapy.meapy.database.GroupsMapper;
 import project.meapy.meapy.groups.joined.MyGroupsActivity;
+import project.meapy.meapy.utils.GroupsUserAdder;
 import project.meapy.meapy.utils.ProviderFilePath;
 
 public class CreateGroupActivity extends AppCompatActivity {
@@ -106,9 +107,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                                         mapper.insert(newGroup);
 
                                         //link groups with creator's user
-                                        FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
-                                        String uid = fUser.getUid();
-                                        FirebaseDatabase.getInstance().getReference("users/"+uid+"/groupsId/"+newGroup.getId()).setValue(new Integer(newGroup.getId()));
+                                        GroupsUserAdder.getInstance().addUserTo(newGroup);
 
                                         //insertion of node discussion
                                         Discussion discussion = new Discussion();
