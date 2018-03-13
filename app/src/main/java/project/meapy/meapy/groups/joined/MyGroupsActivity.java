@@ -109,11 +109,13 @@ public class MyGroupsActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Groups added = dataSnapshot.getValue(Groups.class);
-                // UPDATE UI
-                DiscussionGroup dGrp = new DiscussionGroup(R.drawable.bdd,added.getName(),added.getLimitUsers()+"", added.getId()+"/"+added.getImageName());
-                idGroups.put(added.getId(),dGrp);
-                viewToBean.put(dGrp,added);
-                adapter.add(dGrp);
+                if(!idGroups.containsKey(added.getId())) {
+                    // UPDATE UI
+                    DiscussionGroup dGrp = new DiscussionGroup(R.drawable.bdd, added.getName(), added.getLimitUsers() + "", added.getId() + "/" + added.getImageName());
+                    idGroups.put(added.getId(), dGrp);
+                    viewToBean.put(dGrp, added);
+                    adapter.add(dGrp);
+                }
             }
 
             @Override

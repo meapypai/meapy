@@ -136,6 +136,7 @@ public class OneGroupActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Discipline disc = dataSnapshot.getValue(Discipline.class);
+                subMenuDisc.add(disc.getName());
                 dataSnapshot.getRef().child("posts").addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {

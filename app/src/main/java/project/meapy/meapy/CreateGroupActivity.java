@@ -116,10 +116,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                                         m.setContent("Welcolme to the group discussion");
                                         m.setDate(new Date());
                                         FirebaseDatabase.getInstance().getReference("groups/"+newGroup.getId()+"/discussions/" + discussion.getId()).setValue(m);
-
                                         finish();
-                                        Intent intent = new Intent(CreateGroupActivity.this, MyGroupsActivity.class);
-                                        startActivity(intent);
                                     }
                                 });
 

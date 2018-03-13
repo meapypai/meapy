@@ -16,18 +16,17 @@
         android:id="@+id/titleTextSend"
         android:hint="Title" />
     <RelativeLayout
-        android:layout_marginTop="50dp"
+        android:layout_margin="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:layout_below="@id/titleTextSend"
         >
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:id="@+id/fileSendFile"
-            android:layout_marginBottom="15dp">
+            android:layout_marginBottom="10dp">
             <TextView
                 android:id="@+id/fileNameSend"
                 android:layout_width="150dp"
@@ -41,7 +40,8 @@
                 android:background="@drawable/round"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/fileNameSend"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:textColor="@color/white"
                 android:text="+"/>
 
@@ -49,16 +49,17 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:layout_marginBottom="10dp"
             android:id="@+id/groupSendFile"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_below="@id/fileSendFile">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Group"
+                android:layout_centerVertical="true"
                 android:id="@+id/txtGrp"/>
                 />
             <Spinner
@@ -66,21 +67,31 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/groupNameSend"
                 android:layout_toRightOf="@id/txtGrp"
+                android:layout_centerVertical="true"
 
                 ></Spinner>
+            <Button
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+"
+                android:id="@+id/addGroupSendFile"
+                android:textColor="@android:color/white"
+                android:background="@drawable/round"/>
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_marginTop="50dp"
+
             android:id="@+id/discSendFile"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/fileSendFile">
+            android:layout_below="@id/groupSendFile">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:text="Discipline"
                 android:id="@+id/txtDisc"/>
             />
@@ -88,9 +99,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/discNameSend"
+                android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/txtDisc"
 
                 ></Spinner>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="+"
+                android:id="@+id/addDiscSendFile"
+                android:textColor="@android:color/white"
+                android:background="@drawable/round"/>
         </RelativeLayout>
 
         <EditText

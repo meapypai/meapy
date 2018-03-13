@@ -60,6 +60,8 @@ public class SendFileActivity extends AppCompatActivity {
     private EditText descTextSend;
     private Spinner discTextSend;
     private EditText titleTextSend;
+    private Button addDiscBtn;
+    private Button addGrpBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +71,8 @@ public class SendFileActivity extends AppCompatActivity {
         //buttons
         importFileBtnSend = (Button)findViewById(R.id.importFileBtnSend);
         fileBtnSend       = (Button)findViewById(R.id.fileBtnSend);
+        addDiscBtn        = (Button)findViewById(R.id.addDiscSendFile);
+        addGrpBtn         = (Button) findViewById(R.id.addGroupSendFile);
 
         //edittext
         fileNameSend      = (TextView)findViewById(R.id.fileNameSend);
@@ -83,6 +87,12 @@ public class SendFileActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMISSION_READ_EXTERNAL_STORAGE);
         }
 
+        addGrpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),CreateGroupActivity.class));
+            }
+        });
         //listeners
         importFileBtnSend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,6 +146,15 @@ public class SendFileActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
+            }
+        });
+
+        addDiscBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),AddDisciplineActivity.class);
+                intent.putExtra("GROUP",(Groups)groupNameSend.getSelectedItem());
+                startActivity(intent);
             }
         });
 
