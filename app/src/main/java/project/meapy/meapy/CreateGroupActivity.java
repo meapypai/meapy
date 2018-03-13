@@ -20,6 +20,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.File;
 import java.util.Random;
 
+import project.meapy.meapy.bean.Discussion;
 import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.database.GroupsMapper;
 import project.meapy.meapy.groups.joined.MyGroupsActivity;
@@ -99,6 +100,11 @@ public class CreateGroupActivity extends AppCompatActivity {
                                         //insertion of group
                                         GroupsMapper mapper = new GroupsMapper();
                                         mapper.insert(newGroup);
+
+                                        //insertion of node discussion
+                                        Discussion discussion = new Discussion();
+                                        FirebaseDatabase.getInstance().getReference("groups/"+newGroup.getId()+"/discussions/" + discussion.getId()).setValue("");
+
                                         finish();
                                         Intent intent = new Intent(CreateGroupActivity.this, MyGroupsActivity.class);
                                         startActivity(intent);
