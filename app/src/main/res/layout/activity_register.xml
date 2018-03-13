@@ -7,64 +7,36 @@
     android:layout_height="match_parent"
     tools:context="project.meapy.meapy.RegisterActivity">
 
-    <TextView
-        android:layout_marginTop="@dimen/sign_up_margin_top"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/first_name_register"
-        android:layout_gravity="center"/>
-
     <EditText
+        style="@style/registerStyle"
         android:id="@+id/firstNameIdRegister"
-        android:layout_width="@dimen/sign_up_text_view_width"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/last_name_register"
-        android:layout_gravity="center"/>
+        android:layout_marginTop="@dimen/sign_up_margin_top"
+        android:hint="@string/first_name_register"/>
 
     <EditText
+        style="@style/registerStyle"
         android:id="@+id/lastNameIdRegister"
-        android:layout_width="@dimen/sign_up_text_view_width"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/prompt_email"
-        android:layout_gravity="center"/>
-
+        android:hint="@string/last_name_register"/>
 
     <EditText
+        style="@style/registerStyle"
         android:id="@+id/emailIdRegister"
-        android:layout_width="@dimen/sign_up_text_view_width"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/prompt_password"
-        android:layout_gravity="center"/>
+        android:hint="@string/prompt_email" />
 
     <EditText
+        style="@style/registerStyle"
         android:id="@+id/passwordIdRegister"
-        android:layout_width="@dimen/sign_up_text_view_width"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:hint="@string/prompt_password"
         android:inputType="textPassword"/>
 
 
     <Button
-        android:id="@+id/signUpBtnIdRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:id="@+id/signUpBtnIdRegister"
         android:text="@string/sign_up_button"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
         android:background="@drawable/rounded_button"/>
 
 </LinearLayout>
