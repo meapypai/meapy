@@ -26,6 +26,26 @@
                android:src="@drawable/ic_dehaze_white_24dp"
                />
         </LinearLayout>
+        <!--<android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_oneGroup"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorButton"
+            android:elevation="4dp"
+            >
+
+
+                <ImageButton
+                    android:id="@+id/openDrawerBtn"
+                    android:backgroundTint="@android:color/transparent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="start"
+                    android:src="@drawable/ic_dehaze_white_24dp"
+                    />
+
+        </android.support.v7.widget.Toolbar>-->
 
         <RelativeLayout
             android:layout_below="@id/toolbar_oneGroup"
@@ -83,6 +103,12 @@
         android:layout_gravity="start"
         >
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Disc"
+            android:layout_gravity="bottom"
+            android:id="@+id/addDiscOneGroup"/>
 
     </android.support.design.widget.NavigationView>
 
