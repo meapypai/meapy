@@ -18,6 +18,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
+import java.util.Date;
 import java.util.Random;
 
 import project.meapy.meapy.bean.Discussion;
@@ -105,8 +106,9 @@ public class CreateGroupActivity extends AppCompatActivity {
                                         //insertion of node discussion
                                         Discussion discussion = new Discussion();
                                         Message m = new Message();
-                                        m.setUser("yassine");
-                                        m.setContent("ok");
+                                        m.setUser("Admin");
+                                        m.setContent("Welcolme to the group discussion");
+                                        m.setDate(new Date());
                                         FirebaseDatabase.getInstance().getReference("groups/"+newGroup.getId()+"/discussions/" + discussion.getId()).setValue(m);
 
                                         finish();

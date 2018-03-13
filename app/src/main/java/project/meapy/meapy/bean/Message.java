@@ -1,5 +1,7 @@
 package project.meapy.meapy.bean;
 
+import java.util.Date;
+
 /**
  * Created by yassi on 13/03/2018.
  */
@@ -8,13 +10,13 @@ public class Message extends DomainObject {
 
     private String content;
     private String user;
-    private String date;
+    private Date date;
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

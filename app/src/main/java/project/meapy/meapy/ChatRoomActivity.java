@@ -18,6 +18,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import org.w3c.dom.Text;
 
+import java.util.Date;
+
 import project.meapy.meapy.bean.Message;
 import project.meapy.meapy.groups.discussions.DiscussionGroupsActivity;
 
@@ -53,7 +55,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 TextView content = (TextView)v.findViewById(R.id.contentMessage);
                 TextView date = (TextView)v.findViewById(R.id.date);
 
-                date.setText("ok");
+                date.setText(model.getDate().toString());
                 user.setText(model.getUser());
                 content.setText(model.getContent());
             }
@@ -64,15 +66,15 @@ public class ChatRoomActivity extends AppCompatActivity {
         sendChatRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                messageIdChatRoom.setText("");
-
                 String contentMessage = messageIdChatRoom.getText().toString();
+
+                messageIdChatRoom.setText("");
 
                 Message m = new Message();
                 m.setContent(contentMessage);
 
                 m.setUser(FirebaseAuth.getInstance().getCurrentUser().getEmail());
-                m.setDate("ok");
+                m.setDate(new Date());
 
                 ref.push().setValue(m);
             }
