@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -100,6 +102,11 @@ public class CreateGroupActivity extends AppCompatActivity {
                                         //insertion of group
                                         GroupsMapper mapper = new GroupsMapper();
                                         mapper.insert(newGroup);
+
+                                        //link groups with creator's user
+                                        FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
+                                        String uid = fUser.getUid();
+                                        FirebaseDatabase.getInstance().getReference("users/"+uid+"/groupsId/"+newGroup.getId()).setValue(new Integer(newGroup.getId()));
 
                                         //insertion of node discussion
                                         Discussion discussion = new Discussion();

@@ -62,13 +62,9 @@ public class RegisterActivity extends AppCompatActivity {
 
                                 //insertion d'un nouvel user
                                 User user = new User(firstName,lastName,password,email);
-                                user.setId(new Random().nextInt());
-
-                                UserMapper mapper = new UserMapper();
-                                mapper.insert(user);
 
                                 Registration registration = new Registration(RegisterActivity.this,email,password);
-                                registration.register();
+                                registration.register(user);
                             }
                             else {
                                 errorMessage = "Password not valid";
