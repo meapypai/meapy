@@ -78,15 +78,16 @@ public class ChatRoomActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String contentMessage = messageIdChatRoom.getText().toString();
+                if(!TextUtils.isEmpty(contentMessage)) {
+                    messageIdChatRoom.setText("");
 
-                messageIdChatRoom.setText("");
+                    Message m = new Message();
+                    m.setContent(contentMessage);
+                    m.setUser(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                    m.setDate(new Date());
 
-                Message m = new Message();
-                m.setContent(contentMessage);
-                m.setUser(FirebaseAuth.getInstance().getCurrentUser().getEmail());
-                m.setDate(new Date());
-
-                ref.push().setValue(m);
+                    ref.push().setValue(m);
+                }
             }
         });
     }
