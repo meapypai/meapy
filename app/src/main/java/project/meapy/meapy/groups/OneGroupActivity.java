@@ -29,6 +29,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
@@ -60,26 +61,12 @@ public class OneGroupActivity extends AppCompatActivity {
         final TextView limitationTv = findViewById(R.id.limitOneGroup);
         limitationTv.setText(limituser + " users");
         int i = new Integer(0);
-        FirebaseDatabase.getInstance().getReference("groups/"+grp.getId()+"/usersId/").addChildEventListener(new ChildEventListener() {
-            private int i =  0;
+        //limitationTv.setText(++i+"/"+limituser+" users");
+        FirebaseDatabase.getInstance().getReference("groups/"+grp.getId()+"/usersId/").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                limitationTv.setText(++i+"/"+limituser+" users");
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                long i = dataSnapshot.getChildrenCount();
+                limitationTv.setText(i+"/"+limituser+" users");
             }
 
             @Override
