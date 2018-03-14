@@ -39,6 +39,7 @@ import project.meapy.meapy.groups.DiscussionGroupAdapter;
 public class DiscussionGroupsActivity extends AppCompatActivity {
 
     public static final String EXTRA_GROUP_ID = "group_id";
+    public static final String EXTRA_GROUP_NAME = "group_name";
 
     private ListView listView;
     private FirebaseDatabase database;
@@ -76,6 +77,7 @@ public class DiscussionGroupsActivity extends AppCompatActivity {
                 Groups g = adapter.getItem(i);
                 Intent intent = new Intent(DiscussionGroupsActivity.this, ChatRoomActivity.class);
                 intent.putExtra(EXTRA_GROUP_ID,g.getId()+"");
+                intent.putExtra(EXTRA_GROUP_NAME,g.getName());
 //                Toast.makeText(DiscussionGroupsActivity.this,g.getId()+"",Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }

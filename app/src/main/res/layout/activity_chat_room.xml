@@ -19,6 +19,7 @@
             android:background="@drawable/round"
             android:layout_margin="5dp"/>
         <TextView
+            android:id="@+id/nameGroupeChatRoom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Groupe 1"
@@ -27,13 +28,14 @@
     </LinearLayout>
 
     <ListView
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/scrollMessagesChat"
         android:layout_below="@id/headerChatRoom"
+        android:dividerHeight="15dp"
+        android:divider="@android:color/transparent"
         android:layout_above="@id/writeMessageChatroom">
-
-
     </ListView>
 
     <RelativeLayout
