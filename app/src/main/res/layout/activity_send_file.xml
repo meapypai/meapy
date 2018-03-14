@@ -29,12 +29,20 @@
             android:layout_marginBottom="10dp">
             <TextView
                 android:id="@+id/fileNameSend"
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="Filename"
                 android:layout_centerVertical="true"
                 android:textAlignment="center"
                 />
+
+            <Spinner
+                android:id="@+id/filesSendFile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/fileNameSend" />
+
             <Button
                 android:id="@+id/importFileBtnSend"
                 android:background="@drawable/round"
@@ -61,11 +69,11 @@
                 android:text="Group"
                 android:layout_centerVertical="true"
                 android:id="@+id/txtGrp"/>
-                />
+
             <Spinner
+                android:id="@+id/groupNameSend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/groupNameSend"
                 android:layout_toRightOf="@id/txtGrp"
                 android:layout_centerVertical="true"
 

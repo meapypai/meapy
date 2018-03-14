@@ -54,14 +54,21 @@ public class SendFileActivity extends AppCompatActivity {
 
     private Button importFileBtnSend;
     private Button fileBtnSend;
-
-    private TextView fileNameSend;
-    private Spinner groupNameSend;
-    private EditText descTextSend;
-    private Spinner discTextSend;
-    private EditText titleTextSend;
     private Button addDiscBtn;
     private Button addGrpBtn;
+
+    private TextView fileNameSend;
+
+    private Spinner filesSendFile;
+    private Spinner groupNameSend;
+    private Spinner discTextSend;
+
+    private EditText descTextSend;
+    private EditText titleTextSend;
+
+    private List<String> nameFiles;
+    private List<File> files = new ArrayList<>();
+    private ArrayAdapter<String> adapterSpinnerFiles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +85,11 @@ public class SendFileActivity extends AppCompatActivity {
         fileNameSend      = (TextView)findViewById(R.id.fileNameSend);
         descTextSend      = (EditText)findViewById(R.id.descTextSend);
         titleTextSend     = (EditText)findViewById(R.id.titleTextSend);
+
+        //spinners
         groupNameSend     = (Spinner)findViewById(R.id.groupNameSend);
-        discTextSend      = (Spinner) findViewById(R.id.discNameSend);
+        discTextSend      = (Spinner)findViewById(R.id.discNameSend);
+        filesSendFile     = (Spinner)findViewById(R.id.filesSendFile);
 
 
         //permission
@@ -103,6 +113,12 @@ public class SendFileActivity extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(intent,"Load a file"), REQUEST_LOAD_FILE);
             }
         });
+
+        //spinner list
+        nameFiles = new ArrayList<>();
+        adapterSpinnerFiles = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,nameFiles);
+        filesSendFile.setAdapter(adapterSpinnerFiles);
+
 
         List<Discipline> listDisc = new ArrayList<Discipline>();
         final ArrayAdapter<Discipline> dataDiscsAdapter = new ArrayAdapter<Discipline>(this,
@@ -169,47 +185,57 @@ public class SendFileActivity extends AppCompatActivity {
                 final Discipline disc = (Discipline) discTextSend.getSelectedItem();
                 String title = titleTextSend.getText().toString();
 
-                if(file.exists()) {
-                    //TODO : verifier que le groupe existe//
-                    // on force maintenant l'utilisateur a prendre des groupes existants//
+                //TODO : verifier que le groupe existe//
+                // on force maintenant l'utilisateur a prendre des groupes existants//
 
-                        if(description.length() >= 50) {
+                if(description.length() >= 50) {
 
-                            if(disc != null && group != null && title!=null) {
-                                //TODO : ajout du fichier
-                                final Post post = new Post();
-                                post.setTextContent(description);
-                                post.setTitle(title);
-                                // inserer le fichier
-                                FirebaseStorage storage = FirebaseStorage.getInstance();
-                                final Uri uriFile = Uri.fromFile(file);
-                                StorageReference filesRef = storage.getReference();
+                    if(disc != null && group != null && title!=null) {
+                        //TODO : ajout du fichier
+                        final Post post = new Post();
+                        post.setTextContent(description);
+                        post.setTitle(title);
+                        // inserer le(s) fichier(s)
+                        FirebaseStorage storage = FirebaseStorage.getInstance();
+                        StorageReference filesRef = storage.getReference();
 
+                        for(int i = 0; i < files.size(); i++) {
+                            File f = files.get(i);
+                            if(f.exists()) {
+                                final Uri uriFile = Uri.fromFile(files.get(i));
                                 StorageReference groupFiles = filesRef.child("data_groups/" + group.getId() + "/" + uriFile.getLastPathSegment());
-                                groupFiles.putFile(uriFile).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                    @Override
-                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                        post.setFilePath(uriFile.getLastPathSegment());
-                                        // inserer le lien group post dans database
-                                        FirebaseDatabase database = FirebaseDatabase.getInstance();
-                                        //DatabaseReference groupsDisc = database.getReference("groups/"+ group.getId() + "/disciplines/"+disc.getId());
-
-                                        DatabaseReference groupspost = database.getReference("groups/"+ group.getId() + "/disciplines/"+disc.getId()+ "/posts/").child(post.getId()+"");
-                                        groupspost.setValue(post);
-                                        Toast.makeText(SendFileActivity.this,"post added",Toast.LENGTH_LONG).show();
-                                        finish();
-                                    }
-                                });
-                            }else{
-                                Toast.makeText(SendFileActivity.this, "you must choose groups and discipline and title", Toast.LENGTH_SHORT).show();
+                                groupFiles.putFile(uriFile);
                             }
                         }
-                        else {
-                            Toast.makeText(SendFileActivity.this, "Description length must be highter than 50", Toast.LENGTH_SHORT).show();
-                        }
+//                        post.setFilePath(uriFile.getLastPathSegment());
+                        // inserer le lien group post dans database
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        //DatabaseReference groupsDisc = database.getReference("groups/"+ group.getId() + "/disciplines/"+disc.getId());
+
+                        DatabaseReference groupspost = database.getReference("groups/"+ group.getId() + "/disciplines/"+disc.getId()+ "/posts/").child(post.getId()+"");
+                        groupspost.setValue(post);
+                        Toast.makeText(SendFileActivity.this,"post added",Toast.LENGTH_LONG).show();
+                        finish();
+//                                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                            @Override
+//                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                                post.setFilePath(uriFile.getLastPathSegment());
+//                                // inserer le lien group post dans database
+//                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+//                                //DatabaseReference groupsDisc = database.getReference("groups/"+ group.getId() + "/disciplines/"+disc.getId());
+//
+//                                DatabaseReference groupspost = database.getReference("groups/"+ group.getId() + "/disciplines/"+disc.getId()+ "/posts/").child(post.getId()+"");
+//                                groupspost.setValue(post);
+//                                Toast.makeText(SendFileActivity.this,"post added",Toast.LENGTH_LONG).show();
+//                                finish();
+//                            }
+//                        });
+                    }else{
+                        Toast.makeText(SendFileActivity.this, "you must choose groups and discipline and title", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else {
-                    Toast.makeText(SendFileActivity.this,"File doesn't exists",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SendFileActivity.this, "Description length must be highter than 50", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -260,11 +286,14 @@ public class SendFileActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == REQUEST_LOAD_FILE) {
             if(resultCode == RESULT_OK) {
-                Toast.makeText(this,"okkk",Toast.LENGTH_SHORT).show();
                 Uri uri = data.getData();
                 ProviderFilePath pfp = new ProviderFilePath(this);
                 String path = pfp.getPathFromUri(uri);
-                fileNameSend.setText(path);
+                File file = new File(path);
+
+                nameFiles.add(file.getName()); //ajout du nom du fichier pour l'adapter du spinner
+                files.add(file); //ajout du fichier à upload
+                adapterSpinnerFiles.notifyDataSetChanged();
             }
         }
     }
