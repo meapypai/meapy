@@ -78,7 +78,6 @@ public class DiscussionGroupsActivity extends AppCompatActivity {
                 Intent intent = new Intent(DiscussionGroupsActivity.this, ChatRoomActivity.class);
                 intent.putExtra(EXTRA_GROUP_ID,g.getId()+"");
                 intent.putExtra(EXTRA_GROUP_NAME,g.getName());
-//                Toast.makeText(DiscussionGroupsActivity.this,g.getId()+"",Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }
         });

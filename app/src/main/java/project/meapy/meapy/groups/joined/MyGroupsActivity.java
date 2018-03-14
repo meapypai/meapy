@@ -174,9 +174,9 @@ public class MyGroupsActivity extends AppCompatActivity {
                 intent = new Intent(this, SendFileActivity.class);
                 break;
 
-            case R.id.discussionsId:
-                intent = new Intent(this, DiscussionGroupsActivity.class);
-                break;
+//            case R.id.discussionsId:
+//                intent = new Intent(this, DiscussionGroupsActivity.class);
+//                break;
             case R.id.disconnect:
                 intent = new Intent(this, LoginActivity.class);
                 FirebaseAuth.getInstance().signOut();

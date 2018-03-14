@@ -27,6 +27,7 @@ import java.util.Date;
 
 import project.meapy.meapy.bean.Message;
 import project.meapy.meapy.groups.DiscussionGroup;
+import project.meapy.meapy.groups.OneGroupActivity;
 import project.meapy.meapy.groups.discussions.DiscussionGroupsActivity;
 
 public class ChatRoomActivity extends AppCompatActivity {
@@ -52,8 +53,8 @@ public class ChatRoomActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
 
         Intent i = getIntent();
-        String idGroup = i.getStringExtra(DiscussionGroupsActivity.EXTRA_GROUP_ID);
-        String nameGroup = i.getStringExtra(DiscussionGroupsActivity.EXTRA_GROUP_NAME);
+        String idGroup = i.getStringExtra(OneGroupActivity.EXTRA_GROUP_ID);
+        String nameGroup = i.getStringExtra(OneGroupActivity.EXTRA_GROUP_NAME);
 
         nameGroupeChatRoom.setText(nameGroup); //set the title of the group in the activity
 

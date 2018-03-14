@@ -9,11 +9,11 @@
         android:id="@+id/addFileId"
         app:showAsAction="ifRoom"></item>
 
-    <item android:icon="@drawable/ic_chat_black_24dp"
-        android:id="@+id/discussionsId"
-        android:visible="true"
-        app:showAsAction="ifRoom" android:title="My messages">
-    </item>
+    <!--<item android:icon="@drawable/ic_chat_black_24dp"-->
+        <!--android:id="@+id/discussionsId"-->
+        <!--android:visible="true"-->
+        <!--app:showAsAction="ifRoom" android:title="My messages">-->
+    <!--</item>-->
 
     <item android:title="Disconnect"
         android:id="@+id/disconnect"

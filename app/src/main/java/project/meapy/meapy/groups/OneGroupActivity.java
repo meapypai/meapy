@@ -20,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,15 +45,24 @@ import project.meapy.meapy.SendFileActivity;
 import project.meapy.meapy.bean.Discipline;
 import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.bean.Post;
+import project.meapy.meapy.groups.discussions.DiscussionGroupsActivity;
 import project.meapy.meapy.posts.PostAdapter;
 
 public class OneGroupActivity extends AppCompatActivity {
+
+    public static final String EXTRA_GROUP_ID = "group_id";
+    public static final String EXTRA_GROUP_NAME = "group_name";
+
+    private ImageView accedToDiscussionOneGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_one_group);
+
         final Groups grp = (Groups) getIntent().getSerializableExtra("GROUP");
+
+        ImageView accedToDiscussionOneGroup = (ImageView)findViewById(R.id.accedToDiscussionOneGroup);
 
         TextView titleGroup = findViewById(R.id.groupNameOneGroup);
         String name = grp.getName();
@@ -166,6 +176,16 @@ public class OneGroupActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(OneGroupActivity.this, SendFileActivity.class));
+            }
+        });
+
+        accedToDiscussionOneGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OneGroupActivity.this, ChatRoomActivity.class);
+                intent.putExtra(EXTRA_GROUP_ID,grp.getId()+"");
+                intent.putExtra(EXTRA_GROUP_NAME,grp.getName());
+                startActivity(intent);
             }
         });
     }
