@@ -51,7 +51,11 @@
         <EditText
             android:id="@+id/messageIdChatRoom"
             android:layout_width="match_parent"
+            android:background="@drawable/edittext_round"
             android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:layout_margin="10dp"
+            android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/sendChatRoom"
             android:hint="write your message here"
             android:layout_marginLeft="5dp"/>
