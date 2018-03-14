@@ -71,6 +71,9 @@ public class CreateGroupActivity extends AppCompatActivity {
         createNewGroupId.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Button btn = (Button)view;
+                btn.setEnabled(false); //désactive le bouton pour éviter la création d'un 2eme groupe
+
                 String path      = imageCreateGroup.getText().toString();
                 String limit     = limitCreateGroup.getText().toString();
                 String nameGroup = nameCreateGroup.getText().toString();

@@ -5,5 +5,5 @@
 
     <!--Dimens related to Register Activity-->
     <dimen name="sign_up_margin_top">50dp</dimen>
-    <dimen name="sign_up_text_view_width">150dp</dimen>
+    <dimen name="sign_up_text_view_width">250dp</dimen>
 </resources>

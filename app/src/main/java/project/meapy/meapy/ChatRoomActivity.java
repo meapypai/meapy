@@ -79,7 +79,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String contentMessage = messageIdChatRoom.getText().toString();
 
-//                messageIdChatRoom.setText("");
+                messageIdChatRoom.setText("");
 
                 Message m = new Message();
                 m.setContent(contentMessage);
