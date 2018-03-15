@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.view.menu.MenuAdapter;
 import android.support.v7.widget.Toolbar;
+import android.view.ActionProvider;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
@@ -34,11 +35,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import project.meapy.meapy.AddDisciplineActivity;
 import project.meapy.meapy.ChatRoomActivity;
+import project.meapy.meapy.DisciplinePostsActivity;
 import project.meapy.meapy.PostDetailsActivity;
 import project.meapy.meapy.R;
 import project.meapy.meapy.SendFileActivity;
@@ -61,6 +64,7 @@ public class OneGroupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_one_group);
 
         final Groups grp = (Groups) getIntent().getSerializableExtra("GROUP");
+        final ArrayList<Discipline> listDiscipline = new ArrayList<>();
 
         ImageView accedToDiscussionOneGroup = (ImageView)findViewById(R.id.accedToDiscussionOneGroup);
 
@@ -71,7 +75,6 @@ public class OneGroupActivity extends AppCompatActivity {
         final TextView limitationTv = findViewById(R.id.limitOneGroup);
         limitationTv.setText(limituser + " users");
         int i = new Integer(0);
-        //limitationTv.setText(++i+"/"+limituser+" users");
         FirebaseDatabase.getInstance().getReference("groups/"+grp.getId()+"/usersId/").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -111,17 +114,6 @@ public class OneGroupActivity extends AppCompatActivity {
 
 
         final NavigationView navigationView = findViewById(R.id.side_menu_one_group);
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        menuItem.setChecked(true);
-                        Toast.makeText(getApplicationContext(),"click on disc",Toast.LENGTH_LONG).show();
-                        // recupere si c'est une discipline et lance la bonne activity
-                        menuItem.setChecked(false);
-                        return true;
-                    }
-                });
 
         final ListView listView = findViewById(R.id.postsOneGroup);
         List<Post> list = new ArrayList<Post>();
@@ -132,8 +124,24 @@ public class OneGroupActivity extends AppCompatActivity {
         postsRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Discipline disc = dataSnapshot.getValue(Discipline.class);
-                subMenuDisc.add(disc.getName());
+                final Discipline disc = dataSnapshot.getValue(Discipline.class);
+                listDiscipline.add(disc);
+                MenuItem it  =subMenuDisc.add(disc.getName());
+                it.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        menuItem.setChecked(true);
+                        Toast.makeText(getApplicationContext(),"click on "+menuItem,Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(getApplicationContext(),DisciplinePostsActivity.class);
+                        intent.putExtra("GROUP",grp);
+                        intent.putExtra("DISCS",(Serializable)listDiscipline);
+                        intent.putExtra("CURRDISCIDX",listDiscipline.indexOf(disc));
+                        startActivity(intent);
+                        menuItem.setChecked(false);
+                        return false;
+                    }
+                });
+
                 dataSnapshot.getRef().child("posts").addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
