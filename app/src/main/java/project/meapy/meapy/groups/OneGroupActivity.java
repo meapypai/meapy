@@ -1,5 +1,6 @@
 package project.meapy.meapy.groups;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -28,6 +29,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,6 +49,7 @@ import java.util.List;
 import project.meapy.meapy.AddDisciplineActivity;
 import project.meapy.meapy.ChatRoomActivity;
 import project.meapy.meapy.DisciplinePostsActivity;
+import project.meapy.meapy.LeaveGroupActivity;
 import project.meapy.meapy.PostDetailsActivity;
 import project.meapy.meapy.R;
 import project.meapy.meapy.SendFileActivity;
@@ -59,8 +63,11 @@ public class OneGroupActivity extends AppCompatActivity {
 
     public static final String EXTRA_GROUP_ID = "group_id";
     public static final String EXTRA_GROUP_NAME = "group_name";
+    private Groups group;
 
     private ImageView accedToDiscussionOneGroup;
+
+    public static final int LEAVE_GROUP_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +75,7 @@ public class OneGroupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_one_group);
 
         final Groups grp = (Groups) getIntent().getSerializableExtra("GROUP");
+        group = grp;
         final ArrayList<Discipline> listDiscipline = new ArrayList<>();
 
         ImageView accedToDiscussionOneGroup = (ImageView)findViewById(R.id.accedToDiscussionOneGroup);
@@ -179,7 +187,7 @@ public class OneGroupActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fBtn = findViewById(R.id.sendFileOneGroup);
+        final FloatingActionButton fBtn = findViewById(R.id.sendFileOneGroup);
         fBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -204,7 +212,8 @@ public class OneGroupActivity extends AppCompatActivity {
         findViewById(R.id.leaveGroupPostDetails).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),"leave group",Toast.LENGTH_LONG).show();
+                Intent i = new Intent(getApplicationContext(), LeaveGroupActivity.class);
+                startActivityForResult(i, LEAVE_GROUP_REQUEST);
             }
         });
         findViewById(R.id.inviteOneGroup).setOnClickListener(new View.OnClickListener() {
@@ -213,6 +222,26 @@ public class OneGroupActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"invite",Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == LEAVE_GROUP_REQUEST) {
+            if(resultCode == Activity.RESULT_OK){
+                boolean result=data.getBooleanExtra("result",false);
+                FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
+                String uid = null;
+                if(fUser != null && result == true) {
+                    uid = fUser.getUid();
+                    FirebaseDatabase.getInstance().getReference("users/" + uid + "/groupsId/"+group.getId()).removeValue();
+                    Toast.makeText(getApplicationContext(), "leave group", Toast.LENGTH_LONG).show();
+                    finish();
+                }
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
     }
 
     private void openDrawer(){

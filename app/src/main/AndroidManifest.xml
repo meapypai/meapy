@@ -55,7 +55,9 @@
         <activity
             android:name=".AddDisciplineActivity"
             android:theme="@style/Theme.AppCompat.DayNight.Dialog" />
-        <activity android:name=".DisciplinePostsActivity"></activity>
+        <activity android:name=".DisciplinePostsActivity" />
+        <activity android:name=".LeaveGroupActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.Dialog"></activity>
     </application>
 
 </manifest>

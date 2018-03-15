@@ -93,7 +93,13 @@ public class MyGroupsActivity extends AppCompatActivity {
                 @Override
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
                 @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {}
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+                    Integer idGrp = dataSnapshot.getValue(Integer.class);
+                    DiscussionGroup dGrp = idGroups.remove(idGrp);
+                    viewToBean.remove(dGrp);
+                    adapter.remove(dGrp);
+
+                }
                 @Override
                 public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
                 @Override
