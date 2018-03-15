@@ -90,7 +90,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/sendChatRoom"
+            android:layout_toLeftOf="@id/sendCommentPostDetails"
             android:hint="write your message here"
             android:layout_marginLeft="5dp"
             android:id="@+id/contentCommentPostDetails"/>
