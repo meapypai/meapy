@@ -88,12 +88,11 @@ public class OneGroupActivity extends AppCompatActivity {
             }
         });
         // A REVOIR ( mettre une toolbar)
-        ImageButton openDrawer = findViewById(R.id.openDrawerBtn);
+        final ImageButton openDrawer = findViewById(R.id.openDrawerBtn);
         openDrawer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DrawerLayout drawer = findViewById(R.id.drawer_one_group);
-                drawer.openDrawer(GravityCompat.START);
+                openDrawer();
             }
         });
         //FIN A REVOIR
@@ -103,9 +102,6 @@ public class OneGroupActivity extends AppCompatActivity {
         addDisc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(OneGroupActivity.this,"add groups",Toast.LENGTH_LONG).show();
-                DrawerLayout drawer = findViewById(R.id.drawer_one_group);
-                drawer.closeDrawer(GravityCompat.START);
                 Intent intent = new Intent(OneGroupActivity.this, AddDisciplineActivity.class);
                 intent.putExtra("GROUP",grp);
                 startActivity(intent);
@@ -138,6 +134,7 @@ public class OneGroupActivity extends AppCompatActivity {
                         intent.putExtra("CURRDISCIDX",listDiscipline.indexOf(disc));
                         startActivity(intent);
                         menuItem.setChecked(false);
+                        openDrawer();
                         return false;
                     }
                 });
@@ -196,5 +193,14 @@ public class OneGroupActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void openDrawer(){
+        DrawerLayout drawer = findViewById(R.id.drawer_one_group);
+        drawer.openDrawer(GravityCompat.START);
+    }
+    private void closeDrawer(){
+        DrawerLayout drawer = findViewById(R.id.drawer_one_group);
+        drawer.closeDrawer(GravityCompat.START);
     }
 }
