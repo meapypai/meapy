@@ -127,6 +127,7 @@
         android:layout_height="match_parent"
         app:menu="@menu/menu_side_one_group"
         android:layout_gravity="start"
+        android:background="@color/background"
         >
 
         <Button
