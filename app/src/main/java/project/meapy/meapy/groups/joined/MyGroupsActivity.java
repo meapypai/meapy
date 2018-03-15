@@ -157,6 +157,9 @@ public class MyGroupsActivity extends AppCompatActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        return false;
+        if(keyCode == KeyEvent.KEYCODE_BACK) {
+            finishAffinity();
+        }
+        return true;
     }
 }
