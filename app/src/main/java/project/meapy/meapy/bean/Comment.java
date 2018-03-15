@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class Comment extends DomainObject {
     private int postId;
-    private int userId;
+    private String userId;
     private Date date;
     private String content;
 
@@ -31,11 +31,11 @@ public class Comment extends DomainObject {
         this.postId = postId;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
