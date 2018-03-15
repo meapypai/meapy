@@ -205,6 +205,7 @@ public class SendFileActivity extends AppCompatActivity {
                             File f = files.get(i);
                             if(f.exists()) {
                                 final Uri uriFile = Uri.fromFile(files.get(i));
+                                post.setFilePath(uriFile.getLastPathSegment());
                                 StorageReference groupFiles = filesRef.child("data_groups/" + group.getId() + "/" + uriFile.getLastPathSegment());
                                 groupFiles.putFile(uriFile);
                             }

@@ -6,7 +6,7 @@
         android:icon="@drawable/ic_file_download_black_24dp"
         android:title="add a file"
         android:visible="true"
-        android:id="@+id/addFileId"
+        android:id="@+id/downloadFilePostDetails"
         app:showAsAction="ifRoom"></item>
 
 

@@ -1,9 +1,11 @@
 package project.meapy.meapy;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -13,28 +15,36 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Array;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import project.meapy.meapy.bean.Comment;
 import project.meapy.meapy.bean.Post;
 
 public class PostDetailsActivity extends AppCompatActivity {
-
+    private Post curPost;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_details);
         final Post post = (Post) getIntent().getSerializableExtra("POST");
+        curPost = post;
         TextView contentPostTv = findViewById(R.id.contentPostDetails);
         contentPostTv.setText(post.getTextContent());
 
@@ -92,9 +102,39 @@ public class PostDetailsActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.downloadFilePostDetails){
+            File localFile = null;
+            try {
+                String filepath = curPost.getFilePath();
+                String[] filesPathData = filepath.split(Pattern.quote("."));
+                String prefix = filesPathData[0];
+                String suffix = filesPathData[1];
+                localFile = File.createTempFile(prefix, suffix);
+                FirebaseStorage.getInstance().getReference("data_groups/"+ curPost.getGroupId()+"/"
+                        + curPost.getFilePath()).getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                        // local file created
+                        Toast.makeText(getApplicationContext(),"file downloaded",Toast.LENGTH_LONG).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // failure
+                        Toast.makeText(getApplicationContext(),"file download failure",Toast.LENGTH_LONG).show();
+                    }
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return true;
+    }
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.post_detail_menu, menu);
