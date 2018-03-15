@@ -12,6 +12,15 @@ public class Comment extends DomainObject {
     private String userId;
     private Date date;
     private String content;
+    private String authorStr;
+
+    public String getAuthorStr() {
+        return authorStr;
+    }
+
+    public void setAuthorStr(String authorStr) {
+        this.authorStr = authorStr;
+    }
 
     public String getContent() {
         return content;

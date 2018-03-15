@@ -46,6 +46,7 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
 
         Comment currentComment = list.get(position);
         TextView tvAuthor = listItem.findViewById(R.id.authorComment);
+        tvAuthor.setText(currentComment.getAuthorStr());
 
         TextView tvContent = listItem.findViewById(R.id.contentComment);
         tvContent.setText(currentComment.getContent());

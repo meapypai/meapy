@@ -1,5 +1,6 @@
 package project.meapy.meapy;
 
+import android.os.storage.StorageVolume;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -68,6 +69,7 @@ public class PostDetailsActivity extends AppCompatActivity {
                     comment.setContent(commentTxt);
                     comment.setPostId(post.getId());
                     comment.setUserId(fUser.getUid());
+                    comment.setAuthorStr(fUser.getEmail());
                     FirebaseDatabase.getInstance().getReference("groups/" + post.getGroupId()
                             +"/disciplines/"+post.getDisciplineId()+ "/posts/" + post.getId()+ "/comments/"+comment.getId()).setValue(comment);
                     commentContent.setText("");
