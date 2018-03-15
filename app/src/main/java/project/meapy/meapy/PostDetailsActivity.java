@@ -38,6 +38,7 @@ import java.util.regex.Pattern;
 
 import project.meapy.meapy.bean.Comment;
 import project.meapy.meapy.bean.Post;
+import project.meapy.meapy.comments.CommentAdapter;
 
 public class PostDetailsActivity extends AppCompatActivity {
     private Post curPost;
@@ -69,13 +70,14 @@ public class PostDetailsActivity extends AppCompatActivity {
                     comment.setUserId(fUser.getUid());
                     FirebaseDatabase.getInstance().getReference("groups/" + post.getGroupId()
                             +"/disciplines/"+post.getDisciplineId()+ "/posts/" + post.getId()+ "/comments/"+comment.getId()).setValue(comment);
+                    commentContent.setText("");
                 }
             }
         });
 
         ListView listView = findViewById(R.id.commentsPostDetails);
         List<Comment> comments = new ArrayList<>();
-        final ArrayAdapter<Comment> adapter = new ArrayAdapter<Comment>(getApplicationContext(),
+        final ArrayAdapter<Comment> adapter = new CommentAdapter(getApplicationContext(),
                 android.R.layout.simple_expandable_list_item_1,comments);
         listView.setAdapter(adapter);
         FirebaseDatabase.getInstance().getReference("groups/"+post.getGroupId()+"/disciplines/"
@@ -130,7 +132,7 @@ public class PostDetailsActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         // failure
-                        Toast.makeText(getApplicationContext(),"file download failure",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),"file download fail",Toast.LENGTH_LONG).show();
                     }
                 });
             } catch (IOException e) {
