@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="10dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/date"
+        android:textStyle="italic"
+        android:text="00:00"
+        android:layout_marginRight="10dp"
+        app:layout_constraintRight_toLeftOf="@+id/usernameMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/usernameMessage"
+        android:textStyle="bold"
+        android:text="User"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/contentMessage"
+        android:layout_width="wrap_content"
+        android:text="Hello !"
+        android:maxWidth="240dp"
+        android:padding="10dp"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/rounded_sent_message"
+        app:layout_constraintTop_toBottomOf="@+id/date"
+        app:layout_constraintLeft_toLeftOf="@+id/date"
+        android:layout_height="wrap_content" />
+
+</android.support.constraint.ConstraintLayout>

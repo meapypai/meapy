@@ -5,6 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorButton">#57b99e</color>
     <color name="colorMessage">#abd8cf</color>
+    <color name="colorSentMessage">#72D8BD</color>
     <color name="background">#D6D8D8</color>
 
     <color name="background1">#507091</color>
@@ -13,6 +14,8 @@
     <color name="input">#F5F6FA</color>
     <color name="facebook">#3B5998</color>
     <color name="gmail">#c71610</color>
+
+    <color name="colorWhite">#FFFFFF</color>
 
     <color name="error">#FA1414</color>
 </resources>

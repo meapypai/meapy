@@ -3,6 +3,8 @@ package project.meapy.meapy;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -17,15 +19,22 @@ import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import project.meapy.meapy.bean.Message;
+import project.meapy.meapy.chat.MessagesAdapter;
 import project.meapy.meapy.groups.DiscussionGroup;
 import project.meapy.meapy.groups.OneGroupActivity;
 import project.meapy.meapy.groups.discussions.DiscussionGroupsActivity;
@@ -35,7 +44,9 @@ public class ChatRoomActivity extends AppCompatActivity {
     private TextView nameGroupeChatRoom;
     private ImageButton sendChatRoom;
     private EditText messageIdChatRoom;
-    private ListView scrollMessagesChat;
+    private RecyclerView scrollMessagesChat;
+
+    private List<Message> messages = new ArrayList<>();
 
     private FirebaseListAdapter<Message> adapter;
     private FirebaseDatabase database;
@@ -46,7 +57,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat_room);
 
         nameGroupeChatRoom = (TextView)findViewById(R.id.nameGroupeChatRoom);
-        scrollMessagesChat = (ListView)findViewById(R.id.scrollMessagesChat);
+        scrollMessagesChat = (RecyclerView)findViewById(R.id.scrollMessagesChat);
         sendChatRoom       = (ImageButton)findViewById(R.id.sendChatRoom);
         messageIdChatRoom  = (EditText)findViewById(R.id.messageIdChatRoom);
 
@@ -58,28 +69,62 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         nameGroupeChatRoom.setText(nameGroup); //set the title of the group in the activity
 
+        final MessagesAdapter adapter = new MessagesAdapter(messages);
+        scrollMessagesChat.setLayoutManager(new LinearLayoutManager(this));
+
         final DatabaseReference ref = database.getReference("groups/"+idGroup+"/discussions");
 
-        adapter = new FirebaseListAdapter<Message>(this,Message.class,R.layout.message_view,ref) {
+        ref.addChildEventListener(new ChildEventListener() {
             @Override
-            protected void populateView(View v, Message model, int position) {
-                TextView user = (TextView)v.findViewById(R.id.usernameMessage);
-                TextView content = (TextView)v.findViewById(R.id.contentMessage);
-                TextView date = (TextView)v.findViewById(R.id.date);
-
-                date.setText("23h03");
-                user.setText(model.getUser());
-                content.setText(model.getContent());
-                // to scroll at the bottom (last messages)
-                scrollMessagesChat.setSelection(adapter.getCount() - 1);
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Message m = dataSnapshot.getValue(Message.class);
+                messages.add(m);
+                adapter.notifyDataSetChanged();
             }
-        };
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+//        adapter = new FirebaseListAdapter<Message>(this,Message.class,R.layout.message_receive_view,ref) {
+//            @Override
+//            protected void populateView(View v, Message model, int position) {
+//                TextView user = (TextView)v.findViewById(R.id.usernameMessage);
+//                TextView content = (TextView)v.findViewById(R.id.contentMessage);
+//                TextView date = (TextView)v.findViewById(R.id.date);
+//
+//                date.setText("23h03");
+//                user.setText(model.getUser());
+//                content.setText(model.getContent());
+//                // to scroll at the bottom (last messages)
+//                scrollMessagesChat.setSelection(adapter.getCount() - 1);
+//            }
+//        };
 
         scrollMessagesChat.setAdapter(adapter);
 
         sendChatRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Toast.makeText(ChatRoomActivity.this,String.valueOf(messages.size()),Toast.LENGTH_SHORT).show();
                 String contentMessage = messageIdChatRoom.getText().toString();
                 if(!TextUtils.isEmpty(contentMessage)) {
                     messageIdChatRoom.setText("");
