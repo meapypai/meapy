@@ -1,5 +1,6 @@
 package project.meapy.meapy;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +20,7 @@ import java.util.List;
 import project.meapy.meapy.bean.Discipline;
 import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.bean.Post;
+import project.meapy.meapy.groups.OneGroupActivity;
 import project.meapy.meapy.posts.PostAdapter;
 
 public class DisciplinePostsActivity extends AppCompatActivity {
@@ -82,6 +84,15 @@ public class DisciplinePostsActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Post post = adapter.getItem(i);
+                Intent intent = new Intent(getApplicationContext(), PostDetailsActivity.class);
+                intent.putExtra("POST",post);
+                startActivity(intent);
             }
         });
     }
