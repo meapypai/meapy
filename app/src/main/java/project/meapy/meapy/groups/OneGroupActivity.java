@@ -102,7 +102,7 @@ public class OneGroupActivity extends AppCompatActivity {
         //FIN A REVOIR
         final Menu menu = ((NavigationView)findViewById(R.id.side_menu_one_group)).getMenu();
         final SubMenu subMenuDisc = menu.addSubMenu("Discipline");
-        Button addDisc = findViewById(R.id.addDiscOneGroup);
+        ImageButton addDisc = findViewById(R.id.addDiscOneGroup);
         addDisc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

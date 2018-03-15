@@ -39,16 +39,36 @@
 
     </RelativeLayout>
 
+    <LinearLayout
+        android:layout_below="@+id/headerPostDetails"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:id="@+id/opinionHeader">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorButton"
+            android:text="+1"
+            android:layout_marginRight="5dp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorButton"
+            android:text="-1"/>
+
+    </LinearLayout>
+
     <ListView
         android:id="@+id/commentsPostDetails"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/headerPostDetails"
-        android:layout_above="@id/writeMessageChatroom">
+        android:layout_below="@id/opinionHeader"
+        android:layout_above="@id/writeCommentPostDetails">
 
     </ListView>
     <RelativeLayout
-        android:id="@+id/writeMessageChatroom"
+        android:id="@+id/writeCommentPostDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -62,10 +82,11 @@
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@id/sendChatRoom"
             android:hint="write your message here"
-            android:layout_marginLeft="5dp"/>
+            android:layout_marginLeft="5dp"
+            android:id="@+id/contentCommentPostDetails"/>
 
         <ImageButton
-            android:id="@+id/sendChatRoom"
+            android:id="@+id/sendCommentPostDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

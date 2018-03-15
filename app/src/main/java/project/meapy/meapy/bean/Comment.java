@@ -1,6 +1,7 @@
 package project.meapy.meapy.bean;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by tarek on 08/03/18.
@@ -9,7 +10,17 @@ import java.sql.Timestamp;
 public class Comment extends DomainObject {
     private int postId;
     private int userId;
-    private Timestamp date;
+    private Date date;
+    private String content;
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     public Comment(){super();}
 
     public int getPostId() {
@@ -28,11 +39,11 @@ public class Comment extends DomainObject {
         this.userId = userId;
     }
 
-    public Timestamp getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 }

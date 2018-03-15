@@ -4,9 +4,28 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.sql.Array;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import project.meapy.meapy.bean.Comment;
 import project.meapy.meapy.bean.Post;
 
 public class PostDetailsActivity extends AppCompatActivity {
@@ -15,12 +34,64 @@ public class PostDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_details);
-        Post post = (Post) getIntent().getSerializableExtra("POST");
+        final Post post = (Post) getIntent().getSerializableExtra("POST");
         TextView contentPostTv = findViewById(R.id.contentPostDetails);
         contentPostTv.setText(post.getTextContent());
 
         TextView titlePostTv = findViewById(R.id.titlePostDetails);
         titlePostTv.setText(post.getTitle());
+
+        final EditText commentContent = findViewById(R.id.contentCommentPostDetails);
+        ImageButton sendComment = findViewById(R.id.sendCommentPostDetails);
+
+        sendComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String commentTxt = commentContent.getText().toString();
+                if(commentTxt.length() > 0) {
+                    Comment comment = new Comment();
+                    comment.setDate(new Date());
+                    comment.setContent(commentTxt);
+                    comment.setPostId(post.getId());
+                    FirebaseDatabase.getInstance().getReference("groups/" + post.getGroupId()
+                            +"/disciplines/"+post.getDisciplineId()+ "/posts/" + post.getId()+ "/comments/"+comment.getId()).setValue(comment);
+                }
+            }
+        });
+
+        ListView listView = findViewById(R.id.commentsPostDetails);
+        List<Comment> comments = new ArrayList<>();
+        final ArrayAdapter<Comment> adapter = new ArrayAdapter<Comment>(getApplicationContext(),
+                android.R.layout.simple_expandable_list_item_1,comments);
+        listView.setAdapter(adapter);
+        FirebaseDatabase.getInstance().getReference("groups/"+post.getGroupId()+"/disciplines/"
+                +post.getDisciplineId()+"/posts/"+post.getId()+"/comments").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Comment comment = dataSnapshot.getValue(Comment.class);
+                adapter.add(comment);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
     }
 
