@@ -207,6 +207,12 @@ public class OneGroupActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"leave group",Toast.LENGTH_LONG).show();
             }
         });
+        findViewById(R.id.inviteOneGroup).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),"invite",Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void openDrawer(){
