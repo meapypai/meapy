@@ -135,19 +135,30 @@
         android:layout_gravity="start"
         android:background="@color/background"
         >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorButton">
-            <ImageButton
-                android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:backgroundTint="@android:color/transparent"
-                android:src="@drawable/ic_create_new_folder_white_24dp"
-                android:id="@+id/addDiscOneGroup"/>
-        </LinearLayout>
+                android:background="@color/colorButton">
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:backgroundTint="@android:color/transparent"
+                    android:src="@drawable/ic_create_new_folder_white_24dp"
+                    android:id="@+id/addDiscOneGroup"/>
+                <ImageButton
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/leaveGroupPostDetails"
+                    android:backgroundTint="@android:color/transparent"
+                    android:src="@drawable/ic_close_white_24dp"/>
+            </RelativeLayout>
+
+        </RelativeLayout>
 
 
     </android.support.design.widget.NavigationView>

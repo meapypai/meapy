@@ -200,7 +200,13 @@ public class OneGroupActivity extends AppCompatActivity {
         ImageView imageView = findViewById(R.id.imageGroupOneGroup);
         StorageReference ref = FirebaseStorage.getInstance().getReference("data_groups/" + grp.getId() +"/"+grp.getImageName());
         Glide.with(getApplicationContext()).using(new FirebaseImageLoader()).load(ref).asBitmap().into(imageView);
-        //imageView.setImageBitmap();
+
+        findViewById(R.id.leaveGroupPostDetails).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),"leave group",Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void openDrawer(){
