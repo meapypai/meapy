@@ -121,43 +121,6 @@ public class MyGroupsActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
-
-
-                /*.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Groups added = dataSnapshot.getValue(Groups.class);
-                // UPDATE UI
-                DiscussionGroup dGrp = new DiscussionGroup(R.drawable.bdd,added.getName(),added.getLimitUsers()+"", added.getId()+"/"+added.getImageName());
-                idGroups.put(added.getId(),dGrp);
-                viewToBean.put(dGrp,added);
-                adapter.add(dGrp);
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                Groups changed = dataSnapshot.getValue(Groups.class);
-                // UPDATE UI
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                Groups removed = dataSnapshot.getValue(Groups.class);
-                // UPDATE UI
-                DiscussionGroup dGrp = idGroups.get(removed.getId());
-                adapter.remove(dGrp);
-                idGroups.remove(removed.getId());
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                Groups moved = dataSnapshot.getValue(Groups.class);
-                // UPDATE UI
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        });*/
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();

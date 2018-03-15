@@ -65,13 +65,13 @@
             <ImageView
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:id="@+id/imageGroumOneGroup"
+                android:id="@+id/imageGroupOneGroup"
                 android:src="@drawable/logo_app1"/>
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/imageGroumOneGroup">
+                android:layout_toRightOf="@id/imageGroupOneGroup">
                 <TextView
                     android:layout_marginLeft="10dp"
                     android:layout_width="wrap_content"
