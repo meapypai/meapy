@@ -58,7 +58,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         nameGroupeChatRoom.setText(nameGroup); //set the title of the group in the activity
 
-        final DatabaseReference ref = database.getReferenceFromUrl("https://meapy-4700d.firebaseio.com/groups/"+idGroup+"/discussions");
+        final DatabaseReference ref = database.getReference("groups/"+idGroup+"/discussions");
 
         adapter = new FirebaseListAdapter<Message>(this,Message.class,R.layout.message_view,ref) {
             @Override
@@ -70,6 +70,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 date.setText("23h03");
                 user.setText(model.getUser());
                 content.setText(model.getContent());
+                scrollMessagesChat.setSelection(adapter.getCount() - 1);
             }
         };
 
