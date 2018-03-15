@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:textColor="@color/white"
+                android:textColor="@android:color/white"
                 android:text="+"/>
 
 
@@ -140,5 +140,5 @@
         android:layout_marginBottom="19dp"
         android:background="@drawable/rounded_button"
         android:text="Send"
-        android:textColor="@color/white" />
+        android:textColor="@android:color/white" />
 </RelativeLayout>

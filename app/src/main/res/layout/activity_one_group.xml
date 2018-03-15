@@ -10,9 +10,10 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
-        <LinearLayout
+        <RelativeLayout
             android:background="@color/colorButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -25,7 +26,15 @@
                android:layout_height="wrap_content"
                android:src="@drawable/ic_dehaze_white_24dp"
                />
-        </LinearLayout>
+            <ImageButton
+                android:id="@+id/accedToDiscussionOneGroup"
+                android:layout_width="wrap_content"
+                android:backgroundTint="@android:color/transparent"
+                android:src="@drawable/ic_chat_white_24dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                />
+        </RelativeLayout>
         <!--<android.support.v7.widget.Toolbar
             android:id="@+id/toolbar_oneGroup"
             android:layout_width="match_parent"
@@ -84,22 +93,13 @@
 
             </RelativeLayout>
 
-            <ImageView
-                android:id="@+id/accedToDiscussionOneGroup"
-                android:layout_width="wrap_content"
-                android:src="@drawable/ic_chat_black_24dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentTop="true" />
-
-
         </RelativeLayout>
 
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/sendFileOneGroup"
-            android:src="@drawable/ic_add_black_24dp"
+            android:src="@drawable/ic_add_white_24dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:backgroundTint="@color/colorButton"
