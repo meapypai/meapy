@@ -131,7 +131,6 @@ public class OneGroupActivity extends AppCompatActivity {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         menuItem.setChecked(true);
-                        Toast.makeText(getApplicationContext(),"click on "+menuItem,Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(getApplicationContext(),DisciplinePostsActivity.class);
                         intent.putExtra("GROUP",grp);
                         intent.putExtra("DISCS",(Serializable)listDiscipline);
