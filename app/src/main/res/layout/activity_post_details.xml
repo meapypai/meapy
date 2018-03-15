@@ -39,25 +39,35 @@
 
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_below="@+id/headerPostDetails"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
+        android:background="@color/colorButton"
         android:id="@+id/opinionHeader">
-        <Button
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/colorButton"
-            android:text="+1"
-            android:layout_marginRight="5dp"/>
-        <Button
+            android:layout_centerHorizontal="true">
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/colorButton"
+            android:backgroundTint="@android:color/transparent"
+            android:src="@drawable/ic_thumb_down_white_24dp"
+            android:id="@+id/upPostDetails"
+            android:layout_marginRight="25dp"/>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/downPostDetails"
+            android:backgroundTint="@android:color/transparent"
+            android:src="@drawable/ic_thumb_up_white_24dp"
             android:text="-1"/>
+        </LinearLayout>
 
-    </LinearLayout>
+
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/commentsPostDetails"
