@@ -70,6 +70,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 date.setText("23h03");
                 user.setText(model.getUser());
                 content.setText(model.getContent());
+                // to scroll at the bottom (last messages)
                 scrollMessagesChat.setSelection(adapter.getCount() - 1);
             }
         };
