@@ -26,11 +26,13 @@ public class AddDisciplineActivity extends AppCompatActivity {
             public void onClick(View view) {
                 EditText edit = findViewById(R.id.disciplineNameAddDisc);
                 String discName = edit.getText().toString();
-                Discipline disc = new Discipline();
-                disc.setName(discName);
-                FirebaseDatabase.getInstance().getReference("groups/"+grp.getId()+"/disciplines/"+disc.getId()).setValue(disc);
-                Toast.makeText(AddDisciplineActivity.this,"discipline added "+discName,Toast.LENGTH_LONG).show();
-                finish();
+                if(discName.length() > 0) {
+                    Discipline disc = new Discipline();
+                    disc.setName(discName);
+                    FirebaseDatabase.getInstance().getReference("groups/" + grp.getId() + "/disciplines/" + disc.getId()).setValue(disc);
+                    Toast.makeText(AddDisciplineActivity.this, "discipline added " + discName, Toast.LENGTH_LONG).show();
+                    finish();
+                }
             }
         });
     }
