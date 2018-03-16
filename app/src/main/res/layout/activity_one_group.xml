@@ -122,7 +122,7 @@
             android:layout_below="@id/headerOneGroup"
             android:id="@+id/postsOneGroup">
 
-            <!-- mettre les differentes matieres ici -->
+            <!-- mettre les differents posts ici -->
 
         </ListView>
 
@@ -157,6 +157,21 @@
                     android:id="@+id/leaveGroupPostDetails"
                     android:backgroundTint="@android:color/transparent"
                     android:src="@drawable/ic_close_white_24dp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@color/colorButton">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_build_white_24dp"
+                    android:backgroundTint="@android:color/transparent"
+                    android:layout_alignParentRight="true"/>
+
             </RelativeLayout>
 
         </RelativeLayout>
