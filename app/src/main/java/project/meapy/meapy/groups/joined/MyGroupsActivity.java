@@ -13,16 +13,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import project.meapy.meapy.CreateGroupActivity;
@@ -33,7 +27,8 @@ import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.groups.DiscussionGroup;
 import project.meapy.meapy.groups.DiscussionGroupAdapter;
 import project.meapy.meapy.groups.OneGroupActivity;
-import project.meapy.meapy.groups.discussions.DiscussionGroupsActivity;
+import project.meapy.meapy.utils.RunnableWithParam;
+import project.meapy.meapy.utils.firebase.GroupLink;
 
 /**
  * Created by yassi on 23/02/2018.
@@ -44,12 +39,19 @@ public class MyGroupsActivity extends AppCompatActivity {
     private FloatingActionButton createGroupId;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
+    final Map<Integer,DiscussionGroup> idGroups = new HashMap<Integer, DiscussionGroup>();
+    final Map<DiscussionGroup, Groups> viewToBean = new HashMap<>();
+    ListView listView;
+    DiscussionGroupAdapter adapter;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_groups);
-
+        listView = findViewById(R.id.listMyGroups);
+        adapter = new DiscussionGroupAdapter(getApplicationContext(),android.R.layout.simple_expandable_list_item_2,new ArrayList<DiscussionGroup>());
         // listeners
         createGroupId = (FloatingActionButton)findViewById(R.id.createGroupId);
         createGroupId.setOnClickListener(new View.OnClickListener() {
@@ -64,12 +66,7 @@ public class MyGroupsActivity extends AppCompatActivity {
     }
 
     private void provideGroups(){
-        List<DiscussionGroup> groups = new ArrayList<>();
-        final ListView listView = findViewById(R.id.listMyGroups);
-        final DiscussionGroupAdapter adapter = new DiscussionGroupAdapter(MyGroupsActivity.this,android.R.layout.simple_expandable_list_item_2,groups);
         listView.setAdapter(adapter);
-        final Map<Integer,DiscussionGroup> idGroups = new HashMap<Integer, DiscussionGroup>();
-        final Map<DiscussionGroup, Groups> viewToBean = new HashMap<>();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -80,54 +77,34 @@ public class MyGroupsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = null;
-        if(fUser != null){
-            uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            FirebaseDatabase.getInstance().getReference("users/"+uid+"/groupsId/").addChildEventListener(new ChildEventListener() {
-                @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    Integer idGrp = dataSnapshot.getValue(Integer.class);
-                    provideGroupById(adapter,idGroups,viewToBean,idGrp);
-                }
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
-                    Integer idGrp = dataSnapshot.getValue(Integer.class);
-                    DiscussionGroup dGrp = idGroups.remove(idGrp);
-                    viewToBean.remove(dGrp);
-                    adapter.remove(dGrp);
-
-                }
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
-                @Override
-                public void onCancelled(DatabaseError databaseError) {}
-            });
-        }
-    }
-
-    private void provideGroupById(final DiscussionGroupAdapter adapter,
-                                  final Map<Integer,DiscussionGroup> idGroups,
-                                  final Map<DiscussionGroup, Groups> viewToBean, int idGroup){
-        database.getReference("groups/"+idGroup).addValueEventListener(new ValueEventListener() {
+        GroupLink.provideGroupsByCurrentuser(new RunnableWithParam() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Groups added = dataSnapshot.getValue(Groups.class);
-                if(!idGroups.containsKey(added.getId())) {
-                    // UPDATE UI
-                    DiscussionGroup dGrp = new DiscussionGroup(R.drawable.bdd, added.getName(), added.getLimitUsers() + "", added.getId() + "/" + added.getImageName());
-                    idGroups.put(added.getId(), dGrp);
-                    viewToBean.put(dGrp, added);
-                    adapter.add(dGrp);
-                }
+            public void run() {
+                onGroupAdded((Groups) getParam());
             }
-
+        }, new RunnableWithParam() {
             @Override
-            public void onCancelled(DatabaseError databaseError) {}
+            public void run() {
+                onGroupRemoved((int)getParam());
+            }
         });
     }
+
+    public void onGroupAdded(Groups added){
+        if(!idGroups.containsKey(added.getId())) {
+            // UPDATE UI
+            DiscussionGroup dGrp = new DiscussionGroup(R.drawable.bdd, added.getName(), added.getLimitUsers() + "", added.getId() + "/" + added.getImageName());
+            idGroups.put(added.getId(), dGrp);
+            viewToBean.put(dGrp, added);
+            adapter.add(dGrp);
+        }
+    }
+    public void onGroupRemoved(int idGrp){
+        DiscussionGroup dGrp = idGroups.remove(idGrp);
+        viewToBean.remove(dGrp);
+        adapter.remove(dGrp);
+    }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_my_groups, menu);
@@ -142,10 +119,6 @@ public class MyGroupsActivity extends AppCompatActivity {
             case R.id.addFileId:
                 intent = new Intent(this, SendFileActivity.class);
                 break;
-
-//            case R.id.discussionsId:
-//                intent = new Intent(this, DiscussionGroupsActivity.class);
-//                break;
             case R.id.disconnect:
                 intent = new Intent(this, LoginActivity.class);
                 FirebaseAuth.getInstance().signOut();

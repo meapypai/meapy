@@ -6,38 +6,25 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import project.meapy.meapy.bean.Message;
 import project.meapy.meapy.chat.MessagesAdapter;
-import project.meapy.meapy.groups.DiscussionGroup;
 import project.meapy.meapy.groups.OneGroupActivity;
-import project.meapy.meapy.groups.discussions.DiscussionGroupsActivity;
+import project.meapy.meapy.utils.RunnableWithParam;
+import project.meapy.meapy.utils.firebase.MessageLink;
 
 public class ChatRoomActivity extends AppCompatActivity {
 
@@ -64,44 +51,24 @@ public class ChatRoomActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
 
         Intent i = getIntent();
-        String idGroup = i.getStringExtra(OneGroupActivity.EXTRA_GROUP_ID);
+        final String idGroup = i.getStringExtra(OneGroupActivity.EXTRA_GROUP_ID);
         String nameGroup = i.getStringExtra(OneGroupActivity.EXTRA_GROUP_NAME);
 
         nameGroupeChatRoom.setText(nameGroup); //set the title of the group in the activity
 
         final MessagesAdapter adapter = new MessagesAdapter(messages);
         scrollMessagesChat.setLayoutManager(new LinearLayoutManager(this));
-
-        final DatabaseReference ref = database.getReference("groups/"+idGroup+"/discussions");
-
-        ref.addChildEventListener(new ChildEventListener() {
+        MessageLink.getMessageByIdGroup(idGroup, new RunnableWithParam() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Message m = dataSnapshot.getValue(Message.class);
-                messages.add(m);
+            public void run() {
+                messages.add((Message) getParam());
                 adapter.notifyDataSetChanged();
             }
-
+        }, new RunnableWithParam() {
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void run() {}
         });
+
 
         scrollMessagesChat.setAdapter(adapter);
 
@@ -119,7 +86,8 @@ public class ChatRoomActivity extends AppCompatActivity {
                     m.setUser(FirebaseAuth.getInstance().getCurrentUser().getEmail());
                     m.setDate(new Date());
 
-                    ref.push().setValue(m);
+                    MessageLink.sendMessageToGroup(idGroup,m);
+
                 }
             }
         });

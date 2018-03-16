@@ -42,6 +42,8 @@ import project.meapy.meapy.database.GroupsMapper;
 import project.meapy.meapy.groups.joined.MyGroupsActivity;
 import project.meapy.meapy.utils.GroupsUserAdder;
 import project.meapy.meapy.utils.ProviderFilePath;
+import project.meapy.meapy.utils.RunnableWithParam;
+import project.meapy.meapy.utils.firebase.FileLink;
 
 public class CreateGroupActivity extends AppCompatActivity {
 
@@ -122,42 +124,12 @@ public class CreateGroupActivity extends AppCompatActivity {
                             // END TEST
                             final File file = new File(pathFile);
                             if(file.exists()) {
-
-                                FirebaseStorage storage = FirebaseStorage.getInstance();
-                                final Uri uriFile = Uri.fromFile(file);
-                                StorageReference filesRef = storage.getReference();
-
-                                StorageReference groupFiles = filesRef.child("data_groups/" + newGroup.getId() + "/" + uriFile.getLastPathSegment());
-                                groupFiles.putFile(uriFile).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                FileLink.insertFile(new RunnableWithParam() {
                                     @Override
-                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                        Toast.makeText(CreateGroupActivity.this, "inserting group", Toast.LENGTH_LONG).show();
-                                        newGroup.setImageName(uriFile.getLastPathSegment());
-                                        Toast.makeText(CreateGroupActivity.this,"group created",Toast.LENGTH_LONG).show();
-                                        newGroup.setImageName(file.getName());
-                                        //insertion of group
-                                        GroupsMapper mapper = new GroupsMapper();
-                                        mapper.insert(newGroup);
-
-                                        //link groups with creator's user
-                                        GroupsUserAdder.getInstance().addUserTo(newGroup);
-
-                                        //link other users
-                                        for(User u : usersList) {
-                                            GroupsUserAdder.getInstance().addUserTo(u,newGroup);
-                                        }
-
-                                        //insertion of node discussion
-                                        Discussion discussion = new Discussion();
-                                        Message m = new Message();
-                                        m.setUser("Admin");
-                                        m.setContent("Welcolme to the group discussion");
-                                        m.setDate(new Date());
-                                        FirebaseDatabase.getInstance().getReference("groups/"+newGroup.getId()+"/discussions/" + discussion.getId()).setValue(m);
-                                        finish();
+                                    public void run() {
+                                        onSucessInsertFile(file,newGroup);
                                     }
-                                });
-
+                                },file,newGroup);
                             }
                             else {
                                 errorMessage = "File doesn't exist";
@@ -196,6 +168,34 @@ public class CreateGroupActivity extends AppCompatActivity {
 
     }
 
+    private void onSucessInsertFile(File file, Groups newGroup){
+        final Uri uriFile = Uri.fromFile(file);
+        Toast.makeText(CreateGroupActivity.this, "inserting group", Toast.LENGTH_LONG).show();
+        newGroup.setImageName(uriFile.getLastPathSegment());
+        Toast.makeText(CreateGroupActivity.this,"group created",Toast.LENGTH_LONG).show();
+        newGroup.setImageName(file.getName());
+        //insertion of group
+        GroupsMapper mapper = new GroupsMapper();
+        mapper.insert(newGroup);
+
+        //link groups with creator's user
+        GroupsUserAdder.getInstance().addUserTo(newGroup);
+
+        //link other users
+        for(User u : usersList) {
+            GroupsUserAdder.getInstance().addUserTo(u,newGroup);
+        }
+
+        //insertion of node discussion
+        Discussion discussion = new Discussion();
+        Message m = new Message();
+        m.setUser("Admin");
+        m.setContent("Welcolme to the group discussion");
+        m.setDate(new Date());
+        FirebaseDatabase.getInstance().getReference("groups/"+newGroup.getId()+"/discussions/" + discussion.getId()).setValue(m);
+        finish();
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -232,26 +232,14 @@ public class CreateGroupActivity extends AppCompatActivity {
                             }
                         }
                     }
-
                     @Override
-                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                    }
-
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
                     @Override
-                    public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                    }
-
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {}
                     @Override
-                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                    }
-
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
+                    public void onCancelled(DatabaseError databaseError) {}
                 });
             }
         }

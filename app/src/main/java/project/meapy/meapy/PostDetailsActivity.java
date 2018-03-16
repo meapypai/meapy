@@ -40,6 +40,8 @@ import java.util.regex.Pattern;
 import project.meapy.meapy.bean.Comment;
 import project.meapy.meapy.bean.Post;
 import project.meapy.meapy.comments.CommentAdapter;
+import project.meapy.meapy.utils.RunnableWithParam;
+import project.meapy.meapy.utils.firebase.CommentLink;
 
 public class PostDetailsActivity extends AppCompatActivity {
     private Post curPost;
@@ -70,8 +72,9 @@ public class PostDetailsActivity extends AppCompatActivity {
                     comment.setPostId(post.getId());
                     comment.setUserId(fUser.getUid());
                     comment.setAuthorStr(fUser.getEmail());
-                    FirebaseDatabase.getInstance().getReference("groups/" + post.getGroupId()
-                            +"/disciplines/"+post.getDisciplineId()+ "/posts/" + post.getId()+ "/comments/"+comment.getId()).setValue(comment);
+
+                    CommentLink.insertCommentToPost(comment,post);
+
                     commentContent.setText("");
                 }
             }
@@ -82,34 +85,13 @@ public class PostDetailsActivity extends AppCompatActivity {
         final ArrayAdapter<Comment> adapter = new CommentAdapter(getApplicationContext(),
                 android.R.layout.simple_expandable_list_item_1,comments);
         listView.setAdapter(adapter);
-        FirebaseDatabase.getInstance().getReference("groups/"+post.getGroupId()+"/disciplines/"
-                +post.getDisciplineId()+"/posts/"+post.getId()+"/comments").addChildEventListener(new ChildEventListener() {
+        CommentLink.getCommentByPost(post,new RunnableWithParam(){
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Comment comment = dataSnapshot.getValue(Comment.class);
-                adapter.add(comment);
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
+            public void run() {
+                adapter.add((Comment)getParam());
             }
         });
+
     }
 
 

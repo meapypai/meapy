@@ -22,6 +22,8 @@ import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.bean.Post;
 import project.meapy.meapy.groups.OneGroupActivity;
 import project.meapy.meapy.posts.PostAdapter;
+import project.meapy.meapy.utils.RunnableWithParam;
+import project.meapy.meapy.utils.firebase.PostLink;
 
 public class DisciplinePostsActivity extends AppCompatActivity {
     private Groups grp;
@@ -59,33 +61,13 @@ public class DisciplinePostsActivity extends AppCompatActivity {
         List<Post> listPost  = new ArrayList<>();
         final ArrayAdapter<Post> adapter = new PostAdapter(getApplicationContext(),android.R.layout.simple_expandable_list_item_1,listPost);
         listView.setAdapter(adapter);
-        FirebaseDatabase.getInstance().getReference("groups/"+grp.getId()+"/disciplines/"+disc.getId()+"/posts").addChildEventListener(new ChildEventListener() {
+
+        PostLink.getPostsByDiscId(disc.getId(), new RunnableWithParam() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Post post = dataSnapshot.getValue(Post.class);
-                adapter.add(post);
+            public void run() {
+                adapter.add((Post)getParam());
             }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        },grp.getId());
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
