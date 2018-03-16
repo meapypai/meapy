@@ -5,8 +5,10 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,7 +26,9 @@ import com.google.firebase.storage.UploadTask;
 import org.w3c.dom.Text;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import project.meapy.meapy.bean.Discussion;
@@ -54,6 +58,10 @@ public class CreateGroupActivity extends AppCompatActivity {
 
     private Button createNewGroupId;
 
+    private GridView membersGridCreateGroup;
+    private List<String> dataGridView = new ArrayList<>();
+    private ArrayAdapter<String> adapterGridView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +75,10 @@ public class CreateGroupActivity extends AppCompatActivity {
         createNewGroupId = (Button)findViewById(R.id.createNewGroupId);
         addUserCreateGroup = (ImageView)findViewById(R.id.addUserCreateGroup);
 
+        membersGridCreateGroup = (GridView)findViewById(R.id.membersGridCreateGroup);
+
+        adapterGridView = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,dataGridView);
+        membersGridCreateGroup.setAdapter(adapterGridView);
 
         //listeners
 
@@ -174,9 +186,9 @@ public class CreateGroupActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //request concernant l'import d'une image
         if(requestCode == REQUEST_LOAD_IMAGE) {
             if(resultCode == RESULT_OK) {
                 Uri uri =  data.getData();
@@ -184,6 +196,18 @@ public class CreateGroupActivity extends AppCompatActivity {
                 String path = pfp.getPathFromUri(uri);
                 File file = new File(path);
                 imageCreateGroup.setText(file.getName());
+            }
+        }
+        //request concernant les ajouts d'users
+        else if(requestCode == REQUEST_ADD_USERS) {
+            if(resultCode == RESULT_OK) {
+                ArrayList<String> tab = data.getStringArrayListExtra(SearchUserActivity.EXTRA_ARRAY_USERS);
+                for(int i = 0; i < tab.size(); i++) {
+                    if(!dataGridView.contains(tab.get(i))) { //eviter les doublons d 'ajout
+                        dataGridView.add(tab.get(i));
+                    }
+                }
+                adapterGridView.notifyDataSetChanged();
             }
         }
     }
