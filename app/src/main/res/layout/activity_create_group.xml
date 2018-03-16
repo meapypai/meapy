@@ -49,12 +49,30 @@
         android:layout_below="@id/imageCreateGroup"
         android:layout_margin="@dimen/activity_horizontal_margin"/>
 
+    <TextView
+        android:id="@+id/addUserTextcreateGroup"
+        android:layout_below="@+id/limitCreateGroup"
+        android:layout_centerHorizontal="true"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:hint="Add user"/>
+
+    <ImageButton
+        android:id="@+id/addUserCreateGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/addUserTextcreateGroup"
+        android:layout_toEndOf="@+id/addUserTextcreateGroup"
+        android:background="@drawable/ic_add_white_24dp" />
+
+
    <GridView
        android:id="@+id/members"
        android:layout_width="wrap_content"
        android:layout_height="200dp"
        android:layout_centerHorizontal="true"
-       android:layout_below="@+id/limitCreateGroup">
+       android:layout_below="@+id/addUserCreateGroup">
     </GridView>
 
    <Button

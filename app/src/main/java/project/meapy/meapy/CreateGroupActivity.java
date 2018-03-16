@@ -38,6 +38,7 @@ import project.meapy.meapy.utils.ProviderFilePath;
 public class CreateGroupActivity extends AppCompatActivity {
 
     private static final int REQUEST_LOAD_IMAGE = 2;
+    private static final int REQUEST_ADD_USERS = 3;
 
     private static final int MIN_LIMIT_GROUP = 20;
     private static final int MIN_LENGTH_NAME_GROUP = 3;
@@ -49,6 +50,7 @@ public class CreateGroupActivity extends AppCompatActivity {
     private EditText limitCreateGroup;
 
     private ImageView insertCreateGroup;
+    private ImageView addUserCreateGroup;
 
     private Button createNewGroupId;
 
@@ -63,6 +65,10 @@ public class CreateGroupActivity extends AppCompatActivity {
         insertCreateGroup = (ImageView)findViewById(R.id.insertCreateGroup);
 
         createNewGroupId = (Button)findViewById(R.id.createNewGroupId);
+        addUserCreateGroup = (ImageView)findViewById(R.id.addUserCreateGroup);
+
+
+        //listeners
 
         insertCreateGroup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +79,6 @@ public class CreateGroupActivity extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(intent,"Load an image"), REQUEST_LOAD_IMAGE);
             }
         });
-
 
         createNewGroupId.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,7 +163,17 @@ public class CreateGroupActivity extends AppCompatActivity {
             }
         });
 
+        addUserCreateGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CreateGroupActivity.this,SearchUserActivity.class);
+                startActivityForResult(intent,REQUEST_ADD_USERS);
+            }
+        });
+
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
