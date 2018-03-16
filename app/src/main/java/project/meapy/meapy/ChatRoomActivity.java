@@ -103,21 +103,6 @@ public class ChatRoomActivity extends AppCompatActivity {
             }
         });
 
-//        adapter = new FirebaseListAdapter<Message>(this,Message.class,R.layout.message_receive_view,ref) {
-//            @Override
-//            protected void populateView(View v, Message model, int position) {
-//                TextView user = (TextView)v.findViewById(R.id.usernameMessage);
-//                TextView content = (TextView)v.findViewById(R.id.contentMessage);
-//                TextView date = (TextView)v.findViewById(R.id.date);
-//
-//                date.setText("23h03");
-//                user.setText(model.getUser());
-//                content.setText(model.getContent());
-//                // to scroll at the bottom (last messages)
-//                scrollMessagesChat.setSelection(adapter.getCount() - 1);
-//            }
-//        };
-
         scrollMessagesChat.setAdapter(adapter);
 
         sendChatRoom.setOnClickListener(new View.OnClickListener() {
