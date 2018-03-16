@@ -17,6 +17,9 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -34,6 +37,7 @@ import java.util.Random;
 import project.meapy.meapy.bean.Discussion;
 import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.bean.Message;
+import project.meapy.meapy.bean.User;
 import project.meapy.meapy.database.GroupsMapper;
 import project.meapy.meapy.groups.joined.MyGroupsActivity;
 import project.meapy.meapy.utils.GroupsUserAdder;
@@ -61,6 +65,9 @@ public class CreateGroupActivity extends AppCompatActivity {
     private GridView membersGridCreateGroup;
     private List<String> dataGridView = new ArrayList<>();
     private ArrayAdapter<String> adapterGridView;
+
+    private String pathFile = "";
+    private List<User> usersList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +105,6 @@ public class CreateGroupActivity extends AppCompatActivity {
                 Button btn = (Button)view;
                 btn.setEnabled(false); //désactive le bouton pour éviter la création d'un 2eme groupe
 
-                String path      = imageCreateGroup.getText().toString();
                 String limit     = limitCreateGroup.getText().toString();
                 String nameGroup = nameCreateGroup.getText().toString();
 
@@ -114,7 +120,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                             newGroup.setName(nameGroup);
 
                             // END TEST
-                            final File file = new File(path);
+                            final File file = new File(pathFile);
                             if(file.exists()) {
 
                                 FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -135,6 +141,11 @@ public class CreateGroupActivity extends AppCompatActivity {
 
                                         //link groups with creator's user
                                         GroupsUserAdder.getInstance().addUserTo(newGroup);
+
+                                        //link other users
+                                        for(User u : usersList) {
+                                            GroupsUserAdder.getInstance().addUserTo(u,newGroup);
+                                        }
 
                                         //insertion of node discussion
                                         Discussion discussion = new Discussion();
@@ -193,8 +204,8 @@ public class CreateGroupActivity extends AppCompatActivity {
             if(resultCode == RESULT_OK) {
                 Uri uri =  data.getData();
                 ProviderFilePath pfp = new ProviderFilePath(this);
-                String path = pfp.getPathFromUri(uri);
-                File file = new File(path);
+                pathFile = pfp.getPathFromUri(uri);
+                File file = new File(pathFile);
                 imageCreateGroup.setText(file.getName());
             }
         }
@@ -208,6 +219,40 @@ public class CreateGroupActivity extends AppCompatActivity {
                     }
                 }
                 adapterGridView.notifyDataSetChanged();
+
+                //ajout des users ajouté dans le groupe
+                final DatabaseReference users = FirebaseDatabase.getInstance().getReference("users");
+                users.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        User u = (User)dataSnapshot.getValue(User.class);
+                        for(String mail: dataGridView) {
+                            if(mail.equals(u.getEmail())) {
+                                usersList.add(u);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
         }
     }
