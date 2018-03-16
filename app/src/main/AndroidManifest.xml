@@ -73,6 +73,10 @@
 
         <activity android:name=".LeaveGroupActivity"
             android:theme="@style/Theme.AppCompat.DayNight.Dialog"></activity>
+
+        <activity android:name=".SearchUserActivity">
+        </activity>
+
     </application>
 
 </manifest>

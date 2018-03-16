@@ -18,6 +18,7 @@ public class SearchUserActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        return super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu_search_user, menu);
+        return true;
     }
 }
