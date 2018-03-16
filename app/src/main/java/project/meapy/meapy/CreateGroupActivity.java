@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -18,6 +20,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.util.Date;
@@ -41,8 +45,10 @@ public class CreateGroupActivity extends AppCompatActivity {
     private ErrorView errorView;
 
     private EditText nameCreateGroup;
-    private EditText imageCreateGroup;
+    private TextView imageCreateGroup;
     private EditText limitCreateGroup;
+
+    private ImageView insertCreateGroup;
 
     private Button createNewGroupId;
 
@@ -52,12 +58,13 @@ public class CreateGroupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_group);
 
         nameCreateGroup = (EditText)findViewById(R.id.nameCreateGroup);
-        imageCreateGroup = (EditText)findViewById(R.id.imageCreateGroup);
+        imageCreateGroup = (TextView)findViewById(R.id.imageCreateGroup);
         limitCreateGroup = (EditText)findViewById(R.id.limitCreateGroup);
+        insertCreateGroup = (ImageView)findViewById(R.id.insertCreateGroup);
 
         createNewGroupId = (Button)findViewById(R.id.createNewGroupId);
 
-        imageCreateGroup.setOnClickListener(new View.OnClickListener() {
+        insertCreateGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -160,7 +167,8 @@ public class CreateGroupActivity extends AppCompatActivity {
                 Uri uri =  data.getData();
                 ProviderFilePath pfp = new ProviderFilePath(this);
                 String path = pfp.getPathFromUri(uri);
-                imageCreateGroup.setText(path);
+                File file = new File(path);
+                imageCreateGroup.setText(file.getName());
             }
         }
     }

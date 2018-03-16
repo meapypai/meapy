@@ -6,50 +6,66 @@
     android:layout_height="match_parent"
     tools:context="project.meapy.meapy.CreateGroupActivity"
     android:background="@color/background">
-    <TextView
-        android:id="@+id/headTextSend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Create a group"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:textSize="30dp"/>
-   <RelativeLayout
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_centerInParent="true">
-    <EditText
+    <!--<TextView-->
+        <!--android:id="@+id/headTextSend"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Create a group"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:textSize="30dp"/>-->
+       <EditText
         android:id="@+id/nameCreateGroup"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
+       android:layout_centerHorizontal="true"
         android:hint="Name"
-        android:layout_margin="@dimen/activity_horizontal_margin"
-        />
+        android:layout_margin="@dimen/activity_horizontal_margin"/>
 
-    <EditText
+    <TextView
         android:id="@+id/imageCreateGroup"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:hint="Image"
         android:layout_below="@id/nameCreateGroup"
         android:layout_margin="@dimen/activity_horizontal_margin"/>
 
-    <EditText
+   <ImageButton
+       android:id="@+id/insertCreateGroup"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignTop="@+id/imageCreateGroup"
+       android:layout_toEndOf="@+id/imageCreateGroup"
+       android:background="@drawable/ic_add_white_24dp" />
+
+   <EditText
         android:id="@+id/limitCreateGroup"
         android:layout_width="150dp"
+       android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
         android:hint="Limit"
         android:inputType="number"
         android:layout_below="@id/imageCreateGroup"
         android:layout_margin="@dimen/activity_horizontal_margin"/>
-    <Button
+
+   <GridView
+       android:id="@+id/members"
+       android:layout_width="wrap_content"
+       android:layout_height="200dp"
+       android:layout_centerHorizontal="true"
+       android:layout_below="@+id/limitCreateGroup">
+    </GridView>
+
+   <Button
         android:id="@+id/createNewGroupId"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/limitCreateGroup"
+        android:layout_below="@+id/members"
+       android:layout_centerHorizontal="true"
         android:layout_margin="@dimen/activity_horizontal_margin"
         android:text="CREATE"
         android:textColor="@android:color/white"
-        android:background="@drawable/rounded_button"/>
-   </RelativeLayout>
+        android:background="@color/colorButton"/>
+
 </RelativeLayout>

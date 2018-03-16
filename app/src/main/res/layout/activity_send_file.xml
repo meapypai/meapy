@@ -10,14 +10,15 @@
 
 
     <EditText
-        android:layout_width="match_parent"
+        android:layout_marginTop="50dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:id="@+id/titleTextSend"
         android:hint="Title" />
     <RelativeLayout
         android:layout_margin="20dp"
-        android:layout_width="match_parent"
+        android:layout_width="250dp"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:layout_below="@id/titleTextSend"
@@ -125,10 +126,11 @@
             android:layout_centerHorizontal="true"
             android:id="@+id/descTextSend"
             android:layout_width="250dp"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:hint="Description"
             android:layout_below="@id/discSendFile"
             />
+
     </RelativeLayout>
 
     <Button
@@ -138,7 +140,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="19dp"
-        android:background="@drawable/rounded_button"
+        android:background="@color/colorButton"
         android:text="Send"
         android:textColor="@android:color/white" />
 </RelativeLayout>

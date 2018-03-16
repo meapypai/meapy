@@ -26,36 +26,51 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".groups.discussions.DiscussionGroupsActivity"
             android:label="@string/groups_label_name"
-            android:screenOrientation="portrait" />
-        <activity android:name=".SendFileActivity" />
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name=".SendFileActivity"
+            android:label="Add a file">
+        </activity>
+
         <activity
             android:name=".ChatRoomActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
+
         <activity
             android:name=".CreateGroupActivity"
+            android:label="Create group"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".RegisterActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".PostDetailsActivity"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".groups.joined.MyGroupsActivity"
+            android:label="My groups"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".groups.OneGroupActivity"
+            android:label="Posts"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
         <activity
             android:name=".AddDisciplineActivity"
             android:theme="@style/Theme.AppCompat.DayNight.Dialog" />
         <activity android:name=".DisciplinePostsActivity" />
+
         <activity android:name=".LeaveGroupActivity"
             android:theme="@style/Theme.AppCompat.DayNight.Dialog"></activity>
     </application>
