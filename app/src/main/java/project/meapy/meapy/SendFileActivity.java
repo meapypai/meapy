@@ -38,8 +38,10 @@ import java.io.File;
 import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import project.meapy.meapy.bean.Discipline;
 import project.meapy.meapy.bean.Groups;
@@ -49,6 +51,8 @@ import project.meapy.meapy.groups.DiscussionGroup;
 import project.meapy.meapy.groups.DiscussionGroupAdapter;
 import project.meapy.meapy.groups.joined.MyGroupsActivity;
 import project.meapy.meapy.utils.ProviderFilePath;
+import project.meapy.meapy.utils.RunnableWithParam;
+import project.meapy.meapy.utils.firebase.DisciplineLink;
 
 public class SendFileActivity extends AppCompatActivity {
 
@@ -73,6 +77,8 @@ public class SendFileActivity extends AppCompatActivity {
     private List<String> nameFiles;
     private List<File> files = new ArrayList<>();
     private ArrayAdapter<String> adapterSpinnerFiles;
+
+    final List<Groups> listGroups = new ArrayList<Groups>();
 
     private Groups groupsProvided;
 
@@ -136,35 +142,20 @@ public class SendFileActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 dataDiscsAdapter.clear();
                 Groups grp = (Groups) groupNameSend.getSelectedItem();
-                FirebaseDatabase.getInstance().getReference("groups/"+grp.getId()+"/disciplines").addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        Discipline disc = dataSnapshot.getValue(Discipline.class);
-                        idToDisc.put(disc.getId(),disc);
-                        dataDiscsAdapter.add(disc);
-                    }
-
-                    @Override
-                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                    }
-
-                    @Override
-                    public void onChildRemoved(DataSnapshot dataSnapshot) {
-                        Discipline disc = dataSnapshot.getValue(Discipline.class);
-                        dataDiscsAdapter.remove(idToDisc.remove(disc.getId()));
-                    }
-
-                    @Override
-                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+                    DisciplineLink.getDisciplineByGroupId(grp.getId(), new RunnableWithParam() {
+                        @Override
+                        public void run() {
+                            Discipline disc = (Discipline) getParam();
+                            idToDisc.put(disc.getId(), disc);
+                            dataDiscsAdapter.add(disc);
+                        }
+                    }, new RunnableWithParam() {
+                        @Override
+                        public void run() {
+                            Discipline disc = (Discipline) getParam();
+                            dataDiscsAdapter.remove(idToDisc.remove(disc.getId()));
+                        }
+                    });
             }
 
             @Override
@@ -204,19 +195,22 @@ public class SendFileActivity extends AppCompatActivity {
                         post.setTitle(title);
                         post.setGroupId(group.getId());
                         post.setDisciplineId(disc.getId());
+                        post.setDisciplineName(disc.getName());
                         // inserer le(s) fichier(s)
                         FirebaseStorage storage = FirebaseStorage.getInstance();
                         StorageReference filesRef = storage.getReference();
-
+                        List<String> filesPaths = new ArrayList<>();
                         for(int i = 0; i < files.size(); i++) {
                             File f = files.get(i);
                             if(f.exists()) {
                                 final Uri uriFile = Uri.fromFile(files.get(i));
-                                post.setFilePath(uriFile.getLastPathSegment());
+                                filesPaths.add(uriFile.getLastPathSegment());
+                                //post.setFilePath(uriFile.getLastPathSegment());
                                 StorageReference groupFiles = filesRef.child("data_groups/" + group.getId() + "/" + uriFile.getLastPathSegment());
                                 groupFiles.putFile(uriFile);
                             }
                         }
+                        post.setFilesPaths(filesPaths);
 //                        post.setFilePath(uriFile.getLastPathSegment());
                         // inserer le lien group post dans database
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -250,18 +244,22 @@ public class SendFileActivity extends AppCompatActivity {
             }
         });
 
-        // loading groups
-        loadingGroups();
-
+        if(groupsProvided == null) {
+            loadingGroups();
+        }else{
+            final ArrayAdapter<Groups> dataGroupsAdapter = new ArrayAdapter<Groups>(this,
+                    android.R.layout.simple_spinner_item, new ArrayList<Groups>());
+            groupNameSend.setAdapter(dataGroupsAdapter);
+            loadingGroup(dataGroupsAdapter,groupsProvided.getId());
+            findViewById(R.id.groupNameSend).setEnabled(false);
+        }
     }
 
     private void loadingGroups(){
-        final List<Groups> listGroups = new ArrayList<Groups>();
         final ArrayAdapter<Groups> dataGroupsAdapter = new ArrayAdapter<Groups>(this,
                 android.R.layout.simple_spinner_item, listGroups);
         dataGroupsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         groupNameSend.setAdapter(dataGroupsAdapter);
-
         FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
         if(fUser != null){
             String uid = fUser.getUid();
@@ -269,30 +267,16 @@ public class SendFileActivity extends AppCompatActivity {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     Integer idGroup = dataSnapshot.getValue(Integer.class);
-                    synchronized (listGroups) {
-                        loadingGroup(dataGroupsAdapter, idGroup);
-                    }
+                    loadingGroup(dataGroupsAdapter, idGroup);
                 }
-
                 @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                }
-
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
                 @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                }
-
+                public void onChildRemoved(DataSnapshot dataSnapshot) {}
                 @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                }
-
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
                 @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
+                public void onCancelled(DatabaseError databaseError) {}
             });
         }
 
@@ -300,11 +284,14 @@ public class SendFileActivity extends AppCompatActivity {
 
     private void loadingGroup(final ArrayAdapter adapter, int idGrp){
         FirebaseDatabase.getInstance().getReference("groups/"+idGrp).addValueEventListener(new ValueEventListener() {
+            boolean res = false;
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Groups added = dataSnapshot.getValue(Groups.class);
                 // UPDATE UI
-                adapter.add(added);
+                if(!res)
+                    adapter.add(added);
+                res = true;
             }
 
             @Override

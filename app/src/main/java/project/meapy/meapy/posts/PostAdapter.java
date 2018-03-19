@@ -41,7 +41,7 @@ public class PostAdapter extends ArrayAdapter<Post> {
         title.setText(currentPost.getTitle());
 
         TextView disc = (TextView) listItem.findViewById(R.id.discPostViewOneGroup);
-        //disc.setText(disc.getDisc());
+        disc.setText(currentPost.getDisciplineName());
 
         TextView descr = (TextView)listItem.findViewById(R.id.descrPostViewOneGroup);
         String descrReducted = currentPost.getTextContent();

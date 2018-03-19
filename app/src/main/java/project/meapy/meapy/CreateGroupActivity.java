@@ -1,7 +1,11 @@
 package project.meapy.meapy;
 
+import android.*;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -47,6 +51,7 @@ import project.meapy.meapy.utils.firebase.FileLink;
 
 public class CreateGroupActivity extends AppCompatActivity {
 
+    private static  final int REQUEST_PERMISSION_READ_EXTERNAL_STORAGE = 7;
     private static final int REQUEST_LOAD_IMAGE = 2;
     private static final int REQUEST_ADD_USERS = 3;
 
@@ -88,6 +93,11 @@ public class CreateGroupActivity extends AppCompatActivity {
 
         adapterGridView = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,dataGridView);
         membersGridCreateGroup.setAdapter(adapterGridView);
+
+        //permission
+        if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMISSION_READ_EXTERNAL_STORAGE);
+        }
 
         //listeners
 
@@ -155,6 +165,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                     CreateGroupActivity.this.addContentView(errorView, params);
                 }
                 errorView.setText(errorMessage);
+                btn.setEnabled(true);
             }
         });
 
