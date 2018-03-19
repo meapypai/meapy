@@ -58,6 +58,7 @@ import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.bean.Post;
 import project.meapy.meapy.groups.discussions.DiscussionGroupsActivity;
 import project.meapy.meapy.posts.PostAdapter;
+import project.meapy.meapy.utils.CodeGroupsGenerator;
 import project.meapy.meapy.utils.RunnableWithParam;
 import project.meapy.meapy.utils.firebase.DisciplineLink;
 import project.meapy.meapy.utils.firebase.PostLink;
@@ -189,7 +190,7 @@ public class OneGroupActivity extends AppCompatActivity {
         findViewById(R.id.inviteOneGroup).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),"invite",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), CodeGroupsGenerator.generate(),Toast.LENGTH_LONG).show();
             }
         });
     }

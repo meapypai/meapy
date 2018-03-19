@@ -9,6 +9,15 @@ public class Groups extends DomainObject{
     private int idUserAdmin;
     private int limitUsers;
     private String imageName;
+    private String codeToJoin;
+
+    public String getCodeToJoin() {
+        return codeToJoin;
+    }
+
+    public void setCodeToJoin(String codeToJoin) {
+        this.codeToJoin = codeToJoin;
+    }
 
     public Groups(){super();}
 

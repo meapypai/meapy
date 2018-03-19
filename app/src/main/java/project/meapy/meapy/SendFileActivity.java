@@ -54,6 +54,7 @@ public class SendFileActivity extends AppCompatActivity {
 
     private static  final int REQUEST_PERMISSION_READ_EXTERNAL_STORAGE = 7;
     private static final int REQUEST_LOAD_FILE = 5;
+    private static final int LIMIT_DESCRIPTION_LENGTH = 20;
 
     private Button importFileBtnSend;
     private Button fileBtnSend;
@@ -194,7 +195,7 @@ public class SendFileActivity extends AppCompatActivity {
                 //TODO : verifier que le groupe existe//
                 // on force maintenant l'utilisateur a prendre des groupes existants//
 
-                if(description.length() >= 50) {
+                if(description.length() >= LIMIT_DESCRIPTION_LENGTH) {
 
                     if(disc != null && group != null && title!=null) {
                         //TODO : ajout du fichier
