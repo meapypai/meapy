@@ -156,7 +156,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/leaveGroupPostDetails"
                     android:backgroundTint="@android:color/transparent"
-                    android:src="@drawable/ic_close_white_24dp"/>
+                    android:src="@drawable/ic_exit_to_app_white_24dp"/>
             </RelativeLayout>
 
             <RelativeLayout

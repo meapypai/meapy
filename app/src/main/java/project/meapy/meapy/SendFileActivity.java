@@ -73,11 +73,13 @@ public class SendFileActivity extends AppCompatActivity {
     private List<File> files = new ArrayList<>();
     private ArrayAdapter<String> adapterSpinnerFiles;
 
+    private Groups groupsProvided;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_file);
-
+        groupsProvided = (Groups)getIntent().getSerializableExtra("GROUP");
         //buttons
         importFileBtnSend = (Button)findViewById(R.id.importFileBtnSend);
         fileBtnSend       = (Button)findViewById(R.id.fileBtnSend);
@@ -93,7 +95,6 @@ public class SendFileActivity extends AppCompatActivity {
         groupNameSend     = (Spinner)findViewById(R.id.groupNameSend);
         discTextSend      = (Spinner)findViewById(R.id.discNameSend);
         filesSendFile     = (Spinner)findViewById(R.id.filesSendFile);
-
 
         //permission
         if(ContextCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -186,7 +187,6 @@ public class SendFileActivity extends AppCompatActivity {
                 String path = fileNameSend.getText().toString();
                 File file = new File(path);
                 String description = descTextSend.getText().toString();
-                //String groupName = groupNameSend.getText().toString();
                 final Groups group = (Groups) groupNameSend.getSelectedItem();
                 final Discipline disc = (Discipline) discTextSend.getSelectedItem();
                 String title = titleTextSend.getText().toString();
@@ -251,10 +251,11 @@ public class SendFileActivity extends AppCompatActivity {
 
         // loading groups
         loadingGroups();
+
     }
 
     private void loadingGroups(){
-        List<Groups> listGroups = new ArrayList<Groups>();
+        final List<Groups> listGroups = new ArrayList<Groups>();
         final ArrayAdapter<Groups> dataGroupsAdapter = new ArrayAdapter<Groups>(this,
                 android.R.layout.simple_spinner_item, listGroups);
         dataGroupsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -267,7 +268,9 @@ public class SendFileActivity extends AppCompatActivity {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     Integer idGroup = dataSnapshot.getValue(Integer.class);
-                    loadingGroup(dataGroupsAdapter, idGroup);
+                    synchronized (listGroups) {
+                        loadingGroup(dataGroupsAdapter, idGroup);
+                    }
                 }
 
                 @Override

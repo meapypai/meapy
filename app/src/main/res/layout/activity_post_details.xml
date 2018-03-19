@@ -10,6 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/headerPostDetails"
+        android:layout_toLeftOf="@id/opinionHeader"
         android:layout_centerHorizontal="true"
         >
             <RelativeLayout
@@ -35,36 +36,59 @@
                     android:text="description du contenu"
                     android:padding="10dp"/>
 
+                <RelativeLayout
+                    android:layout_below="@id/contentPostDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+                    <TextView
+                        android:padding="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="description fichier"/>
+
+                </RelativeLayout>
+
             </RelativeLayout>
+
+
+
+
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_below="@+id/headerPostDetails"
-        android:layout_width="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="25dp"
+        android:layout_width="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
-        android:background="@color/colorButton"
+        android:background="@android:color/transparent"
         android:id="@+id/opinionHeader">
-        <LinearLayout
+        <RelativeLayout
+            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true">
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@android:color/transparent"
-            android:src="@drawable/ic_thumb_down_white_24dp"
-            android:id="@+id/upPostDetails"
-            android:layout_marginRight="25dp"/>
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/downPostDetails"
-            android:backgroundTint="@android:color/transparent"
-            android:src="@drawable/ic_thumb_up_white_24dp"
-            android:text="-1"/>
-        </LinearLayout>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/downPostDetails"
+                android:backgroundTint="@color/colorButton"
+                android:src="@drawable/ic_thumb_up_white_24dp"
+                android:text="-1"/>
+            <ImageButton
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorButton"
+                android:layout_below="@id/downPostDetails"
+                android:src="@drawable/ic_thumb_down_white_24dp"
+                android:id="@+id/upPostDetails"
+
+                android:layout_marginRight="25dp"/>
+
+        </RelativeLayout>
 
 
     </RelativeLayout>
@@ -73,7 +97,7 @@
         android:id="@+id/commentsPostDetails"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/opinionHeader"
+        android:layout_below="@id/headerPostDetails"
         android:layout_above="@id/writeCommentPostDetails">
 
     </ListView>
