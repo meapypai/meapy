@@ -17,8 +17,6 @@ import android.widget.Toast;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
-import com.vanniktech.emoji.EmojiManager;
-import com.vanniktech.emoji.google.GoogleEmojiProvider;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -53,8 +51,6 @@ public class ChatRoomActivity extends AppCompatActivity {
         sendChatRoom       = (ImageButton)findViewById(R.id.sendChatRoom);
         messageIdChatRoom  = (EditText)findViewById(R.id.messageIdChatRoom);
         addSmileyChatRoom  = (ImageButton) findViewById(R.id.addSmileyChatRoom);
-
-        EmojiManager.install(new GoogleEmojiProvider());
 
         database = FirebaseDatabase.getInstance();
 
