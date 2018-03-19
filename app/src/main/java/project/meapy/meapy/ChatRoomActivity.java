@@ -9,12 +9,16 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.vanniktech.emoji.EmojiManager;
+import com.vanniktech.emoji.google.GoogleEmojiProvider;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,6 +36,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     private ImageButton sendChatRoom;
     private EditText messageIdChatRoom;
     private RecyclerView scrollMessagesChat;
+    private ImageButton addSmileyChatRoom;
 
     private List<Message> messages = new ArrayList<>();
 
@@ -47,6 +52,9 @@ public class ChatRoomActivity extends AppCompatActivity {
         scrollMessagesChat = (RecyclerView)findViewById(R.id.scrollMessagesChat);
         sendChatRoom       = (ImageButton)findViewById(R.id.sendChatRoom);
         messageIdChatRoom  = (EditText)findViewById(R.id.messageIdChatRoom);
+        addSmileyChatRoom  = (ImageButton) findViewById(R.id.addSmileyChatRoom);
+
+        EmojiManager.install(new GoogleEmojiProvider());
 
         database = FirebaseDatabase.getInstance();
 
@@ -89,6 +97,14 @@ public class ChatRoomActivity extends AppCompatActivity {
                     MessageLink.sendMessageToGroup(idGroup,m);
 
                 }
+            }
+        });
+
+        addSmileyChatRoom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LinearLayout layout = (LinearLayout)findViewById(R.id.allSmileyChatRoom);
+                layout.setVisibility(View.VISIBLE);
             }
         });
     }
