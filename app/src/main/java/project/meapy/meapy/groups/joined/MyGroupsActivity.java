@@ -1,6 +1,7 @@
 package project.meapy.meapy.groups.joined;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import project.meapy.meapy.CreateGroupActivity;
+import project.meapy.meapy.JoinGroupActivity;
 import project.meapy.meapy.LoginActivity;
 import project.meapy.meapy.R;
 import project.meapy.meapy.SendFileActivity;
@@ -59,6 +61,13 @@ public class MyGroupsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MyGroupsActivity.this, CreateGroupActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        findViewById(R.id.joinGroupId).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), JoinGroupActivity.class));
             }
         });
         // providing datas
@@ -121,6 +130,7 @@ public class MyGroupsActivity extends AppCompatActivity {
                 break;
             case R.id.disconnect:
                 intent = new Intent(this, LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 FirebaseAuth.getInstance().signOut();
                 break;
         }

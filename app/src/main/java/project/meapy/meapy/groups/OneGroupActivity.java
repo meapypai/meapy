@@ -56,11 +56,13 @@ import project.meapy.meapy.SendFileActivity;
 import project.meapy.meapy.bean.Discipline;
 import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.bean.Post;
+import project.meapy.meapy.database.GroupsMapper;
 import project.meapy.meapy.groups.discussions.DiscussionGroupsActivity;
 import project.meapy.meapy.posts.PostAdapter;
 import project.meapy.meapy.utils.CodeGroupsGenerator;
 import project.meapy.meapy.utils.RunnableWithParam;
 import project.meapy.meapy.utils.firebase.DisciplineLink;
+import project.meapy.meapy.utils.firebase.GroupLink;
 import project.meapy.meapy.utils.firebase.PostLink;
 
 public class OneGroupActivity extends AppCompatActivity {
@@ -143,7 +145,7 @@ public class OneGroupActivity extends AppCompatActivity {
             public void run() {
                 onDisciplineAdded((Discipline)getParam());
             }
-        });
+        },null);
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -190,7 +192,14 @@ public class OneGroupActivity extends AppCompatActivity {
         findViewById(R.id.inviteOneGroup).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), CodeGroupsGenerator.generate(),Toast.LENGTH_LONG).show();
+                String generatedCode = grp.getCodeToJoin();
+                if((grp.getCodeToJoin() == null) || (grp.getCodeToJoin().length()==0)){
+                    generatedCode = CodeGroupsGenerator.generate();
+                    grp.setCodeToJoin(generatedCode);
+                    FirebaseDatabase.getInstance().getReference("groups/"+grp.getId()+"/codeToJoin/").setValue(generatedCode);
+                    FirebaseDatabase.getInstance().getReference("codeToGroups/"+generatedCode+"/").setValue(grp.getId());
+                }
+                Toast.makeText(getApplicationContext(),generatedCode ,Toast.LENGTH_LONG).show();
             }
         });
     }

@@ -49,6 +49,8 @@ import project.meapy.meapy.groups.DiscussionGroup;
 import project.meapy.meapy.groups.DiscussionGroupAdapter;
 import project.meapy.meapy.groups.joined.MyGroupsActivity;
 import project.meapy.meapy.utils.ProviderFilePath;
+import project.meapy.meapy.utils.RunnableWithParam;
+import project.meapy.meapy.utils.firebase.DisciplineLink;
 
 public class SendFileActivity extends AppCompatActivity {
 
@@ -136,35 +138,20 @@ public class SendFileActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 dataDiscsAdapter.clear();
                 Groups grp = (Groups) groupNameSend.getSelectedItem();
-                FirebaseDatabase.getInstance().getReference("groups/"+grp.getId()+"/disciplines").addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        Discipline disc = dataSnapshot.getValue(Discipline.class);
-                        idToDisc.put(disc.getId(),disc);
-                        dataDiscsAdapter.add(disc);
-                    }
-
-                    @Override
-                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                    }
-
-                    @Override
-                    public void onChildRemoved(DataSnapshot dataSnapshot) {
-                        Discipline disc = dataSnapshot.getValue(Discipline.class);
-                        dataDiscsAdapter.remove(idToDisc.remove(disc.getId()));
-                    }
-
-                    @Override
-                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+                    DisciplineLink.getDisciplineByGroupId(grp.getId(), new RunnableWithParam() {
+                        @Override
+                        public void run() {
+                            Discipline disc = (Discipline) getParam();
+                            idToDisc.put(disc.getId(), disc);
+                            dataDiscsAdapter.add(disc);
+                        }
+                    }, new RunnableWithParam() {
+                        @Override
+                        public void run() {
+                            Discipline disc = (Discipline) getParam();
+                            dataDiscsAdapter.remove(idToDisc.remove(disc.getId()));
+                        }
+                    });
             }
 
             @Override
@@ -250,9 +237,14 @@ public class SendFileActivity extends AppCompatActivity {
             }
         });
 
-        // loading groups
-        loadingGroups();
-
+        if(groupsProvided == null) {
+            loadingGroups();
+        }else{
+            final ArrayAdapter<Groups> dataGroupsAdapter = new ArrayAdapter<Groups>(this,
+                    android.R.layout.simple_spinner_item, new ArrayList<Groups>());
+            groupNameSend.setAdapter(dataGroupsAdapter);
+            loadingGroup(dataGroupsAdapter,groupsProvided.getId());
+        }
     }
 
     private void loadingGroups(){
