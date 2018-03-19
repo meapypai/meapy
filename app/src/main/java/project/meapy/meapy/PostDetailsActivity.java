@@ -57,6 +57,16 @@ public class PostDetailsActivity extends AppCompatActivity {
         TextView titlePostTv = findViewById(R.id.titlePostDetails);
         titlePostTv.setText(post.getTitle());
 
+        TextView descFiles = findViewById(R.id.descFilesPostDetails);
+        List<String> filesPaths = post.getFilesPaths();
+        String txt = filesPaths.get(0);
+        int size = filesPaths.size();
+        if(size >1){
+            txt += " , and "+(size -1) +" others";
+        }
+        descFiles.setText(txt);
+
+
         final EditText commentContent = findViewById(R.id.contentCommentPostDetails);
         ImageButton sendComment = findViewById(R.id.sendCommentPostDetails);
 
@@ -100,28 +110,28 @@ public class PostDetailsActivity extends AppCompatActivity {
         if(item.getItemId() == R.id.downloadFilePostDetails){
             File localFile = null;
             try {
-                String filepath = curPost.getFilePath();
-                String[] filesPathData = filepath.split(Pattern.quote("."));
-                String prefix = filesPathData[0];
-                String suffix = filesPathData[1];
-                localFile = File.createTempFile(prefix, suffix);
-                FirebaseStorage.getInstance().getReference("data_groups/"+ curPost.getGroupId()+"/"
-                        + curPost.getFilePath()).getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                        // local file created
-                        Toast.makeText(getApplicationContext(),"file downloaded",Toast.LENGTH_LONG).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // failure
-                        Toast.makeText(getApplicationContext(),"file download fail",Toast.LENGTH_LONG).show();
-                    }
-                });
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+                List<String> filesPaths = curPost.getFilesPaths();
+                OnSuccessFailureFileDownload sucessFailureListener = new OnSuccessFailureFileDownload();
+                int i = 0;
+                for (String filepath : filesPaths) {
+                    //String filepath = curPost.getFilePath();
+                    String[] filesPathData = filepath.split(Pattern.quote("."));
+                    String prefix = filesPathData[0];
+                    String suffix = filesPathData[1];
+                    localFile = File.createTempFile(prefix, suffix);
+                    FirebaseStorage.getInstance().getReference("data_groups/" + curPost.getGroupId() + "/"
+                            + filepath).getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(getApplicationContext(), "file  download success", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                            .addOnFailureListener(sucessFailureListener);
+                }
+                } catch(IOException e){
+                    e.printStackTrace();
+                }
+
         }
         return true;
     }
@@ -129,5 +139,23 @@ public class PostDetailsActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.post_detail_menu, menu);
         return true;
+    }
+
+    class OnSuccessFailureFileDownload implements OnSuccessListener,OnFailureListener{
+        int i = 0;
+        List<File> files = new ArrayList<>();
+        @Override
+        public synchronized void onSuccess(Object o) {
+            // local file created
+            FileDownloadTask fDtask = (FileDownloadTask) o;
+            Toast.makeText(getApplicationContext(), o+"", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "file "+(++i)+" download success", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public synchronized void onFailure(@NonNull Exception e) {
+            // failure
+            Toast.makeText(getApplicationContext(), "file "+(++i)+" download fail", Toast.LENGTH_SHORT).show();
+        }
     }
 }

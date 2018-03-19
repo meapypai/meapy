@@ -1,5 +1,7 @@
 package project.meapy.meapy.bean;
 
+import java.util.List;
+
 /**
  * Created by tarek on 08/03/18.
  */
@@ -7,11 +9,20 @@ package project.meapy.meapy.bean;
 public class Post extends DomainObject{
     private int user_id;
     private String textContent;
-    private String filePath;
+    //private String filePath;
+    private List<String> filesPaths;
     private int groupId;
     private String title;
     private String disciplineName;
     private int disciplineId;
+
+    public List<String> getFilesPaths() {
+        return filesPaths;
+    }
+
+    public void setFilesPaths(List<String> filesPaths) {
+        this.filesPaths = filesPaths;
+    }
 
     public String getDisciplineName() {
         return disciplineName;
@@ -48,7 +59,6 @@ public class Post extends DomainObject{
         return "Post{" +
                 "user_id=" + user_id +
                 ", textContent='" + textContent + '\'' +
-                ", filePath='" + filePath + '\'' +
                 ", groupId=" + groupId +
                 '}';
     }
@@ -71,13 +81,5 @@ public class Post extends DomainObject{
 
     public void setTextContent(String textContent) {
         this.textContent = textContent;
-    }
-
-    public String getFilePath() {
-        return filePath;
-    }
-
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
     }
 }

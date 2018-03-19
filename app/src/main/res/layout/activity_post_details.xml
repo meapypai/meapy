@@ -7,7 +7,7 @@
     tools:context="project.meapy.meapy.PostDetailsActivity"
     android:background="@color/background">
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/headerPostDetails"
         android:layout_toLeftOf="@id/opinionHeader"
@@ -15,7 +15,7 @@
         >
             <RelativeLayout
                 android:id="@+id/areaPostDetails"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
 
@@ -37,14 +37,18 @@
                     android:padding="10dp"/>
 
                 <RelativeLayout
+                    android:background="@color/colorButton"
                     android:layout_below="@id/contentPostDetails"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     >
                     <TextView
-                        android:padding="10dp"
+                        android:layout_centerHorizontal="true"
+                        android:padding="1dp"
+                        android:textSize="9dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/descFilesPostDetails"
                         android:text="description fichier"/>
 
                 </RelativeLayout>
