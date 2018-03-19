@@ -1,6 +1,9 @@
 package project.meapy.meapy.groups;
 
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -199,7 +202,10 @@ public class OneGroupActivity extends AppCompatActivity {
                     FirebaseDatabase.getInstance().getReference("groups/"+grp.getId()+"/codeToJoin/").setValue(generatedCode);
                     FirebaseDatabase.getInstance().getReference("codeToGroups/"+generatedCode+"/").setValue(grp.getId());
                 }
-                Toast.makeText(getApplicationContext(),generatedCode ,Toast.LENGTH_LONG).show();
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("simple text", generatedCode);
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(getApplicationContext(),"code saved in the clipboard ("+generatedCode+")" ,Toast.LENGTH_LONG).show();
             }
         });
     }

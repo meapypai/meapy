@@ -191,6 +191,7 @@ public class SendFileActivity extends AppCompatActivity {
                         post.setTitle(title);
                         post.setGroupId(group.getId());
                         post.setDisciplineId(disc.getId());
+                        post.setDisciplineName(disc.getName());
                         // inserer le(s) fichier(s)
                         FirebaseStorage storage = FirebaseStorage.getInstance();
                         StorageReference filesRef = storage.getReference();
