@@ -198,7 +198,7 @@ public class CreateGroupActivity extends AppCompatActivity {
         //link other users
         for(User u : usersList) {
             Notifier notif = new Notifier();
-            notif.setContent("You've been added on a group");
+            notif.setContent("You've been added on group " + newGroup.getName());
             notif.setTitle("New group for you !");
 
             FirebaseDatabase.getInstance().getReference("users/"+u.getUid()+"/notifications/"+notif.getId()).setValue(notif);

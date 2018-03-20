@@ -43,7 +43,6 @@ public class NotificationThread extends Thread {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Notifier notif = (Notifier) dataSnapshot.getValue(Notifier.class);
-
                 //creation de la notification
                 NotificationManager manager = (NotificationManager)context.getSystemService(NOTIFICATION_SERVICE);
                 Intent intent = new Intent(context, MyGroupsActivity.class);
