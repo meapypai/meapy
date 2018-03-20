@@ -42,7 +42,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/fileNameSend" />
+                android:layout_toRightOf="@id/fileNameSend"
+                android:layout_toLeftOf="@+id/importFileBtnSend" />
 
             <Button
                 android:id="@+id/importFileBtnSend"
@@ -77,6 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/txtGrp"
+                android:layout_toLeftOf="@id/addGroupSendFile"
                 android:layout_centerVertical="true"
 
                 ></Spinner>
@@ -110,6 +112,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/discNameSend"
                 android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/addDiscSendFile"
                 android:layout_toRightOf="@id/txtDisc"
 
                 ></Spinner>
