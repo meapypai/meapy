@@ -24,7 +24,7 @@ import project.meapy.meapy.bean.User;
  * Created by yassi on 20/03/2018.
  */
 
-public class SearchUserAdapter extends ArrayAdapter<User> implements Filterable, View.OnClickListener{
+public class SearchUserAdapter extends ArrayAdapter<User> implements Filterable{
 
     private Context context;
     private TextFilter filter;
@@ -69,10 +69,10 @@ public class SearchUserAdapter extends ArrayAdapter<User> implements Filterable,
         return  filter;
     }
 
-    @Override
-    public void onClick(View v) {
-        Toast.makeText(context,"eeee",Toast.LENGTH_LONG).show();
-    }
+//    @Override
+//    public void onClick(View v) {
+//        Toast.makeText(context,"eeee",Toast.LENGTH_LONG).show();
+//    }
 
     private class TextFilter extends Filter {
 
