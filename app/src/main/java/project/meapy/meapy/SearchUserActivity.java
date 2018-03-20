@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -27,6 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import project.meapy.meapy.bean.User;
+import project.meapy.meapy.search.SearchUserAdapter;
+import project.meapy.meapy.search.SearchUserHolder;
 
 /**
  * Created by yassi on 16/03/2018.
@@ -37,12 +40,12 @@ public class SearchUserActivity extends AppCompatActivity {
     public static final String EXTRA_ARRAY_USERS = "array_users";
 
     private ListView listSearchUser;
-    private List<String> data = new ArrayList<>();
-    private ArrayAdapter<String> adapter;
+    private List<User> data = new ArrayList<>();
+    private SearchUserAdapter adapter;
 
     private FloatingActionButton validUsersToAddSearchActivity;
 
-    private ArrayList<String> usersSelectedArray = new ArrayList<String>();
+    private ArrayList<User> usersSelectedArray = new ArrayList<User>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,7 +56,7 @@ public class SearchUserActivity extends AppCompatActivity {
         listSearchUser = (ListView)findViewById(R.id.listSearchUser);
         validUsersToAddSearchActivity = (FloatingActionButton)findViewById(R.id.validUsersToAddSearchActivity);
 
-        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_multiple_choice,data);
+        adapter = new SearchUserAdapter(this,R.layout.one_user_search_view,data);
         listSearchUser.setAdapter(adapter);
 
         DatabaseReference users = FirebaseDatabase.getInstance().getReference("users");
@@ -63,7 +66,8 @@ public class SearchUserActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 User user = (User)dataSnapshot.getValue(User.class);
-                data.add(user.getEmail());
+                if(user.getEmail() != FirebaseAuth.getInstance().getCurrentUser().getEmail()) //pour ne pas s'ajouter dans son propre groupe :-)
+                    data.add(user);
                 adapter.notifyDataSetChanged();
             }
 
@@ -91,13 +95,18 @@ public class SearchUserActivity extends AppCompatActivity {
         listSearchUser.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String val = (String) parent.getItemAtPosition(position);
-                if(usersSelectedArray.contains(val)) { //on supprime si déjà sélectionnée
-                    usersSelectedArray.remove(val);
-                }
-                else {
-                    usersSelectedArray.add(val);
-                }
+                Toast.makeText(SearchUserActivity.this,"okl",Toast.LENGTH_LONG).show();
+//                CheckBox checkBox = (CheckBox) view.findViewById(R.id.checkedUser);
+//                Toast.makeText(SearchUserActivity.this,checkBox.isChecked()+"",Toast.LENGTH_SHORT).show();
+//                checkBox.setChecked(true);
+//
+//                User u = (User) parent.getItemAtPosition(position);
+//                if(usersSelectedArray.contains(u)) { //on supprime si déjà sélectionnée
+//                    usersSelectedArray.remove(u);
+//                }
+//                else {
+//                    usersSelectedArray.add(u);
+//                }
             }
         });
 
@@ -106,7 +115,7 @@ public class SearchUserActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //retour à l'activité de création de groupe avec les données créées
                 Intent intent = new Intent();
-                intent.putStringArrayListExtra(EXTRA_ARRAY_USERS,usersSelectedArray);
+                intent.putParcelableArrayListExtra(EXTRA_ARRAY_USERS,usersSelectedArray);
                 setResult(RESULT_OK,intent);
                 finish();
             }
@@ -123,12 +132,12 @@ public class SearchUserActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                adapter.getFilter().filter(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
                 return false;
             }
         });

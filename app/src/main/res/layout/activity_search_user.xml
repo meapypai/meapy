@@ -7,7 +7,6 @@
     <ListView
         android:id="@+id/listSearchUser"
         android:layout_width="wrap_content"
-        android:choiceMode="multipleChoice"
         android:layout_height="wrap_content">
     </ListView>
 
