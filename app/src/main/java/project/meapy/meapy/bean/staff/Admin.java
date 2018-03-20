@@ -8,7 +8,7 @@ import project.meapy.meapy.bean.User;
 
 public abstract class Admin extends User {
 
-    public Admin(String firstName, String lastName, String password, String email) {
-        super(firstName, lastName, password, email);
+    public Admin(String firstName, String lastName, String email) {
+        super(firstName, lastName, email);
     }
 }

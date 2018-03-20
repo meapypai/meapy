@@ -6,7 +6,7 @@ package project.meapy.meapy.bean.staff;
 
 public class Moderator extends Admin {
 
-    public Moderator(String firstName, String lastName, String password, String email) {
-        super(firstName, lastName, password, email);
+    public Moderator(String firstName, String lastName, String email) {
+        super(firstName, lastName, email);
     }
 }

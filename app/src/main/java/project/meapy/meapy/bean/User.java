@@ -1,16 +1,51 @@
 package project.meapy.meapy.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by yassi on 11/03/2018.
  */
 
-public class User {
+public class User implements Parcelable {
 
     protected String firstName;
     protected String lastName;
-    protected String password; //will be crypt
     protected String email;
     protected String uid;
+
+    protected User(Parcel in) {
+        firstName = in.readString();
+        lastName = in.readString();
+        email = in.readString();
+        uid = in.readString();
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(firstName);
+        dest.writeString(lastName);
+        dest.writeString(email);
+        dest.writeString(uid);
+    }
+
 
     public String getUid() {
         return uid;
@@ -24,11 +59,10 @@ public class User {
         super();
     }
 
-    public User(String firstName, String lastName, String password, String email) {
+    public User(String firstName, String lastName, String email) {
         super();
         this.firstName = firstName;
         this.lastName  = lastName;
-        this.password  = password;
         this.email     = email;
     }
 
@@ -48,14 +82,6 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -63,4 +89,5 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
 }
