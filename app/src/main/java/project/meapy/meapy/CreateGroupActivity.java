@@ -1,6 +1,7 @@
 package project.meapy.meapy;
 
 import android.*;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -41,6 +42,7 @@ import java.util.Random;
 import project.meapy.meapy.bean.Discussion;
 import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.bean.Message;
+import project.meapy.meapy.bean.Notifier;
 import project.meapy.meapy.bean.User;
 import project.meapy.meapy.database.GroupsMapper;
 import project.meapy.meapy.groups.joined.MyGroupsActivity;
@@ -195,6 +197,11 @@ public class CreateGroupActivity extends AppCompatActivity {
 
         //link other users
         for(User u : usersList) {
+            Notifier notif = new Notifier();
+            notif.setContent("You've been added on a group");
+            notif.setTitle("New group for you !");
+
+            FirebaseDatabase.getInstance().getReference("users/"+u.getUid()+"/notifications/"+notif.getId()).setValue(notif);
             GroupsUserAdder.getInstance().addUserTo(u,newGroup);
         }
 

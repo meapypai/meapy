@@ -66,7 +66,7 @@ public class SearchUserActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 User user = (User)dataSnapshot.getValue(User.class);
-                if(!user.getEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) //pour ne pas s'ajouter dans son propre groupe :-)
+//                if(!user.getEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) //pour ne pas s'ajouter dans son propre groupe :-)
                     data.add(user);
                 adapter.notifyDataSetChanged();
             }

@@ -1,5 +1,7 @@
 package project.meapy.meapy.groups.joined;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -12,8 +14,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
@@ -23,6 +27,7 @@ import java.util.Map;
 import project.meapy.meapy.CreateGroupActivity;
 import project.meapy.meapy.JoinGroupActivity;
 import project.meapy.meapy.LoginActivity;
+import project.meapy.meapy.NotificationThread;
 import project.meapy.meapy.R;
 import project.meapy.meapy.SendFileActivity;
 import project.meapy.meapy.bean.Groups;
@@ -144,5 +149,37 @@ public class MyGroupsActivity extends AppCompatActivity {
             finishAffinity();
         }
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Intent i = getIntent();
+        int idNotification = i.getIntExtra(NotificationThread.ID_NOTIFICATION,0);
+
+        //suppression de la notification
+        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(idNotification);
+
+        //supression de la notification de l'user dans la db
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/"+FirebaseAuth.getInstance().getCurrentUser().getUid()+"/notifications/"+idNotification);
+        ref.removeValue();
+    }
+//
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        if(requestCode == NotificationThread.REQUEST_NOTIFICATION) {
+//            if(resultCode == RESULT_OK) {
+//                Toast.makeText(this,"okkkkk",Toast.LENGTH_LONG).show();
+//            }
+//        }
+//    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //to notify user if he's added to a group
+        NotificationThread t = new NotificationThread(this);
+        t.start();
     }
 }
