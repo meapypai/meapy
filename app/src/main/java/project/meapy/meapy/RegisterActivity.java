@@ -49,6 +49,8 @@ public class RegisterActivity extends AppCompatActivity {
         signUpBtnIdRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                signUpBtnIdRegister.setEnabled(false);
+
                 String firstName = firstNameIdRegister.getText().toString();
                 String lastName  = lastNameIdRegister.getText().toString();
                 String email     = emailIdRegister.getText().toString();
