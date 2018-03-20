@@ -27,6 +27,7 @@ import java.util.Map;
 import project.meapy.meapy.CreateGroupActivity;
 import project.meapy.meapy.JoinGroupActivity;
 import project.meapy.meapy.LoginActivity;
+import project.meapy.meapy.MyApplication;
 import project.meapy.meapy.NotificationThread;
 import project.meapy.meapy.R;
 import project.meapy.meapy.SendFileActivity;
@@ -178,8 +179,9 @@ public class MyGroupsActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        MyApplication.launch();
         //to notify user if he's added to a group
-        NotificationThread t = new NotificationThread(this);
-        t.start();
+        //NotificationThread t = new NotificationThread(this);
+        //t.start();
     }
 }
