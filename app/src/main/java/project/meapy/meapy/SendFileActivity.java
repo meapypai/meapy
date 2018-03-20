@@ -4,10 +4,15 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.DataSetObserver;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -35,8 +40,11 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
+import java.io.IOException;
 import java.security.acl.Group;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -54,16 +62,21 @@ import project.meapy.meapy.utils.ProviderFilePath;
 import project.meapy.meapy.utils.RunnableWithParam;
 import project.meapy.meapy.utils.firebase.DisciplineLink;
 
+import static android.os.Environment.getExternalStorageDirectory;
+
 public class SendFileActivity extends AppCompatActivity {
 
     private static  final int REQUEST_PERMISSION_READ_EXTERNAL_STORAGE = 7;
     private static final int REQUEST_LOAD_FILE = 5;
     private static final int LIMIT_DESCRIPTION_LENGTH = 20;
 
+
+
     private Button importFileBtnSend;
     private Button fileBtnSend;
     private Button addDiscBtn;
     private Button addGrpBtn;
+    private FloatingActionButton addPhoto;
 
     private TextView fileNameSend;
 
@@ -92,6 +105,7 @@ public class SendFileActivity extends AppCompatActivity {
         fileBtnSend       = (Button)findViewById(R.id.fileBtnSend);
         addDiscBtn        = (Button)findViewById(R.id.addDiscSendFile);
         addGrpBtn         = (Button) findViewById(R.id.addGroupSendFile);
+        addPhoto          = (FloatingActionButton) findViewById(R.id.takePhotoSendFile);
 
         //edittext
         fileNameSend      = (TextView)findViewById(R.id.fileNameSend);
@@ -122,6 +136,13 @@ public class SendFileActivity extends AppCompatActivity {
                 intent.setType("*/*"); //on se limite aux images pour le moment
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
                 startActivityForResult(Intent.createChooser(intent,"Load a file"), REQUEST_LOAD_FILE);
+            }
+        });
+
+        addPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),"Make Photo",Toast.LENGTH_SHORT).show();
             }
         });
 
