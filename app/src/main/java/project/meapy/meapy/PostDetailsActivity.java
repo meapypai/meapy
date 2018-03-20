@@ -1,5 +1,8 @@
 package project.meapy.meapy;
 
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Environment;
 import android.os.storage.StorageVolume;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -108,30 +111,28 @@ public class PostDetailsActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.downloadFilePostDetails){
-            File localFile = null;
-            try {
                 List<String> filesPaths = curPost.getFilesPaths();
                 OnSuccessFailureFileDownload sucessFailureListener = new OnSuccessFailureFileDownload();
                 int i = 0;
+                final File dir = new File(Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_PICTURES), "meapy/"+curPost.getDisciplineName()+"/"+curPost.getTitle());
+                dir.mkdirs();
                 for (String filepath : filesPaths) {
                     //String filepath = curPost.getFilePath();
                     String[] filesPathData = filepath.split(Pattern.quote("."));
                     String prefix = filesPathData[0];
                     String suffix = filesPathData[1];
-                    localFile = File.createTempFile(prefix, suffix);
+                    final File localFile = new File(dir,filepath);
                     FirebaseStorage.getInstance().getReference("data_groups/" + curPost.getGroupId() + "/"
                             + filepath).getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(getApplicationContext(), "file  download success", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "file  download success "+dir.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+                            galleryAddPic(localFile);
                         }
                     })
                             .addOnFailureListener(sucessFailureListener);
                 }
-                } catch(IOException e){
-                    e.printStackTrace();
-                }
-
         }
         return true;
     }
@@ -140,6 +141,14 @@ public class PostDetailsActivity extends AppCompatActivity {
         inflater.inflate(R.menu.post_detail_menu, menu);
         return true;
     }
+
+    private void galleryAddPic(File f) {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        this.sendBroadcast(mediaScanIntent);
+    }
+
 
     class OnSuccessFailureFileDownload implements OnSuccessListener,OnFailureListener{
         int i = 0;
