@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.DataSetObserver;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapRegionDecoder;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -39,8 +41,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.security.acl.Group;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -49,6 +54,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 import project.meapy.meapy.bean.Discipline;
@@ -63,6 +69,7 @@ import project.meapy.meapy.utils.RunnableWithParam;
 import project.meapy.meapy.utils.firebase.DisciplineLink;
 
 import static android.os.Environment.getExternalStorageDirectory;
+import static android.provider.MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE;
 
 public class SendFileActivity extends AppCompatActivity {
 
@@ -143,6 +150,7 @@ public class SendFileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(),"Make Photo",Toast.LENGTH_SHORT).show();
+                dispatchTakePictureIntent();
             }
         });
 
@@ -322,18 +330,74 @@ public class SendFileActivity extends AppCompatActivity {
         });
     }
 
+    static int count = 0;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == REQUEST_LOAD_FILE) {
             if(resultCode == RESULT_OK) {
                 Uri uri = data.getData();
-                ProviderFilePath pfp = new ProviderFilePath(this);
-                String path = pfp.getPathFromUri(uri);
-                File file = new File(path);
+                addDocument(uri);
+            }
+        }
+        if(requestCode == REQUEST_TAKE_PHOTO){
+            if(resultCode == RESULT_OK) {
+                File file = new File(mCurrentPhotoPath);
+                Toast.makeText(getApplicationContext(),file.getName(),Toast.LENGTH_LONG).show();
+                addDocument(file);
+            }
+        }
+    }
 
-                nameFiles.add(file.getName()); //ajout du nom du fichier pour l'adapter du spinner
-                files.add(file); //ajout du fichier à upload
-                adapterSpinnerFiles.notifyDataSetChanged();
+    private void addDocument(Uri uri){
+        ProviderFilePath pfp = new ProviderFilePath(this);
+        String path = pfp.getPathFromUri(uri);
+        File file = new File(path);
+        addDocument(file);
+    }
+    private void addDocument(File file){
+        nameFiles.add(file.getName()); //ajout du nom du fichier pour l'adapter du spinner
+        files.add(file); //ajout du fichier à upload
+        adapterSpinnerFiles.notifyDataSetChanged();
+    }
+
+    String mCurrentPhotoPath;
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+
+    static final int REQUEST_TAKE_PHOTO = 1;
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this,
+                        "com.example.android.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
         }
     }

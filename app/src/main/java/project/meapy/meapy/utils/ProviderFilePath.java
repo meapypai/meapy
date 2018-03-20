@@ -27,7 +27,6 @@ public class ProviderFilePath {
     public  String getPathFromUri(Uri uri) {
         String path = "";
         String autority = uri.getAuthority();
-        Toast.makeText(context,"okkkkk",Toast.LENGTH_SHORT).show();
 
         if(autority.equals("com.android.providers.media.documents")) {
             String[] split = uri.getLastPathSegment().split(":"); //on recupere le dernier segment de l'uri ( image:48414)
