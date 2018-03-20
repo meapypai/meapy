@@ -61,7 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
                             if(isValidPassword(password)) {
 
                                 //insertion d'un nouvel user
-                                User user = new User(firstName,lastName,password,email);
+                                User user = new User(firstName,lastName,email);
 
                                 Registration registration = new Registration(RegisterActivity.this,email,password);
                                 registration.register(user);
