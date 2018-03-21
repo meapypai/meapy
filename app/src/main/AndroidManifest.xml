@@ -73,14 +73,14 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".AddDisciplineActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.Dialog" />
+            android:theme="@style/Theme.AppCompat.Dialog" />
         <activity android:name=".DisciplinePostsActivity" />
         <activity
             android:name=".LeaveGroupActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.Dialog" />
+            android:theme="@style/Theme.AppCompat.Dialog" />
         <activity android:name=".SearchUserActivity"></activity>
         <activity android:name=".JoinGroupActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.Dialog"></activity>
+            android:theme="@style/Theme.AppCompat.Dialog"></activity>
     </application>
 
 </manifest>

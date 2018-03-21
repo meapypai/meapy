@@ -33,6 +33,7 @@
         app:layout_anchorGravity="top"
         android:layout_gravity="top|end"
         app:backgroundTint="@color/colorButton"
+        android:visibility="invisible"
         />
     </android.support.design.widget.CoordinatorLayout>
 </RelativeLayout>

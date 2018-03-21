@@ -139,6 +139,9 @@ public class MyGroupsActivity extends AppCompatActivity {
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 FirebaseAuth.getInstance().signOut();
                 break;
+            case R.id.joinGrpMenu:
+                intent = new Intent(getApplicationContext(), JoinGroupActivity.class);
+                break;
         }
         startActivity(intent);
         return super.onOptionsItemSelected(item);
@@ -165,6 +168,13 @@ public class MyGroupsActivity extends AppCompatActivity {
         //supression de la notification de l'user dans la db
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/"+FirebaseAuth.getInstance().getCurrentUser().getUid()+"/notifications/"+idNotification);
         ref.removeValue();
+
+
+        /// TEST
+        // providing datas
+        provideGroups();
+
+        /// FIN TEST
     }
 //
 //    @Override

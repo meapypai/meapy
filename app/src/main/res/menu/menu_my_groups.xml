@@ -7,7 +7,14 @@
         android:title="add a file"
         android:visible="true"
         android:id="@+id/addFileId"
-        app:showAsAction="ifRoom"></item>
+        app:showAsAction="always"></item>
+    <item
+        android:icon="@drawable/ic_person_add_white_24dp"
+        android:title="join a group"
+        android:visible="true"
+        android:id="@+id/joinGrpMenu"
+        app:showAsAction="always"></item>
+
 
     <!--<item android:icon="@drawable/ic_chat_black_24dp"-->
         <!--android:id="@+id/discussionsId"-->
