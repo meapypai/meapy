@@ -84,7 +84,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/rounded_button"
-                android:backgroundTint="@color/background"
+                android:backgroundTint="@color/background1"
                 android:text="@string/action_sign_in"
                 android:textColor="@android:color/white"
                 android:textStyle="bold" />
@@ -116,7 +116,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:background="@drawable/rounded_button"
-            android:backgroundTint="@color/background"
+            android:backgroundTint="@color/background1"
             android:padding="10dp"
             android:text="@string/register"
             android:textColor="@android:color/white"
