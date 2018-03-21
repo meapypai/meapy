@@ -50,7 +50,6 @@
         <activity
             android:name=".ChatRoomActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".CreateGroupActivity"

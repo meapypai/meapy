@@ -36,6 +36,8 @@ public class ChatRoomActivity extends AppCompatActivity {
     private RecyclerView scrollMessagesChat;
     private ImageButton addSmileyChatRoom;
 
+    private int smileyCpt = 0; //to display smileys layout
+
     private List<Message> messages = new ArrayList<>();
 
     private FirebaseListAdapter<Message> adapter;
@@ -46,7 +48,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_room);
 
-        nameGroupeChatRoom = (TextView)findViewById(R.id.nameGroupeChatRoom);
+//        nameGroupeChatRoom = (TextView)findViewById(R.id.nameGroupeChatRoom);
         scrollMessagesChat = (RecyclerView)findViewById(R.id.scrollMessagesChat);
         sendChatRoom       = (ImageButton)findViewById(R.id.sendChatRoom);
         messageIdChatRoom  = (EditText)findViewById(R.id.messageIdChatRoom);
@@ -57,8 +59,9 @@ public class ChatRoomActivity extends AppCompatActivity {
         Intent i = getIntent();
         final String idGroup = i.getStringExtra(OneGroupActivity.EXTRA_GROUP_ID);
         String nameGroup = i.getStringExtra(OneGroupActivity.EXTRA_GROUP_NAME);
+        setTitle(nameGroup);
 
-        nameGroupeChatRoom.setText(nameGroup); //set the title of the group in the activity
+//        nameGroupeChatRoom.setText(nameGroup); //set the title of the group in the activity
 
         final MessagesAdapter adapter = new MessagesAdapter(messages);
         scrollMessagesChat.setLayoutManager(new LinearLayoutManager(this));
@@ -99,8 +102,15 @@ public class ChatRoomActivity extends AppCompatActivity {
         addSmileyChatRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LinearLayout layout = (LinearLayout)findViewById(R.id.allSmileyChatRoom);
-                layout.setVisibility(View.VISIBLE);
+                LinearLayout layout = (LinearLayout) findViewById(R.id.allSmileyChatRoom);
+                if(smileyCpt == 0) {
+                    layout.setVisibility(View.VISIBLE);
+                    smileyCpt += 1;
+                }
+                else {
+                    layout.setVisibility(View.GONE);
+                    smileyCpt-=1;
+                }
             }
         });
     }
