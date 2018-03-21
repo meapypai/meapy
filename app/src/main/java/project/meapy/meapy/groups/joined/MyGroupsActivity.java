@@ -176,6 +176,12 @@ public class MyGroupsActivity extends AppCompatActivity {
 
         /// FIN TEST
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        provideGroups();
+    }
 //
 //    @Override
 //    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
