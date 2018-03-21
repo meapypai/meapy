@@ -1,5 +1,6 @@
 package project.meapy.meapy.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ public class Post extends DomainObject{
     private int user_id;
     private String textContent;
     //private String filePath;
-    private List<String> filesPaths;
+    private List<String> filesPaths = new ArrayList<>();
     private int groupId;
     private String title;
     private String disciplineName;

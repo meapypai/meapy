@@ -62,13 +62,17 @@ public class PostDetailsActivity extends AppCompatActivity {
 
         TextView descFiles = findViewById(R.id.descFilesPostDetails);
         List<String> filesPaths = post.getFilesPaths();
-        String txt = filesPaths.get(0);
-        int size = filesPaths.size();
-        if(size >1){
-            txt += " , and "+(size -1) +" others";
-        }
-        descFiles.setText(txt);
 
+        int size = filesPaths.size();
+        if(size > 0) {
+            String txt = filesPaths.get(0);
+            if (size > 1) {
+                txt += " , and " + (size - 1) + " others";
+            }
+            descFiles.setText(txt);
+        }else{
+            descFiles.setText("no file(s)");
+        }
 
         final EditText commentContent = findViewById(R.id.contentCommentPostDetails);
         ImageButton sendComment = findViewById(R.id.sendCommentPostDetails);

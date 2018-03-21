@@ -228,7 +228,7 @@ public class SendFileActivity extends AppCompatActivity {
                         // inserer le(s) fichier(s)
                         FirebaseStorage storage = FirebaseStorage.getInstance();
                         StorageReference filesRef = storage.getReference();
-                        List<String> filesPaths = new ArrayList<>();
+                        List<String> filesPaths = post.getFilesPaths();
                         for(int i = 0; i < files.size(); i++) {
                             File f = files.get(i);
                             if(f.exists()) {
