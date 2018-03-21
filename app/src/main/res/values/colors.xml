@@ -8,6 +8,8 @@
     <color name="colorSentMessage">#72D8BD</color>
     <color name="background">#D6D8D8</color>
 
+    <color name="divider">#D2D2D2</color>
+
     <color name="background1">#507091</color>
     <color name="topbottomchat">#A6A6A6</color>
     <color name="colorInputMessage">#D6D8D8</color>

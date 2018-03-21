@@ -51,6 +51,7 @@ public class DiscussionGroupAdapter extends ArrayAdapter<DiscussionGroup> {
 
         DiscussionGroup g = getItem(position);
         StorageReference ref = FirebaseStorage.getInstance().getReference("data_groups/" + g.getNameRef());
+//        Glide.with(context).using(new FirebaseImageLoader()).load(ref).asBitmap().override(50,50).centerCrop().into(holder.drawable); //image à partir de la réference passée
         Glide.with(context).using(new FirebaseImageLoader()).load(ref).asBitmap().into(holder.drawable); //image à partir de la réference passée
 
         holder.nameGroup.setText(g.getName());
