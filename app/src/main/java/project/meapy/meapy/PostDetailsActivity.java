@@ -48,6 +48,7 @@ import project.meapy.meapy.utils.firebase.CommentLink;
 
 public class PostDetailsActivity extends AppCompatActivity {
     private Post curPost;
+    private Menu menu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +74,6 @@ public class PostDetailsActivity extends AppCompatActivity {
         }else{
             descFiles.setText("no file(s)");
         }
-
         final EditText commentContent = findViewById(R.id.contentCommentPostDetails);
         ImageButton sendComment = findViewById(R.id.sendCommentPostDetails);
 
@@ -111,7 +111,6 @@ public class PostDetailsActivity extends AppCompatActivity {
 
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.downloadFilePostDetails){
@@ -138,11 +137,32 @@ public class PostDetailsActivity extends AppCompatActivity {
                             .addOnFailureListener(sucessFailureListener);
                 }
         }
+        if(item.getItemId() == R.id.deletePostDetails){
+            Toast.makeText(getApplicationContext(),"delete post",Toast.LENGTH_LONG).show();
+            FirebaseDatabase.getInstance().getReference("groups/"+curPost.getGroupId()+"/disciplines/"
+                    +curPost.getDisciplineId()+"/posts/"+curPost.getId()).removeValue();
+            finish();
+        }
         return true;
     }
+
+    public boolean onPrepareOptionsMenu(Menu menu){
+        super.onPrepareOptionsMenu(menu);
+        FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(fUser != null){
+            if(menu != null && curPost.getUser_uid() != null && fUser.getUid().equals(curPost.getUser_uid())){
+                Toast.makeText(getApplicationContext(),"post owner",Toast.LENGTH_LONG).show();
+                menu.findItem(R.id.deletePostDetails).setVisible(true);
+            }
+        }
+        return true;
+    }
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.post_detail_menu, menu);
+        this.menu = menu;
         return true;
     }
 

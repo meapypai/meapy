@@ -47,6 +47,7 @@ import org.w3c.dom.Text;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import project.meapy.meapy.AddDisciplineActivity;
@@ -143,12 +144,12 @@ public class OneGroupActivity extends AppCompatActivity {
 
         listView.setAdapter(adapterPost);
 
-        DisciplineLink.getDisciplineByGroupId(group.getId(),new RunnableWithParam(){
+        DisciplineLink.getDisciplineByGroupId(group.getId(), new RunnableWithParam() {
             @Override
             public void run() {
-                onDisciplineAdded((Discipline)getParam());
+                onDisciplineAdded((Discipline) getParam());
             }
-        },null);
+        }, null);
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -211,7 +212,7 @@ public class OneGroupActivity extends AppCompatActivity {
     }
 
     private void onDisciplineAdded(final Discipline disc){
-
+        final HashMap<Integer, Post> idPostToPost = new HashMap<>();
         listDiscipline.add(disc);
         MenuItem it  =subMenuDisc.add(disc.getName());
         it.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
@@ -228,12 +229,18 @@ public class OneGroupActivity extends AppCompatActivity {
                 return false;
             }
         });
-        PostLink.getPostsByDiscId(disc.getId(),new RunnableWithParam() {
+        PostLink.getPostsByDiscId(disc.getId(), new RunnableWithParam() {
             @Override
             public void run() {
-                adapterPost.add((Post)getParam());
+                adapterPost.add((Post) getParam());
+                idPostToPost.put(((Post) getParam()).getId(),(Post) getParam());
             }
-        },group.getId());
+        }, new RunnableWithParam() {
+            @Override
+            public void run() {
+                adapterPost.remove(idPostToPost.get(((Post)getParam()).getId()));
+            }
+        }, group.getId());
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

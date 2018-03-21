@@ -15,7 +15,7 @@ import project.meapy.meapy.utils.RunnableWithParam;
 
 public class PostLink {
 
-    public static void getPostsByDiscId(int discId, final RunnableWithParam onPostAdded, int groupId){
+    public static void getPostsByDiscId(int discId, final RunnableWithParam onPostAdded,final RunnableWithParam onPostRemoved, int groupId){
         DatabaseReference postsRef = FirebaseDatabase.getInstance().getReference("groups/"+groupId+"/disciplines/"+discId+"/posts");
         postsRef
                 .addChildEventListener(new ChildEventListener() {
@@ -29,7 +29,13 @@ public class PostLink {
                     @Override
                     public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
                     @Override
-                    public void onChildRemoved(DataSnapshot dataSnapshot) {}
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+                        if(onPostRemoved != null){
+                            Post post = dataSnapshot.getValue(Post.class);
+                            onPostRemoved.setParam(post);
+                            onPostRemoved.run();
+                        }
+                    }
                     @Override
                     public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
                     @Override

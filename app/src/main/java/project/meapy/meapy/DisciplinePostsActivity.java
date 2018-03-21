@@ -65,9 +65,9 @@ public class DisciplinePostsActivity extends AppCompatActivity {
         PostLink.getPostsByDiscId(disc.getId(), new RunnableWithParam() {
             @Override
             public void run() {
-                adapter.add((Post)getParam());
+                adapter.add((Post) getParam());
             }
-        },grp.getId());
+        }, null, grp.getId());
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

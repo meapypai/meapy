@@ -8,7 +8,7 @@ import java.util.List;
  */
 
 public class Post extends DomainObject{
-    private int user_id;
+    private String user_uid;
     private String textContent;
     //private String filePath;
     private List<String> filesPaths = new ArrayList<>();
@@ -58,7 +58,7 @@ public class Post extends DomainObject{
     @Override
     public String toString() {
         return "Post{" +
-                "user_id=" + user_id +
+                "user_id=" + user_uid +
                 ", textContent='" + textContent + '\'' +
                 ", groupId=" + groupId +
                 '}';
@@ -68,12 +68,12 @@ public class Post extends DomainObject{
         this.groupId = groupId;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public String getUser_uid() {
+        return user_uid;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUser_uid(String user_uid) {
+        this.user_uid = user_uid;
     }
 
     public String getTextContent() {
