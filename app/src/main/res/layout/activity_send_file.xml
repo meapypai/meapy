@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:id="@+id/titleTextSend"
-        android:hint="Title" />
+        android:hint="@string/title_send_hint" />
     <RelativeLayout
         android:layout_margin="20dp"
         android:layout_width="250dp"
@@ -32,7 +32,7 @@
                 android:id="@+id/fileNameSend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Filename"
+                android:hint="@string/filename_send_hint"
                 android:layout_centerVertical="true"
                 android:textAlignment="center"
                 />
@@ -69,7 +69,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Group"
+                android:text="@string/group_send_hint"
                 android:layout_centerVertical="true"
                 android:id="@+id/txtGrp"/>
 
@@ -104,7 +104,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="Discipline"
+                android:text="@string/discipline_send_hint"
                 android:id="@+id/txtDisc"/>
             />
             <Spinner
@@ -131,7 +131,7 @@
             android:id="@+id/descTextSend"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:hint="Description"
+            android:hint="@string/descr_send_label"
             android:layout_below="@id/discSendFile"
             />
 
@@ -154,6 +154,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="19dp"
         android:background="@color/colorButton"
-        android:text="Send"
+        android:text="@string/send_btn_label"
         android:textColor="@android:color/white" />
 </RelativeLayout>

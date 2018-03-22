@@ -2,6 +2,9 @@
     <string name="app_name">Meapy</string>
     <string name="title_activity_login">Sign in</string>
 
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -26,6 +29,44 @@
     <string name="first_name_register">First name</string>
     <string name="last_name_register">Last name</string>
     <string name="sign_up_button">Sign Up</string>
+
+    <!-- add discipline activity -->
+    <string name="creation_of_discipline">Creation of Discipline</string>
+    <string name="discipline_name_hint">discipline name</string>
+
+    <!-- chat room activity -->
+    <string name="write_message_hint">Write message</string>
+
+    <!-- create group activity -->
+    <string name="group_name_hint">Name</string>
+    <string name="image_name_hint">Image</string>
+    <string name="limit_hint">Limit</string>
+    <string name="add_user_create_group">Add user</string>
+
+    <string name="create_group_button">CREATE</string>
+
+    <!-- discipline posts-->
+    <string name="disc_post_textlabel">Discipline</string>
+    <string name="disc_detail_search_button_label">SEARCH</string>
+
+    <!-- join group activity -->
+    <string name="join_group_desc_label">Enter the code to join the group :</string>
+    <string name="code_group_ex_hint">ex : XXXXXX</string>
+
+    <!-- leave group activity -->
+    <string name="question_leave">Are you sure to leave this group ?</string>
+
+    <!-- send file activity -->
+    <string name="title_send_hint">Title</string>
+    <string name="filename_send_hint">Filename</string>
+    <string name="group_send_hint">Group</string>
+    <string name="discipline_send_hint">Discipline</string>
+    <string name="descr_send_label">Description</string>
+    <string name="send_btn_label">Send</string>
+
+    <!-- one group activity -->
+    <string name="code_saved_clip_toast">code saved in the clipboard</string>
+    <string name="leave_group_toast">leave group</string>
 
 
     <!-- Google Login strings -->

@@ -102,6 +102,7 @@ public class PostDetailsActivity extends AppCompatActivity {
             downloadFilesBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Toast.makeText(getApplicationContext(),"download started",Toast.LENGTH_SHORT).show();
                     downloadFile();
                 }
             });

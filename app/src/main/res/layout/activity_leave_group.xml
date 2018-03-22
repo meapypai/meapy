@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Are you sure to leave this group ?"
+        android:text="@string/question_leave"
         android:id="@+id/reqStr"/>
     <RelativeLayout
         android:layout_below="@id/reqStr"
@@ -19,7 +19,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="yes"
+            android:text="@string/yes"
             android:id="@+id/yesLeave"
             />
 
@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/noLeave"
-            android:text="no"
+            android:text="@string/no"
             android:layout_toRightOf="@id/yesLeave"/>
     </RelativeLayout>
 </RelativeLayout>

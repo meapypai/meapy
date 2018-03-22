@@ -13,14 +13,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Creation of Discipline"
+        android:text="@string/creation_of_discipline"
         android:id="@+id/tvAddDisc"
         />
     <EditText
         android:id="@+id/disciplineNameAddDisc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="discipline name"
+        android:hint="@string/discipline_name_hint"
         android:layout_below="@id/tvAddDisc"/>
     <Button
         android:id="@+id/okBtnAddDisc"

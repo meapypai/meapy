@@ -62,7 +62,7 @@ public class DiscussionGroupsActivity extends AppCompatActivity {
                 TextView name = (TextView)v.findViewById(R.id.nameGroup);
                 TextView message = (TextView)v.findViewById(R.id.lastMessage);
 
-                StorageReference ref = FirebaseStorage.getInstance().getReferenceFromUrl("gs://meapy-4700d.appspot.com/data_groups/" + model.getId() + "/" + model.getImageName());
+                StorageReference ref = FirebaseStorage.getInstance().getReference("data_groups/" + model.getId() + "/" + model.getImageName());
                 Glide.with(DiscussionGroupsActivity.this).using(new FirebaseImageLoader()).load(ref).asBitmap().into(image); //image à partir de la réference passée
                 name.setText(model.getName());
                 message.setText(model.getIdUserAdmin()+"");

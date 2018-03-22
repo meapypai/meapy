@@ -206,7 +206,8 @@ public class OneGroupActivity extends AppCompatActivity {
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("simple text", generatedCode);
                 clipboard.setPrimaryClip(clip);
-                Toast.makeText(getApplicationContext(),"code saved in the clipboard ("+generatedCode+")" ,Toast.LENGTH_LONG).show();
+                String codeSavedClip = getString(R.string.code_saved_clip_toast);
+                Toast.makeText(getApplicationContext(),codeSavedClip +" ("+generatedCode+")" ,Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -252,7 +253,7 @@ public class OneGroupActivity extends AppCompatActivity {
                 if(fUser != null && result == true) {
                     uid = fUser.getUid();
                     FirebaseDatabase.getInstance().getReference("users/" + uid + "/groupsId/"+group.getId()).removeValue();
-                    Toast.makeText(getApplicationContext(), "leave group", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.leave_group_toast), Toast.LENGTH_LONG).show();
                     finish();
                 }
             }

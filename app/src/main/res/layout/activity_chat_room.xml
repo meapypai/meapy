@@ -73,7 +73,7 @@
                     android:layout_marginRight="10dp"
                     android:layout_toLeftOf="@id/sendChatRoom"
                     android:background="@android:color/transparent"
-                    android:hint="Write message"
+                    android:hint="@string/write_message_hint"
                     android:padding="10dp"
                     android:textColorHint="@color/colorInputMessage" />
 
