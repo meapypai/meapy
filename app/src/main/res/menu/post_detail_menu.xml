@@ -3,13 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:icon="@drawable/ic_file_download_white_24dp"
-        android:title="add a file"
-        android:visible="true"
-        android:id="@+id/downloadFilePostDetails"
-        app:showAsAction="ifRoom"></item>
-
-    <item
         android:title="delete"
         android:visible="false"
         android:id="@+id/deletePostDetails"

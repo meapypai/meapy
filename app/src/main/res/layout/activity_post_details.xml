@@ -18,8 +18,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
-
-                android:background="@android:color/white">
+                android:backgroundTint="@android:color/white"
+                android:background="@drawable/rounded_button">
                 <TextView
                     android:id="@+id/titlePostDetails"
                     android:layout_width="wrap_content"
@@ -28,6 +28,16 @@
                     android:textStyle="bold"
                     android:padding="10dp"
                     />
+                <ImageButton
+                    android:id="@+id/downloadFilePostDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_attach_file_white_24dp"
+                    android:background="@drawable/rounded_button"
+                    android:backgroundTint="@color/colorButton"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="1dp"
+                    android:padding="5dp"/>
                 <TextView
                     android:id="@+id/contentPostDetails"
                     android:layout_below="@id/titlePostDetails"
@@ -78,14 +88,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/downPostDetails"
-                android:backgroundTint="@color/colorButton"
+                android:backgroundTint="@android:color/holo_green_light"
                 android:src="@drawable/ic_thumb_up_white_24dp"
                 android:text="-1"/>
             <ImageButton
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorButton"
+                android:backgroundTint="@android:color/holo_red_light"
                 android:layout_below="@id/downPostDetails"
                 android:src="@drawable/ic_thumb_down_white_24dp"
                 android:id="@+id/upPostDetails"

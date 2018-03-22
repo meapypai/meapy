@@ -97,6 +97,19 @@ public class PostDetailsActivity extends AppCompatActivity {
             }
         });
 
+        ImageButton downloadFilesBtn = findViewById(R.id.downloadFilePostDetails);
+        if(curPost.getFilesPaths().size() >= 1) {
+            downloadFilesBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    downloadFile();
+                }
+            });
+        }else{
+            downloadFilesBtn.setVisibility(View.INVISIBLE);
+        }
+
+
         ListView listView = findViewById(R.id.commentsPostDetails);
         List<Comment> comments = new ArrayList<>();
         final ArrayAdapter<Comment> adapter = new CommentAdapter(getApplicationContext(),
@@ -113,30 +126,9 @@ public class PostDetailsActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.downloadFilePostDetails){
-                List<String> filesPaths = curPost.getFilesPaths();
-                OnSuccessFailureFileDownload sucessFailureListener = new OnSuccessFailureFileDownload();
-                int i = 0;
-                final File dir = new File(Environment.getExternalStoragePublicDirectory(
-                        Environment.DIRECTORY_PICTURES), "meapy/"+curPost.getDisciplineName()+"/"+curPost.getTitle());
-                dir.mkdirs();
-                for (String filepath : filesPaths) {
-                    //String filepath = curPost.getFilePath();
-                    String[] filesPathData = filepath.split(Pattern.quote("."));
-                    String prefix = filesPathData[0];
-                    String suffix = filesPathData[1];
-                    final File localFile = new File(dir,filepath);
-                    FirebaseStorage.getInstance().getReference("data_groups/" + curPost.getGroupId() + "/"
-                            + filepath).getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(getApplicationContext(), "file  download success "+dir.getAbsolutePath(), Toast.LENGTH_SHORT).show();
-                            galleryAddPic(localFile);
-                        }
-                    })
-                            .addOnFailureListener(sucessFailureListener);
-                }
-        }
+        //if(item.getItemId() == R.id.downloadFilePostDetails){
+          //  downloadFile();
+        //}
         if(item.getItemId() == R.id.deletePostDetails){
             Toast.makeText(getApplicationContext(),"delete post",Toast.LENGTH_LONG).show();
             FirebaseDatabase.getInstance().getReference("groups/"+curPost.getGroupId()+"/disciplines/"
@@ -144,6 +136,31 @@ public class PostDetailsActivity extends AppCompatActivity {
             finish();
         }
         return true;
+    }
+
+    private void downloadFile(){
+        List<String> filesPaths = curPost.getFilesPaths();
+        OnSuccessFailureFileDownload sucessFailureListener = new OnSuccessFailureFileDownload();
+        int i = 0;
+        final File dir = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), "meapy/"+curPost.getDisciplineName()+"/"+curPost.getTitle());
+        dir.mkdirs();
+        for (String filepath : filesPaths) {
+            //String filepath = curPost.getFilePath();
+            String[] filesPathData = filepath.split(Pattern.quote("."));
+            String prefix = filesPathData[0];
+            String suffix = filesPathData[1];
+            final File localFile = new File(dir,filepath);
+            FirebaseStorage.getInstance().getReference("data_groups/" + curPost.getGroupId() + "/"
+                    + filepath).getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(getApplicationContext(), "file  download success "+dir.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+                    galleryAddPic(localFile);
+                }
+            })
+                    .addOnFailureListener(sucessFailureListener);
+        }
     }
 
     public boolean onPrepareOptionsMenu(Menu menu){

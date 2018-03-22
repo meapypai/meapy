@@ -26,14 +26,18 @@
             <!--/>-->
 
     <!--</LinearLayout>-->
-
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_above="@id/linearLayout">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/scrollMessagesChat"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:divider="@android:color/transparent"
         android:transcriptMode="alwaysScroll">
     </android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
