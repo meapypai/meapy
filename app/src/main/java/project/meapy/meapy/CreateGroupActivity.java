@@ -231,6 +231,7 @@ public class CreateGroupActivity extends AppCompatActivity {
         //request concernant les ajouts d'users
         else if(requestCode == REQUEST_ADD_USERS) {
             if(resultCode == RESULT_OK) {
+                adapterGridView.clear();
                 ArrayList<User> tab = data.getParcelableArrayListExtra(SearchUserActivity.EXTRA_ARRAY_USERS);
                 for(int i = 0; i < tab.size(); i++) {
                     if(!usersSelected.contains(tab.get(i))) { //eviter les doublons d 'ajout
@@ -239,28 +240,6 @@ public class CreateGroupActivity extends AppCompatActivity {
                     }
                 }
                 adapterGridView.notifyDataSetChanged();
-
-//                //ajout des users ajouté dans le groupe
-//                final DatabaseReference users = FirebaseDatabase.getInstance().getReference("users");
-//                users.addChildEventListener(new ChildEventListener() {
-//                    @Override
-//                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//                        User u = (User)dataSnapshot.getValue(User.class);
-//                        for(String mail: dataGridView) {
-//                            if(mail.equals(u.getEmail())) {
-//                                usersList.add(u);
-//                            }
-//                        }
-//                    }
-//                    @Override
-//                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
-//                    @Override
-//                    public void onChildRemoved(DataSnapshot dataSnapshot) {}
-//                    @Override
-//                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) {}
-//                });
             }
         }
     }

@@ -66,7 +66,7 @@ public class SearchUserActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 User user = (User)dataSnapshot.getValue(User.class);
-//                if(!user.getEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) //pour ne pas s'ajouter dans son propre groupe :-)
+                if(!user.getEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) //pour ne pas s'ajouter dans son propre groupe :-)
                     data.add(user);
                 adapter.notifyDataSetChanged();
             }
@@ -92,28 +92,28 @@ public class SearchUserActivity extends AppCompatActivity {
             }
         });
 
-        listSearchUser.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CheckBox checkBox = (CheckBox) view.findViewById(R.id.checkedUser);
-                checkBox.setChecked(true);
-
-                User u = (User) parent.getItemAtPosition(position);
-                if(usersSelectedArray.contains(u)) { //on supprime si déjà sélectionnée
-                    usersSelectedArray.remove(u);
-                }
-                else {
-                    usersSelectedArray.add(u);
-                }
-            }
-        });
+//        listSearchUser.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                CheckBox checkBox = (CheckBox) view.findViewById(R.id.checkedUser);
+//                checkBox.setChecked(true);
+//
+//                User u = (User) parent.getItemAtPosition(position);
+//                if(usersSelectedArray.contains(u)) { //on supprime si déjà sélectionnée
+//                    usersSelectedArray.remove(u);
+//                }
+//                else {
+//                    usersSelectedArray.add(u);
+//                }
+//            }
+//        });
 
         validUsersToAddSearchActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //retour à l'activité de création de groupe avec les données créées
                 Intent intent = new Intent();
-                intent.putParcelableArrayListExtra(EXTRA_ARRAY_USERS,usersSelectedArray);
+                intent.putParcelableArrayListExtra(EXTRA_ARRAY_USERS,adapter.getUsersSelected());
                 setResult(RESULT_OK,intent);
                 finish();
             }

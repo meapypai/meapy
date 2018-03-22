@@ -30,6 +30,7 @@ public class SearchUserAdapter extends ArrayAdapter<User> implements Filterable{
     private TextFilter filter;
     private List<User> users;
     private List<User> filterUsers;
+    private ArrayList<User> usersSelected;
 
 
     public SearchUserAdapter(@NonNull Context context, int resource, @NonNull List<User> objects) {
@@ -37,6 +38,7 @@ public class SearchUserAdapter extends ArrayAdapter<User> implements Filterable{
         this.context = context;
         this.users = objects;
         this.filterUsers =  objects;
+        this.usersSelected = new ArrayList<>();
     }
 
     @NonNull
@@ -55,8 +57,20 @@ public class SearchUserAdapter extends ArrayAdapter<User> implements Filterable{
             holder = (SearchUserHolder) convertView.getTag();
         }
 
-        User user = getItem(position);
+        final User user = getItem(position);
         holder.name.setText(user.getEmail());
+
+        holder.checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!usersSelected.contains(user)) {
+                    usersSelected.add(user);
+                }
+                else  {
+                    usersSelected.remove(user);
+                }
+            }
+        });
         return convertView;
     }
 
@@ -68,11 +82,6 @@ public class SearchUserAdapter extends ArrayAdapter<User> implements Filterable{
         }
         return  filter;
     }
-
-//    @Override
-//    public void onClick(View v) {
-//        Toast.makeText(context,"eeee",Toast.LENGTH_LONG).show();
-//    }
 
     private class TextFilter extends Filter {
 
@@ -100,8 +109,11 @@ public class SearchUserAdapter extends ArrayAdapter<User> implements Filterable{
         protected void publishResults(CharSequence constraint, FilterResults results) {
             users.clear();
             users.addAll((ArrayList<User>)results.values);
-            Toast.makeText(context,users.size()+"",Toast.LENGTH_SHORT).show();
             notifyDataSetChanged();
         }
+    }
+
+    public ArrayList<User> getUsersSelected() {
+        return this.usersSelected;
     }
 }
