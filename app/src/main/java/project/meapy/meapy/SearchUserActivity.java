@@ -35,7 +35,7 @@ import project.meapy.meapy.search.SearchUserHolder;
  * Created by yassi on 16/03/2018.
  */
 
-public class SearchUserActivity extends AppCompatActivity {
+public class SearchUserActivity extends MyAppCompatActivity {
 
     public static final String EXTRA_ARRAY_USERS = "array_users";
 

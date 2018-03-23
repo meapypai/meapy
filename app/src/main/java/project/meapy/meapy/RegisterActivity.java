@@ -23,7 +23,7 @@ import project.meapy.meapy.database.UserMapper;
 import project.meapy.meapy.groups.joined.MyGroupsActivity;
 import project.meapy.meapy.utils.Registration;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends MyAppCompatActivity {
 
     private ErrorView errorView; //vu pour afficher l'erreur
 

@@ -28,7 +28,7 @@ import project.meapy.meapy.groups.OneGroupActivity;
 import project.meapy.meapy.utils.RunnableWithParam;
 import project.meapy.meapy.utils.firebase.MessageLink;
 
-public class ChatRoomActivity extends AppCompatActivity {
+public class ChatRoomActivity extends MyAppCompatActivity {
 
     private TextView nameGroupeChatRoom;
     private ImageButton sendChatRoom;
@@ -102,13 +102,13 @@ public class ChatRoomActivity extends AppCompatActivity {
         addSmileyChatRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LinearLayout layout = (LinearLayout) findViewById(R.id.allSmileyChatRoom);
                 if(smileyCpt == 0) {
+                    LinearLayout layout = (LinearLayout) findViewById(R.id.allSmileyChatRoom);
                     layout.setVisibility(View.VISIBLE);
                     smileyCpt += 1;
                 }
                 else {
-                    layout.setVisibility(View.GONE);
+
                     smileyCpt-=1;
                 }
             }

@@ -51,7 +51,7 @@ import project.meapy.meapy.utils.ProviderFilePath;
 import project.meapy.meapy.utils.RunnableWithParam;
 import project.meapy.meapy.utils.firebase.FileLink;
 
-public class CreateGroupActivity extends AppCompatActivity {
+public class CreateGroupActivity extends MyAppCompatActivity {
 
     private static  final int REQUEST_PERMISSION_READ_EXTERNAL_STORAGE = 7;
     private static final int REQUEST_LOAD_IMAGE = 2;

@@ -71,7 +71,7 @@ import project.meapy.meapy.utils.firebase.DisciplineLink;
 import static android.os.Environment.getExternalStorageDirectory;
 import static android.provider.MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE;
 
-public class SendFileActivity extends AppCompatActivity {
+public class SendFileActivity extends MyAppCompatActivity {
 
     private static  final int REQUEST_PERMISSION_READ_EXTERNAL_STORAGE = 7;
     private static final int REQUEST_LOAD_FILE = 5;

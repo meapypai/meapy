@@ -46,7 +46,7 @@ import project.meapy.meapy.comments.CommentAdapter;
 import project.meapy.meapy.utils.RunnableWithParam;
 import project.meapy.meapy.utils.firebase.CommentLink;
 
-public class PostDetailsActivity extends AppCompatActivity {
+public class PostDetailsActivity extends MyAppCompatActivity {
     private Post curPost;
     private Menu menu;
     @Override

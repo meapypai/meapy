@@ -16,7 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 import project.meapy.meapy.utils.CodeGroupsGenerator;
 import project.meapy.meapy.utils.firebase.GroupLink;
 
-public class JoinGroupActivity extends AppCompatActivity {
+public class JoinGroupActivity extends MyAppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

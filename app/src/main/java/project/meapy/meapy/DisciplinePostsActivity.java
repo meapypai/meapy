@@ -25,7 +25,7 @@ import project.meapy.meapy.posts.PostAdapter;
 import project.meapy.meapy.utils.RunnableWithParam;
 import project.meapy.meapy.utils.firebase.PostLink;
 
-public class DisciplinePostsActivity extends AppCompatActivity {
+public class DisciplinePostsActivity extends MyAppCompatActivity {
     private Groups grp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

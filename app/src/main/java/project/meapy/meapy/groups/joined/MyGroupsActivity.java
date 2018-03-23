@@ -3,8 +3,12 @@ package project.meapy.meapy.groups.joined;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
@@ -27,10 +31,12 @@ import java.util.Map;
 import project.meapy.meapy.CreateGroupActivity;
 import project.meapy.meapy.JoinGroupActivity;
 import project.meapy.meapy.LoginActivity;
+import project.meapy.meapy.MyAppCompatActivity;
 import project.meapy.meapy.MyApplication;
 import project.meapy.meapy.NotificationThread;
 import project.meapy.meapy.R;
 import project.meapy.meapy.SendFileActivity;
+import project.meapy.meapy.SettingsActivity;
 import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.groups.DiscussionGroup;
 import project.meapy.meapy.groups.DiscussionGroupAdapter;
@@ -42,7 +48,7 @@ import project.meapy.meapy.utils.firebase.GroupLink;
  * Created by yassi on 23/02/2018.
  */
 
-public class MyGroupsActivity extends AppCompatActivity {
+public class MyGroupsActivity extends MyAppCompatActivity {
 
     private FloatingActionButton createGroupId;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -134,6 +140,9 @@ public class MyGroupsActivity extends AppCompatActivity {
             case R.id.addFileId:
                 intent = new Intent(this, SendFileActivity.class);
                 break;
+            case R.id.settings:
+                intent = new Intent(this, SettingsActivity.class);
+                break;
             case R.id.disconnect:
                 intent = new Intent(this, LoginActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -195,9 +204,8 @@ public class MyGroupsActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        MyApplication.launch();
+
         //to notify user if he's added to a group
-        //NotificationThread t = new NotificationThread(this);
-        //t.start();
+        MyApplication.launch();
     }
 }
