@@ -111,7 +111,7 @@ public class PostDetailsActivity extends MyAppCompatActivity {
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 112);
         }
-        
+
         ImageButton downloadFilesBtn = findViewById(R.id.downloadFilePostDetails);
         if(curPost.getFilesPaths().size() >= 1) {
             downloadFilesBtn.setOnClickListener(new View.OnClickListener() {
@@ -157,6 +157,11 @@ public class PostDetailsActivity extends MyAppCompatActivity {
             Toast.makeText(getApplicationContext(),"delete post",Toast.LENGTH_LONG).show();
             FirebaseDatabase.getInstance().getReference("groups/"+curPost.getGroupId()+"/disciplines/"
                     +curPost.getDisciplineId()+"/posts/"+curPost.getId()).removeValue();
+            for(String filepath : curPost.getFilesPaths()){
+                String refStr = "data_groups/" + curPost.getGroupId() + "/"
+                        + filepath;
+                FirebaseStorage.getInstance().getReference(refStr).delete();
+            }
             finish();
         }
         return true;
