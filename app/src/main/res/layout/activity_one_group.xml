@@ -77,6 +77,16 @@
 
         </RelativeLayout>
 
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/headerOneGroup"
+            android:id="@+id/postsOneGroup">
+
+            <!-- mettre les differents posts ici -->
+
+        </ListView>
+
         <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -94,15 +104,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/testPosts"
             android:layout_below="@id/headerOneGroup"/>
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/headerOneGroup"
-            android:id="@+id/postsOneGroup">
 
-            <!-- mettre les differents posts ici -->
-
-        </ListView>
 
     </LinearLayout>
 
