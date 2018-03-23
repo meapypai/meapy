@@ -11,7 +11,6 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
-import project.meapy.meapy.MyAppCompatActivity;
 import project.meapy.meapy.R;
 import project.meapy.meapy.bean.Message;
 

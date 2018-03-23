@@ -1,14 +1,11 @@
 package project.meapy.meapy;
 
-import android.*;
-import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -19,25 +16,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-
-import org.w3c.dom.Text;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 import project.meapy.meapy.bean.Discussion;
 import project.meapy.meapy.bean.Groups;
@@ -45,7 +29,6 @@ import project.meapy.meapy.bean.Message;
 import project.meapy.meapy.bean.Notifier;
 import project.meapy.meapy.bean.User;
 import project.meapy.meapy.database.GroupsMapper;
-import project.meapy.meapy.groups.joined.MyGroupsActivity;
 import project.meapy.meapy.utils.GroupsUserAdder;
 import project.meapy.meapy.utils.ProviderFilePath;
 import project.meapy.meapy.utils.RunnableWithParam;

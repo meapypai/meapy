@@ -1,6 +1,5 @@
 package project.meapy.meapy.groups;
 
-import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 import android.widget.TextView;
 

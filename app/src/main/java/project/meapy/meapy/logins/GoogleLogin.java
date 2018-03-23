@@ -2,9 +2,7 @@ package project.meapy.meapy.logins;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.FaceDetector;
 
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
 import project.meapy.meapy.R;

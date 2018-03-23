@@ -1,18 +1,11 @@
 package project.meapy.meapy.database;
 
-import android.app.PendingIntent;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import project.meapy.meapy.bean.DomainObject;
-import project.meapy.meapy.bean.Post;
 
 /**
  * Created by tarek on 08/03/18.

@@ -1,6 +1,5 @@
 package project.meapy.meapy.bean;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 /**

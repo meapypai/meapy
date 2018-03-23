@@ -13,7 +13,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
-import project.meapy.meapy.LoginActivity;
 import project.meapy.meapy.groups.joined.MyGroupsActivity;
 
 /**

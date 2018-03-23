@@ -8,29 +8,17 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import project.meapy.meapy.ChatRoomActivity;
 import project.meapy.meapy.R;
 import project.meapy.meapy.bean.Groups;
-import project.meapy.meapy.groups.DiscussionGroup;
-import project.meapy.meapy.groups.DiscussionGroupAdapter;
 
 /**
  * Created by sansaoui on 12/02/18.

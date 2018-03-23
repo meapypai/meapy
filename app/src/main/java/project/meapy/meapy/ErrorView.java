@@ -1,8 +1,6 @@
 package project.meapy.meapy;
 
 import android.content.Context;
-import android.view.View;
-import android.widget.TextView;
 
 /**
  * Created by yassi on 07/03/2018.

@@ -1,26 +1,15 @@
 package project.meapy.meapy;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import project.meapy.meapy.bean.User;
-import project.meapy.meapy.database.UserMapper;
-import project.meapy.meapy.groups.joined.MyGroupsActivity;
 import project.meapy.meapy.utils.Registration;
 
 public class RegisterActivity extends MyAppCompatActivity {

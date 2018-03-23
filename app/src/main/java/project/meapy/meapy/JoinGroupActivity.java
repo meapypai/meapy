@@ -1,6 +1,5 @@
 package project.meapy.meapy;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -12,9 +11,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import project.meapy.meapy.utils.CodeGroupsGenerator;
-import project.meapy.meapy.utils.firebase.GroupLink;
 
 public class JoinGroupActivity extends MyAppCompatActivity {
 

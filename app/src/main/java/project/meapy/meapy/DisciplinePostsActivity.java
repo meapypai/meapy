@@ -1,7 +1,6 @@
 package project.meapy.meapy;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -9,18 +8,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import project.meapy.meapy.bean.Discipline;
 import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.bean.Post;
-import project.meapy.meapy.groups.OneGroupActivity;
 import project.meapy.meapy.posts.PostAdapter;
 import project.meapy.meapy.utils.RunnableWithParam;
 import project.meapy.meapy.utils.firebase.PostLink;

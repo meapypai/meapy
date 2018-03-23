@@ -11,13 +11,11 @@ import android.widget.CheckBox;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import project.meapy.meapy.R;
-import project.meapy.meapy.SearchUserActivity;
 import project.meapy.meapy.bean.User;
 
 /**

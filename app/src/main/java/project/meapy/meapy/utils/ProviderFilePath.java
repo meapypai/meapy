@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.widget.Toast;
 
 /**
  * Created by yassi on 06/03/2018.

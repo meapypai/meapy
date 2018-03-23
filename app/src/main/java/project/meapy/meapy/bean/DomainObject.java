@@ -3,8 +3,6 @@ package project.meapy.meapy.bean;
 import java.io.Serializable;
 import java.util.Random;
 
-import javax.xml.transform.dom.DOMLocator;
-
 /**
  * Created by tarek on 08/03/18.
  */

@@ -14,9 +14,9 @@ import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import project.meapy.meapy.R;
-
 import java.util.List;
+
+import project.meapy.meapy.R;
 
 /**
  * Created by sansaoui on 19/02/18.
