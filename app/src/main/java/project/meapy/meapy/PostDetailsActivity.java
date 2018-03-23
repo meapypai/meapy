@@ -1,10 +1,16 @@
 package project.meapy.meapy;
 
+import android.*;
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.storage.StorageVolume;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -26,9 +32,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.IOException;
@@ -100,11 +108,16 @@ public class PostDetailsActivity extends MyAppCompatActivity {
             }
         });
 
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 112);
+        }
+        
         ImageButton downloadFilesBtn = findViewById(R.id.downloadFilePostDetails);
         if(curPost.getFilesPaths().size() >= 1) {
             downloadFilesBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     Toast.makeText(getApplicationContext(),"download started",Toast.LENGTH_SHORT).show();
                     downloadFile();
                 }
@@ -157,13 +170,14 @@ public class PostDetailsActivity extends MyAppCompatActivity {
                 Environment.DIRECTORY_PICTURES), "meapy/"+curPost.getDisciplineName()+"/"+curPost.getTitle());
         dir.mkdirs();
         for (String filepath : filesPaths) {
-            //String filepath = curPost.getFilePath();
             String[] filesPathData = filepath.split(Pattern.quote("."));
             String prefix = filesPathData[0];
             String suffix = filesPathData[1];
             final File localFile = new File(dir,filepath);
-            FirebaseStorage.getInstance().getReference("data_groups/" + curPost.getGroupId() + "/"
-                    + filepath).getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+            String refStr = "data_groups/" + curPost.getGroupId() + "/"
+                    + filepath;
+            StorageReference ref = FirebaseStorage.getInstance().getReference(refStr);
+            ref.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                     Toast.makeText(getApplicationContext(), "file  download success "+dir.getAbsolutePath(), Toast.LENGTH_SHORT).show();

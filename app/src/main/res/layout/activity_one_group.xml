@@ -7,37 +7,34 @@
     android:background="@color/background"
     android:id="@+id/drawer_one_group"
     tools:context="project.meapy.meapy.groups.OneGroupActivity">
-    
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sendFileOneGroup"
+            android:src="@drawable/ic_note_add_white_24dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="25dp"
+            />
+
+
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
+
+
         <android.support.v7.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/toolbarOnegroup"></android.support.v7.widget.Toolbar>
-        <!--<android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_oneGroup"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorButton"
-            android:elevation="4dp"
-            >
-
-
-                <ImageButton
-                    android:id="@+id/openDrawerBtn"
-                    android:backgroundTint="@android:color/transparent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="start"
-                    android:src="@drawable/ic_dehaze_white_24dp"
-                    />
-
-        </android.support.v7.widget.Toolbar>-->
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -87,18 +84,6 @@
 
         </ListView>
 
-        <android.support.design.widget.CoordinatorLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <android.support.design.widget.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/sendFileOneGroup"
-                android:src="@drawable/ic_note_add_white_24dp"
-                android:layout_gravity="bottom|end"
-                android:backgroundTint="@color/colorPrimary"
-                android:layout_margin="20dp"/>
-            </android.support.design.widget.CoordinatorLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -107,6 +92,7 @@
 
 
     </LinearLayout>
+    </RelativeLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/side_menu_one_group"
