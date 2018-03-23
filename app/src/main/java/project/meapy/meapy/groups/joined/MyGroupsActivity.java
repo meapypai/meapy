@@ -209,8 +209,7 @@ public class MyGroupsActivity extends MyAppCompatActivity {
         //to notify user if he's added to a group
         MyApplication.launch();
 
-        //change color in terms of settings
-//        int color = getColorSelectedOnSettings();
-//        createGroupId.setBackgroundColor(color);
+        //change widgets'color in terms of settings
+        createGroupId.setBackgroundTintList(ContextCompat.getColorStateList(this,colorId));
     }
 }
