@@ -150,9 +150,6 @@ public class PostDetailsActivity extends MyAppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        //if(item.getItemId() == R.id.downloadFilePostDetails){
-          //  downloadFile();
-        //}
         if(item.getItemId() == R.id.deletePostDetails){
             Toast.makeText(getApplicationContext(),"delete post",Toast.LENGTH_LONG).show();
             FirebaseDatabase.getInstance().getReference("groups/"+curPost.getGroupId()+"/disciplines/"
