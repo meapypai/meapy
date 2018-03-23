@@ -30,12 +30,10 @@ public class MyAppCompatActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String colorSelected = preferences.getString(SettingsActivity.KEY_PREFERENCE_COLOR,"green");
-        colorSelectedOnSettings = getColorInHex(colorSelected);
+        ColorDrawable colorDrawable = getColorDrawable();
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null) {
-            actionBar.setBackgroundDrawable(new ColorDrawable(colorSelectedOnSettings));
+            actionBar.setBackgroundDrawable(colorDrawable);
         }
     }
 
