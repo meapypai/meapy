@@ -22,6 +22,11 @@
         <!--app:showAsAction="ifRoom" android:title="My messages">-->
     <!--</item>-->
 
+    <item android:title="Settings"
+        android:id="@+id/settings"
+        android:visible="true">
+    </item>
+
     <item android:title="Disconnect"
         android:id="@+id/disconnect"
         android:visible="true">
