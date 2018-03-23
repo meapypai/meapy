@@ -31,6 +31,7 @@
         android:padding="10dp"
         android:textColor="@color/colorWhite"
         android:background="@drawable/rounded_sent_message"
+        android:backgroundTint="@color/messagSentGreen"
         app:layout_constraintTop_toBottomOf="@+id/date"
         app:layout_constraintLeft_toLeftOf="@+id/date"
         android:layout_height="wrap_content" />

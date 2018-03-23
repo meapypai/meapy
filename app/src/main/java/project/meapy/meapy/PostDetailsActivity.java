@@ -49,6 +49,9 @@ import project.meapy.meapy.utils.firebase.CommentLink;
 public class PostDetailsActivity extends MyAppCompatActivity {
     private Post curPost;
     private Menu menu;
+
+    private ImageButton sendComment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +78,7 @@ public class PostDetailsActivity extends MyAppCompatActivity {
             descFiles.setText("no file(s)");
         }
         final EditText commentContent = findViewById(R.id.contentCommentPostDetails);
-        ImageButton sendComment = findViewById(R.id.sendCommentPostDetails);
+        sendComment = findViewById(R.id.sendCommentPostDetails);
 
         sendComment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,6 +126,13 @@ public class PostDetailsActivity extends MyAppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        sendComment.setBackgroundColor(colorSelectedOnSettings);
     }
 
     @Override

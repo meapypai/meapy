@@ -33,6 +33,7 @@
         android:maxWidth="240dp"
         android:padding="10dp"
         android:background="@drawable/rounded_receive_message"
+        android:backgroundTint="@color/messageReceiveGreen"
         android:layout_height="wrap_content" />
 
 </android.support.constraint.ConstraintLayout>

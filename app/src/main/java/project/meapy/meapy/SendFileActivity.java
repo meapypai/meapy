@@ -288,6 +288,15 @@ public class SendFileActivity extends MyAppCompatActivity {
         }
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        //change widgets'color in terms of settings
+        fileBtnSend.setBackgroundColor(colorSelectedOnSettings);
+        addPhoto.setBackgroundTintList(ContextCompat.getColorStateList(this,colorId));
+    }
+
     private void loadingGroups(){
         final ArrayAdapter<Groups> dataGroupsAdapter = new ArrayAdapter<Groups>(this,
                 android.R.layout.simple_spinner_item, listGroups);

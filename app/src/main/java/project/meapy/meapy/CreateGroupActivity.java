@@ -182,6 +182,14 @@ public class CreateGroupActivity extends MyAppCompatActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        //change widgets'color in terms of settings
+        createNewGroupId.setBackgroundColor(colorSelectedOnSettings);
+    }
+
     private void onSucessInsertFile(File file, Groups newGroup){
         final Uri uriFile = Uri.fromFile(file);
         Toast.makeText(CreateGroupActivity.this, "inserting group", Toast.LENGTH_LONG).show();

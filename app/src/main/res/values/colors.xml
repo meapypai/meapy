@@ -5,7 +5,6 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorButton">#57b99e</color>
     <color name="colorMessage">#abd8cf</color>
-    <color name="colorSentMessage">#72D8BD</color>
     <color name="background">#D6D8D8</color>
 
     <color name="divider">#D2D2D2</color>
@@ -23,6 +22,15 @@
 
     <!--Color to change dynamically in terms of parameters-->
     <color name="bordeau">#83182A</color>
+        <color name="colorReceiveMessageGreen">#BC455D</color>
+        <color name="colorSentMessageGreen">#E299A7</color>
+
     <color name="green">#57b99e</color>
+        <color name="messageReceiveGreen">#57b99e</color>
+        <color name="messagSentGreen">#72D8BD</color>
+
+
     <color name="blue">#25BBE9</color>
+        <color name="messageReceiveBlue">#1ABFB4</color>
+        <color name="messagSentBlue">#72D8BD</color>
 </resources>

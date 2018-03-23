@@ -1,5 +1,6 @@
 package project.meapy.meapy.chat;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
+import project.meapy.meapy.MyAppCompatActivity;
 import project.meapy.meapy.R;
 import project.meapy.meapy.bean.Message;
 
@@ -21,6 +23,7 @@ public class MessagesAdapter extends RecyclerView.Adapter{
     private static final int MESSAGE_SENT = 1;
     private static final int MESSAGE_RECEIVED = 2;
     private List<Message> messages;
+    private Context context;
 
     public MessagesAdapter(List<Message> messages) {
         this.messages = messages;
@@ -41,6 +44,7 @@ public class MessagesAdapter extends RecyclerView.Adapter{
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
+        context = parent.getContext();
 
         if(viewType == MESSAGE_SENT) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.message_sent_view,parent,false);
@@ -81,10 +85,12 @@ public class MessagesAdapter extends RecyclerView.Adapter{
 
         public SentMessageHolder(View itemView) {
             super(itemView);
-
             date = (TextView)itemView.findViewById(R.id.date);
             user = (TextView)itemView.findViewById(R.id.usernameMessage);
             content = (TextView)itemView.findViewById(R.id.contentMessage);
+
+//            MyAppCompatActivity activity = (MyAppCompatActivity) context;
+//            content.setBackgroundColor(activity.getColorSelectedOnSettings());
         }
 
         public void bind(Message message) {

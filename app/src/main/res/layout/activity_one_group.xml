@@ -86,7 +86,7 @@
                 android:id="@+id/sendFileOneGroup"
                 android:src="@drawable/ic_note_add_white_24dp"
                 android:layout_gravity="bottom|end"
-                android:backgroundTint="@color/colorButton"
+                android:backgroundTint="@color/colorPrimary"
                 android:layout_margin="20dp"/>
             </android.support.design.widget.CoordinatorLayout>
         <TextView

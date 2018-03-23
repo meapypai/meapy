@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.BinderThread;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -86,6 +87,7 @@ public class OneGroupActivity extends MyAppCompatActivity {
     private Groups group;
 
     private ImageView accedToDiscussionOneGroup;
+    private FloatingActionButton fBtn;
 
     public static final int LEAVE_GROUP_REQUEST = 1;
 
@@ -183,7 +185,7 @@ public class OneGroupActivity extends MyAppCompatActivity {
             }
         });
 
-        final FloatingActionButton fBtn = findViewById(R.id.sendFileOneGroup);
+        fBtn = findViewById(R.id.sendFileOneGroup);
         fBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -219,6 +221,14 @@ public class OneGroupActivity extends MyAppCompatActivity {
                 inviteAction();
             }
         });*/
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        //change widgets'color in terms of settings
+        fBtn.setBackgroundTintList(ContextCompat.getColorStateList(this,colorId));
     }
 
     private void onDisciplineAdded(final Discipline disc){
