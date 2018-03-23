@@ -77,12 +77,14 @@ public class MyGroupsActivity extends MyAppCompatActivity {
             }
         });
 
+        /*
         findViewById(R.id.joinGroupId).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), JoinGroupActivity.class));
             }
         });
+        */
         // providing datas
         provideGroups();
     }

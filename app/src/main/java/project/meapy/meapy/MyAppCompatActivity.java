@@ -1,13 +1,12 @@
 package project.meapy.meapy;
 
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 /**
  * Created by yassi on 23/03/2018.
@@ -34,7 +33,10 @@ public class MyAppCompatActivity extends AppCompatActivity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String colorSelected = preferences.getString(SettingsActivity.KEY_PREFERENCE_COLOR,"green");
         colorSelectedOnSettings = getColorInHex(colorSelected);
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(colorSelectedOnSettings));
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null) {
+            actionBar.setBackgroundDrawable(new ColorDrawable(colorSelectedOnSettings));
+        }
     }
 
     private int getColorInHex(String colorName) {
