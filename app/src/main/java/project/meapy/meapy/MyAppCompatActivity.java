@@ -15,7 +15,8 @@ import android.widget.Toast;
 
 public class MyAppCompatActivity extends AppCompatActivity {
 
-    protected int colorSelectedOnSettings = 0; //default value
+    protected int colorSelectedOnSettings; //color (int color)
+    protected int colorId; //color id (int id)
 
     public MyAppCompatActivity() {
         super();
@@ -36,17 +37,20 @@ public class MyAppCompatActivity extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(colorSelectedOnSettings));
     }
 
-    private int getColorInHex(String color) {
-        int hex = 0;
-        if(color.equals("bordeau")) {
-            hex = getResources().getColor(R.color.bordeau);
+    private int getColorInHex(String colorName) {
+        int color = 0;
+        if(colorName.equals("bordeau")) {
+            color = getResources().getColor(R.color.bordeau);
+            colorId = R.color.bordeau;
         }
-        else if(color.equals("green")) {
-            hex = getResources().getColor(R.color.green);
+        else if(colorName.equals("green")) {
+            color = getResources().getColor(R.color.green);
+            colorId = R.color.green;
         }
-        else if(color.equals("blue")) {
-            hex = getResources().getColor(R.color.blue);
+        else if(colorName.equals("blue")) {
+            color = getResources().getColor(R.color.blue);
+            colorId = R.color.blue;
         }
-        return hex;
+        return color;
     }
 }
