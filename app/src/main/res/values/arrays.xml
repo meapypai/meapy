@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="colors_settings">
+        <item>Bordeau</item>
+        <item>Green</item>
+        <item>Blue</item>
+    </array>
+
+    <array name="colors_save">
+        <item>bordeau</item>
+        <item>green</item>
+        <item>blue</item>
+    </array>
+</resources>
