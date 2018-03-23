@@ -126,6 +126,8 @@ public class OneGroupActivity extends MyAppCompatActivity {
 
         // A REVOIR ( mettre une toolbar)
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarOnegroup);
+        toolbar.setNavigationIcon(R.drawable.ic_dehaze_white_24dp);
+        toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_one_group);
         setSupportActionBar(toolbar);
 
