@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 public class MyAppCompatActivity extends AppCompatActivity {
 
-    private int colorSelectedOnSettings = 0; //default value
+    protected int colorSelectedOnSettings = 0; //default value
 
     public MyAppCompatActivity() {
         super();
@@ -24,20 +24,16 @@ public class MyAppCompatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String colorSelected = preferences.getString(SettingsActivity.KEY_PREFERENCE_COLOR,"green");
-        colorSelectedOnSettings = getColorInHex(colorSelected);
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(colorSelectedOnSettings));
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-    }
 
-    public int  getColorSelectedOnSettings() {
-        return this.colorSelectedOnSettings;
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String colorSelected = preferences.getString(SettingsActivity.KEY_PREFERENCE_COLOR,"green");
+        colorSelectedOnSettings = getColorInHex(colorSelected);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(colorSelectedOnSettings));
     }
 
     private int getColorInHex(String color) {
