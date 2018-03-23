@@ -160,8 +160,6 @@ public class PostDetailsActivity extends MyAppCompatActivity {
         dir.mkdirs();
         for (String filepath : filesPaths) {
             String[] filesPathData = filepath.split(Pattern.quote("."));
-            String prefix = filesPathData[0];
-            String suffix = filesPathData[1];
             final File localFile = new File(dir,filepath);
             String refStr = "data_groups/" + curPost.getGroupId() + "/"
                     + filepath;

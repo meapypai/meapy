@@ -39,6 +39,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import project.meapy.meapy.bean.Discipline;
 import project.meapy.meapy.bean.Groups;
@@ -212,10 +213,11 @@ public class SendFileActivity extends MyAppCompatActivity {
                         for(int i = 0; i < files.size(); i++) {
                             File f = files.get(i);
                             if(f.exists()) {
-                                final Uri uriFile = Uri.fromFile(files.get(i));
-                                filesPaths.add(uriFile.getLastPathSegment());
-                                //post.setFilePath(uriFile.getLastPathSegment());
-                                StorageReference groupFiles = filesRef.child("data_groups/" + group.getId() + "/" + uriFile.getLastPathSegment());
+                                String suffix = f.getName().split(Pattern.quote("."))[1];
+                                String filenameDb = String.format("file_%d_%d.%s",i,post.getId(),suffix);
+                                filesPaths.add(filenameDb);
+                                StorageReference groupFiles = filesRef.child("data_groups/" + group.getId() + "/" + filenameDb);
+                                Uri uriFile = Uri.fromFile(files.get(i));
                                 groupFiles.putFile(uriFile);
                             }
                         }
@@ -229,20 +231,7 @@ public class SendFileActivity extends MyAppCompatActivity {
                         groupspost.setValue(post);
                         Toast.makeText(SendFileActivity.this,"post added",Toast.LENGTH_LONG).show();
                         finish();
-//                                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                            @Override
-//                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                                post.setFilePath(uriFile.getLastPathSegment());
-//                                // inserer le lien group post dans database
-//                                FirebaseDatabase database = FirebaseDatabase.getInstance();
-//                                //DatabaseReference groupsDisc = database.getReference("groups/"+ group.getId() + "/disciplines/"+disc.getId());
-//
-//                                DatabaseReference groupspost = database.getReference("groups/"+ group.getId() + "/disciplines/"+disc.getId()+ "/posts/").child(post.getId()+"");
-//                                groupspost.setValue(post);
-//                                Toast.makeText(SendFileActivity.this,"post added",Toast.LENGTH_LONG).show();
-//                                finish();
-//                            }
-//                        });
+
                     }else{
                         Toast.makeText(SendFileActivity.this, "you must choose groups and discipline and title", Toast.LENGTH_SHORT).show();
                     }
