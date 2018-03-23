@@ -80,6 +80,10 @@
         <activity android:name=".SearchUserActivity"></activity>
         <activity android:name=".JoinGroupActivity"
             android:theme="@style/Theme.AppCompat.Dialog"></activity>
+
+        <activity android:name=".SettingsActivity"
+            android:label="Settings"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
