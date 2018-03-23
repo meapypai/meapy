@@ -25,7 +25,7 @@ public class MyAppCompatActivity extends AppCompatActivity {
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String colorSelected = preferences.getString(SettingsActivity.KEY_PREFERENCE_COLOR,"Green");
-
+        Toast.makeText(this,colorSelected,Toast.LENGTH_SHORT).show();
         colorSelectedOnSettings = getColorInHex(colorSelected);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(colorSelectedOnSettings));
     }

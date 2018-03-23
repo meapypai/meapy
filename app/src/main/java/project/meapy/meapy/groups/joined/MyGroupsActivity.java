@@ -210,7 +210,7 @@ public class MyGroupsActivity extends MyAppCompatActivity {
         MyApplication.launch();
 
         //change color in terms of settings
-        int color = getColorSelectedOnSettings();
-        createGroupId.setBackgroundColor(color);
+//        int color = getColorSelectedOnSettings();
+//        createGroupId.setBackgroundColor(color);
     }
 }

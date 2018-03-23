@@ -12,7 +12,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import project.meapy.meapy.bean.Discipline;
 import project.meapy.meapy.bean.Groups;
 
-public class AddDisciplineActivity extends MyAppCompatActivity {
+public class AddDisciplineActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
