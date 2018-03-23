@@ -20,4 +20,9 @@
     <color name="colorWhite">#FFFFFF</color>
 
     <color name="error">#FA1414</color>
+
+    <!--Color to change dynamically in terms of parameters-->
+    <color name="bordeau">#83182A</color>
+    <color name="green">#57b99e</color>
+    <color name="blue">#25BBE9</color>
 </resources>

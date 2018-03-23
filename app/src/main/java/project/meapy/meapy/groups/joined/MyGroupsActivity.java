@@ -10,6 +10,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -207,5 +208,9 @@ public class MyGroupsActivity extends MyAppCompatActivity {
 
         //to notify user if he's added to a group
         MyApplication.launch();
+
+        //change color in terms of settings
+        int color = getColorSelectedOnSettings();
+        createGroupId.setBackgroundColor(color);
     }
 }

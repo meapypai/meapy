@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 public class SettingsActivity extends MyAppCompatActivity {
 
-    public static final String KEY_PREFERENCE_KEY = "themeColor";
+    public static final String KEY_PREFERENCE_COLOR = "themeColor";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 public class MyAppCompatActivity extends AppCompatActivity {
 
+    private int colorSelectedOnSettings = 0; //default value
+
     public MyAppCompatActivity() {
         super();
     }
@@ -22,22 +24,26 @@ public class MyAppCompatActivity extends AppCompatActivity {
         super.onStart();
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String colorSelected = preferences.getString(SettingsActivity.KEY_PREFERENCE_KEY,"Bordeau");
+        String colorSelected = preferences.getString(SettingsActivity.KEY_PREFERENCE_COLOR,"Green");
 
-        String color = getColorInHex(colorSelected);
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor(color)));
+        colorSelectedOnSettings = getColorInHex(colorSelected);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(colorSelectedOnSettings));
     }
 
-    private String getColorInHex(String color) {
-        String hex= "";
+    public int  getColorSelectedOnSettings() {
+        return this.colorSelectedOnSettings;
+    }
+
+    private int getColorInHex(String color) {
+        int hex = 0;
         if(color.equals("bordeau")) {
-            hex = "#83182A";
+            hex = getResources().getColor(R.color.bordeau);
         }
         else if(color.equals("green")) {
-            hex = "#57b99e";
+            hex = getResources().getColor(R.color.green);
         }
         else if(color.equals("blue")) {
-            hex = "25BBE9";
+            hex = getResources().getColor(R.color.blue);
         }
         return hex;
     }
