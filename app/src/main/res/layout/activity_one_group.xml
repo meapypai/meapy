@@ -118,6 +118,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
             <RelativeLayout
+                android:id="@+id/headerNavigationView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorButton">
@@ -138,6 +139,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/footerNavigationView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"

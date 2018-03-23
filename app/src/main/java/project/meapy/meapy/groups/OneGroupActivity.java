@@ -5,6 +5,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.BinderThread;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -156,6 +157,9 @@ public class OneGroupActivity extends MyAppCompatActivity {
 
 
         final NavigationView navigationView = findViewById(R.id.side_menu_one_group);
+
+        findViewById(R.id.headerNavigationView).setBackground(getColorDrawable());
+        findViewById(R.id.footerNavigationView).setBackground(getColorDrawable());
 
         listView.setAdapter(adapterPost);
 

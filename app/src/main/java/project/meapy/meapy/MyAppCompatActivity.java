@@ -39,6 +39,13 @@ public class MyAppCompatActivity extends AppCompatActivity {
         }
     }
 
+    protected ColorDrawable getColorDrawable(){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String colorSelected = preferences.getString(SettingsActivity.KEY_PREFERENCE_COLOR,"green");
+        colorSelectedOnSettings = getColorInHex(colorSelected);
+        return new ColorDrawable(colorSelectedOnSettings);
+    }
+
     private int getColorInHex(String colorName) {
         int color = 0;
         if(colorName.equals("bordeau")) {
