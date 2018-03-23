@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="25dp"
         android:layout_gravity="bottom|end"
-        android:src="@drawable/ic_group_add_white_24dp"/>
-        app:backgroundTint="@color/colorButton"
+        android:src="@drawable/ic_group_add_white_24dp"
+        app:backgroundTint="@color/colorButton"/>
     </android.support.design.widget.CoordinatorLayout>
 </RelativeLayout>

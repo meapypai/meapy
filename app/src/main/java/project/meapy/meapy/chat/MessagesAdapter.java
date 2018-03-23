@@ -1,16 +1,19 @@
 package project.meapy.meapy.chat;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
+import project.meapy.meapy.MyAppCompatActivity;
 import project.meapy.meapy.R;
 import project.meapy.meapy.bean.Message;
 
@@ -88,8 +91,8 @@ public class MessagesAdapter extends RecyclerView.Adapter{
             user = (TextView)itemView.findViewById(R.id.usernameMessage);
             content = (TextView)itemView.findViewById(R.id.contentMessage);
 
-//            MyAppCompatActivity activity = (MyAppCompatActivity) context;
-//            content.setBackgroundColor(activity.getColorSelectedOnSettings());
+            MyAppCompatActivity activity = (MyAppCompatActivity) context;
+            content.setBackgroundTintList(ContextCompat.getColorStateList(activity,activity.getColorMessage().get("Sent")));
         }
 
         public void bind(Message message) {
@@ -111,6 +114,9 @@ public class MessagesAdapter extends RecyclerView.Adapter{
             date = (TextView)itemView.findViewById(R.id.date);
             user = (TextView)itemView.findViewById(R.id.usernameMessage);
             content = (TextView)itemView.findViewById(R.id.contentMessage);
+
+            MyAppCompatActivity activity = (MyAppCompatActivity) context;
+            content.setBackgroundTintList(ContextCompat.getColorStateList(activity,activity.getColorMessage().get("Receive")));
         }
 
         public void bind(Message message) {

@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="project.meapy.meapy.SendFileActivity"
-    android:background="@color/background"
     android:id="@+id/sendFileLay">
 
 
@@ -140,8 +139,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/takePhotoSendFile"
-        android:backgroundTint="@color/colorButton"
         android:src="@drawable/ic_camera_alt_white_24dp"
+        android:backgroundTint="@color/colorButton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="25dp"/>

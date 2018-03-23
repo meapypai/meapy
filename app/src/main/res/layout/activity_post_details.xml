@@ -120,7 +120,6 @@
         android:layout_alignParentBottom="true"
         android:gravity="bottom"
         android:layout_centerHorizontal="true"
-        android:background="@color/background"
         android:padding="5dp">
 
         <EditText

@@ -100,14 +100,14 @@ public class ChatRoomActivity extends MyAppCompatActivity {
         addSmileyChatRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                LinearLayout layout = (LinearLayout) findViewById(R.id.allSmileyChatRoom);
                 if(smileyCpt == 0) {
-                    LinearLayout layout = (LinearLayout) findViewById(R.id.allSmileyChatRoom);
                     layout.setVisibility(View.VISIBLE);
                     smileyCpt += 1;
                 }
                 else {
-
                     smileyCpt-=1;
+                    layout.setVisibility(View.GONE);
                 }
             }
         });

@@ -8,6 +8,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by yassi on 23/03/2018.
  */
@@ -16,6 +19,7 @@ public class MyAppCompatActivity extends AppCompatActivity {
 
     protected int colorSelectedOnSettings; //color (int color)
     protected int colorId; //color id (int id)
+    private Map<String,Integer> colorMessages =  new HashMap<>();
 
     public MyAppCompatActivity() {
         super();
@@ -45,6 +49,10 @@ public class MyAppCompatActivity extends AppCompatActivity {
         return this.colorId;
     }
 
+    public Map<String, Integer> getColorMessage() {
+        return this.colorMessages;
+    }
+
     protected ColorDrawable getColorDrawable(){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String colorSelected = preferences.getString(SettingsActivity.KEY_PREFERENCE_COLOR,"green");
@@ -57,14 +65,20 @@ public class MyAppCompatActivity extends AppCompatActivity {
         if(colorName.equals("bordeau")) {
             color = getResources().getColor(R.color.bordeau);
             colorId = R.color.bordeau;
+            colorMessages.put("Sent",R.color.messageSentBordeau);
+            colorMessages.put("Receive",R.color.messageReceiveBordeau);
         }
         else if(colorName.equals("green")) {
             color = getResources().getColor(R.color.green);
             colorId = R.color.green;
+            colorMessages.put("Sent",R.color.messageSentGreen);
+            colorMessages.put("Receive",R.color.messageReceiveGreen);
         }
         else if(colorName.equals("blue")) {
             color = getResources().getColor(R.color.blue);
             colorId = R.color.blue;
+            colorMessages.put("Sent",R.color.messageSentBlue);
+            colorMessages.put("Receive",R.color.messageReceiveBlue);
         }
         return color;
     }

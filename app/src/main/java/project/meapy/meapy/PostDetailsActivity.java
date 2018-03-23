@@ -132,7 +132,7 @@ public class PostDetailsActivity extends MyAppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        sendComment.setBackgroundColor(colorSelectedOnSettings);
+        sendComment.setBackgroundTintList(ContextCompat.getColorStateList(this,colorId));
     }
 
     @Override
