@@ -5,6 +5,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.BinderThread;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,6 +18,7 @@ import android.support.v7.view.menu.MenuAdapter;
 import android.support.v7.widget.Toolbar;
 import android.view.ActionProvider;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
@@ -54,6 +56,7 @@ import project.meapy.meapy.AddDisciplineActivity;
 import project.meapy.meapy.ChatRoomActivity;
 import project.meapy.meapy.DisciplinePostsActivity;
 import project.meapy.meapy.LeaveGroupActivity;
+import project.meapy.meapy.MyAppCompatActivity;
 import project.meapy.meapy.PostDetailsActivity;
 import project.meapy.meapy.R;
 import project.meapy.meapy.SendFileActivity;
@@ -69,7 +72,7 @@ import project.meapy.meapy.utils.firebase.DisciplineLink;
 import project.meapy.meapy.utils.firebase.GroupLink;
 import project.meapy.meapy.utils.firebase.PostLink;
 
-public class OneGroupActivity extends AppCompatActivity {
+public class OneGroupActivity extends MyAppCompatActivity {
 
     public static final String EXTRA_GROUP_ID = "group_id";
     public static final String EXTRA_GROUP_NAME = "group_name";
@@ -118,14 +121,26 @@ public class OneGroupActivity extends AppCompatActivity {
 
             }
         });
+
+
         // A REVOIR ( mettre une toolbar)
-        final ImageButton openDrawer = findViewById(R.id.openDrawerBtn);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarOnegroup);
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_one_group);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        //getSupportActionBar().setShowHideAnimationEnabled(true);
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.app_name,R.string.app_name);
+        drawerLayout.setDrawerListener(actionBarDrawerToggle);
+        /*final ImageButton openDrawer = findViewById(R.id.openDrawerBtn);
         openDrawer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openDrawer();
             }
         });
+        */
         //FIN A REVOIR
         final Menu menu = ((NavigationView)findViewById(R.id.side_menu_one_group)).getMenu();
         subMenuDisc = menu.addSubMenu("Discipline");
@@ -172,15 +187,13 @@ public class OneGroupActivity extends AppCompatActivity {
             }
         });
 
-        accedToDiscussionOneGroup.setOnClickListener(new View.OnClickListener() {
+        /*accedToDiscussionOneGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(OneGroupActivity.this, ChatRoomActivity.class);
-                intent.putExtra(EXTRA_GROUP_ID,grp.getId()+"");
-                intent.putExtra(EXTRA_GROUP_NAME,grp.getName());
-                startActivity(intent);
+                inviteDiscussionAction();
             }
         });
+        */
 
         ImageView imageView = findViewById(R.id.imageGroupOneGroup);
         StorageReference ref = FirebaseStorage.getInstance().getReference("data_groups/" + grp.getId() +"/"+grp.getImageName());
@@ -193,23 +206,13 @@ public class OneGroupActivity extends AppCompatActivity {
                 startActivityForResult(i, LEAVE_GROUP_REQUEST);
             }
         });
-        findViewById(R.id.inviteOneGroup).setOnClickListener(new View.OnClickListener() {
+
+        /*findViewById(R.id.inviteOneGroup).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String generatedCode = grp.getCodeToJoin();
-                if((grp.getCodeToJoin() == null) || (grp.getCodeToJoin().length()==0)){
-                    generatedCode = CodeGroupsGenerator.generate();
-                    grp.setCodeToJoin(generatedCode);
-                    FirebaseDatabase.getInstance().getReference("groups/"+grp.getId()+"/codeToJoin/").setValue(generatedCode);
-                    FirebaseDatabase.getInstance().getReference("codeToGroups/"+generatedCode+"/").setValue(grp.getId());
-                }
-                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("simple text", generatedCode);
-                clipboard.setPrimaryClip(clip);
-                String codeSavedClip = getString(R.string.code_saved_clip_toast);
-                Toast.makeText(getApplicationContext(),codeSavedClip +" ("+generatedCode+")" ,Toast.LENGTH_LONG).show();
+                inviteAction();
             }
-        });
+        });*/
     }
 
     private void onDisciplineAdded(final Discipline disc){
@@ -261,6 +264,47 @@ public class OneGroupActivity extends AppCompatActivity {
                 //Write your code if there's no result
             }
         }
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.onegroup_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        Intent intent = null ;
+        switch(item.getItemId()) {
+            case R.id.inviteOneGroup:
+                inviteAction();
+                break;
+            case R.id.accedToDiscussionOneGroup:
+                intent = new Intent(OneGroupActivity.this, ChatRoomActivity.class);
+                intent.putExtra(EXTRA_GROUP_ID,group.getId()+"");
+                intent.putExtra(EXTRA_GROUP_NAME,group.getName());
+                break;
+        }
+        if(intent != null) {
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void inviteAction(){
+        String generatedCode = group.getCodeToJoin();
+        if((group.getCodeToJoin() == null) || (group.getCodeToJoin().length()==0)){
+            generatedCode = CodeGroupsGenerator.generate();
+            group.setCodeToJoin(generatedCode);
+            FirebaseDatabase.getInstance().getReference("groups/"+group.getId()+"/codeToJoin/").setValue(generatedCode);
+            FirebaseDatabase.getInstance().getReference("codeToGroups/"+generatedCode+"/").setValue(group.getId());
+        }
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText("simple text", generatedCode);
+        clipboard.setPrimaryClip(clip);
+        String codeSavedClip = getString(R.string.code_saved_clip_toast);
+        Toast.makeText(getApplicationContext(),codeSavedClip +" ("+generatedCode+")" ,Toast.LENGTH_LONG).show();
     }
 
     private void openDrawer(){
