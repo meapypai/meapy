@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="project.meapy.meapy.CreateGroupActivity">
     <!--<TextView-->
         <!--android:id="@+id/headTextSend"-->
@@ -33,9 +34,9 @@
        android:id="@+id/insertCreateGroup"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-       android:layout_alignTop="@+id/imageCreateGroup"
-       android:layout_toEndOf="@+id/imageCreateGroup"
-       android:background="@drawable/ic_add_white_24dp" />
+       android:src="@drawable/ic_add_black_24dp"
+       android:backgroundTint="@color/facebook"
+       />
 
    <EditText
         android:id="@+id/limitCreateGroup"

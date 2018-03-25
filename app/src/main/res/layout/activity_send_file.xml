@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="project.meapy.meapy.SendFileActivity"
     android:id="@+id/sendFileLay">
 
@@ -140,10 +141,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/takePhotoSendFile"
         android:src="@drawable/ic_camera_alt_white_24dp"
-        android:backgroundTint="@color/colorButton"
+        app:backgroundTint="@color/colorButton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="25dp"/>
+
     <Button
         android:id="@+id/fileBtnSend"
         android:layout_width="wrap_content"
