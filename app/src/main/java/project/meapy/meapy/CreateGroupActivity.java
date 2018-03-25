@@ -170,6 +170,8 @@ public class CreateGroupActivity extends MyAppCompatActivity {
         super.onStart();
 
         //change widgets'color in terms of settings
+        insertCreateGroup.setBackgroundTintList(ContextCompat.getColorStateList(this,colorId));
+        addUserCreateGroup.setBackgroundTintList(ContextCompat.getColorStateList(this,colorId));
         createNewGroupId.setBackgroundColor(colorSelectedOnSettings);
     }
 

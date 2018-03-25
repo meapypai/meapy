@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +47,7 @@ public class PostDetailsActivity extends MyAppCompatActivity {
     private Menu menu;
 
     private ImageButton sendComment;
+    private RelativeLayout layoutDescriptionFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,8 @@ public class PostDetailsActivity extends MyAppCompatActivity {
         curPost = post;
         TextView contentPostTv = findViewById(R.id.contentPostDetails);
         contentPostTv.setText(post.getTextContent());
+
+        layoutDescriptionFile = (RelativeLayout)findViewById(R.id.layoutDescriptionFile);
 
         TextView titlePostTv = findViewById(R.id.titlePostDetails);
         titlePostTv.setText(post.getTitle());
@@ -133,6 +137,7 @@ public class PostDetailsActivity extends MyAppCompatActivity {
         super.onStart();
 
         sendComment.setBackgroundTintList(ContextCompat.getColorStateList(this,colorId));
+        layoutDescriptionFile.setBackgroundColor(colorSelectedOnSettings);
     }
 
     @Override

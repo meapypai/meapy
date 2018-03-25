@@ -30,13 +30,14 @@
         android:layout_below="@id/nameCreateGroup"
         android:layout_margin="@dimen/activity_horizontal_margin"/>
 
-   <ImageButton
-       android:id="@+id/insertCreateGroup"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:src="@drawable/ic_add_black_24dp"
-       android:backgroundTint="@color/facebook"
-       />
+    <ImageButton
+        android:id="@+id/insertCreateGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nameCreateGroup"
+        android:layout_toEndOf="@+id/imageCreateGroup"
+        android:backgroundTint="@color/colorButton"
+        android:src="@drawable/ic_add_black_24dp" />
 
    <EditText
         android:id="@+id/limitCreateGroup"
@@ -61,9 +62,10 @@
         android:id="@+id/addUserCreateGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/addUserTextcreateGroup"
-        android:layout_toEndOf="@+id/addUserTextcreateGroup"
-        android:background="@drawable/ic_add_white_24dp" />
+        android:layout_alignEnd="@+id/insertCreateGroup"
+        android:layout_below="@+id/limitCreateGroup"
+        android:backgroundTint="@color/colorButton"
+        android:src="@drawable/ic_add_black_24dp" />
 
 
    <GridView
