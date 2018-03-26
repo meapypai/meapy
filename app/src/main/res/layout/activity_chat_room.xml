@@ -27,6 +27,7 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_margin="0dp"
         android:layout_above="@id/linearLayout">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/scrollMessagesChat"
@@ -43,7 +44,15 @@
         android:layout_alignParentBottom="true"
         android:orientation="vertical"
         android:layout_alignParentStart="true"
+        android:layout_margin="0dp"
+        android:padding="0dp"
         android:id="@+id/linearLayout">
+
+        <!--<ImageView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="2dp"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:background="@drawable/divider"/>-->
 
         <LinearLayout
             android:id="@+id/writeMessageChatroom"
@@ -92,7 +101,7 @@
                 android:layout_centerInParent="true"
                 android:backgroundTint="@android:color/transparent"
                 android:padding="10dp"
-                android:src="@drawable/ic_send_black_24dp" />
+                android:src="@drawable/ic_send_black_24dp"/>
 
         </LinearLayout>
 
