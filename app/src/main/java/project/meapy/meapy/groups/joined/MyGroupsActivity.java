@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -200,7 +201,7 @@ public class MyGroupsActivity extends MyAppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
+        Toast.makeText(getApplicationContext(),"user : "+FirebaseAuth.getInstance().getCurrentUser(),Toast.LENGTH_LONG).show();
         //to notify user if he's added to a group
         MyApplication.launch();
 
