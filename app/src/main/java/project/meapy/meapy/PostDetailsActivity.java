@@ -9,6 +9,8 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -48,22 +50,31 @@ public class PostDetailsActivity extends MyAppCompatActivity {
 
     private ImageButton sendComment;
     private RelativeLayout layoutDescriptionFile;
+    private EditText commentContent;
+    private TextView titlePostTv;
+    private TextView descFiles;
+    private TextView contentPostTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_details);
-        final Post post = (Post) getIntent().getSerializableExtra("POST");
-        curPost = post;
-        TextView contentPostTv = findViewById(R.id.contentPostDetails);
-        contentPostTv.setText(post.getTextContent());
 
         layoutDescriptionFile = (RelativeLayout)findViewById(R.id.layoutDescriptionFile);
+        commentContent        = findViewById(R.id.contentCommentPostDetails);
+        sendComment           = findViewById(R.id.sendCommentPostDetails);
+        titlePostTv           = findViewById(R.id.titlePostDetails);
+        descFiles             = findViewById(R.id.descFilesPostDetails);
+        contentPostTv         = findViewById(R.id.contentPostDetails);
 
-        TextView titlePostTv = findViewById(R.id.titlePostDetails);
+        final Post post = (Post) getIntent().getSerializableExtra("POST");
+        curPost = post;
+
+        contentPostTv.setText(post.getTextContent());
+
+
         titlePostTv.setText(post.getTitle());
 
-        TextView descFiles = findViewById(R.id.descFilesPostDetails);
         List<String> filesPaths = post.getFilesPaths();
 
         int size = filesPaths.size();
@@ -76,8 +87,6 @@ public class PostDetailsActivity extends MyAppCompatActivity {
         }else{
             descFiles.setText("no file(s)");
         }
-        final EditText commentContent = findViewById(R.id.contentCommentPostDetails);
-        sendComment = findViewById(R.id.sendCommentPostDetails);
 
         sendComment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +105,29 @@ public class PostDetailsActivity extends MyAppCompatActivity {
 
                     commentContent.setText("");
                 }
+            }
+        });
+
+        commentContent.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Toast.makeText(PostDetailsActivity.this,"ok",Toast.LENGTH_SHORT).show();
+                if(commentContent.getText().length() == 0) {
+                    sendComment.setImageResource(R.drawable.ic_send_white_24dp);
+                }
+                else {
+                    sendComment.setImageResource(R.drawable.ic_send_black_24dp);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
 

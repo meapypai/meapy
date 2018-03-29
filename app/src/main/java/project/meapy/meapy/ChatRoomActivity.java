@@ -2,9 +2,13 @@ package project.meapy.meapy;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -94,6 +98,30 @@ public class ChatRoomActivity extends MyAppCompatActivity {
                     MessageLink.sendMessageToGroup(idGroup,m);
 
                 }
+            }
+        });
+
+
+        messageIdChatRoom.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Toast.makeText(ChatRoomActivity.this,"ok",Toast.LENGTH_SHORT).show();
+                if(messageIdChatRoom.getText().length() == 0) {
+                    sendChatRoom.setImageResource(R.drawable.ic_send_white_24dp);
+                }
+                else {
+                    sendChatRoom.setImageResource(R.drawable.ic_send_black_24dp);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
 
