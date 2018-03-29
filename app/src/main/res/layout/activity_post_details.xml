@@ -134,6 +134,13 @@
         android:layout_above="@id/writeCommentPostDetails">
 
     </ListView>
+
+    <ImageView
+        android:layout_below="@+id/commentsPostDetails"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:src="@drawable/divider"/>
+
     <RelativeLayout
         android:id="@+id/writeCommentPostDetails"
         android:layout_width="match_parent"
@@ -147,19 +154,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@id/sendCommentPostDetails"
-            android:hint="Write message"
+            android:hint="Write comment"
+            android:padding="5dp"
+            android:layout_centerInParent="true"
             android:layout_marginLeft="5dp"
-            android:id="@+id/contentCommentPostDetails"/>
+            android:id="@+id/contentCommentPostDetails"
+            android:background="@android:color/transparent"/>
 
         <ImageButton
             android:id="@+id/sendCommentPostDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
             android:src="@drawable/ic_send_white_24dp"
-            android:layout_marginRight="1dp"
-            android:background="@drawable/round"
-            android:padding="10dp"/>
+            android:layout_marginRight="5dp"
+            android:background="@android:color/transparent"/>
     </RelativeLayout>
 
 
