@@ -2,6 +2,7 @@ package project.meapy.meapy;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -14,12 +15,17 @@ import com.google.firebase.database.ValueEventListener;
 
 public class JoinGroupActivity extends MyAppCompatActivity {
 
+    private Button okJoinGroup;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join_group);
 
-        findViewById(R.id.okJoinGroup).setOnClickListener(new View.OnClickListener() {
+
+        okJoinGroup = findViewById(R.id.okJoinGroup);
+
+        okJoinGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 EditText codeEdit = findViewById(R.id.codeToJoinGroup);
@@ -46,5 +52,13 @@ public class JoinGroupActivity extends MyAppCompatActivity {
 
                 }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        //change widgets'color in terms of settings
+        okJoinGroup.setBackgroundColor(colorSelectedOnSettings);
     }
 }

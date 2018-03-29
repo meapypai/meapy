@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,7 +29,7 @@ import project.meapy.meapy.search.SearchUserAdapter;
  * Created by yassi on 16/03/2018.
  */
 
-public class SearchUserActivity extends AppCompatActivity {
+public class SearchUserActivity extends MyAppCompatActivity {
 
     public static final String EXTRA_ARRAY_USERS = "array_users";
 
@@ -133,5 +134,13 @@ public class SearchUserActivity extends AppCompatActivity {
             }
         });
         return true;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        //change widgets'color in terms of settings
+        validUsersToAddSearchActivity.setBackgroundTintList(ContextCompat.getColorStateList(this,colorId));
     }
 }
