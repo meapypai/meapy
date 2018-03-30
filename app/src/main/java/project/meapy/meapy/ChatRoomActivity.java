@@ -84,8 +84,6 @@ public class ChatRoomActivity extends MyAppCompatActivity {
         sendChatRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Toast.makeText(ChatRoomActivity.this,String.valueOf(messages.size()),Toast.LENGTH_SHORT).show();
                 String contentMessage = messageIdChatRoom.getText().toString();
                 if(!TextUtils.isEmpty(contentMessage)) {
                     messageIdChatRoom.setText("");
@@ -110,7 +108,6 @@ public class ChatRoomActivity extends MyAppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Toast.makeText(ChatRoomActivity.this,"ok",Toast.LENGTH_SHORT).show();
                 if(messageIdChatRoom.getText().length() == 0) {
                     sendChatRoom.setImageResource(R.drawable.ic_send_white_24dp);
                 }

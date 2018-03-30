@@ -116,7 +116,6 @@ public class PostDetailsActivity extends MyAppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Toast.makeText(PostDetailsActivity.this,"ok",Toast.LENGTH_SHORT).show();
                 if(commentContent.getText().length() == 0) {
                     sendComment.setImageResource(R.drawable.ic_send_white_24dp);
                 }
