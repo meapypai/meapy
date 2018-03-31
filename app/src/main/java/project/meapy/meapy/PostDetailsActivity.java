@@ -216,7 +216,6 @@ public class PostDetailsActivity extends MyAppCompatActivity {
         FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
         if(fUser != null){
             if(menu != null && curPost.getUser_uid() != null && fUser.getUid().equals(curPost.getUser_uid())){
-                Toast.makeText(getApplicationContext(),"post owner",Toast.LENGTH_LONG).show();
                 menu.findItem(R.id.deletePostDetails).setVisible(true);
             }
         }

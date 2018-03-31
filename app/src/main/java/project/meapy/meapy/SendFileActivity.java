@@ -237,7 +237,7 @@ public class SendFileActivity extends MyAppCompatActivity {
                     }
                 }
                 else {
-                    Toast.makeText(SendFileActivity.this, "Description length must be highter than 50", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SendFileActivity.this, "Description length must be highter than " + LIMIT_DESCRIPTION_LENGTH, Toast.LENGTH_SHORT).show();
                 }
             }
         });

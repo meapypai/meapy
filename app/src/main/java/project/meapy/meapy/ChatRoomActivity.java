@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -128,6 +129,7 @@ public class ChatRoomActivity extends MyAppCompatActivity {
                 LinearLayout layout = (LinearLayout) findViewById(R.id.allSmileyChatRoom);
                 if(smileyCpt == 0) {
                     layout.setVisibility(View.VISIBLE);
+//                    ChatRoomActivity.this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
                     smileyCpt += 1;
                 }
                 else {
@@ -136,5 +138,18 @@ public class ChatRoomActivity extends MyAppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        LinearLayout layout = (LinearLayout) findViewById(R.id.allSmileyChatRoom);
+        if(keyCode == KeyEvent.KEYCODE_BACK) {
+            if(smileyCpt == 1) {
+                layout.setVisibility(View.GONE);
+                smileyCpt-=1;
+                return true;
+            }
+        }
+        return super.onKeyDown(keyCode,event);
     }
 }
