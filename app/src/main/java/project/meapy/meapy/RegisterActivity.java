@@ -53,6 +53,8 @@ public class RegisterActivity extends MyAppCompatActivity {
 
                                 //insertion d'un nouvel user
                                 User user = new User(firstName,lastName,email);
+                                user.setFirstName(firstName);
+                                user.setLastName(lastName);
 
                                 Registration registration = new Registration(RegisterActivity.this,email,password);
                                 registration.register(user);

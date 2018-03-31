@@ -53,9 +53,8 @@ public class DefaultLogin {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             User u = (User)dataSnapshot.getValue(User.class);
 
-                            String displayName = u.getFirstName() + " " + u.getLastName(); //name will be display on chat, comment...
-
                             //set user's name
+                            String displayName = u.getFirstName() + " " + u.getLastName(); //name will be display on chat, comment...
                             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                     .setDisplayName(displayName).build();
 

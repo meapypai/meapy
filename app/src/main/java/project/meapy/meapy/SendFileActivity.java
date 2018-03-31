@@ -202,6 +202,7 @@ public class SendFileActivity extends MyAppCompatActivity {
                         post.setGroupId(group.getId());
                         post.setDisciplineId(disc.getId());
                         post.setDisciplineName(disc.getName());
+                        post.setUser(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
                         FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
                         if(fUser != null) {
                             post.setUser_uid(fUser.getUid());

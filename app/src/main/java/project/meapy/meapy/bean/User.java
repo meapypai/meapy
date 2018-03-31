@@ -9,9 +9,9 @@ import android.os.Parcelable;
 
 public class User implements Parcelable {
 
+    protected String email;
     protected String firstName;
     protected String lastName;
-    protected String email;
     protected String uid;
 
     protected User(Parcel in) {

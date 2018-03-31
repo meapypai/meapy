@@ -201,7 +201,7 @@ public class MyGroupsActivity extends MyAppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Toast.makeText(getApplicationContext(),"user : "+FirebaseAuth.getInstance().getCurrentUser(),Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(),"user : "+FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),Toast.LENGTH_LONG).show();
         //to notify user if he's added to a group
         MyApplication.launch();
 
