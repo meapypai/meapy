@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v7.widget.CardView android:layout_width="wrap_content"
+<android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="5dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:elevation="2dp"
     app:cardElevation="2dp">
 
     <RelativeLayout
@@ -78,26 +80,35 @@
 
         </RelativeLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="30dp"
-            android:layout_centerHorizontal="true"
+            android:layout_marginTop="35dp"
+
             android:layout_below="@+id/postLikeContent">
 
-            <ImageView
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
+                android:textStyle="bold"
+                android:fontFamily="@font/roboto_black"
+                android:text="Momo"/>
+
+            <ImageView
+                android:id="@+id/imgComment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:src="@drawable/ic_comment_black_24dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/imgComment"
                 android:text="0"
                 android:layout_marginLeft="2dp"/>
-        </LinearLayout>
+        </RelativeLayout>
 
     </RelativeLayout>
 </android.support.v7.widget.CardView>
