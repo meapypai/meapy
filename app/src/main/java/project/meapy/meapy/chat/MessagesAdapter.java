@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Date;
 import java.util.List;
 
 import project.meapy.meapy.MyAppCompatActivity;
@@ -120,11 +121,31 @@ public class MessagesAdapter extends RecyclerView.Adapter{
         }
 
         public void bind(Message message) {
-            date.setText("0:00");
+            date.setText(formatDate(message.getDate()));
             user.setText(message.getUser());
             content.setText(message.getContent());
         }
-    }
 
+        private String formatDate(Date d) {
+            //deprecated
+            int hours = d.getHours();
+            int minutes = d.getMinutes();
+            String m = "";
+            String h = "";
+            if(hours < 10) {
+                h += "0" + hours;
+            }
+            else {
+                h += hours;
+            }
+            if(minutes < 10) {
+                m += "0" + minutes;
+            }
+            else {
+                m += minutes;
+            }
+            return h + ":" + minutes;
+        }
+    }
 
 }
