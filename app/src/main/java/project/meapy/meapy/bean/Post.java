@@ -9,7 +9,9 @@ import java.util.List;
 
 public class Post extends DomainObject{
     private String user_uid;
+    private String user;
     private String textContent;
+    private int diffUpDown;
     //private String filePath;
     private List<String> filesPaths = new ArrayList<>();
     private int groupId;
@@ -83,4 +85,21 @@ public class Post extends DomainObject{
     public void setTextContent(String textContent) {
         this.textContent = textContent;
     }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public int getDiffUpDown() {
+        return diffUpDown;
+    }
+
+    public void setDiffUpDown(int diffUpDown) {
+        this.diffUpDown = diffUpDown;
+    }
+
 }

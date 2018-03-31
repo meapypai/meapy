@@ -30,24 +30,36 @@ public class PostAdapter extends ArrayAdapter<Post> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View listItem = convertView;
-        if(listItem == null)
-            listItem = LayoutInflater.from(context).inflate(R.layout.post_view_one_group,parent,false);
+        PostHolder holder;
 
-        Post currentPost = list.get(position);
+        if(convertView == null) {
+            convertView = LayoutInflater.from(context).inflate(R.layout.post_view_one_group, parent, false);
+            holder = new PostHolder();
+            holder.title       = (TextView)convertView.findViewById(R.id.titlePostViewOneGroup);
+            holder.discipline  = (TextView) convertView.findViewById(R.id.discPostViewOneGroup);
+            holder.description = (TextView)convertView.findViewById(R.id.descrPostViewOneGroup);
+            holder.user        = (TextView)convertView.findViewById(R.id.userPost);
+//            holder.diffUpDown  = (TextView)convertView.findViewById(R.id.diffUpDown);
+        }
+        else {
+            holder = (PostHolder) convertView.getTag();
+        }
 
-        TextView title = (TextView)listItem.findViewById(R.id.titlePostViewOneGroup);
-        title.setText(currentPost.getTitle());
 
-        TextView disc = (TextView) listItem.findViewById(R.id.discPostViewOneGroup);
-        disc.setText(currentPost.getDisciplineName());
+        Post currentPost = getItem(position);
 
-        TextView descr = (TextView)listItem.findViewById(R.id.descrPostViewOneGroup);
-        String descrReducted = currentPost.getTextContent();
-        if(descrReducted.length() > 50)
-            descrReducted = descrReducted.substring(0,50)+"...";
-        descr.setText(descrReducted);
+        holder.title.setText(currentPost.getTitle());
+        holder.discipline.setText(currentPost.getDisciplineName());
+        holder.description.setText(currentPost.getTextContent());
+        holder.user.setText(currentPost.getUser());
+//        holder.diffUpDown.setText(currentPost.getDiffUpDown());
 
-        return listItem;
+//        String descrReducted = currentPost.getTextContent();
+//
+//        if(descrReducted.length() > 50)
+//            descrReducted = descrReducted.substring(0,50)+"...";
+//        descr.setText(descrReducted);
+
+        return convertView;
     }
 }
