@@ -46,7 +46,8 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".SendFileActivity"
-            android:label="Add a file"></activity>
+            android:label="Add a file"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".ChatRoomActivity"
             android:screenOrientation="portrait"
@@ -84,6 +85,10 @@
 
         <activity android:name=".SettingsActivity"
             android:label="Settings"
+            android:screenOrientation="portrait"></activity>
+
+        <activity android:name=".ProfilActivity"
+            android:label="Profil"
             android:screenOrientation="portrait"></activity>
     </application>
 
