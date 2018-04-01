@@ -152,7 +152,7 @@ public class PostDetailsActivity extends MyAppCompatActivity {
         ListView listView = findViewById(R.id.commentsPostDetails);
         List<Comment> comments = new ArrayList<>();
         final ArrayAdapter<Comment> adapter = new CommentAdapter(getApplicationContext(),
-                android.R.layout.simple_expandable_list_item_1,comments);
+                R.layout.comment_post_details_view,comments);
         listView.setAdapter(adapter);
         CommentLink.getCommentByPost(post,new RunnableWithParam(){
             @Override

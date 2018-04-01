@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
@@ -52,6 +53,7 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
         }
 
         Comment currentComment = getItem(position);
+        Toast.makeText(context,currentComment.getAuthorStr(),Toast.LENGTH_SHORT).show();
         holder.tvAuthor.setText(currentComment.getAuthorStr());
         holder.tvContent.setText(currentComment.getContent());
 
