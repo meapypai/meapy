@@ -16,4 +16,5 @@ public class PostHolder {
     public TextView description;
     public TextView diffUpDown;
     public ImageView imgUserOneGroup;
+    public TextView datePost;
 }

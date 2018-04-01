@@ -144,7 +144,7 @@ public class MessagesAdapter extends RecyclerView.Adapter{
             else {
                 m += minutes;
             }
-            return h + ":" + minutes;
+            return h + ":" + m;
         }
     }
 

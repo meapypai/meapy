@@ -15,6 +15,7 @@ import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.Date;
 import java.util.List;
 
 import project.meapy.meapy.MyApplication;
@@ -47,6 +48,7 @@ public class PostAdapter extends ArrayAdapter<Post> {
             holder.description = (TextView)convertView.findViewById(R.id.descrPostViewOneGroup);
             holder.user        = (TextView)convertView.findViewById(R.id.userPostOneGroup);
             holder.imgUserOneGroup = (ImageView)convertView.findViewById(R.id.imgUserOneGroup);
+            holder.datePost        = (TextView)convertView.findViewById(R.id.datePost);
 //            holder.diffUpDown  = (TextView)convertView.findViewById(R.id.diffUpDown);
         }
         else {
@@ -60,6 +62,7 @@ public class PostAdapter extends ArrayAdapter<Post> {
         holder.discipline.setText(currentPost.getDisciplineName());
         holder.description.setText(currentPost.getTextContent());
         holder.user.setText(currentPost.getUser());
+        holder.datePost.setText(getNbDayPastSinceToday(currentPost.getDate()));
 
         if(MyApplication.getUser() != null) {
             StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + MyApplication.getUser().getUid() + "/" + MyApplication.getUser().getNameImageProfil());
@@ -67,5 +70,14 @@ public class PostAdapter extends ArrayAdapter<Post> {
         }
 
         return convertView;
+    }
+
+
+    private String getNbDayPastSinceToday(Date d) {
+        Date dToday = new Date();
+        Long l = dToday.getTime() - d.getTime();
+        int hours = (int) (l / 3600);
+        int days = hours / 24;
+        return days + "";
     }
 }

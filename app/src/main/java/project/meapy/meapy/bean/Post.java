@@ -1,6 +1,7 @@
 package project.meapy.meapy.bean;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,6 +19,7 @@ public class Post extends DomainObject{
     private String title;
     private String disciplineName;
     private int disciplineId;
+    private Date date;
 
     public List<String> getFilesPaths() {
         return filesPaths;
@@ -102,4 +104,11 @@ public class Post extends DomainObject{
         this.diffUpDown = diffUpDown;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 }

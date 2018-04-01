@@ -16,6 +16,7 @@ import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.Date;
 import java.util.List;
 
 import project.meapy.meapy.MyApplication;
@@ -47,6 +48,7 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
             holder.tvAuthor  = (TextView)convertView.findViewById(R.id.authorComment);
             holder.tvContent =  (TextView)convertView.findViewById(R.id.contentComment);
             holder.imgUserComment = (ImageView)convertView.findViewById(R.id.imgUserComment);
+            holder.dateComment = (TextView)convertView.findViewById(R.id.dateComment);
         }
         else {
             holder = (CommentHolder) convertView.getTag();
@@ -56,6 +58,7 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
         Toast.makeText(context,currentComment.getAuthorStr(),Toast.LENGTH_SHORT).show();
         holder.tvAuthor.setText(currentComment.getAuthorStr());
         holder.tvContent.setText(currentComment.getContent());
+        holder.dateComment.setText("oui");
 
         if(MyApplication.getUser() != null) {
             StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + MyApplication.getUser().getUid() + "/" + MyApplication.getUser().getNameImageProfil());

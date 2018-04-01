@@ -12,4 +12,5 @@ public class CommentHolder {
     public TextView tvAuthor;
     public TextView tvContent;
     public ImageView imgUserComment;
+    public TextView dateComment;
 }
