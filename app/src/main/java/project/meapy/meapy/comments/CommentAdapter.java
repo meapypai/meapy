@@ -22,6 +22,7 @@ import java.util.List;
 import project.meapy.meapy.MyApplication;
 import project.meapy.meapy.R;
 import project.meapy.meapy.bean.Comment;
+import project.meapy.meapy.utils.BuilderFormatDate;
 
 /**
  * Created by tarek on 15/03/18.
@@ -58,7 +59,7 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
         Toast.makeText(context,currentComment.getAuthorStr(),Toast.LENGTH_SHORT).show();
         holder.tvAuthor.setText(currentComment.getAuthorStr());
         holder.tvContent.setText(currentComment.getContent());
-        holder.dateComment.setText("oui");
+        holder.dateComment.setText(BuilderFormatDate.formatDate(currentComment.getDate()));
 
         if(MyApplication.getUser() != null) {
             StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + MyApplication.getUser().getUid() + "/" + MyApplication.getUser().getNameImageProfil());

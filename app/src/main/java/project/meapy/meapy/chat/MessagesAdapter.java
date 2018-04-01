@@ -17,6 +17,7 @@ import java.util.List;
 import project.meapy.meapy.MyAppCompatActivity;
 import project.meapy.meapy.R;
 import project.meapy.meapy.bean.Message;
+import project.meapy.meapy.utils.BuilderFormatDate;
 
 /**
  * Created by yassi on 15/03/2018.
@@ -121,30 +122,9 @@ public class MessagesAdapter extends RecyclerView.Adapter{
         }
 
         public void bind(Message message) {
-            date.setText(formatDate(message.getDate()));
+            date.setText(BuilderFormatDate.formatDate(message.getDate()));
             user.setText(message.getUser());
             content.setText(message.getContent());
-        }
-
-        private String formatDate(Date d) {
-            //deprecated
-            int hours = d.getHours();
-            int minutes = d.getMinutes();
-            String m = "";
-            String h = "";
-            if(hours < 10) {
-                h += "0" + hours;
-            }
-            else {
-                h += hours;
-            }
-            if(minutes < 10) {
-                m += "0" + minutes;
-            }
-            else {
-                m += minutes;
-            }
-            return h + ":" + m;
         }
     }
 

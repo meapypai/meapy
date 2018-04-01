@@ -83,8 +83,8 @@ public class PostAdapter extends ArrayAdapter<Post> {
         if(days == 0) {
             if(hours == 0) {
                 if(minutes == 0) {
-                    if(seconds == 1)
-                        return "1 second ago";
+                    if(seconds == 1 || seconds == 0)
+                        return seconds + " second ago";
                     else {
                         return seconds + " seconds ago";
                     }
