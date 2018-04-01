@@ -22,6 +22,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import project.meapy.meapy.bean.Discussion;
 import project.meapy.meapy.bean.Groups;
@@ -206,7 +207,7 @@ public class CreateGroupActivity extends MyAppCompatActivity {
         m.setNameUser("Admin");
         m.setContent("Welcolme to the group discussion");
         m.setDate(new Date());
-        m.setuIdUser("JIohfioehfoihzoh");
+        m.setuIdUser(UUID.randomUUID().toString());
         FirebaseDatabase.getInstance().getReference("groups/"+newGroup.getId()+"/discussions/" + discussion.getId()).setValue(m);
         finish();
     }
