@@ -12,9 +12,10 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/imgUser"
+            android:id="@+id/imgUserComment"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:scaleType="centerCrop"
             android:background="@drawable/avatar" />
 
         <TextView
@@ -22,7 +23,7 @@
             android:layout_marginLeft="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/imgUser"
+            android:layout_toRightOf="@+id/imgUserComment"
             android:text="AUTHOR"
             android:textStyle="bold"/>
 
@@ -36,9 +37,9 @@
             android:layout_below="@id/authorComment"/>
 
         <TextView
+            android:id="@+id/contentComment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/contentComment"
             android:layout_marginLeft="25dp"
             android:layout_below="@id/dateComment"
             android:layout_marginTop="10dp"

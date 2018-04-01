@@ -13,6 +13,7 @@ public class User implements Parcelable {
     protected String firstName;
     protected String lastName;
     protected String uid;
+    protected String nameImageProfil;
 
     protected User(Parcel in) {
         firstName = in.readString();
@@ -90,4 +91,11 @@ public class User implements Parcelable {
         this.email = email;
     }
 
+    public String getNameImageProfil() {
+        return nameImageProfil;
+    }
+
+    public void setNameImageProfil(String nameImageProfil) {
+        this.nameImageProfil = nameImageProfil;
+    }
 }

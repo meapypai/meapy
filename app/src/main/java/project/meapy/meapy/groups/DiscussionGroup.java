@@ -9,7 +9,7 @@ public class DiscussionGroup {
     private int idDrawable;
     private String name;
     private String lastMessage;
-    private String nameRef;
+    private String nameRef; //  key sub directory + file name
 
     public DiscussionGroup(int id, String name, String lastMessage, String nameRef) {
         this.idDrawable = id;

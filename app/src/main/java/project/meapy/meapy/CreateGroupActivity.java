@@ -168,6 +168,8 @@ public class CreateGroupActivity extends MyAppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        if(MyApplication.getUser() !=  null)
+            Toast.makeText(getApplicationContext(),"user : "+ MyApplication.getUser().getLastName(),Toast.LENGTH_LONG).show();
 
         //change widgets'color in terms of settings
         insertCreateGroup.setBackgroundTintList(ContextCompat.getColorStateList(this,colorId));

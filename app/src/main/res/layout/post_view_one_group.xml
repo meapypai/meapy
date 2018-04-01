@@ -98,33 +98,34 @@
             android:layout_below="@+id/postLikeContent">
 
             <ImageView
-                android:id="@+id/imgUser"
+                android:id="@+id/imgUserOneGroup"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@drawable/avatar" />
+                android:background="@drawable/avatar"
+                android:scaleType="centerCrop"/>
 
             <TextView
-                android:id="@+id/userPost"
+                android:id="@+id/userPostOneGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:fontFamily="@font/roboto_thin"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/imgUser"
+                android:layout_toRightOf="@+id/imgUserOneGroup"
                 android:layout_marginLeft="5dp"
                 android:text="Momo"/>
 
             <ImageView
-                android:id="@+id/imgComment"
+                android:id="@+id/imgCommentOneGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:src="@drawable/ic_comment_grey_24dp" />
 
             <TextView
+                android:layout_toRightOf="@+id/imgCommentOneGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/imgComment"
                 android:layout_centerVertical="true"
                 android:text="0"
                 android:layout_marginLeft="2dp"/>

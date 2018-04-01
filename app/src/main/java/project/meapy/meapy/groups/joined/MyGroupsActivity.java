@@ -38,6 +38,7 @@ import project.meapy.meapy.groups.DiscussionGroupAdapter;
 import project.meapy.meapy.groups.OneGroupActivity;
 import project.meapy.meapy.utils.RunnableWithParam;
 import project.meapy.meapy.utils.firebase.GroupLink;
+import project.meapy.meapy.utils.firebase.UserLogined;
 
 /**
  * Created by yassi on 23/02/2018.
@@ -201,7 +202,9 @@ public class MyGroupsActivity extends MyAppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Toast.makeText(getApplicationContext(),"user : "+FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),Toast.LENGTH_LONG).show();
+//        Toast.makeText(getApplicationContext(),"user : "+FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),Toast.LENGTH_LONG).show();
+        if(MyApplication.getUser() !=  null)
+            Toast.makeText(getApplicationContext(),"user : "+ MyApplication.getUser().getLastName(),Toast.LENGTH_LONG).show();
         //to notify user if he's added to a group
         MyApplication.launch();
 

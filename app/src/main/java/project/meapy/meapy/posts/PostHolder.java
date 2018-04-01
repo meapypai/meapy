@@ -1,5 +1,6 @@
 package project.meapy.meapy.posts;
 
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -14,4 +15,5 @@ public class PostHolder {
     public TextView discipline;
     public TextView description;
     public TextView diffUpDown;
+    public ImageView imgUserOneGroup;
 }

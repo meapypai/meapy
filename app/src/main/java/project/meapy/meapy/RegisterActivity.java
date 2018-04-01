@@ -14,6 +14,8 @@ import project.meapy.meapy.utils.Registration;
 
 public class RegisterActivity extends MyAppCompatActivity {
 
+    public static final String DEFAULT_IMAGE_PROFIL = "default_avatar.png";
+
     private ErrorView errorView; //vu pour afficher l'erreur
 
     private Button signUpBtnIdRegister;
@@ -55,6 +57,7 @@ public class RegisterActivity extends MyAppCompatActivity {
                                 User user = new User(firstName,lastName,email);
                                 user.setFirstName(firstName);
                                 user.setLastName(lastName);
+                                user.setNameImageProfil(DEFAULT_IMAGE_PROFIL);
 
                                 Registration registration = new Registration(RegisterActivity.this,email,password);
                                 registration.register(user);

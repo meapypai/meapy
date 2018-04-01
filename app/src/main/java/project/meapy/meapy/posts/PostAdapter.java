@@ -7,10 +7,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
+import project.meapy.meapy.MyApplication;
 import project.meapy.meapy.R;
 import project.meapy.meapy.bean.Post;
 
@@ -38,7 +45,8 @@ public class PostAdapter extends ArrayAdapter<Post> {
             holder.title       = (TextView)convertView.findViewById(R.id.titlePostViewOneGroup);
             holder.discipline  = (TextView) convertView.findViewById(R.id.discPostViewOneGroup);
             holder.description = (TextView)convertView.findViewById(R.id.descrPostViewOneGroup);
-            holder.user        = (TextView)convertView.findViewById(R.id.userPost);
+            holder.user        = (TextView)convertView.findViewById(R.id.userPostOneGroup);
+            holder.imgUserOneGroup = (ImageView)convertView.findViewById(R.id.imgUserOneGroup);
 //            holder.diffUpDown  = (TextView)convertView.findViewById(R.id.diffUpDown);
         }
         else {
@@ -52,13 +60,11 @@ public class PostAdapter extends ArrayAdapter<Post> {
         holder.discipline.setText(currentPost.getDisciplineName());
         holder.description.setText(currentPost.getTextContent());
         holder.user.setText(currentPost.getUser());
-//        holder.diffUpDown.setText(currentPost.getDiffUpDown());
 
-//        String descrReducted = currentPost.getTextContent();
-//
-//        if(descrReducted.length() > 50)
-//            descrReducted = descrReducted.substring(0,50)+"...";
-//        descr.setText(descrReducted);
+        if(MyApplication.getUser() != null) {
+            StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + MyApplication.getUser().getUid() + "/" + MyApplication.getUser().getNameImageProfil());
+            Glide.with(context).using(new FirebaseImageLoader()).load(ref).asBitmap().into(holder.imgUserOneGroup); //image à partir de la réference passée
+        }
 
         return convertView;
     }

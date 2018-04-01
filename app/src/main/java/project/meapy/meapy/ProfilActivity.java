@@ -10,13 +10,23 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.IOException;
 
+import project.meapy.meapy.bean.User;
 import project.meapy.meapy.utils.ProviderFilePath;
+import project.meapy.meapy.utils.RunnableWithParam;
+import project.meapy.meapy.utils.firebase.FileLink;
+import project.meapy.meapy.utils.firebase.UserLogined;
 
 /**
  * Created by yassi on 01/04/2018.
@@ -56,16 +66,30 @@ public class ProfilActivity extends MyAppCompatActivity {
         if(requestCode == ProfilActivity.REQUEST_LOAD_PROFIL_IMG) {
             if(resultCode == RESULT_OK) {
                 Uri uri =  data.getData();
-                try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),uri);
-                    imgUserProfil.setImageBitmap(bitmap);
-                    ProviderFilePath pfp = new ProviderFilePath(this);
-                    String pathFile = pfp.getPathFromUri(uri);
-                    File file = new File(pathFile);
-                } catch (IOException e) {
-                    e.printStackTrace();
+                ProviderFilePath pfp = new ProviderFilePath(this);
+                String pathFile = pfp.getPathFromUri(uri);
+
+                final File file = new File(pathFile);
+
+                //insertion du fichier dans storage firebase
+                if(file.exists()) {
+                    FileLink.insertFile(new RunnableWithParam() {
+                        @Override
+                        public void run() {
+                            onSucessInsertFile();
+                        }
+                    },file);
                 }
             }
         }
+    }
+
+    private void onSucessInsertFile() {
+        Toast.makeText(this, "ok:" + MyApplication.getUser().getUid(), Toast.LENGTH_SHORT).show();
+//        if(MyApplication.getUser() != null) {
+//            StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + MyApplication.getUser().getUid() + "/" + MyApplication.getUser().getNameImageProfil());
+//            Toast.makeText(this, MyApplication.getUser().getUid(), Toast.LENGTH_LONG).show();
+//            Glide.with(this).using(new FirebaseImageLoader()).load(ref).asBitmap().into(imgUserProfil); //image à partir de la réference passée
+//        }
     }
 }

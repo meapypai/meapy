@@ -17,6 +17,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import project.meapy.meapy.bean.User;
 import project.meapy.meapy.groups.joined.MyGroupsActivity;
+import project.meapy.meapy.utils.firebase.UserLogined;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by yassi on 11/03/2018.
@@ -43,10 +46,14 @@ public class Registration {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
                             FirebaseUser user = auth.getCurrentUser();
-                            Toast.makeText(context,"Registration success",Toast.LENGTH_SHORT).show();
                             String uid = user.getUid();
                             userBean.setUid(uid);
+                            //insert user into nodes of database
                             FirebaseDatabase.getInstance().getReference("users/"+uid).setValue(userBean);
+
+                            //set the user logined
+                            UserLogined.getInstance().setUserLogined(userBean);
+                            Toast.makeText(context,"user : "+ UserLogined.getInstance().getUserLogined().getLastName(),Toast.LENGTH_LONG).show();
 
                             //set user's name
                             String displayName = userBean.getFirstName() + " " + userBean.getLastName(); //name will be display on chat, comment...
@@ -55,6 +62,7 @@ public class Registration {
 
                             user.updateProfile(profileUpdates);
 
+                            Toast.makeText(context,"Registration success",Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(context, MyGroupsActivity.class);
                             context.startActivity(intent);
                         }
