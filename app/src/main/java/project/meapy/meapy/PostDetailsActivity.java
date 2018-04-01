@@ -99,7 +99,7 @@ public class PostDetailsActivity extends MyAppCompatActivity {
                     comment.setContent(commentTxt);
                     comment.setPostId(post.getId());
                     comment.setUserId(fUser.getUid());
-                    comment.setAuthorStr(fUser.getDisplayName());
+                    comment.setAuthorStr(fUser.getEmail());
 
                     CommentLink.insertCommentToPost(comment,post);
 

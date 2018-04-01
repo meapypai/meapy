@@ -67,7 +67,8 @@
                             android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
-                            android:src="@drawable/ic_file_download_black_24dp" />
+                            android:src="@drawable/ic_file_download_black_24dp"
+                            android:backgroundTint="@android:color/transparent"/>
 
                     </LinearLayout>
 
@@ -138,17 +139,16 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_below="@+id/headerPostDetails"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
         android:src="@drawable/divider" />
 
     <ListView
         android:id="@+id/commentsPostDetails"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/headerPostDetails"
+        android:layout_below="@id/dividerFileAndComment"
         android:layout_above="@id/writeCommentPostDetails"
-        android:layout_marginTop="10dp">
+        android:divider="@android:color/transparent"
+        >
 
     </ListView>
 
@@ -173,7 +173,8 @@
             android:layout_below="@+id/divider"
             android:layout_toLeftOf="@id/sendCommentPostDetails"
             android:hint="Write comment"
-            android:padding="5dp"
+            android:padding="7dp"
+            android:textSize="13sp"
             android:layout_centerInParent="true"
             android:layout_marginLeft="5dp"
             android:id="@+id/contentCommentPostDetails"

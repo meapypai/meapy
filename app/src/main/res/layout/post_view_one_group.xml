@@ -9,11 +9,21 @@
     android:elevation="2dp"
     app:cardElevation="2dp">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginRight="7dp"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/roboto_light"
+        android:textSize="11sp"
+        android:text="1 day ago"/>
+
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:paddingBottom="5dp"
+        android:paddingTop="25dp"
+        android:paddingBottom="10dp"
         android:paddingLeft="15dp">
 
         <RelativeLayout
@@ -84,9 +94,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="35dp"
-
+            android:layout_marginTop="40dp"
             android:layout_below="@+id/postLikeContent">
+
+            <ImageView
+                android:id="@+id/imgUser"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/avatar" />
 
             <TextView
                 android:id="@+id/userPost"
@@ -94,19 +109,23 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:fontFamily="@font/roboto_thin"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/imgUser"
+                android:layout_marginLeft="5dp"
                 android:text="Momo"/>
 
             <ImageView
                 android:id="@+id/imgComment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
+                android:layout_centerInParent="true"
                 android:src="@drawable/ic_comment_grey_24dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/imgComment"
+                android:layout_centerVertical="true"
                 android:text="0"
                 android:layout_marginLeft="2dp"/>
         </RelativeLayout>
