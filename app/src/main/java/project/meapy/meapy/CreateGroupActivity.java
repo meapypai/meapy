@@ -203,9 +203,10 @@ public class CreateGroupActivity extends MyAppCompatActivity {
         //insertion of node discussion
         Discussion discussion = new Discussion();
         Message m = new Message();
-        m.setUser("Admin");
+        m.setNameUser("Admin");
         m.setContent("Welcolme to the group discussion");
         m.setDate(new Date());
+        m.setuIdUser("JIohfioehfoihzoh");
         FirebaseDatabase.getInstance().getReference("groups/"+newGroup.getId()+"/discussions/" + discussion.getId()).setValue(m);
         finish();
     }

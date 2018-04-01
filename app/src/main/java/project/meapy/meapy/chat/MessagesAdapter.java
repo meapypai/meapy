@@ -37,7 +37,7 @@ public class MessagesAdapter extends RecyclerView.Adapter{
     public int getItemViewType(int position) {
         Message m = messages.get(position);
 
-        if(m.getUser().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
+        if(m.getuIdUser().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
             return MESSAGE_SENT;
         }
         else {
@@ -98,8 +98,8 @@ public class MessagesAdapter extends RecyclerView.Adapter{
         }
 
         public void bind(Message message) {
-            date.setText("0:00");
-            user.setText(message.getUser());
+            date.setText(BuilderFormatDate.formatDate(message.getDate()));
+            user.setText(message.getNameUser());
             content.setText(message.getContent());
         }
     }
@@ -123,7 +123,7 @@ public class MessagesAdapter extends RecyclerView.Adapter{
 
         public void bind(Message message) {
             date.setText(BuilderFormatDate.formatDate(message.getDate()));
-            user.setText(message.getUser());
+            user.setText(message.getNameUser());
             content.setText(message.getContent());
         }
     }

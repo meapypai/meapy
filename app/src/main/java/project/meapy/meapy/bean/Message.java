@@ -9,7 +9,8 @@ import java.util.Date;
 public class Message extends DomainObject {
 
     private String content;
-    private String user;
+    private String nameUser;
+    private String uIdUser;
     private Date date;
 
     public Date getDate() {
@@ -32,11 +33,19 @@ public class Message extends DomainObject {
         this.content = content;
     }
 
-    public String getUser() {
-        return user;
+    public String getNameUser() {
+        return nameUser;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setNameUser(String user) {
+        this.nameUser = user;
+    }
+
+    public String getuIdUser() {
+        return uIdUser;
+    }
+
+    public void setuIdUser(String uIdUser) {
+        this.uIdUser = uIdUser;
     }
 }
