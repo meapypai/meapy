@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,7 +35,7 @@ import project.meapy.meapy.utils.firebase.MessageLink;
 public class ChatRoomActivity extends MyAppCompatActivity {
 
     private TextView nameGroupeChatRoom;
-    private ImageButton sendChatRoom;
+    private ImageView sendChatRoom;
     private EditText messageIdChatRoom;
     private RecyclerView scrollMessagesChat;
     private ImageButton addSmileyChatRoom;
@@ -55,7 +56,7 @@ public class ChatRoomActivity extends MyAppCompatActivity {
 
 //        nameGroupeChatRoom = (TextView)findViewById(R.id.nameGroupeChatRoom);
         scrollMessagesChat = (RecyclerView)findViewById(R.id.scrollMessagesChat);
-        sendChatRoom       = (ImageButton)findViewById(R.id.sendChatRoom);
+        sendChatRoom       = (ImageView)findViewById(R.id.sendChatRoom);
         messageIdChatRoom  = (EditText)findViewById(R.id.messageIdChatRoom);
         addSmileyChatRoom  = (ImageButton) findViewById(R.id.addSmileyChatRoom);
 
