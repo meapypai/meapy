@@ -50,6 +50,7 @@ public class PostAdapter extends ArrayAdapter<Post> {
             holder.user        = (TextView)convertView.findViewById(R.id.userPostOneGroup);
             holder.imgUserOneGroup = (ImageView)convertView.findViewById(R.id.imgUserOneGroup);
             holder.datePost        = (TextView)convertView.findViewById(R.id.datePost);
+            convertView.setTag(holder);
 //            holder.diffUpDown  = (TextView)convertView.findViewById(R.id.diffUpDown);
         }
         else {
