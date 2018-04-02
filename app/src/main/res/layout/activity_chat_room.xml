@@ -92,7 +92,7 @@
                     android:layout_marginRight="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_insert_emoticon_black_24dp"/>
+                    android:background="@drawable/ic_insert_emoticon_grey_24dp"/>
 
             </LinearLayout>
 
@@ -113,12 +113,41 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:orientation="horizontal"
+            android:background="@color/lightGrey"
             android:visibility="gone">
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/smiley"
+                android:padding="10dp"
+                android:background="@android:color/transparent"/>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/smiley_boring"
+                android:padding="10dp"
+                android:background="@android:color/transparent"/>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/smiley_chocked"
+                android:padding="10dp"
+                android:background="@android:color/transparent"/>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/smiley_laugh"
+                android:padding="10dp"
+                android:background="@android:color/transparent"/>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/smiley_noreaction"
                 android:padding="10dp"
                 android:background="@android:color/transparent"/>
 
