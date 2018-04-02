@@ -56,7 +56,6 @@ public class DefaultLogin {
                             User u = (User)dataSnapshot.getValue(User.class);
 
                             //set the user logined
-//                            UserLogined.getInstance().setUserLogined(u);
                             MyApplication.setUser(u);
 
                             //set user's name into firebase user

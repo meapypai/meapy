@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.FirebaseDatabase;
 
+import project.meapy.meapy.MyApplication;
 import project.meapy.meapy.bean.User;
 import project.meapy.meapy.groups.joined.MyGroupsActivity;
 import project.meapy.meapy.utils.firebase.UserLogined;
@@ -52,8 +53,7 @@ public class Registration {
                             FirebaseDatabase.getInstance().getReference("users/"+uid).setValue(userBean);
 
                             //set the user logined
-                            UserLogined.getInstance().setUserLogined(userBean);
-                            Toast.makeText(context,"user : "+ UserLogined.getInstance().getUserLogined().getLastName(),Toast.LENGTH_LONG).show();
+                            MyApplication.setUser(userBean);
 
                             //set user's name
                             String displayName = userBean.getFirstName() + " " + userBean.getLastName(); //name will be display on chat, comment...

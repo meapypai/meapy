@@ -44,19 +44,20 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
         CommentHolder holder;
 
         if(convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.comment_post_details_view, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.comment_post_details_view,parent,false);
             holder = new CommentHolder();
             holder.tvAuthor  = (TextView)convertView.findViewById(R.id.authorComment);
             holder.tvContent =  (TextView)convertView.findViewById(R.id.contentComment);
             holder.imgUserComment = (ImageView)convertView.findViewById(R.id.imgUserComment);
             holder.dateComment = (TextView)convertView.findViewById(R.id.dateComment);
+            convertView.setTag(holder);
         }
         else {
             holder = (CommentHolder) convertView.getTag();
         }
 
         Comment currentComment = getItem(position);
-        Toast.makeText(context,currentComment.getAuthorStr(),Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context,currentComment.getAuthorStr(),Toast.LENGTH_SHORT).show();
         holder.tvAuthor.setText(currentComment.getAuthorStr());
         holder.tvContent.setText(currentComment.getContent());
         holder.dateComment.setText(BuilderFormatDate.getNbDayPastSinceToday(currentComment.getDate()));
