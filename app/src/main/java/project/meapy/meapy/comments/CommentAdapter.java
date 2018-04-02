@@ -59,7 +59,7 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
         Toast.makeText(context,currentComment.getAuthorStr(),Toast.LENGTH_SHORT).show();
         holder.tvAuthor.setText(currentComment.getAuthorStr());
         holder.tvContent.setText(currentComment.getContent());
-        holder.dateComment.setText(BuilderFormatDate.formatDate(currentComment.getDate()));
+        holder.dateComment.setText(BuilderFormatDate.getNbDayPastSinceToday(currentComment.getDate()));
 
         if(MyApplication.getUser() != null) {
             StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + MyApplication.getUser().getUid() + "/" + MyApplication.getUser().getNameImageProfil());

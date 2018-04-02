@@ -21,6 +21,7 @@ import java.util.List;
 import project.meapy.meapy.MyApplication;
 import project.meapy.meapy.R;
 import project.meapy.meapy.bean.Post;
+import project.meapy.meapy.utils.BuilderFormatDate;
 
 /**
  * Created by tarek on 13/03/18.
@@ -62,7 +63,7 @@ public class PostAdapter extends ArrayAdapter<Post> {
         holder.discipline.setText(currentPost.getDisciplineName());
         holder.description.setText(currentPost.getTextContent());
         holder.user.setText(currentPost.getUser());
-        holder.datePost.setText(getNbDayPastSinceToday(currentPost.getDate()));
+        holder.datePost.setText(BuilderFormatDate.getNbDayPastSinceToday(currentPost.getDate()));
 
         if(MyApplication.getUser() != null) {
             StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + MyApplication.getUser().getUid() + "/" + MyApplication.getUser().getNameImageProfil());
@@ -70,44 +71,5 @@ public class PostAdapter extends ArrayAdapter<Post> {
         }
 
         return convertView;
-    }
-
-
-    private String getNbDayPastSinceToday(Date d) {
-        Date dToday = new Date();
-        Long s = (dToday.getTime() - d.getTime())/1000;
-        int hours = (int) (s / 3600);
-        int minutes = (int) (s / 60);
-        int seconds = (int) (minutes % 60);
-        int days = hours / 24;
-        if(days == 0) {
-            if(hours == 0) {
-                if(minutes == 0) {
-                    if(seconds == 1 || seconds == 0)
-                        return seconds + " second ago";
-                    else {
-                        return seconds + " seconds ago";
-                    }
-                }
-                else if (minutes == 1) {
-                    return "1 minute ago";
-                }
-                else {
-                    return minutes + " minutes ago";
-                }
-            }
-            else if(hours == 1) {
-                return "1 hour ago";
-            }
-            else {
-                return (hours % 24) + " hours ago";
-            }
-        }
-        else if(days == 1) {
-            return  "1 day ago";
-        }
-        else {
-            return days + " days ago";
-        }
     }
 }

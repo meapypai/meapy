@@ -35,7 +35,7 @@
     <string name="discipline_name_hint">discipline name</string>
 
     <!-- chat room activity -->
-    <string name="write_message_hint">Write message</string>
+    <string name="write_message_hint">Write message...</string>
 
     <!-- create group activity -->
     <string name="group_name_hint">Name</string>

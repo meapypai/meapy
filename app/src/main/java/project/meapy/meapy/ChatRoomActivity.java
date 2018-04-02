@@ -51,6 +51,8 @@ public class ChatRoomActivity extends MyAppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_room);
 
+        getWindow().setBackgroundDrawableResource(R.drawable.background_chat); //solution for the background not be resize
+
 //        nameGroupeChatRoom = (TextView)findViewById(R.id.nameGroupeChatRoom);
         scrollMessagesChat = (RecyclerView)findViewById(R.id.scrollMessagesChat);
         sendChatRoom       = (ImageButton)findViewById(R.id.sendChatRoom);
