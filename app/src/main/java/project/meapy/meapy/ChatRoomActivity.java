@@ -156,4 +156,11 @@ public class ChatRoomActivity extends MyAppCompatActivity {
         }
         return super.onKeyDown(keyCode,event);
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        sendChatRoom.setBackgroundTintList(ContextCompat.getColorStateList(this,colorId));
+    }
 }
