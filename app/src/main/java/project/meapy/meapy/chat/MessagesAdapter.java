@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -87,15 +88,17 @@ public class MessagesAdapter extends RecyclerView.Adapter{
         private TextView date;
         private TextView user;
         private TextView content;
+        private LinearLayout bubbleSentView;
 
         public SentMessageHolder(View itemView) {
             super(itemView);
             date = (TextView)itemView.findViewById(R.id.date);
             user = (TextView)itemView.findViewById(R.id.usernameMessage);
             content = (TextView)itemView.findViewById(R.id.contentMessage);
+            bubbleSentView = (LinearLayout)itemView.findViewById(R.id.bubbleSentView);
 
             MyAppCompatActivity activity = (MyAppCompatActivity) context;
-            content.setBackgroundTintList(ContextCompat.getColorStateList(activity,activity.getColorMessage().get("Sent")));
+            bubbleSentView.setBackgroundTintList(ContextCompat.getColorStateList(activity,activity.getColorMessage().get("Sent")));
         }
 
         public void bind(Message message) {
@@ -120,7 +123,7 @@ public class MessagesAdapter extends RecyclerView.Adapter{
             content = (TextView)itemView.findViewById(R.id.contentMessage);
 
             MyAppCompatActivity activity = (MyAppCompatActivity) context;
-            content.setBackgroundTintList(ContextCompat.getColorStateList(activity,activity.getColorMessage().get("Receive")));
+//            content.setBackgroundTintList(ContextCompat.getColorStateList(activity,activity.getColorMessage().get("Receive")));
         }
 
         public void bind(Message message) {

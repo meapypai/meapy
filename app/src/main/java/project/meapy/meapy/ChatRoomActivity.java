@@ -119,7 +119,7 @@ public class ChatRoomActivity extends MyAppCompatActivity {
                     sendChatRoom.setImageResource(R.drawable.ic_send_white_24dp);
                 }
                 else {
-                    sendChatRoom.setImageResource(R.drawable.ic_send_black_24dp);
+                    sendChatRoom.setImageResource(R.drawable.ic_send_white_24dp);
                 }
             }
 

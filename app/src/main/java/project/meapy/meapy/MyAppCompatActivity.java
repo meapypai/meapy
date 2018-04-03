@@ -65,20 +65,20 @@ public class MyAppCompatActivity extends AppCompatActivity {
         if(colorName.equals("bordeau")) {
             color = getResources().getColor(R.color.bordeau);
             colorId = R.color.bordeau;
-            colorMessages.put("Sent",R.color.messageSentBordeau);
-            colorMessages.put("Receive",R.color.messageReceiveBordeau);
+//            colorMessages.put("Sent",R.color.messageSentBordeau);
+            colorMessages.put("Sent",R.color.messageReceiveBordeau);
         }
         else if(colorName.equals("green")) {
             color = getResources().getColor(R.color.green);
             colorId = R.color.green;
-            colorMessages.put("Sent",R.color.messageSentGreen);
-            colorMessages.put("Receive",R.color.messageReceiveGreen);
+//            colorMessages.put("Sent",R.color.messageSentGreen);
+            colorMessages.put("Sent",R.color.messageReceiveGreen);
         }
         else if(colorName.equals("blue")) {
             color = getResources().getColor(R.color.blue);
             colorId = R.color.blue;
-            colorMessages.put("Sent",R.color.messageSentBlue);
-            colorMessages.put("Receive",R.color.messageReceiveBlue);
+//            colorMessages.put("Sent",R.color.messageSentBlue);
+            colorMessages.put("Sent",R.color.messageReceiveBlue);
         }
         return color;
     }

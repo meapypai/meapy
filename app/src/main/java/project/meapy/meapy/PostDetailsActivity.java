@@ -119,7 +119,7 @@ public class PostDetailsActivity extends MyAppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(commentContent.getText().length() == 0) {
-                    sendComment.setImageResource(R.drawable.ic_send_white_24dp);
+                    sendComment.setImageResource(R.drawable.ic_send_grey_24dp);
                 }
                 else {
                     sendComment.setImageResource(R.drawable.ic_send_black_24dp);
