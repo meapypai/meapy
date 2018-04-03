@@ -207,6 +207,7 @@ public class CreateGroupActivity extends MyAppCompatActivity {
         m.setNameUser("Admin");
         m.setContent("Welcolme to the group discussion");
         m.setDate(new Date());
+        m.setColorNameUser("#ED2225");
         m.setuIdUser(UUID.randomUUID().toString());
         FirebaseDatabase.getInstance().getReference("groups/"+newGroup.getId()+"/discussions/" + discussion.getId()).setValue(m);
         finish();
