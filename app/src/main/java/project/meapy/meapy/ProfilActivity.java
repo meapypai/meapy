@@ -59,6 +59,14 @@ public class ProfilActivity extends MyAppCompatActivity {
                 startActivityForResult(Intent.createChooser(intent,"Load an image"), REQUEST_LOAD_PROFIL_IMG);
             }
         });
+
+        if(MyApplication.getUser() != null) {
+            Toast.makeText(this,"okkkk",Toast.LENGTH_LONG).show();
+            StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + MyApplication.getUser().getUid() + "/" + MyApplication.getUser().getNameImageProfil());
+            Glide.with(this).using(new FirebaseImageLoader()).load(ref).asBitmap().into(imgUserProfil); //image à partir de la réference passée
+        }
+
+
     }
 
     @Override
