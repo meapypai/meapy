@@ -99,7 +99,7 @@ public class MessagesAdapter extends RecyclerView.Adapter{
         }
 
         public void bind(Message message) {
-//            date.setText(BuilderFormatDate.formatDate(message.getDate()));
+            date.setText(BuilderFormatDate.formatDate(message.getDate()));
 //            user.setText(message.getNameUser());
 //            user.setTextColor(Color.parseColor(message.getColorNameUser()));
             content.setText(message.getContent());
