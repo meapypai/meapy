@@ -66,10 +66,8 @@ public class PostAdapter extends ArrayAdapter<Post> {
         holder.user.setText(currentPost.getUser());
         holder.datePost.setText(BuilderFormatDate.getNbDayPastSinceToday(currentPost.getDate()));
 
-        if(MyApplication.getUser() != null) {
-            StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + MyApplication.getUser().getUid() + "/" + MyApplication.getUser().getNameImageProfil());
-            Glide.with(context).using(new FirebaseImageLoader()).load(ref).asBitmap().into(holder.imgUserOneGroup); //image à partir de la réference passée
-        }
+        StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + currentPost.getUser_uid() + "/" + currentPost.getNameImageUser());
+        Glide.with(context).using(new FirebaseImageLoader()).load(ref).asBitmap().into(holder.imgUserOneGroup); //image à partir de la réference passée
 
         return convertView;
     }

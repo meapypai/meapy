@@ -207,7 +207,7 @@ public class CreateGroupActivity extends MyAppCompatActivity {
         m.setNameUser("Admin");
         m.setContent("Welcolme to the group discussion");
         m.setDate(new Date());
-        m.setColorNameUser("#ED2225");
+        m.setColorNameUser("#ED2225"); //couleur par défault pour ladmin à mettre dans une classe Admin
         m.setuIdUser(UUID.randomUUID().toString());
         FirebaseDatabase.getInstance().getReference("groups/"+newGroup.getId()+"/discussions/" + discussion.getId()).setValue(m);
         finish();

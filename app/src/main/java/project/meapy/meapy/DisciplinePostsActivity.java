@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,7 +67,7 @@ public class DisciplinePostsActivity extends MyAppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Post post = adapter.getItem(i);
                 Intent intent = new Intent(getApplicationContext(), PostDetailsActivity.class);
-                intent.putExtra("POST",post);
+                intent.putExtra("POST", (Serializable) post);
                 startActivity(intent);
             }
         });

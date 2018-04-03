@@ -11,6 +11,7 @@ import java.util.List;
 public class Post extends DomainObject{
     private String user_uid;
     private String user;
+    private String nameImageUser;
     private String textContent;
     private int diffUpDown;
     //private String filePath;
@@ -110,5 +111,13 @@ public class Post extends DomainObject{
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getNameImageUser() {
+        return nameImageUser;
+    }
+
+    public void setNameImageUser(String nameImageUser) {
+        this.nameImageUser = nameImageUser;
     }
 }
