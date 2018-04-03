@@ -9,7 +9,8 @@ public class BuilderColor {
     public static String generateHexaColor() {
         String color = "#";
         for(int i = 0; i < 6; i++) {
-            
+            int randomNumber = 65 + (int)(Math.random() * ((70 - 65) + 1));
+            color += (char)randomNumber;
         }
         return color;
     }

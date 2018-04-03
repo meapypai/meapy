@@ -10,6 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import project.meapy.meapy.bean.User;
+import project.meapy.meapy.utils.BuilderColor;
 import project.meapy.meapy.utils.Registration;
 
 public class RegisterActivity extends MyAppCompatActivity {
@@ -58,6 +59,7 @@ public class RegisterActivity extends MyAppCompatActivity {
                                 user.setFirstName(firstName);
                                 user.setLastName(lastName);
                                 user.setNameImageProfil(DEFAULT_IMAGE_PROFIL);
+                                user.setChatBubbleColor(BuilderColor.generateHexaColor());
 
                                 Registration registration = new Registration(RegisterActivity.this,email,password);
                                 registration.register(user);

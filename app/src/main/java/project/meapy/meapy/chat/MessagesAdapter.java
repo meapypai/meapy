@@ -1,6 +1,7 @@
 package project.meapy.meapy.chat;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -100,6 +101,7 @@ public class MessagesAdapter extends RecyclerView.Adapter{
         public void bind(Message message) {
             date.setText(BuilderFormatDate.formatDate(message.getDate()));
             user.setText(message.getNameUser());
+            user.setTextColor(Color.parseColor(message.getColorNameUser()));
             content.setText(message.getContent());
         }
     }
@@ -124,6 +126,7 @@ public class MessagesAdapter extends RecyclerView.Adapter{
         public void bind(Message message) {
             date.setText(BuilderFormatDate.formatDate(message.getDate()));
             user.setText(message.getNameUser());
+            user.setTextColor(Color.parseColor(message.getColorNameUser()));
             content.setText(message.getContent());
         }
     }

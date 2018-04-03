@@ -97,7 +97,9 @@ public class ChatRoomActivity extends MyAppCompatActivity {
                     m.setNameUser(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
                     m.setuIdUser(FirebaseAuth.getInstance().getCurrentUser().getUid());
                     m.setDate(new Date());
-
+                    if(MyApplication.getUser()!= null) {
+                        m.setColorNameUser(MyApplication.getUser().getChatBubbleColor());
+                    }
                     MessageLink.sendMessageToGroup(idGroup,m);
 
                 }

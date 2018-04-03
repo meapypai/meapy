@@ -14,6 +14,7 @@ public class User implements Parcelable {
     protected String lastName;
     protected String uid;
     protected String nameImageProfil;
+    protected String chatBubbleColor;
 
     protected User(Parcel in) {
         firstName = in.readString();
@@ -97,5 +98,13 @@ public class User implements Parcelable {
 
     public void setNameImageProfil(String nameImageProfil) {
         this.nameImageProfil = nameImageProfil;
+    }
+
+    public String getChatBubbleColor() {
+        return chatBubbleColor;
+    }
+
+    public void setChatBubbleColor(String chatBubbleColor) {
+        this.chatBubbleColor = chatBubbleColor;
     }
 }

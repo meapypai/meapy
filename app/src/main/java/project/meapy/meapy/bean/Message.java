@@ -12,6 +12,7 @@ public class Message extends DomainObject {
     private String nameUser;
     private String uIdUser;
     private Date date;
+    private String colorNameUser;
 
     public Date getDate() {
         return date;
@@ -47,5 +48,13 @@ public class Message extends DomainObject {
 
     public void setuIdUser(String uIdUser) {
         this.uIdUser = uIdUser;
+    }
+
+    public String getColorNameUser() {
+        return colorNameUser;
+    }
+
+    public void setColorNameUser(String colorNameUser) {
+        this.colorNameUser = colorNameUser;
     }
 }
