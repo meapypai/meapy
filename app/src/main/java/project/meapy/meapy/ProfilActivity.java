@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -61,9 +62,13 @@ public class ProfilActivity extends MyAppCompatActivity {
         });
 
         if(MyApplication.getUser() != null) {
-            Toast.makeText(this,"okkkk",Toast.LENGTH_LONG).show();
-            StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + MyApplication.getUser().getUid() + "/" + MyApplication.getUser().getNameImageProfil());
-            Glide.with(this).using(new FirebaseImageLoader()).load(ref).asBitmap().into(imgUserProfil); //image à partir de la réference passée
+            if(MyApplication.getUser().getNameImageProfil().equals(User.DEFAULT_IMAGE_USER_NAME)) {
+                imgUserProfil.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.default_avatar));
+            }
+            else {
+                StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + MyApplication.getUser().getUid() + "/" + MyApplication.getUser().getNameImageProfil());
+                Glide.with(this).using(new FirebaseImageLoader()).load(ref).asBitmap().into(imgUserProfil); //image à partir de la réference passée
+            }
         }
 
 
