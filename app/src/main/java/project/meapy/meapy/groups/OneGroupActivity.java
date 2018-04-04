@@ -161,20 +161,6 @@ public class OneGroupActivity extends MyAppCompatActivity {
             }
         });
 
-
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                if(MyApplication.getUser()!= null) {
-                    if(MyApplication.getUser().getRank() == 1) {
-                        Intent intent = new Intent(OneGroupActivity.this,RemovePostByAdminActivity.class);
-                        startActivity(intent);
-                    }
-                }
-                return false;
-            }
-        });
-
         fBtn = findViewById(R.id.sendFileOneGroup);
         fBtn.setOnClickListener(new View.OnClickListener() {
             @Override

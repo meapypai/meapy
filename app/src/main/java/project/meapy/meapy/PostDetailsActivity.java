@@ -217,7 +217,8 @@ public class PostDetailsActivity extends MyAppCompatActivity {
         super.onPrepareOptionsMenu(menu);
         FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
         if(fUser != null){
-            if(menu != null && curPost.getUser_uid() != null && fUser.getUid().equals(curPost.getUser_uid())){
+            //si  créateur du post ou si admin
+            if(menu != null && curPost.getUser_uid() != null && (fUser.getUid().equals(curPost.getUser_uid()) || MyApplication.getUser().getRank() == 1)){
                 menu.findItem(R.id.deletePostDetails).setVisible(true);
             }
         }
