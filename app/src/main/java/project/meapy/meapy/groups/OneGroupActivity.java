@@ -43,6 +43,7 @@ import java.util.HashMap;
 
 import project.meapy.meapy.AddDisciplineActivity;
 import project.meapy.meapy.ChatRoomActivity;
+import project.meapy.meapy.CreateGroupActivity;
 import project.meapy.meapy.DisciplinePostsActivity;
 import project.meapy.meapy.LeaveGroupActivity;
 import project.meapy.meapy.MyAppCompatActivity;
@@ -193,9 +194,16 @@ public class OneGroupActivity extends MyAppCompatActivity {
         */
 
         ImageView imageView = findViewById(R.id.imageGroupOneGroup);
-        StorageReference ref = FirebaseStorage.getInstance().getReference("data_groups/" + grp.getId() +"/"+grp.getImageName());
-        Glide.with(getApplicationContext()).using(new FirebaseImageLoader()).load(ref).asBitmap().into(imageView);
 
+        //si image par défault
+        if(grp.getImageName().equals(CreateGroupActivity.DEFAULT_IMAGE_GROUP)) {
+            imageView.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.group_default));
+        }
+        else {
+            StorageReference ref = FirebaseStorage.getInstance().getReference("data_groups/" + grp.getId() +"/"+grp.getImageName());
+            Glide.with(getApplicationContext()).using(new FirebaseImageLoader()).load(ref).asBitmap().into(imageView);
+
+        }
         findViewById(R.id.leaveGroupPostDetails).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
