@@ -9,11 +9,13 @@ import android.os.Parcelable;
 
 public class User implements Parcelable {
 
+    public static final String DEFAULT_IMAGE_USER_NAME = "default_avatar.png";
+
     protected String email;
     protected String firstName;
     protected String lastName;
     protected String uid;
-    protected String nameImageProfil;
+    protected String nameImageProfil = DEFAULT_IMAGE_USER_NAME;
     protected String chatBubbleColor;
     protected int rank; //to see if the user is admin or not
 

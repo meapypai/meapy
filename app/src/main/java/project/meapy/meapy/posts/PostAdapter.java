@@ -1,8 +1,10 @@
 package project.meapy.meapy.posts;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +27,9 @@ import java.util.List;
 
 import project.meapy.meapy.MyApplication;
 import project.meapy.meapy.R;
+import project.meapy.meapy.RegisterActivity;
 import project.meapy.meapy.bean.Post;
+import project.meapy.meapy.bean.User;
 import project.meapy.meapy.utils.BuilderFormatDate;
 
 /**
@@ -90,10 +94,15 @@ public class PostAdapter extends ArrayAdapter<Post> {
             }
         });
 
-        //image post
-        StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + currentPost.getUser_uid() + "/" + currentPost.getNameImageUser());
-        Glide.with(context).using(new FirebaseImageLoader()).load(ref).asBitmap().into(holder.imgUserOneGroup); //image à partir de la réference passée
 
+        //si image par defaut
+        if(currentPost.getNameImageUser().equals(User.DEFAULT_IMAGE_USER_NAME)) {
+            holder.imgUserOneGroup.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.default_avatar));
+        }
+        else {
+            StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + currentPost.getUser_uid() + "/" + currentPost.getNameImageUser());
+            Glide.with(context).using(new FirebaseImageLoader()).load(ref).asBitmap().into(holder.imgUserOneGroup); //image à partir de la réference passée
+        }
         return convertView;
     }
 }

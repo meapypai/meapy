@@ -63,10 +63,10 @@ public class DiscussionGroupAdapter extends ArrayAdapter<DiscussionGroup> {
             StorageReference ref = FirebaseStorage.getInstance().getReference("data_groups/" + g.getId() + "/" + g.getImageName());
             //        Glide.with(context).using(new FirebaseImageLoader()).load(ref).asBitmap().override(50,50).centerCrop().into(holder.drawable); //image à partir de la réference passée
             Glide.with(context).using(new FirebaseImageLoader()).load(ref).asBitmap().into(holder.drawable); //image à partir de la réference passée
-
-            holder.nameGroup.setText(g.getName());
-            holder.summary.setText(g.getSummary());
         }
+
+        holder.nameGroup.setText(g.getName());
+        holder.summary.setText(g.getSummary());
 
         return convertView;
     }

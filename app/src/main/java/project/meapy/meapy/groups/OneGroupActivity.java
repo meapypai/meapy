@@ -50,7 +50,6 @@ import project.meapy.meapy.MyAppCompatActivity;
 import project.meapy.meapy.MyApplication;
 import project.meapy.meapy.PostDetailsActivity;
 import project.meapy.meapy.R;
-import project.meapy.meapy.RemovePostByAdminActivity;
 import project.meapy.meapy.SendFileActivity;
 import project.meapy.meapy.bean.Discipline;
 import project.meapy.meapy.bean.Groups;

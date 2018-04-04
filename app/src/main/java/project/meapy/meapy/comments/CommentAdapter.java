@@ -3,6 +3,7 @@ package project.meapy.meapy.comments;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,9 @@ import java.util.List;
 
 import project.meapy.meapy.MyApplication;
 import project.meapy.meapy.R;
+import project.meapy.meapy.RegisterActivity;
 import project.meapy.meapy.bean.Comment;
+import project.meapy.meapy.bean.User;
 import project.meapy.meapy.utils.BuilderFormatDate;
 
 /**
@@ -62,9 +65,14 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
         holder.tvContent.setText(currentComment.getContent());
         holder.dateComment.setText(BuilderFormatDate.getNbDayPastSinceToday(currentComment.getDate()));
 
-        StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + currentComment.getUser().getUid() + "/" + currentComment.getUser().getNameImageProfil());
-        Glide.with(context).using(new FirebaseImageLoader()).load(ref).asBitmap().into(holder.imgUserComment); //image à partir de la réference passée
-
+        //si image par defaut
+        if(currentComment.getUser().getNameImageProfil().equals(User.DEFAULT_IMAGE_USER_NAME)) {
+            holder.imgUserComment.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.default_avatar));
+        }
+        else {
+            StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + currentComment.getUser().getUid() + "/" + currentComment.getUser().getNameImageProfil());
+            Glide.with(context).using(new FirebaseImageLoader()).load(ref).asBitmap().into(holder.imgUserComment); //image à partir de la réference passée
+        }
 
         return convertView;
     }
