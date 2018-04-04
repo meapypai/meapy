@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/nameGroup"
-            android:text="Groupe de classe"
+            android:text="Groupe de travail"
             android:textStyle="italic"
             android:fontFamily="@font/roboto_thin"
             android:layout_alignLeft="@+id/nameGroup"/>
