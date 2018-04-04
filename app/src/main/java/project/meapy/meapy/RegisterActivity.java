@@ -89,6 +89,7 @@ public class RegisterActivity extends MyAppCompatActivity {
                     RegisterActivity.this.addContentView(errorView, params);
                 }
                 errorView.setText(errorMessage);
+                signUpBtnIdRegister.setEnabled(true);
             }
         });
     }
