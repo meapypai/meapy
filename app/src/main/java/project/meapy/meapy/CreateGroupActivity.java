@@ -37,6 +37,8 @@ import project.meapy.meapy.utils.firebase.FileLink;
 
 public class CreateGroupActivity extends MyAppCompatActivity {
 
+    public static final String DEFAULT_IMAGE_GROUP = "default_image_group.gif";
+
     private static  final int REQUEST_PERMISSION_READ_EXTERNAL_STORAGE = 7;
     private static final int REQUEST_LOAD_IMAGE = 2;
     private static final int REQUEST_ADD_USERS = 3;
@@ -126,7 +128,12 @@ public class CreateGroupActivity extends MyAppCompatActivity {
                             },file,newGroup);
                         }
                         else {
-                            errorMessage = "File doesn't exist";
+                            new Runnable() {
+                                @Override
+                                public void run() {
+                                    onSucessInsertFile(null,newGroup);
+                                }
+                            }.run();
                         }
                     }
                     else {
@@ -172,11 +179,14 @@ public class CreateGroupActivity extends MyAppCompatActivity {
     }
 
     private void onSucessInsertFile(File file, Groups newGroup){
-        final Uri uriFile = Uri.fromFile(file);
         Toast.makeText(CreateGroupActivity.this, "inserting group", Toast.LENGTH_LONG).show();
-        newGroup.setImageName(uriFile.getLastPathSegment());
+        if(file == null) {
+            newGroup.setImageName(CreateGroupActivity.DEFAULT_IMAGE_GROUP);
+        }
+        else {
+            newGroup.setImageName(file.getName());
+        }
         Toast.makeText(CreateGroupActivity.this,"group created",Toast.LENGTH_LONG).show();
-        newGroup.setImageName(file.getName());
         //insertion of group
         GroupsMapper mapper = new GroupsMapper();
         mapper.insert(newGroup);

@@ -112,7 +112,8 @@ public class MyGroupsActivity extends MyAppCompatActivity {
     public void onGroupAdded(Groups added){
         if(!idGroups.containsKey(added.getId())) {
             // UPDATE UI
-            DiscussionGroup dGrp = new DiscussionGroup(R.drawable.bdd, added.getName(), added.getSummary() + "", added.getId() + "/" + added.getImageName());
+            DiscussionGroup dGrp = new DiscussionGroup(R.drawable.bdd, added.getName(), added.getSummary() + "",added.getImageName());
+            dGrp.setId(added.getId());
             idGroups.put(added.getId(), dGrp);
             viewToBean.put(dGrp, added);
             adapter.add(dGrp);
