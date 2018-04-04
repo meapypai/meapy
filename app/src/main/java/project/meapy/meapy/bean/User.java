@@ -15,7 +15,7 @@ public class User implements Parcelable {
     protected String uid;
     protected String nameImageProfil;
     protected String chatBubbleColor;
-    private int rank; //to see if the user is admin or not
+    protected int rank; //to see if the user is admin or not
 
     protected User(Parcel in) {
         firstName = in.readString();

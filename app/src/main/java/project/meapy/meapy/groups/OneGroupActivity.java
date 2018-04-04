@@ -46,8 +46,10 @@ import project.meapy.meapy.ChatRoomActivity;
 import project.meapy.meapy.DisciplinePostsActivity;
 import project.meapy.meapy.LeaveGroupActivity;
 import project.meapy.meapy.MyAppCompatActivity;
+import project.meapy.meapy.MyApplication;
 import project.meapy.meapy.PostDetailsActivity;
 import project.meapy.meapy.R;
+import project.meapy.meapy.RemovePostByAdminActivity;
 import project.meapy.meapy.SendFileActivity;
 import project.meapy.meapy.bean.Discipline;
 import project.meapy.meapy.bean.Groups;
@@ -155,6 +157,20 @@ public class OneGroupActivity extends MyAppCompatActivity {
                 Intent intent = new Intent(OneGroupActivity.this, PostDetailsActivity.class);
                 intent.putExtra("POST",post);
                 startActivity(intent);
+            }
+        });
+
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                if(MyApplication.getUser()!= null) {
+                    if(MyApplication.getUser().getRank() == 1) {
+                        Intent intent = new Intent(OneGroupActivity.this,RemovePostByAdminActivity.class);
+                        startActivity(intent);
+                    }
+                }
+                return false;
             }
         });
 
