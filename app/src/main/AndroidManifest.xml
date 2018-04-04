@@ -90,9 +90,6 @@
         <activity android:name=".ProfilActivity"
             android:label="Profil"
             android:screenOrientation="portrait"></activity>
-
-        <activity android:name=".RemovePostByAdminActivity"
-            android:theme="@style/Theme.AppCompat.Dialog"></activity>
     </application>
 
 </manifest>
