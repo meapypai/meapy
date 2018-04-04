@@ -37,11 +37,11 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:id="@+id/lastMessage"
+            android:id="@+id/summaryGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/nameGroup"
-            android:text="Dernier ajout"
+            android:text="Groupe de classe"
             android:textStyle="italic"
             android:fontFamily="@font/roboto_thin"
             android:layout_alignLeft="@+id/nameGroup"/>

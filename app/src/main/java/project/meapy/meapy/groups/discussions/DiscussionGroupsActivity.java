@@ -48,7 +48,7 @@ public class DiscussionGroupsActivity extends AppCompatActivity {
 
                 ImageView image = (ImageView)v.findViewById(R.id.imgGroup);
                 TextView name = (TextView)v.findViewById(R.id.nameGroup);
-                TextView message = (TextView)v.findViewById(R.id.lastMessage);
+                TextView message = (TextView)v.findViewById(R.id.summaryGroup);
 
                 StorageReference ref = FirebaseStorage.getInstance().getReference("data_groups/" + model.getId() + "/" + model.getImageName());
                 Glide.with(DiscussionGroupsActivity.this).using(new FirebaseImageLoader()).load(ref).asBitmap().into(image); //image à partir de la réference passée

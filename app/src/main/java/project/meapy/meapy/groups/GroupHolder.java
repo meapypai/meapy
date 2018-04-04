@@ -11,5 +11,5 @@ public class GroupHolder {
 
     public ImageView drawable;
     public TextView nameGroup;
-    public TextView lastMessage;
+    public TextView summary;
 }

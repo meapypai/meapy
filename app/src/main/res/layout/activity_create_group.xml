@@ -40,18 +40,17 @@
         android:src="@drawable/ic_add_black_24dp" />
 
    <EditText
-        android:id="@+id/limitCreateGroup"
+        android:id="@+id/summuayCreateGroup"
         android:layout_width="150dp"
        android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
-        android:hint="Limit"
-        android:inputType="number"
+        android:hint="Summary group"
         android:layout_below="@id/imageCreateGroup"
         android:layout_margin="@dimen/activity_horizontal_margin"/>
 
     <TextView
         android:id="@+id/addUserTextcreateGroup"
-        android:layout_below="@+id/limitCreateGroup"
+        android:layout_below="@+id/summuayCreateGroup"
         android:layout_centerHorizontal="true"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
@@ -63,7 +62,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/insertCreateGroup"
-        android:layout_below="@+id/limitCreateGroup"
+        android:layout_below="@+id/summuayCreateGroup"
         android:backgroundTint="@color/colorButton"
         android:src="@drawable/ic_add_black_24dp" />
 

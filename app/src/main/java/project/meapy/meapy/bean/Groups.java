@@ -7,9 +7,9 @@ package project.meapy.meapy.bean;
 public class Groups extends DomainObject{
     private String name;
     private int idUserAdmin;
-    private int limitUsers;
     private String imageName;
     private String codeToJoin;
+    private String summary;
 
     public String getCodeToJoin() {
         return codeToJoin;
@@ -37,20 +37,20 @@ public class Groups extends DomainObject{
         this.idUserAdmin = idUserAdmin;
     }
 
-    public int getLimitUsers() {
-        return limitUsers;
-    }
-
-    public void setLimitUsers(int limitUsers) {
-        this.limitUsers = limitUsers;
-    }
-
     public String getImageName() {
         return imageName;
     }
 
     public void setImageName(String imageName) {
         this.imageName = imageName;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 
     @Override

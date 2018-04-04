@@ -63,6 +63,10 @@ public class OneGroupActivity extends MyAppCompatActivity {
     public static final String EXTRA_GROUP_ID = "group_id";
     public static final String EXTRA_GROUP_NAME = "group_name";
 
+    private TextView titleGroup;
+    private TextView summaryOneGroup;
+    private ImageView accedToDiscussionOneGroup;
+
     ListView listView;
     ArrayAdapter adapterPost;
     SubMenu subMenuDisc;
@@ -70,7 +74,6 @@ public class OneGroupActivity extends MyAppCompatActivity {
 
     private Groups group;
 
-    private ImageView accedToDiscussionOneGroup;
     private FloatingActionButton fBtn;
 
     public static final int LEAVE_GROUP_REQUEST = 1;
@@ -81,33 +84,19 @@ public class OneGroupActivity extends MyAppCompatActivity {
         setContentView(R.layout.activity_one_group);
 
         listView = findViewById(R.id.postsOneGroup);
+        summaryOneGroup = findViewById(R.id.summaryOneGroup);
+        titleGroup = findViewById(R.id.groupNameOneGroup);
+        accedToDiscussionOneGroup = (ImageView)findViewById(R.id.accedToDiscussionOneGroup);
+
         adapterPost = new PostAdapter(OneGroupActivity.this, android.R.layout.simple_expandable_list_item_1,new ArrayList<Post>());
 
         final Groups grp = (Groups) getIntent().getSerializableExtra("GROUP");
         group = grp;
 
 
-        ImageView accedToDiscussionOneGroup = (ImageView)findViewById(R.id.accedToDiscussionOneGroup);
-
-        TextView titleGroup = findViewById(R.id.groupNameOneGroup);
         String name = grp.getName();
-        final int limituser = grp.getLimitUsers();
         titleGroup.setText(name);
-        final TextView limitationTv = findViewById(R.id.limitOneGroup);
-        limitationTv.setText(limituser + " users");
-        int i = new Integer(0);
-        FirebaseDatabase.getInstance().getReference("groups/"+grp.getId()+"/usersId/").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                long i = dataSnapshot.getChildrenCount();
-                limitationTv.setText(i+"/"+limituser+" users");
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        summaryOneGroup.setText(grp.getSummary());
 
 
         // A REVOIR ( mettre une toolbar)

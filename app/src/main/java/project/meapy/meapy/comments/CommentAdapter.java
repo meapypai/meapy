@@ -62,8 +62,6 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
         holder.tvContent.setText(currentComment.getContent());
         holder.dateComment.setText(BuilderFormatDate.getNbDayPastSinceToday(currentComment.getDate()));
 
-        Toast.makeText(context,currentComment.getUser().getUid(),Toast.LENGTH_LONG).show();
-
         StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + currentComment.getUser().getUid() + "/" + currentComment.getUser().getNameImageProfil());
         Glide.with(context).using(new FirebaseImageLoader()).load(ref).asBitmap().into(holder.imgUserComment); //image à partir de la réference passée
 

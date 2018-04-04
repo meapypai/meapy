@@ -41,14 +41,13 @@ public class CreateGroupActivity extends MyAppCompatActivity {
     private static final int REQUEST_LOAD_IMAGE = 2;
     private static final int REQUEST_ADD_USERS = 3;
 
-    private static final int MIN_LIMIT_GROUP = 20;
     private static final int MIN_LENGTH_NAME_GROUP = 3;
 
     private ErrorView errorView;
 
     private EditText nameCreateGroup;
     private TextView imageCreateGroup;
-    private EditText limitCreateGroup;
+    private EditText summuayCreateGroup;
 
     private ImageView insertCreateGroup;
     private ImageView addUserCreateGroup;
@@ -70,7 +69,7 @@ public class CreateGroupActivity extends MyAppCompatActivity {
 
         nameCreateGroup = (EditText)findViewById(R.id.nameCreateGroup);
         imageCreateGroup = (TextView)findViewById(R.id.imageCreateGroup);
-        limitCreateGroup = (EditText)findViewById(R.id.limitCreateGroup);
+        summuayCreateGroup = (EditText)findViewById(R.id.summuayCreateGroup);
         insertCreateGroup = (ImageView)findViewById(R.id.insertCreateGroup);
 
         createNewGroupId = (Button)findViewById(R.id.createNewGroupId);
@@ -104,36 +103,30 @@ public class CreateGroupActivity extends MyAppCompatActivity {
                 Button btn = (Button)view;
                 btn.setEnabled(false); //désactive le bouton pour éviter la création d'un 2eme groupe
 
-                String limit     = limitCreateGroup.getText().toString();
+                String summary     = summuayCreateGroup.getText().toString();
                 String nameGroup = nameCreateGroup.getText().toString();
 
                 String errorMessage = "";
 
                 try {
                     if (nameGroup.length() >= MIN_LENGTH_NAME_GROUP) {
-                        int l = Integer.parseInt(limit);
-                        if(l <= MIN_LIMIT_GROUP) {
-                            // START TEST INSERTION INTO DATABASE WITHOUT FILE
-                            final Groups newGroup = new Groups();
-                            newGroup.setLimitUsers(l);
-                            newGroup.setName(nameGroup);
+                        // START TEST INSERTION INTO DATABASE WITHOUT FILE
+                        final Groups newGroup = new Groups();
+                        newGroup.setName(nameGroup);
+                        newGroup.setSummary(summary);
 
-                            // END TEST
-                            final File file = new File(pathFile);
-                            if(file.exists()) {
-                                FileLink.insertFile(new RunnableWithParam() {
-                                    @Override
-                                    public void run() {
-                                        onSucessInsertFile(file,newGroup);
-                                    }
-                                },file,newGroup);
-                            }
-                            else {
-                                errorMessage = "File doesn't exist";
-                            }
+                        // END TEST
+                        final File file = new File(pathFile);
+                        if(file.exists()) {
+                            FileLink.insertFile(new RunnableWithParam() {
+                                @Override
+                                public void run() {
+                                    onSucessInsertFile(file,newGroup);
+                                }
+                            },file,newGroup);
                         }
                         else {
-                            errorMessage = "The limit is too highter";
+                            errorMessage = "File doesn't exist";
                         }
                     }
                     else {

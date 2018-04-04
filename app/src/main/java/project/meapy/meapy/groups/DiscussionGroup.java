@@ -8,13 +8,13 @@ public class DiscussionGroup {
 
     private int idDrawable;
     private String name;
-    private String lastMessage;
+    private String summary;
     private String nameRef; //  key sub directory + file name
 
-    public DiscussionGroup(int id, String name, String lastMessage, String nameRef) {
+    public DiscussionGroup(int id, String name, String summary, String nameRef) {
         this.idDrawable = id;
         this.name = name;
-        this.lastMessage = lastMessage;
+        this.summary = summary;
         this.nameRef = nameRef;
     }
 
@@ -42,12 +42,12 @@ public class DiscussionGroup {
         this.name = name;
     }
 
-    public String getLastMessage() {
-        return lastMessage;
+    public String getSummary() {
+        return summary;
     }
 
-    public void setLastMessage(String lastMessage) {
-        this.lastMessage = lastMessage;
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 }
 

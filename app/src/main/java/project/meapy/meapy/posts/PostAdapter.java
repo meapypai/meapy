@@ -12,6 +12,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -39,7 +44,7 @@ public class PostAdapter extends ArrayAdapter<Post> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        PostHolder holder;
+        final PostHolder holder;
 
         if(convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.post_view_one_group, parent, false);
@@ -50,6 +55,7 @@ public class PostAdapter extends ArrayAdapter<Post> {
             holder.user        = (TextView)convertView.findViewById(R.id.userPostOneGroup);
             holder.imgUserOneGroup = (ImageView)convertView.findViewById(R.id.imgUserOneGroup);
             holder.datePost        = (TextView)convertView.findViewById(R.id.datePost);
+            holder.nbCommentOneGroup = (TextView)convertView.findViewById(R.id.nbCommentOneGroup);
             convertView.setTag(holder);
 //            holder.diffUpDown  = (TextView)convertView.findViewById(R.id.diffUpDown);
         }
@@ -66,6 +72,25 @@ public class PostAdapter extends ArrayAdapter<Post> {
         holder.user.setText(currentPost.getUser());
         holder.datePost.setText(BuilderFormatDate.getNbDayPastSinceToday(currentPost.getDate()));
 
+
+        DatabaseReference refComments = FirebaseDatabase.getInstance().getReference("groups/"+currentPost.getGroupId()+"/disciplines/"
+                                                             +currentPost.getDisciplineId()+"/posts/"
+                                                             +currentPost.getId()+"/comments");
+
+        refComments.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int  n = (int) dataSnapshot.getChildrenCount();
+                holder.nbCommentOneGroup.setText(String.valueOf(n));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        //image post
         StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + currentPost.getUser_uid() + "/" + currentPost.getNameImageUser());
         Glide.with(context).using(new FirebaseImageLoader()).load(ref).asBitmap().into(holder.imgUserOneGroup); //image à partir de la réference passée
 

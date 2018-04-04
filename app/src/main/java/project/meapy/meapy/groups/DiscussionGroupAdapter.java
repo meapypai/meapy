@@ -42,7 +42,7 @@ public class DiscussionGroupAdapter extends ArrayAdapter<DiscussionGroup> {
             holder = new GroupHolder();
             holder.drawable = (ImageView)convertView.findViewById(R.id.imgGroup);
             holder.nameGroup = (TextView)convertView.findViewById(R.id.nameGroup);
-            holder.lastMessage = (TextView)convertView.findViewById(R.id.lastMessage);
+            holder.summary = (TextView)convertView.findViewById(R.id.summaryGroup);
 
             convertView.setTag(holder);
         }
@@ -56,7 +56,7 @@ public class DiscussionGroupAdapter extends ArrayAdapter<DiscussionGroup> {
         Glide.with(context).using(new FirebaseImageLoader()).load(ref).asBitmap().into(holder.drawable); //image à partir de la réference passée
 
         holder.nameGroup.setText(g.getName());
-        holder.lastMessage.setText(g.getLastMessage());
+        holder.summary.setText(g.getSummary());
 
         return convertView;
     }
