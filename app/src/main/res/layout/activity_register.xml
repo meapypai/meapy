@@ -1,41 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="project.meapy.meapy.RegisterActivity">
 
-    <EditText
-        style="@style/registerStyle"
-        android:id="@+id/firstNameIdRegister"
-        android:layout_marginTop="@dimen/sign_up_margin_top"
-        android:hint="@string/first_name_register"/>
+    <LinearLayout
+        android:id="@+id/topRegister"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        android:layout_height="wrap_content">
 
-    <EditText
-        style="@style/registerStyle"
-        android:id="@+id/lastNameIdRegister"
-        android:hint="@string/last_name_register"/>
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="2dp"
+            android:layout_gravity="center"
+            android:background="@drawable/divider"
+            />
 
-    <EditText
-        style="@style/registerStyle"
-        android:id="@+id/emailIdRegister"
-        android:hint="@string/prompt_email" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign Up"
+            android:layout_gravity="center"
+            android:textSize="26sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/roboto_black"
+            />
 
-    <EditText
-        style="@style/registerStyle"
-        android:id="@+id/passwordIdRegister"
-        android:hint="@string/prompt_password"
-        android:inputType="textPassword"/>
 
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="2dp"
+            android:layout_gravity="center"
+            android:background="@drawable/divider"
+            />
 
-    <Button
-        android:layout_width="wrap_content"
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="70dp"
+        android:layout_below="@+id/topRegister"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/signUpBtnIdRegister"
-        android:text="@string/sign_up_button"
-        android:layout_marginTop="10dp"
         android:layout_gravity="center"
-        android:background="@drawable/rounded_button"/>
+        android:layout_centerInParent="true"
+        android:layout_marginHorizontal="45dp"
+        android:orientation="vertical">
 
-</LinearLayout>
+        <!--First Name-->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_field_register">
+
+            <ImageView
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_perm_identity_black_24dp"/>
+
+            <EditText
+                android:id="@+id/firstNameIdRegister"
+                style="@style/fieldStyle"
+                android:hint="@string/first_name_register"/>
+
+        </LinearLayout>
+
+
+        <!--<ImageView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="2dp"-->
+            <!--android:background="@drawable/divider"-->
+            <!--/>-->
+
+        <!--Last Name-->
+
+        <LinearLayout
+            android:background="@drawable/background_field_register"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_perm_identity_black_24dp"
+                />
+
+            <EditText
+                android:id="@+id/lastNameIdRegister"
+                style="@style/fieldStyle"
+                android:hint="@string/last_name_register"/>
+
+        </LinearLayout>
+
+        <!--<ImageView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="2dp"-->
+            <!--android:background="@drawable/divider"-->
+            <!--/>-->
+
+        <!--Email -->
+
+        <LinearLayout
+            android:background="@drawable/background_field_register"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_mail_outline_black_24dp"/>
+
+            <EditText
+                android:id="@+id/emailIdRegister"
+                style="@style/fieldStyle"
+                android:hint="@string/prompt_email" />
+
+        </LinearLayout>
+
+        <!--<ImageView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="2dp"-->
+            <!--android:background="@drawable/divider"-->
+            <!--/>-->
+
+        <!--Password -->
+
+        <LinearLayout
+            android:background="@drawable/background_field_register"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_lock_outline_black_24dp"/>
+
+            <EditText
+                android:id="@+id/passwordIdRegister"
+                style="@style/fieldStyle"
+                android:hint="@string/prompt_password"
+                android:inputType="textPassword"/>
+
+        </LinearLayout>
+
+        <!--<ImageView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="2dp"-->
+            <!--android:background="@drawable/divider"-->
+            <!--/>-->
+
+        <Button
+            android:id="@+id/signUpBtnIdRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sign_up_button"
+            android:layout_marginTop="40dp"
+            android:layout_gravity="center"
+            android:textColor="@color/colorWhite"
+            android:background="@drawable/sign_in_background"/>
+    </LinearLayout>
+
+</RelativeLayout>
