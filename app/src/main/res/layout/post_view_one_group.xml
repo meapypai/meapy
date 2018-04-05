@@ -18,7 +18,7 @@
         android:layout_marginTop="5dp"
         android:fontFamily="@font/roboto_light"
         android:textSize="11sp"
-        android:text="1 day ago"/>
+        android:text="@string/date_post"/>
 
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
@@ -50,14 +50,14 @@
                 android:gravity="right"
                 android:textStyle="italic"
                 android:id="@+id/discPostViewOneGroup"
-                android:text="DISCIPLINE"/>
+                android:text="@string/name_discipline"/>
 
             <TextView
                 android:layout_below="@id/titlePostViewOneGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/descrPostViewOneGroup"
-                android:text="DESCRIPTION..."/>
+                android:text="@string/description_post"/>
 
         </RelativeLayout>
 

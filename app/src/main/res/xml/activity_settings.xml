@@ -10,10 +10,10 @@
     </Preference>
 
     <ListPreference
-        android:title="Theme color"
+        android:title="@string/title_theme_color"
         android:key="themeColor"
         android:entries="@array/colors_settings"
-        android:dialogTitle="Select a color"
+        android:dialogTitle="@string/dialog_theme_color"
         android:entryValues="@array/colors_save"/>
 
 </PreferenceScreen>

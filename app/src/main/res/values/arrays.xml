@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="colors_settings">
-        <item>Bordeau</item>
-        <item>Green</item>
-        <item>Blue</item>
+        <item>@string/bordeau_color_theme</item>
+        <item>@string/green_color_theme</item>
+        <item>@string/blue_color_theme</item>
     </array>
 
     <array name="colors_save">

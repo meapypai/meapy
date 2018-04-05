@@ -55,7 +55,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="GROUP NAME"
+                        android:text="@string/group_name_one_group"
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
@@ -66,7 +66,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/groupNameOneGroup"
                         android:layout_marginLeft="10dp"
-                        android:text="Groupe de classe" />
+                        android:text="@string/tag_group_one_group" />
 
                 </RelativeLayout>
 

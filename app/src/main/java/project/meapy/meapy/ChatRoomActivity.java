@@ -85,8 +85,12 @@ public class ChatRoomActivity extends MyAppCompatActivity {
             public void run() {}
         });
 
-
         scrollMessagesChat.setAdapter(adapter);
+
+        //to push the recycler view when keyboard is open
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setStackFromEnd(true);
+        scrollMessagesChat.setLayoutManager(layoutManager);
 
         sendChatRoom.setOnClickListener(new View.OnClickListener() {
             @Override

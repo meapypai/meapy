@@ -21,14 +21,22 @@
     <string name="send_file">send a file</string>
     <string name="sign_in_fb">Sign in with Facebook</string>
     <string name="sign_in_gm">Sign in with Gmail</string>
+    <string name="text_if_user_is_register">Create account ?</string>
 
-    <!-- Strings related to Groups -->
-    <string name="groups_label_name">My Groups</string>
+    <!-- String related to label activity -->
+    <string name="groups_label_name">My groups</string>
+    <string name="create_group_label">Create group</string>
+    <string name="my_groups_label">My groups</string>
+    <string name="add_file_label">Add a file</string>
+    <string name="posts_label">Posts</string>
+    <string name="settings_label">Settings</string>
+    <string name="profil_label">Profil</string>
 
     <!--Strings related to Register Activity-->
     <string name="first_name_register">First name</string>
     <string name="last_name_register">Last name</string>
     <string name="sign_up_button">Sign Up</string>
+    <string name="title_register">Create account</string>
 
     <!-- add discipline activity -->
     <string name="creation_of_discipline">Creation of Discipline</string>
@@ -36,10 +44,14 @@
 
     <!-- chat room activity -->
     <string name="write_message_hint">Write message...</string>
+    <string name="message_sent">Hello !</string>
+    <string name="message_receive">Hello !</string>
+
 
     <!-- create group activity -->
     <string name="group_name_hint">Name</string>
     <string name="image_name_hint">Image</string>
+    <string name="tag_name_hint">Tag group</string>
     <string name="limit_hint">Limit</string>
     <string name="add_user_create_group">Add user</string>
 
@@ -48,6 +60,20 @@
     <!-- discipline posts-->
     <string name="disc_post_textlabel">Discipline</string>
     <string name="disc_detail_search_button_label">SEARCH</string>
+
+    <!--post view one group-->
+    <string name="name_discipline">DISCIPLINE</string>
+    <string name="description_post">DESCRIPTION...</string>
+    <string name="date_post">1 day ago</string>
+
+    <!--group view-->
+    <string name="tag_group_my_groups">Groupe de travail</string>
+    <string name="name_group_my_groups">Groupe 1</string>
+
+
+    <!--comment post details -->
+    <string name="comment_post">CONTENT</string>
+    <string name="author_post">AUTHOR</string>
 
     <!-- join group activity -->
     <string name="join_group_desc_label">Enter the code to join the group :</string>
@@ -67,7 +93,37 @@
     <!-- one group activity -->
     <string name="code_saved_clip_toast">code saved in the clipboard</string>
     <string name="leave_group_toast">leave group</string>
+    <string name="group_name_one_group">GROUP NAME</string>
+    <string name="tag_group_one_group">Groupe de travail</string>
 
+    <!--profil activity-->
+    <string name="first_last_name">Firstname Lastname</string>
+
+    <!--settings activity-->
+    <string name="title_theme_color">Theme color</string>
+    <string name="dialog_theme_color">Select a color</string>
+
+    <!--colors in theme color-->
+    <string name="bordeau_color_theme">Bordeau</string>
+    <string name="green_color_theme">Green</string>
+    <string name="blue_color_theme">Blue</string>
+
+
+    <!--String related to menus-->
+
+    <!--Menu my groups-->
+    <string name="title_join_group_menu">Join a group</string>
+    <string name="title_add_file_menu">Add file</string>
+    <string name="title_settings_menu">Settings</string>
+    <string name="title_disconnect_menu">Disconnect</string>
+
+    <!--Search user menu-->
+    <string name="title_search_user_menu">Search</string>
+
+    <!--One group menu-->
+    <string name="title_invite_person_menu">Invite</string>
+    <string name="title_message_group_menu">Messages</string>
+    <string name="title_delete_post_menu">Delete</string>
 
     <!-- Google Login strings -->
     <!--<string name="default_web_client_id">meapyid</string>-->

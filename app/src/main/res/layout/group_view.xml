@@ -32,7 +32,7 @@
             android:id="@+id/nameGroup"
             android:fontFamily="@font/roboto_regular"
             android:textStyle="bold"
-            android:text="Groupe 1"
+            android:text="@string/name_group_my_groups"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/nameGroup"
-            android:text="Groupe de travail"
+            android:text="@string/tag_group_my_groups"
             android:textStyle="italic"
             android:fontFamily="@font/roboto_thin"
             android:layout_alignLeft="@+id/nameGroup"/>

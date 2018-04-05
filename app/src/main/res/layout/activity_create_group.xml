@@ -44,7 +44,7 @@
         android:layout_width="150dp"
        android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
-        android:hint="Summary group"
+        android:hint="@string/tag_name_hint"
         android:layout_below="@id/imageCreateGroup"
         android:layout_margin="@dimen/activity_horizontal_margin"/>
 

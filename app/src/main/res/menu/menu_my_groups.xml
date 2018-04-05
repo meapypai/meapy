@@ -4,13 +4,13 @@
 
     <item
         android:icon="@drawable/ic_note_add_white_24dp"
-        android:title="add a file"
+        android:title="@string/title_add_file_menu"
         android:visible="true"
         android:id="@+id/addFileId"
         app:showAsAction="always"></item>
     <item
         android:icon="@drawable/ic_person_add_white_24dp"
-        android:title="join a group"
+        android:title="@string/title_join_group_menu"
         android:visible="true"
         android:id="@+id/joinGrpMenu"
         app:showAsAction="always"></item>
@@ -22,12 +22,12 @@
         <!--app:showAsAction="ifRoom" android:title="My messages">-->
     <!--</item>-->
 
-    <item android:title="Settings"
+    <item android:title="@string/title_settings_menu"
         android:id="@+id/settings"
         android:visible="true">
     </item>
 
-    <item android:title="Disconnect"
+    <item android:title="@string/title_disconnect_menu"
         android:id="@+id/disconnect"
         android:visible="true">
     </item>

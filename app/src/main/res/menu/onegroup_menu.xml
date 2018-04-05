@@ -4,13 +4,13 @@
 
 
     <item
-        android:title="invite"
+        android:title="@string/title_invite_person_menu"
         android:icon="@drawable/ic_person_add_white_24dp"
         android:id="@+id/inviteOneGroup"
         app:showAsAction="always"
         ></item>
     <item
-        android:title="message"
+        android:title="@string/title_message_group_menu"
         android:icon="@drawable/ic_chat_white_24dp"
         android:id="@+id/accedToDiscussionOneGroup"
         app:showAsAction="always"
