@@ -56,8 +56,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/background_field_register">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:layout_marginLeft="10dp"
@@ -74,16 +73,15 @@
         </LinearLayout>
 
 
-        <!--<ImageView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="2dp"-->
-            <!--android:background="@drawable/divider"-->
-            <!--/>-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@drawable/divider"
+            />
 
         <!--Last Name-->
 
         <LinearLayout
-            android:background="@drawable/background_field_register"
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -104,16 +102,15 @@
 
         </LinearLayout>
 
-        <!--<ImageView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="2dp"-->
-            <!--android:background="@drawable/divider"-->
-            <!--/>-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@drawable/divider"
+            />
 
         <!--Email -->
 
         <LinearLayout
-            android:background="@drawable/background_field_register"
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -133,16 +130,15 @@
 
         </LinearLayout>
 
-        <!--<ImageView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="2dp"-->
-            <!--android:background="@drawable/divider"-->
-            <!--/>-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@drawable/divider"
+            />
 
         <!--Password -->
 
         <LinearLayout
-            android:background="@drawable/background_field_register"
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -163,11 +159,11 @@
 
         </LinearLayout>
 
-        <!--<ImageView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="2dp"-->
-            <!--android:background="@drawable/divider"-->
-            <!--/>-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@drawable/divider"
+            />
 
         <Button
             android:id="@+id/signUpBtnIdRegister"
