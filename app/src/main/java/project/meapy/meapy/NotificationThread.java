@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.bean.Message;
@@ -58,22 +57,7 @@ public class NotificationThread extends Thread {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Notifier notif = (Notifier) dataSnapshot.getValue(Notifier.class);
-                //creation de la notification
-                NotificationManager manager = (NotificationManager)context.getSystemService(NOTIFICATION_SERVICE);
-                Intent intent = new Intent(context, MyGroupsActivity.class);
-                intent.putExtra(ID_NOTIFICATION,notif.getId());
-
-                intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
-                PendingIntent pendingIntent = PendingIntent.getActivity(context,REQUEST_NOTIFICATION,intent,PendingIntent.FLAG_ONE_SHOT);
-
-                Notification.Builder builder = new Notification.Builder(context).setWhen(System.currentTimeMillis())
-                        .setTicker(notif.getTitle())
-                        .setSmallIcon(R.drawable.logo_app1)
-                        .setContentTitle(notif.getTitle())
-                        .setContentText(notif.getContent())
-                        .setContentIntent(pendingIntent);
-
-                manager.notify(11,builder.build());
+                NotificationThread.this.notify(notif);
             }
 
             @Override
@@ -96,35 +80,72 @@ public class NotificationThread extends Thread {
 
             }
         });
-        final Map<Groups,List<Message>> mapMsg = new HashMap<>();
-
         GroupLink.provideGroupsByCurrentuser(new RunnableWithParam() {
             @Override
             public void run() {
                 final Groups grp = (Groups) getParam();
-                final List<Message> messages = new ArrayList<>();
-                mapMsg.put(grp,messages);
-                MessageLink.getMessageByIdGroup(grp.getId()+"", new RunnableWithParam() {
+                /*MessageLink.getMessageByIdGroup(grp.getId()+"", new RunnableWithParam() {
                     @Override
                     public void run() {
                         Message msg = (Message) getParam();
-                        messages.add(msg);
-                        //NotificationThread.this.notify(msg,grp);
+                        //NotificationThread.this.notifyMessage(msg,grp);
                     }
-                },null);
+                },null);*/
                 MessageLink.getLatestMessageByGroupId(grp.getId() + "", new RunnableWithParam() {
                     @Override
                     public void run() {
                         Message msg = (Message) getParam();
-                        messages.add(msg);
-                        NotificationThread.this.notify(msg,grp);
+                        //messages.add(msg);
+                        NotificationThread.this.notifyMessage(msg,grp);
                     }
                 });
             }
         }, null);
     }
 
-    private void notify(Message msg, Groups grp){
+    private void notify(Notifier notif){
+        //creation de la notification
+        NotificationManager manager = (NotificationManager)context.getSystemService(NOTIFICATION_SERVICE);
+        Intent intent = new Intent(context, MyGroupsActivity.class);
+        intent.putExtra(ID_NOTIFICATION,notif.getId());
+
+        intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context,REQUEST_NOTIFICATION,intent,PendingIntent.FLAG_ONE_SHOT);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // Create the NotificationChannel
+            CharSequence name = "channel_name";
+            String description = "desc";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel mChannel = new NotificationChannel("default", name, importance);
+            mChannel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(
+                    NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(mChannel);
+            NotificationCompat.Builder buildr = new NotificationCompat.Builder(context, "default")
+                    .setTicker(notif.getTitle())
+                    .setSmallIcon(R.drawable.logo_app1)
+                    .setContentTitle(notif.getTitle())
+                    .setContentText(notif.getContent())
+                    .setContentIntent(pendingIntent);
+
+            Notification notification = buildr.build();
+            notification.flags = Notification.FLAG_AUTO_CANCEL;
+            notificationManager.notify(11,notification);
+        }else {
+            Notification.Builder builder = new Notification.Builder(context).setWhen(System.currentTimeMillis())
+                    .setTicker(notif.getTitle())
+                    .setSmallIcon(R.drawable.logo_app1)
+                    .setContentTitle(notif.getTitle())
+                    .setContentText(notif.getContent())
+                    .setContentIntent(pendingIntent);
+
+            manager.notify(11, builder.build());
+        }
+    }
+    private void notifyMessage(Message msg, Groups grp){
         //creation de la notification
         NotificationManager manager = (NotificationManager)context.getSystemService(NOTIFICATION_SERVICE);
         Intent intent = new Intent(context, ChatRoomActivity.class);
