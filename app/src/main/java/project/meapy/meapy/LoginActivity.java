@@ -9,6 +9,7 @@ import android.view.View.OnClickListener;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-    private Button mRegisterBtn;
+    private TextView mRegisterBtn;
 
     private EditText emailLogin;
     private EditText passwordLogin;
@@ -39,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         mSignButton = (Button)findViewById(R.id.email_sign_in_button);
-        mRegisterBtn = (Button)findViewById(R.id.register);
+        mRegisterBtn = (TextView)findViewById(R.id.register);
 
 
         emailLogin = (EditText)findViewById(R.id.emailLogin);
