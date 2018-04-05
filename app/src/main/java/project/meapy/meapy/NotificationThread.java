@@ -13,8 +13,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import project.meapy.meapy.bean.Groups;
+import project.meapy.meapy.bean.Message;
 import project.meapy.meapy.bean.Notifier;
+import project.meapy.meapy.groups.OneGroupActivity;
 import project.meapy.meapy.groups.joined.MyGroupsActivity;
+import project.meapy.meapy.utils.RunnableWithParam;
+import project.meapy.meapy.utils.firebase.GroupLink;
+import project.meapy.meapy.utils.firebase.MessageLink;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
@@ -81,5 +87,37 @@ public class NotificationThread extends Thread {
 
             }
         });
+
+        GroupLink.provideGroupsByCurrentuser(new RunnableWithParam() {
+            @Override
+            public void run() {
+                final Groups grp = (Groups) getParam();
+                MessageLink.getMessageByIdGroup(grp.getId()+"", new RunnableWithParam() {
+                    @Override
+                    public void run() {
+                        Message msg = (Message) getParam();
+                        //Notifier notif = (Notifier) dataSnapshot.getValue(Notifier.class);
+                        //creation de la notification
+                        NotificationManager manager = (NotificationManager)context.getSystemService(NOTIFICATION_SERVICE);
+                        Intent intent = new Intent(context, ChatRoomActivity.class);
+                        intent.putExtra(ID_NOTIFICATION,msg.getId());
+                        intent.putExtra(OneGroupActivity.EXTRA_GROUP_ID,grp.getId()+"");
+                        intent.putExtra(OneGroupActivity.EXTRA_GROUP_NAME,grp.getName());
+
+                        intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                        PendingIntent pendingIntent = PendingIntent.getActivity(context,REQUEST_NOTIFICATION,intent,PendingIntent.FLAG_ONE_SHOT);
+
+                        Notification.Builder builder = new Notification.Builder(context).setWhen(System.currentTimeMillis())
+                                .setTicker("title1")
+                                .setSmallIcon(R.drawable.logo_app1)
+                                .setContentTitle("title2")
+                                .setContentText(msg.getContent())
+                                .setContentIntent(pendingIntent);
+
+                        manager.notify(msg.getId(),builder.build());
+                    }
+                },null);
+            }
+        }, null);
     }
 }
