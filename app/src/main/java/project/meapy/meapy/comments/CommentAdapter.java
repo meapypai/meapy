@@ -14,6 +14,11 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -44,7 +49,7 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        CommentHolder holder;
+        final CommentHolder holder;
 
         if(convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.comment_post_details_view,parent,false);
@@ -59,21 +64,36 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
             holder = (CommentHolder) convertView.getTag();
         }
 
-        Comment currentComment = getItem(position);
+        final Comment currentComment = getItem(position);
 //        Toast.makeText(context,currentComment.getAuthorStr(),Toast.LENGTH_SHORT).show();
         holder.tvAuthor.setText(currentComment.getAuthorStr());
         holder.tvContent.setText(currentComment.getContent());
         holder.dateComment.setText(BuilderFormatDate.getNbDayPastSinceToday(currentComment.getDate()));
 
-        //si image par defaut
-        if(currentComment.getUser().getNameImageProfil().equals(User.DEFAULT_IMAGE_USER_NAME)) {
-            holder.imgUserComment.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.default_avatar));
-        }
-        else {
-            StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + currentComment.getUser().getUid() + "/" + currentComment.getUser().getNameImageProfil());
-            Glide.with(context).using(new FirebaseImageLoader()).load(ref).asBitmap().into(holder.imgUserComment); //image à partir de la réference passée
-        }
 
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users/"+currentComment.getUserId());
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = (User)dataSnapshot.getValue(User.class);
+                Toast.makeText(context,user.getEmail(),Toast.LENGTH_SHORT).show();
+
+                //si image par defaut
+                if(user.getNameImageProfil().equals(User.DEFAULT_IMAGE_USER_NAME)) {
+                    holder.imgUserComment.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.default_avatar));
+                }
+                else {
+                    StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + user.getUid() + "/" + user.getNameImageProfil());
+                    Glide.with(context).using(new FirebaseImageLoader()).load(ref).asBitmap().into(holder.imgUserComment); //image à partir de la réference passée
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         return convertView;
     }
 }

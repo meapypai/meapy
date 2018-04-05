@@ -11,9 +11,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -68,7 +70,7 @@ public class PostAdapter extends ArrayAdapter<Post> {
         }
 
 
-        Post currentPost = getItem(position);
+        final Post currentPost = getItem(position);
 
         holder.title.setText(currentPost.getTitle());
         holder.discipline.setText(currentPost.getDisciplineName());
@@ -96,13 +98,27 @@ public class PostAdapter extends ArrayAdapter<Post> {
 
 
         //si image par defaut
-        if(currentPost.getNameImageUser().equals(User.DEFAULT_IMAGE_USER_NAME)) {
-            holder.imgUserOneGroup.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.default_avatar));
-        }
-        else {
-            StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + currentPost.getUser_uid() + "/" + currentPost.getNameImageUser());
-            Glide.with(context).using(new FirebaseImageLoader()).load(ref).asBitmap().into(holder.imgUserOneGroup); //image à partir de la réference passée
-        }
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users/"+currentPost.getUser_uid());
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = (User)dataSnapshot.getValue(User.class);
+                Toast.makeText(context,user.getEmail(),Toast.LENGTH_SHORT).show();
+                if(currentPost.getNameImageUser().equals(User.DEFAULT_IMAGE_USER_NAME)) {
+                    holder.imgUserOneGroup.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.default_avatar));
+                }
+                else {
+                    StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + user.getUid() + "/" + user.getNameImageProfil());
+                    Glide.with(context).using(new FirebaseImageLoader()).load(ref).asBitmap().into(holder.imgUserOneGroup); //image à partir de la réference passée
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         return convertView;
     }
 }
