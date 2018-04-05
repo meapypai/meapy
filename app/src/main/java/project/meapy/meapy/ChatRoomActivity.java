@@ -76,6 +76,7 @@ public class ChatRoomActivity extends MyAppCompatActivity {
             public void run() {
                 messages.add((Message) getParam());
                 adapter.notifyDataSetChanged();
+                scrollMessagesChat.scrollToPosition(messages.size() - 1);
             }
         }, new RunnableWithParam() {
             @Override
