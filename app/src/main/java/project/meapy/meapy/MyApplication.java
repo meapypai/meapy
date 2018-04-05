@@ -29,8 +29,10 @@ public class MyApplication extends Application{
         String imgProfile = u.getNameImageProfil();
         int rank = u.getRank();
         String uid = u.getUid();
+
         SharedPreferences prefs = c.getSharedPreferences("USER_PREFS",0);
-        prefs.edit().putString("LASTNAME",lastname)
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("LASTNAME",lastname)
                 .putString("CHAT_BUBBLE",chatBubble)
                 .putString("EMAIL",email)
                 .putString("FIRSTNAME",firstName)
@@ -38,6 +40,8 @@ public class MyApplication extends Application{
                 .putInt("RANK",rank)
                 .putString("UID",uid);
         user = u;
+        editor.commit();
+        editor.apply();
     }
 
     public static User getUser() {
@@ -50,6 +54,8 @@ public class MyApplication extends Application{
             String imgProfile = prefs.getString("IMG_PROFILE","");
             int rank = prefs.getInt("RANK",0);
             String uid = prefs.getString("UID","");
+            if(lastname.length() == 0 || chatBubble.length() == 0 ||email.length() == 0 || firstName.length() == 0)
+                return user;
             user = new User();
             user.setUid(uid);
             user.setChatBubbleColor(chatBubble);
