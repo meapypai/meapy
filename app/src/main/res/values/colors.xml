@@ -29,14 +29,14 @@
     <!--Color to change dynamically in terms of parameters-->
     <color name="bordeau">#83182A</color>
         <color name="messageReceiveBordeau">#BC455D</color>
-        <color name="messageSentBordeau">#E299A7</color>
+        <color name="messageSentBordeau">#D93737</color>
 
     <color name="green">#57b99e</color>
         <color name="messageReceiveGreen">#57b99e</color>
-        <color name="messageSentGreen">#72D8BD</color>
+        <color name="messageSentGreen">#58C681</color>
 
 
     <color name="blue">#25BBE9</color>
         <color name="messageReceiveBlue">#1ABFB4</color>
-        <color name="messageSentBlue">#72D8BD</color>
+        <color name="messageSentBlue">#36B8DF</color>
 </resources>
