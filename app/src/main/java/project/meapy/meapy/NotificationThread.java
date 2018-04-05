@@ -154,7 +154,9 @@ public class NotificationThread extends Thread {
                     .setContentText(msg.getContent())
                     .setContentIntent(pendingIntent);
 
-            notificationManager.notify(11,buildr.build());
+            Notification notif = buildr.build();
+            notif.flags = Notification.FLAG_AUTO_CANCEL;
+            notificationManager.notify(11,notif);
         }else{
             Notification.Builder builder = new Notification.Builder(context).setWhen(System.currentTimeMillis())
                     .setTicker("title1")
@@ -162,6 +164,8 @@ public class NotificationThread extends Thread {
                     .setContentTitle(grp.getName() + " : "+ msg.getNameUser())
                     .setContentText(msg.getContent())
                     .setContentIntent(pendingIntent);
+            Notification notif = builder.build();
+            notif.flags = Notification.FLAG_AUTO_CANCEL;
             manager.notify(11,builder.build());
         }
     }
