@@ -76,7 +76,6 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = (User)dataSnapshot.getValue(User.class);
-                Toast.makeText(context,user.getEmail(),Toast.LENGTH_SHORT).show();
 
                 //si image par defaut
                 if(user.getNameImageProfil().equals(User.DEFAULT_IMAGE_USER_NAME)) {
