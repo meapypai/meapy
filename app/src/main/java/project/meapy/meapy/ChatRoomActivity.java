@@ -8,7 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.DragEvent;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -106,7 +108,6 @@ public class ChatRoomActivity extends MyAppCompatActivity {
                 }
             }
         });
-
 
         messageIdChatRoom.addTextChangedListener(new TextWatcher() {
             @Override

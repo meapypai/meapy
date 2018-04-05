@@ -16,6 +16,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
 import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.bean.Message;
 import project.meapy.meapy.bean.Notifier;
@@ -90,58 +96,73 @@ public class NotificationThread extends Thread {
 
             }
         });
+        final Map<Groups,List<Message>> mapMsg = new HashMap<>();
 
         GroupLink.provideGroupsByCurrentuser(new RunnableWithParam() {
             @Override
             public void run() {
                 final Groups grp = (Groups) getParam();
+                final List<Message> messages = new ArrayList<>();
+                mapMsg.put(grp,messages);
                 MessageLink.getMessageByIdGroup(grp.getId()+"", new RunnableWithParam() {
                     @Override
                     public void run() {
                         Message msg = (Message) getParam();
-                        //Notifier notif = (Notifier) dataSnapshot.getValue(Notifier.class);
-                        //creation de la notification
-                        NotificationManager manager = (NotificationManager)context.getSystemService(NOTIFICATION_SERVICE);
-                        Intent intent = new Intent(context, ChatRoomActivity.class);
-                        intent.putExtra(ID_NOTIFICATION,msg.getId());
-                        intent.putExtra(OneGroupActivity.EXTRA_GROUP_ID,grp.getId()+"");
-                        intent.putExtra(OneGroupActivity.EXTRA_GROUP_NAME,grp.getName());
-
-                        intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
-                        PendingIntent pendingIntent = PendingIntent.getActivity(context,REQUEST_NOTIFICATION,intent,PendingIntent.FLAG_ONE_SHOT);
-
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            // Create the NotificationChannel
-                            CharSequence name = "channel_name";
-                            String description = "desc";
-                            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-                            NotificationChannel mChannel = new NotificationChannel("default", name, importance);
-                            mChannel.setDescription(description);
-                            // Register the channel with the system; you can't change the importance
-                            // or other notification behaviors after this
-                            NotificationManager notificationManager = (NotificationManager) context.getSystemService(
-                                    NOTIFICATION_SERVICE);
-                            notificationManager.createNotificationChannel(mChannel);
-                            NotificationCompat.Builder buildr = new NotificationCompat.Builder(context, "default")
-                                    .setTicker("title1")
-                                    .setSmallIcon(R.drawable.logo_app1)
-                                    .setContentTitle(msg.getNameUser())
-                                    .setContentText(msg.getContent())
-                                    .setContentIntent(pendingIntent);
-
-                            notificationManager.notify(10,buildr.build());
-                        }else{
-                            Notification.Builder builder = new Notification.Builder(context).setWhen(System.currentTimeMillis())
-                                    .setTicker("title1")
-                                    .setSmallIcon(R.drawable.logo_app1)
-                                    .setContentTitle(msg.getNameUser())
-                                    .setContentText(msg.getContent())
-                                    .setContentIntent(pendingIntent);
-                            manager.notify(11,builder.build());
-                        }
+                        messages.add(msg);
+                        //NotificationThread.this.notify(msg,grp);
                     }
                 },null);
+                MessageLink.getLatestMessageByGroupId(grp.getId() + "", new RunnableWithParam() {
+                    @Override
+                    public void run() {
+                        Message msg = (Message) getParam();
+                        messages.add(msg);
+                        NotificationThread.this.notify(msg,grp);
+                    }
+                });
             }
         }, null);
+    }
+
+    private void notify(Message msg, Groups grp){
+        //creation de la notification
+        NotificationManager manager = (NotificationManager)context.getSystemService(NOTIFICATION_SERVICE);
+        Intent intent = new Intent(context, ChatRoomActivity.class);
+        intent.putExtra(ID_NOTIFICATION,msg.getId());
+        intent.putExtra(OneGroupActivity.EXTRA_GROUP_ID,grp.getId()+"");
+        intent.putExtra(OneGroupActivity.EXTRA_GROUP_NAME,grp.getName());
+
+        intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context,REQUEST_NOTIFICATION,intent,PendingIntent.FLAG_ONE_SHOT);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // Create the NotificationChannel
+            CharSequence name = "channel_name";
+            String description = "desc";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel mChannel = new NotificationChannel("default", name, importance);
+            mChannel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(
+                    NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(mChannel);
+            NotificationCompat.Builder buildr = new NotificationCompat.Builder(context, "default")
+                    .setTicker("title1")
+                    .setSmallIcon(R.drawable.logo_app1)
+                    .setContentTitle(grp.getName() + " : "+ msg.getNameUser())
+                    .setContentText(msg.getContent())
+                    .setContentIntent(pendingIntent);
+
+            notificationManager.notify(11,buildr.build());
+        }else{
+            Notification.Builder builder = new Notification.Builder(context).setWhen(System.currentTimeMillis())
+                    .setTicker("title1")
+                    .setSmallIcon(R.drawable.logo_app1)
+                    .setContentTitle(grp.getName() + " : "+ msg.getNameUser())
+                    .setContentText(msg.getContent())
+                    .setContentIntent(pendingIntent);
+            manager.notify(11,builder.build());
+        }
     }
 }
