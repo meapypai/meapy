@@ -26,7 +26,6 @@ public class LeaveGroupActivity extends AppCompatActivity {
                 sendLeave(false);
             }
         });
-
     }
 
     private void sendLeave(boolean leave){

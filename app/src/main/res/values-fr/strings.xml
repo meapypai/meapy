@@ -2,8 +2,14 @@
     <string name="app_name">Meapy</string>
     <string name="title_activity_login">Sign in</string>
 
-    <string name="yes">yes</string>
-    <string name="no">no</string>
+    <string name="yes">oui</string>
+    <string name="no">non</string>
+
+    <string name="and">et</string>
+
+    <string name="others">autres</string>
+    <string name="no_files">pas de fichier(s)</string>
+    <string name="download_started">le téléchargement a demarré</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>

@@ -13,6 +13,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import project.meapy.meapy.utils.firebase.GroupLink;
+
 public class JoinGroupActivity extends MyAppCompatActivity {
 
     private Button okJoinGroup;
@@ -22,7 +24,6 @@ public class JoinGroupActivity extends MyAppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join_group);
 
-
         okJoinGroup = findViewById(R.id.okJoinGroup);
 
         okJoinGroup.setOnClickListener(new View.OnClickListener() {
@@ -30,27 +31,9 @@ public class JoinGroupActivity extends MyAppCompatActivity {
             public void onClick(View view) {
                 EditText codeEdit = findViewById(R.id.codeToJoinGroup);
                 String content = codeEdit.getText().toString().toUpperCase();
-                    FirebaseDatabase.getInstance().getReference("codeToGroups/"+content).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            Integer idGroup = dataSnapshot.getValue(Integer.class);
-                            FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
-                            if(idGroup != null && fUser != null) {
-                                String uid = fUser.getUid();
-                                Toast.makeText(getApplicationContext(), "id group = " + idGroup, Toast.LENGTH_LONG).show();
-                                FirebaseDatabase.getInstance().getReference("groups/"+idGroup+"/usersId/"+uid).setValue(uid);
-                                FirebaseDatabase.getInstance().getReference("users/"+uid+"/groupsId/"+idGroup).setValue(idGroup.intValue());
-                                finish();
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-
-                }
+                GroupLink.joinGroupByCode(content);
+                finish();
+            }
         });
     }
 

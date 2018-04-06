@@ -1,5 +1,7 @@
 package project.meapy.meapy.utils.firebase;
 
+import android.widget.Toast;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -60,5 +62,25 @@ public class GroupLink {
 
     public static void leaveGroups(String uidUser, Groups group){
         FirebaseDatabase.getInstance().getReference("users/" + uidUser + "/groupsId/"+group.getId()).removeValue();
+    }
+
+    public static void joinGroupByCode(String code){
+        FirebaseDatabase.getInstance().getReference("codeToGroups/"+code).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Integer idGroup = dataSnapshot.getValue(Integer.class);
+                FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
+                if(idGroup != null && fUser != null) {
+                    String uid = fUser.getUid();
+                    FirebaseDatabase.getInstance().getReference("groups/"+idGroup+"/usersId/"+uid).setValue(uid);
+                    FirebaseDatabase.getInstance().getReference("users/"+uid+"/groupsId/"+idGroup).setValue(idGroup.intValue());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }

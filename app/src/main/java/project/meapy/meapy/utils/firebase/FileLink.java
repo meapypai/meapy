@@ -3,6 +3,7 @@ package project.meapy.meapy.utils.firebase;
 import android.net.Uri;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -11,14 +12,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
+import java.util.regex.Pattern;
 
 import project.meapy.meapy.MyApplication;
 import project.meapy.meapy.bean.Groups;
+import project.meapy.meapy.bean.Post;
 import project.meapy.meapy.bean.User;
 import project.meapy.meapy.utils.RunnableWithParam;
 
@@ -40,6 +44,18 @@ public class FileLink {
                 onSucess.run();
             }
         });
+    }
+
+    public static void deleteFilesPost(Post post){
+        for(String filepath : post.getFilesPaths()){
+            String refStr = "data_groups/" + post.getGroupId() + "/"
+                    + filepath;
+            FirebaseStorage.getInstance().getReference(refStr).delete();
+        }
+    }
+
+    public static void downloadFilesPost(Post post, final File dir, OnSuccessListener onSucess, OnFailureListener onFail){
+
     }
 
     public static void insertFile(final RunnableWithParam onSucess, File file){

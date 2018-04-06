@@ -41,6 +41,10 @@ public class PostLink {
                     @Override
                     public void onCancelled(DatabaseError databaseError) {}
                 });
+    }
 
+    public static void deletePost(Post post){
+        FirebaseDatabase.getInstance().getReference("groups/"+post.getGroupId()+"/disciplines/"
+                +post.getDisciplineId()+"/posts/"+post.getId()).removeValue();
     }
 }

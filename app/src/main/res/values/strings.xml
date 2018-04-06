@@ -5,6 +5,13 @@
     <string name="yes">yes</string>
     <string name="no">no</string>
 
+    <string name="and">and</string>
+    <string name="others">others</string>
+
+    <string name="no_files">no file(s)</string>
+
+    <string name="download_started">download started</string>
+
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>

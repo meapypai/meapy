@@ -43,6 +43,8 @@ import project.meapy.meapy.bean.Post;
 import project.meapy.meapy.comments.CommentAdapter;
 import project.meapy.meapy.utils.RunnableWithParam;
 import project.meapy.meapy.utils.firebase.CommentLink;
+import project.meapy.meapy.utils.firebase.FileLink;
+import project.meapy.meapy.utils.firebase.PostLink;
 
 public class PostDetailsActivity extends MyAppCompatActivity {
     private Post curPost;
@@ -83,11 +85,11 @@ public class PostDetailsActivity extends MyAppCompatActivity {
         if(size > 0) {
             String txt = filesPaths.get(0);
             if (size > 1) {
-                txt += " , and " + (size - 1) + " others";
+                txt += " , "+getString(R.string.and) +" "+ (size - 1) + " "+getString(R.string.others);
             }
             descFiles.setText(txt);
         }else{
-            descFiles.setText("no file(s)");
+            descFiles.setText(getString(R.string.no_files));
         }
 
         sendComment.setOnClickListener(new View.OnClickListener() {
@@ -144,7 +146,7 @@ public class PostDetailsActivity extends MyAppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    Toast.makeText(getApplicationContext(),"download started",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),getString(R.string.download_started),Toast.LENGTH_SHORT).show();
                     downloadFile();
                 }
             });
@@ -179,13 +181,8 @@ public class PostDetailsActivity extends MyAppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.deletePostDetails){
             Toast.makeText(getApplicationContext(),"delete post",Toast.LENGTH_LONG).show();
-            FirebaseDatabase.getInstance().getReference("groups/"+curPost.getGroupId()+"/disciplines/"
-                    +curPost.getDisciplineId()+"/posts/"+curPost.getId()).removeValue();
-            for(String filepath : curPost.getFilesPaths()){
-                String refStr = "data_groups/" + curPost.getGroupId() + "/"
-                        + filepath;
-                FirebaseStorage.getInstance().getReference(refStr).delete();
-            }
+            PostLink.deletePost(curPost);
+            FileLink.deleteFilesPost(curPost);
             finish();
         }
         return true;
@@ -199,7 +196,6 @@ public class PostDetailsActivity extends MyAppCompatActivity {
                 Environment.DIRECTORY_PICTURES), "meapy/"+curPost.getDisciplineName()+"/"+curPost.getTitle());
         dir.mkdirs();
         for (String filepath : filesPaths) {
-            String[] filesPathData = filepath.split(Pattern.quote("."));
             final File localFile = new File(dir,filepath);
             String refStr = "data_groups/" + curPost.getGroupId() + "/"
                     + filepath;
