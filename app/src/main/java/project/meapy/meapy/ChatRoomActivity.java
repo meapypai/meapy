@@ -183,4 +183,9 @@ public class ChatRoomActivity extends MyAppCompatActivity {
         super.onPause();
         NotificationThread.setStartedChatRoom(idGroup,false);
     }
+
+    protected void onResume(){
+        super.onResume();
+        NotificationThread.setStartedChatRoom(idGroup,true);
+    }
 }
