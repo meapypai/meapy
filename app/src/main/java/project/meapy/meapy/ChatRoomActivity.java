@@ -46,7 +46,7 @@ public class ChatRoomActivity extends MyAppCompatActivity {
 
     private List<Message> messages = new ArrayList<>();
 
-    private String idGroup;
+    private int idGroup;
     private String nameGroup;
 
     public static final String EXTRA_GROUP_ID = "group_id";
@@ -111,6 +111,7 @@ public class ChatRoomActivity extends MyAppCompatActivity {
                 }
             }
         });
+        NotificationThread.setStartedChatRoom(idGroup,true);
     }
 
     private void setOnSendClick(){
@@ -132,7 +133,7 @@ public class ChatRoomActivity extends MyAppCompatActivity {
                     if(MyApplication.getUser()!= null) {
                         m.setColorNameUser(MyApplication.getUser().getChatBubbleColor());
                     }
-                    MessageLink.sendMessageToGroup(idGroup,m);
+                    MessageLink.sendMessageToGroup(idGroup+"",m);
 
                 }
             }
@@ -141,7 +142,7 @@ public class ChatRoomActivity extends MyAppCompatActivity {
     private void provideMessages(){
         final MessagesAdapter adapter = new MessagesAdapter(messages);
         scrollMessagesChat.setLayoutManager(new LinearLayoutManager(this));
-        MessageLink.getMessageByIdGroup(idGroup, new RunnableWithParam() {
+        MessageLink.getMessageByIdGroup(idGroup+"", new RunnableWithParam() {
             @Override
             public void run() {
                 messages.add((Message) getParam());
@@ -156,7 +157,7 @@ public class ChatRoomActivity extends MyAppCompatActivity {
     }
     private void provideExtraData(){
         Intent i = getIntent();
-        idGroup = i.getStringExtra(EXTRA_GROUP_ID);
+        idGroup = Integer.parseInt(i.getStringExtra(EXTRA_GROUP_ID));
         nameGroup = i.getStringExtra(EXTRA_GROUP_NAME);
     }
     @Override
@@ -175,7 +176,11 @@ public class ChatRoomActivity extends MyAppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
         sendChatRoom.setBackgroundTintList(ContextCompat.getColorStateList(this,colorId));
+    }
+
+    protected void onPause(){
+        super.onPause();
+        NotificationThread.setStartedChatRoom(idGroup,false);
     }
 }

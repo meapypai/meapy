@@ -43,12 +43,18 @@ public class NotificationThread extends Thread {
     Context context;
     public static final int REQUEST_NOTIFICATION = 5;
     public static final String ID_NOTIFICATION = "id_notification";
+    private static Map<Integer,Boolean> chatRoomStarted = new HashMap<>();
 
     public NotificationThread(Context context) {
         this.context =  context;
     }
 
-
+    public static void setStartedChatRoom(int idGroup, boolean b){
+        chatRoomStarted.put(idGroup,b);
+    }
+    public static boolean isStartedChatRoom(int idGroup){
+        return chatRoomStarted.get(idGroup);
+    }
     @Override
     public void run() {
         onNewNotif();
@@ -63,10 +69,12 @@ public class NotificationThread extends Thread {
                 MessageLink.getLatestMessageByGroupId(grp.getId() + "", new RunnableWithParam() {
                     @Override
                     public void run() {
-                        Message msg = (Message) getParam();
-                        NotificationThread.this.notifyMessage(msg,grp);
-                        //MediaPlayer mp = MediaPlayer.create(context,R.raw.intuition);
-                        //mp.start();
+                        if(!isStartedChatRoom(grp.getId())) {
+                            Message msg = (Message) getParam();
+                            NotificationThread.this.notifyMessage(msg, grp);
+                            //MediaPlayer mp = MediaPlayer.create(context,R.raw.intuition);
+                            //mp.start();
+                        }
                     }
                 });
             }
