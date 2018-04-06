@@ -44,9 +44,10 @@
                 android:layout_toRightOf="@id/fileNameSend"
                 android:layout_toLeftOf="@+id/importFileBtnSend" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/importFileBtnSend"
-                android:background="@android:color/transparent"
+                android:src="@drawable/ic_add_black_24dp"
+                android:backgroundTint="@color/colorButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -81,7 +82,8 @@
                 android:layout_centerVertical="true"
 
                 ></Spinner>
-            <Button
+
+            <ImageButton
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
@@ -89,7 +91,8 @@
                 android:text="+"
                 android:id="@+id/addGroupSendFile"
                 android:textColor="@android:color/white"
-                android:background="@android:color/transparent"/>
+                android:src="@drawable/ic_add_black_24dp"
+                android:backgroundTint="@color/colorButton"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -115,14 +118,16 @@
                 android:layout_toRightOf="@id/txtDisc"
 
                 ></Spinner>
-            <Button
+
+            <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="+"
                 android:id="@+id/addDiscSendFile"
                 android:textColor="@android:color/white"
-                android:background="@android:color/transparent"/>
+                android:src="@drawable/ic_add_black_24dp"
+                android:backgroundTint="@color/colorButton"/>
         </RelativeLayout>
 
         <EditText

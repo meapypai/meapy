@@ -38,5 +38,5 @@
 
     <color name="blue">#25BBE9</color>
         <color name="messageReceiveBlue">#1ABFB4</color>
-        <color name="messageSentBlue">#36B8DF</color>
+        <color name="messageSentBlue">#30C9CE</color>
 </resources>

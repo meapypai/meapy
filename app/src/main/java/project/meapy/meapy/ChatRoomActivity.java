@@ -1,6 +1,7 @@
 package project.meapy.meapy;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -97,6 +98,9 @@ public class ChatRoomActivity extends MyAppCompatActivity {
             public void onClick(View v) {
                 String contentMessage = messageIdChatRoom.getText().toString();
                 if(!TextUtils.isEmpty(contentMessage)) {
+                    MediaPlayer mp = MediaPlayer.create(ChatRoomActivity.this,R.raw.intuition);
+                    mp.start();
+
                     messageIdChatRoom.setText("");
 
                     Message m = new Message();

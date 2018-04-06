@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,10 +57,11 @@ public class SendFileActivity extends MyAppCompatActivity {
 
 
 
-    private Button importFileBtnSend;
+    private ImageButton addDiscBtn;
+    private ImageButton addGrpBtn;
+    private ImageButton importFileBtnSend;
+
     private Button fileBtnSend;
-    private Button addDiscBtn;
-    private Button addGrpBtn;
     private FloatingActionButton addPhoto;
 
     private TextView fileNameSend;
@@ -85,10 +87,11 @@ public class SendFileActivity extends MyAppCompatActivity {
         setContentView(R.layout.activity_send_file);
         groupsProvided = (Groups)getIntent().getSerializableExtra("GROUP");
         //buttons
-        importFileBtnSend = (Button)findViewById(R.id.importFileBtnSend);
+        importFileBtnSend = (ImageButton)findViewById(R.id.importFileBtnSend);
+        addDiscBtn        = (ImageButton)findViewById(R.id.addDiscSendFile);
+        addGrpBtn         = (ImageButton) findViewById(R.id.addGroupSendFile);
+
         fileBtnSend       = (Button)findViewById(R.id.fileBtnSend);
-        addDiscBtn        = (Button)findViewById(R.id.addDiscSendFile);
-        addGrpBtn         = (Button) findViewById(R.id.addGroupSendFile);
         addPhoto          = (FloatingActionButton) findViewById(R.id.takePhotoSendFile);
 
         //edittext
@@ -265,6 +268,10 @@ public class SendFileActivity extends MyAppCompatActivity {
         //change widgets'color in terms of settings
         fileBtnSend.setBackgroundColor(colorSelectedOnSettings);
         addPhoto.setBackgroundTintList(ContextCompat.getColorStateList(this,colorId));
+        //image buttons
+        addDiscBtn.setBackgroundTintList(ContextCompat.getColorStateList(this,colorId));
+        addGrpBtn.setBackgroundTintList(ContextCompat.getColorStateList(this,colorId));
+        importFileBtnSend.setBackgroundTintList(ContextCompat.getColorStateList(this,colorId));
     }
 
     private void loadingGroups(){
