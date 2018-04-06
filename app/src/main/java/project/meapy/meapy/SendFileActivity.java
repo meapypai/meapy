@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -54,8 +55,6 @@ public class SendFileActivity extends MyAppCompatActivity {
     private static  final int REQUEST_PERMISSION_READ_EXTERNAL_STORAGE = 7;
     private static final int REQUEST_LOAD_FILE = 5;
     private static final int LIMIT_DESCRIPTION_LENGTH = 20;
-
-
 
     private ImageButton addDiscBtn;
     private ImageButton addGrpBtn;
@@ -140,8 +139,8 @@ public class SendFileActivity extends MyAppCompatActivity {
         filesSendFile.setAdapter(adapterSpinnerFiles);
 
 
-        List<Discipline> listDisc = new ArrayList<Discipline>();
-        final ArrayAdapter<Discipline> dataDiscsAdapter = new ArrayAdapter<Discipline>(this,
+        final ArrayList<Parcelable> listDisc = new ArrayList<>();
+        final ArrayAdapter<Parcelable> dataDiscsAdapter = new ArrayAdapter<Parcelable>(this,
                 android.R.layout.simple_spinner_item, listDisc);
         dataDiscsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         discTextSend.setAdapter(dataDiscsAdapter);
@@ -178,6 +177,7 @@ public class SendFileActivity extends MyAppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),AddDisciplineActivity.class);
                 intent.putExtra("GROUP",(Groups)groupNameSend.getSelectedItem());
+                intent.putParcelableArrayListExtra("DISCPLINES", listDisc);
                 startActivity(intent);
             }
         });
