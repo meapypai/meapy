@@ -51,52 +51,19 @@ public class NotificationThread extends Thread {
 
     @Override
     public void run() {
+        onNewNotif();
+        onNewMessageReceived();
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+"/notifications");
-
-        ref.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Notifier notif = (Notifier) dataSnapshot.getValue(Notifier.class);
-                NotificationThread.this.notify(notif);
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+    }
+    private void onNewMessageReceived(){
         GroupLink.provideGroupsByCurrentuser(new RunnableWithParam() {
             @Override
             public void run() {
                 final Groups grp = (Groups) getParam();
-                /*MessageLink.getMessageByIdGroup(grp.getId()+"", new RunnableWithParam() {
-                    @Override
-                    public void run() {
-                        Message msg = (Message) getParam();
-                        //NotificationThread.this.notifyMessage(msg,grp);
-                    }
-                },null);*/
                 MessageLink.getLatestMessageByGroupId(grp.getId() + "", new RunnableWithParam() {
                     @Override
                     public void run() {
                         Message msg = (Message) getParam();
-                        //messages.add(msg);
                         NotificationThread.this.notifyMessage(msg,grp);
                         //MediaPlayer mp = MediaPlayer.create(context,R.raw.intuition);
                         //mp.start();
@@ -106,6 +73,25 @@ public class NotificationThread extends Thread {
         }, null);
     }
 
+    private void onNewNotif(){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+"/notifications");
+
+        ref.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Notifier notif = (Notifier) dataSnapshot.getValue(Notifier.class);
+                NotificationThread.this.notify(notif);
+            }
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {}
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+    }
     private void notify(Notifier notif){
         //creation de la notification
         NotificationManager manager = (NotificationManager)context.getSystemService(NOTIFICATION_SERVICE);

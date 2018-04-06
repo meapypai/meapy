@@ -33,12 +33,9 @@ import project.meapy.meapy.R;
 import project.meapy.meapy.SendFileActivity;
 import project.meapy.meapy.SettingsActivity;
 import project.meapy.meapy.bean.Groups;
-import project.meapy.meapy.groups.DiscussionGroup;
-import project.meapy.meapy.groups.DiscussionGroupAdapter;
 import project.meapy.meapy.groups.OneGroupActivity;
 import project.meapy.meapy.utils.RunnableWithParam;
 import project.meapy.meapy.utils.firebase.GroupLink;
-import project.meapy.meapy.utils.firebase.UserLogined;
 
 /**
  * Created by yassi on 23/02/2018.
@@ -49,10 +46,10 @@ public class MyGroupsActivity extends MyAppCompatActivity {
     private FloatingActionButton createGroupId;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-    final Map<Integer,DiscussionGroup> idGroups = new HashMap<Integer, DiscussionGroup>();
-    final Map<DiscussionGroup, Groups> viewToBean = new HashMap<>();
+    final Map<Integer,GroupsForView> idGroups = new HashMap<Integer, GroupsForView>();
+    final Map<GroupsForView, Groups> viewToBean = new HashMap<>();
     ListView listView;
-    DiscussionGroupAdapter adapter;
+    GroupsAdapter adapter;
 
 
 
@@ -61,7 +58,7 @@ public class MyGroupsActivity extends MyAppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_groups);
         listView = findViewById(R.id.listMyGroups);
-        adapter = new DiscussionGroupAdapter(getApplicationContext(),android.R.layout.simple_expandable_list_item_2,new ArrayList<DiscussionGroup>());
+        adapter = new GroupsAdapter(getApplicationContext(),android.R.layout.simple_expandable_list_item_2,new ArrayList<GroupsForView>());
         // listeners
         createGroupId = (FloatingActionButton)findViewById(R.id.createGroupId);
         createGroupId.setOnClickListener(new View.OnClickListener() {
@@ -71,15 +68,6 @@ public class MyGroupsActivity extends MyAppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        /*
-        findViewById(R.id.joinGroupId).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), JoinGroupActivity.class));
-            }
-        });
-        */
         // providing datas
         provideGroups();
     }
@@ -89,7 +77,7 @@ public class MyGroupsActivity extends MyAppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                DiscussionGroup dGrp = adapter.getItem(i);
+                GroupsForView dGrp = adapter.getItem(i);
                 Groups grp = viewToBean.get(dGrp);
                 Intent intent = new Intent(MyGroupsActivity.this, OneGroupActivity.class);
                 intent.putExtra("GROUP",grp);
@@ -112,7 +100,7 @@ public class MyGroupsActivity extends MyAppCompatActivity {
     public void onGroupAdded(Groups added){
         if(!idGroups.containsKey(added.getId())) {
             // UPDATE UI
-            DiscussionGroup dGrp = new DiscussionGroup(R.drawable.bdd, added.getName(), added.getSummary() + "",added.getImageName());
+            GroupsForView dGrp = new GroupsForView(R.drawable.bdd, added.getName(), added.getSummary() + "",added.getImageName());
             dGrp.setId(added.getId());
             idGroups.put(added.getId(), dGrp);
             viewToBean.put(dGrp, added);
@@ -120,7 +108,7 @@ public class MyGroupsActivity extends MyAppCompatActivity {
         }
     }
     public void onGroupRemoved(int idGrp){
-        DiscussionGroup dGrp = idGroups.remove(idGrp);
+        GroupsForView dGrp = idGroups.remove(idGrp);
         viewToBean.remove(dGrp);
         adapter.remove(dGrp);
     }
@@ -133,7 +121,6 @@ public class MyGroupsActivity extends MyAppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         Intent intent = null ;
         switch(item.getItemId()) {
             case R.id.addFileId:
@@ -180,7 +167,7 @@ public class MyGroupsActivity extends MyAppCompatActivity {
 
         /// TEST
         // providing datas
-        provideGroups();
+        //provideGroups();
 
         /// FIN TEST
     }
@@ -190,20 +177,10 @@ public class MyGroupsActivity extends MyAppCompatActivity {
         super.onRestart();
         provideGroups();
     }
-//
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if(requestCode == NotificationThread.REQUEST_NOTIFICATION) {
-//            if(resultCode == RESULT_OK) {
-//                Toast.makeText(this,"okkkkk",Toast.LENGTH_LONG).show();
-//            }
-//        }
-//    }
 
     @Override
     protected void onStart() {
         super.onStart();
-//        Toast.makeText(getApplicationContext(),"user : "+FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),Toast.LENGTH_LONG).show();
         if(MyApplication.getUser() !=  null)
             Toast.makeText(getApplicationContext(),"user : "+ MyApplication.getUser().getLastName(),Toast.LENGTH_LONG).show();
         //to notify user if he's added to a group

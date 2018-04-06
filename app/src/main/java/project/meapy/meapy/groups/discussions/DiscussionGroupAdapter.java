@@ -1,4 +1,4 @@
-package project.meapy.meapy.groups;
+package project.meapy.meapy.groups.discussions;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
@@ -20,6 +19,7 @@ import java.util.List;
 
 import project.meapy.meapy.CreateGroupActivity;
 import project.meapy.meapy.R;
+import project.meapy.meapy.groups.GroupHolder;
 
 /**
  * Created by sansaoui on 19/02/18.

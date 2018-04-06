@@ -1,4 +1,4 @@
-package project.meapy.meapy.groups;
+package project.meapy.meapy.groups.discussions;
 
 import project.meapy.meapy.bean.DomainObject;
 
