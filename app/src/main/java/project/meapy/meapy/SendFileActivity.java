@@ -187,7 +187,7 @@ public class SendFileActivity extends MyAppCompatActivity {
             public void onClick(View v) {
                 String path = fileNameSend.getText().toString();
                 File file = new File(path);
-                String description = descTextSend.getText().toString().replaceAll(" ",""); //suppression des espaces pr éviter une description n'ayant que des espaces
+                String description = descTextSend.getText().toString();
                 final Groups group = (Groups) groupNameSend.getSelectedItem();
                 final Discipline disc = (Discipline) discTextSend.getSelectedItem();
                 String title = titleTextSend.getText().toString();
@@ -195,7 +195,8 @@ public class SendFileActivity extends MyAppCompatActivity {
                 //TODO : verifier que le groupe existe//
                 // on force maintenant l'utilisateur a prendre des groupes existants//
 
-                if(description.length() >= LIMIT_DESCRIPTION_LENGTH) {
+                //suppression des espaces pr éviter une description n'ayant que des espaces
+                if(description.replaceAll(" ","").length() >= LIMIT_DESCRIPTION_LENGTH) {
 
                     if(disc != null && group != null && title!=null) {
                         //TODO : ajout du fichier
