@@ -135,6 +135,7 @@ public class NotificationThread extends Thread {
         }
     }
     private void notifyMessage(Message msg, Groups grp){
+
         //creation de la notification
         NotificationManager manager = (NotificationManager)context.getSystemService(NOTIFICATION_SERVICE);
         Intent intent = new Intent(context, ChatRoomActivity.class);
