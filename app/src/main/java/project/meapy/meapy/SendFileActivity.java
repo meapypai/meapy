@@ -140,7 +140,7 @@ public class SendFileActivity extends MyAppCompatActivity {
             }
         });
 
-        descTextSend.addTextChangedListener(new TextWatcher() {
+        descTextSend.addTextChangedListener(new TextWatcher() { // TODO REVOIR
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
@@ -151,9 +151,11 @@ public class SendFileActivity extends MyAppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 String description = descTextSend.getText().toString();
                 if(checkDescription(description)){
-                    descTextSend.setTextColor(Color.GREEN);
+                    descTextSend.setBackgroundColor(Color.argb(50,150,150,150));
+                    //descTextSend.setTextColor(Color.GREEN);
                 }else{
-                    descTextSend.setTextColor(Color.RED);
+                    descTextSend.setBackgroundColor(Color.argb(100,150,150,150));
+                    //descTextSend.setTextColor(Color.RED);
                 }
             }
         });

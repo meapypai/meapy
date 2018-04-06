@@ -116,7 +116,6 @@
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@id/addDiscSendFile"
                 android:layout_toRightOf="@id/txtDisc"
-
                 ></Spinner>
 
             <ImageButton
@@ -133,11 +132,12 @@
         <EditText
             android:layout_centerHorizontal="true"
             android:id="@+id/descTextSend"
-            android:layout_width="250dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/descr_send_label"
             android:layout_below="@id/discSendFile"
             />
+
 
     </RelativeLayout>
 
