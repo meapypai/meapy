@@ -16,10 +16,10 @@
         <TextView
             android:id="@+id/contentMessage"
             android:layout_width="wrap_content"
-            android:text="@string/message_sent"
+            android:text="Hello !"
             android:maxWidth="240dp"
             android:padding="10dp"
-            android:textColor="@color/colorWhite"
+            android:textColor="@android:color/white"
             android:layout_height="wrap_content" />
 
         <TextView

@@ -103,7 +103,6 @@ public class PostAdapter extends ArrayAdapter<Post> {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = (User)dataSnapshot.getValue(User.class);
-                Toast.makeText(context,user.getEmail(),Toast.LENGTH_SHORT).show();
                 if(currentPost.getNameImageUser().equals(User.DEFAULT_IMAGE_USER_NAME)) {
                     holder.imgUserOneGroup.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.default_avatar));
                 }
