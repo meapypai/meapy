@@ -21,13 +21,17 @@ import project.meapy.meapy.utils.firebase.PostLink;
 
 public class DisciplinePostsActivity extends MyAppCompatActivity {
     private Groups grp;
+
+    public static final String GROUP_EXTRA_NAME = "GROUPS";
+    public static final String CURR_DISC_EXTRA_NAME = "CURRDISCIDX";
+    public static final String DISCS_EXTRA_NAME = "DISCS";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discipline_posts);
-        grp = (Groups) getIntent().getSerializableExtra("GROUP");
-        List<Discipline> discList = (List<Discipline>) getIntent().getSerializableExtra("DISCS");
-        int current = (int) getIntent().getSerializableExtra("CURRDISCIDX");
+        grp = (Groups) getIntent().getSerializableExtra(GROUP_EXTRA_NAME);
+        List<Discipline> discList = (List<Discipline>) getIntent().getSerializableExtra(DISCS_EXTRA_NAME);
+        int current = (int) getIntent().getSerializableExtra(CURR_DISC_EXTRA_NAME);
 
         Spinner spinner = findViewById(R.id.spinnerDiscPosts);
 

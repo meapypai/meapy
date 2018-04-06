@@ -58,6 +58,8 @@ import project.meapy.meapy.posts.PostAdapter;
 import project.meapy.meapy.utils.CodeGroupsGenerator;
 import project.meapy.meapy.utils.RunnableWithParam;
 import project.meapy.meapy.utils.firebase.DisciplineLink;
+import project.meapy.meapy.utils.firebase.GroupLink;
+import project.meapy.meapy.utils.firebase.InvitationLink;
 import project.meapy.meapy.utils.firebase.PostLink;
 
 public class OneGroupActivity extends MyAppCompatActivity {
@@ -99,28 +101,8 @@ public class OneGroupActivity extends MyAppCompatActivity {
         titleGroup.setText(name);
         summaryOneGroup.setText(grp.getSummary());
 
+        configureToolbar();
 
-        // A REVOIR ( mettre une toolbar)
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarOnegroup);
-        toolbar.setNavigationIcon(R.drawable.ic_dehaze_white_24dp);
-        toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
-        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_one_group);
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        //getSupportActionBar().setShowHideAnimationEnabled(true);
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.app_name,R.string.app_name);
-        drawerLayout.setDrawerListener(actionBarDrawerToggle);
-        /*final ImageButton openDrawer = findViewById(R.id.openDrawerBtn);
-        openDrawer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openDrawer();
-            }
-        });
-        */
-        //FIN A REVOIR
         final Menu menu = ((NavigationView)findViewById(R.id.side_menu_one_group)).getMenu();
         subMenuDisc = menu.addSubMenu("Discipline");
         ImageButton addDisc = findViewById(R.id.addDiscOneGroup);
@@ -128,7 +110,7 @@ public class OneGroupActivity extends MyAppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(OneGroupActivity.this, AddDisciplineActivity.class);
-                intent.putExtra("GROUP",grp);
+                intent.putExtra(AddDisciplineActivity.GROUP_EXTRA_NAME,grp);
                 startActivity(intent);
             }
         });
@@ -154,7 +136,7 @@ public class OneGroupActivity extends MyAppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Post post = (Post) adapterPost.getItem(i);
                 Intent intent = new Intent(OneGroupActivity.this, PostDetailsActivity.class);
-                intent.putExtra("POST",post);
+                intent.putExtra(PostDetailsActivity.POST_EXTRA_NAME,post);
                 startActivity(intent);
             }
         });
@@ -164,7 +146,7 @@ public class OneGroupActivity extends MyAppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(OneGroupActivity.this, SendFileActivity.class);
-                intent.putExtra("GROUP",grp);
+                intent.putExtra(SendFileActivity.GROUP_EXTRA_NAME,grp);
                 startActivity(intent);
             }
         });
@@ -195,13 +177,6 @@ public class OneGroupActivity extends MyAppCompatActivity {
                 startActivityForResult(i, LEAVE_GROUP_REQUEST);
             }
         });
-
-        /*findViewById(R.id.inviteOneGroup).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                inviteAction();
-            }
-        });*/
     }
 
     @Override
@@ -212,6 +187,18 @@ public class OneGroupActivity extends MyAppCompatActivity {
         fBtn.setBackgroundTintList(ContextCompat.getColorStateList(this,colorId));
     }
 
+    private void configureToolbar(){
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarOnegroup);
+        toolbar.setNavigationIcon(R.drawable.ic_dehaze_white_24dp);
+        toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_one_group);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.app_name,R.string.app_name);
+        drawerLayout.setDrawerListener(actionBarDrawerToggle);
+    }
     private void onDisciplineAdded(final Discipline disc){
         final HashMap<Integer, Post> idPostToPost = new HashMap<>();
         listDiscipline.add(disc);
@@ -221,9 +208,9 @@ public class OneGroupActivity extends MyAppCompatActivity {
             public boolean onMenuItemClick(MenuItem menuItem) {
                 menuItem.setChecked(true);
                 Intent intent = new Intent(getApplicationContext(),DisciplinePostsActivity.class);
-                intent.putExtra("GROUP",group);
-                intent.putExtra("DISCS",(Serializable)listDiscipline);
-                intent.putExtra("CURRDISCIDX",listDiscipline.indexOf(disc));
+                intent.putExtra(DisciplinePostsActivity.GROUP_EXTRA_NAME,group);
+                intent.putExtra(DisciplinePostsActivity.DISCS_EXTRA_NAME,(Serializable)listDiscipline);
+                intent.putExtra(DisciplinePostsActivity.CURR_DISC_EXTRA_NAME,listDiscipline.indexOf(disc));
                 startActivity(intent);
                 menuItem.setChecked(false);
                 openDrawer();
@@ -252,7 +239,7 @@ public class OneGroupActivity extends MyAppCompatActivity {
                 String uid = null;
                 if(fUser != null && result == true) {
                     uid = fUser.getUid();
-                    FirebaseDatabase.getInstance().getReference("users/" + uid + "/groupsId/"+group.getId()).removeValue();
+                    GroupLink.leaveGroups(uid,group);
                     Toast.makeText(getApplicationContext(), getString(R.string.leave_group_toast), Toast.LENGTH_LONG).show();
                     finish();
                 }
@@ -294,8 +281,7 @@ public class OneGroupActivity extends MyAppCompatActivity {
         if((group.getCodeToJoin() == null) || (group.getCodeToJoin().length()==0)){
             generatedCode = CodeGroupsGenerator.generate();
             group.setCodeToJoin(generatedCode);
-            FirebaseDatabase.getInstance().getReference("groups/"+group.getId()+"/codeToJoin/").setValue(generatedCode);
-            FirebaseDatabase.getInstance().getReference("codeToGroups/"+generatedCode+"/").setValue(group.getId());
+            InvitationLink.setInviteCode(group,generatedCode);
         }
         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText("simple text", generatedCode);

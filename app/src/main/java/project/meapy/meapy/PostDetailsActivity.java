@@ -55,6 +55,8 @@ public class PostDetailsActivity extends MyAppCompatActivity {
     private TextView descFiles;
     private TextView contentPostTv;
 
+    public static final String POST_EXTRA_NAME = "POST";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +69,7 @@ public class PostDetailsActivity extends MyAppCompatActivity {
         descFiles             = findViewById(R.id.descFilesPostDetails);
         contentPostTv         = findViewById(R.id.contentPostDetails);
 
-        final Post post = (Post) getIntent().getSerializableExtra("POST");
+        final Post post = (Post) getIntent().getSerializableExtra(POST_EXTRA_NAME);
         curPost = post;
 
         contentPostTv.setText(post.getTextContent());

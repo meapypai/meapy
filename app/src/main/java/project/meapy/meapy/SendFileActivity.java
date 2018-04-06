@@ -80,11 +80,13 @@ public class SendFileActivity extends MyAppCompatActivity {
 
     private Groups groupsProvided;
 
+    public static final String GROUP_EXTRA_NAME = "GROUP";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_file);
-        groupsProvided = (Groups)getIntent().getSerializableExtra("GROUP");
+        groupsProvided = (Groups)getIntent().getSerializableExtra(GROUP_EXTRA_NAME);
         //buttons
         importFileBtnSend = (ImageButton)findViewById(R.id.importFileBtnSend);
         addDiscBtn        = (ImageButton)findViewById(R.id.addDiscSendFile);

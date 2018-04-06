@@ -57,4 +57,8 @@ public class GroupLink {
             });
         }
     }
+
+    public static void leaveGroups(String uidUser, Groups group){
+        FirebaseDatabase.getInstance().getReference("users/" + uidUser + "/groupsId/"+group.getId()).removeValue();
+    }
 }
