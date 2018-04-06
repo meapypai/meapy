@@ -16,8 +16,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,6 +34,7 @@ import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.groups.OneGroupActivity;
 import project.meapy.meapy.utils.RunnableWithParam;
 import project.meapy.meapy.utils.firebase.GroupLink;
+import project.meapy.meapy.utils.firebase.NotificationLink;
 
 /**
  * Created by yassi on 23/02/2018.
@@ -44,14 +43,11 @@ import project.meapy.meapy.utils.firebase.GroupLink;
 public class MyGroupsActivity extends MyAppCompatActivity {
 
     private FloatingActionButton createGroupId;
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-    final Map<Integer,GroupsForView> idGroups = new HashMap<Integer, GroupsForView>();
+    final Map<Integer,GroupsForView> idGroups = new HashMap<>();
     final Map<GroupsForView, Groups> viewToBean = new HashMap<>();
     ListView listView;
     GroupsAdapter adapter;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +76,7 @@ public class MyGroupsActivity extends MyAppCompatActivity {
                 GroupsForView dGrp = adapter.getItem(i);
                 Groups grp = viewToBean.get(dGrp);
                 Intent intent = new Intent(MyGroupsActivity.this, OneGroupActivity.class);
-                intent.putExtra("GROUP",grp);
+                intent.putExtra(OneGroupActivity.GROUP_NAME_EXTRA,grp);
                 startActivity(intent);
             }
         });
@@ -161,9 +157,7 @@ public class MyGroupsActivity extends MyAppCompatActivity {
         notificationManager.cancel(idNotification);
 
         //supression de la notification de l'user dans la db
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/"+FirebaseAuth.getInstance().getCurrentUser().getUid()+"/notifications/"+idNotification);
-        ref.removeValue();
-
+        NotificationLink.removeNotificationFromCurrentUser(idNotification);
 
         /// TEST
         // providing datas

@@ -139,8 +139,8 @@ public class NotificationThread extends Thread {
         NotificationManager manager = (NotificationManager)context.getSystemService(NOTIFICATION_SERVICE);
         Intent intent = new Intent(context, ChatRoomActivity.class);
         intent.putExtra(ID_NOTIFICATION,msg.getId());
-        intent.putExtra(OneGroupActivity.EXTRA_GROUP_ID,grp.getId()+"");
-        intent.putExtra(OneGroupActivity.EXTRA_GROUP_NAME,grp.getName());
+        intent.putExtra(ChatRoomActivity.EXTRA_GROUP_ID,grp.getId()+"");
+        intent.putExtra(ChatRoomActivity.EXTRA_GROUP_NAME,grp.getName());
 
         intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context,REQUEST_NOTIFICATION,intent,PendingIntent.FLAG_ONE_SHOT);

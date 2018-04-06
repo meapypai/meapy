@@ -7,6 +7,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import project.meapy.meapy.bean.Discipline;
+import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.utils.RunnableWithParam;
 
 /**
@@ -42,5 +43,9 @@ public class DisciplineLink {
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
+    }
+
+    public static void addDiscipline(Groups grp, Discipline disc){
+        FirebaseDatabase.getInstance().getReference("groups/" + grp.getId() + "/disciplines/" + disc.getId()).setValue(disc);
     }
 }

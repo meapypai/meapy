@@ -15,15 +15,18 @@ import java.util.List;
 
 import project.meapy.meapy.bean.Discipline;
 import project.meapy.meapy.bean.Groups;
+import project.meapy.meapy.utils.firebase.DisciplineLink;
 
 public class AddDisciplineActivity extends AppCompatActivity {
 
+    public static final String GROUP_EXTRA_NAME = "GROUP";
+    public static final String DISCIPLINES_EXTRA_NAME = "DISCIPLINES";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_discipline);
-        final Groups grp = (Groups) getIntent().getSerializableExtra("GROUP");
-        final ArrayList<Discipline> disciplines = getIntent().getParcelableArrayListExtra("DISCPLINES");
+        final Groups grp = (Groups) getIntent().getSerializableExtra(GROUP_EXTRA_NAME);
+        final ArrayList<Discipline> disciplines = getIntent().getParcelableArrayListExtra(DISCIPLINES_EXTRA_NAME);
         Button okBtn = findViewById(R.id.okBtnAddDisc);
 
         okBtn.setOnClickListener(new View.OnClickListener() {
@@ -35,8 +38,8 @@ public class AddDisciplineActivity extends AppCompatActivity {
                     if(!nameDiscplineAlreadyExists(disciplines,discName)) {
                         Discipline disc = new Discipline();
                         disc.setName(discName);
-                        FirebaseDatabase.getInstance().getReference("groups/" + grp.getId() + "/disciplines/" + disc.getId()).setValue(disc);
-                        Toast.makeText(AddDisciplineActivity.this, "discipline added " + discName, Toast.LENGTH_LONG).show();
+                        DisciplineLink.addDiscipline(grp,disc);
+                        Toast.makeText(AddDisciplineActivity.this, getString(R.string.discipline_added_toast) + discName, Toast.LENGTH_LONG).show();
                         finish();
                     }
                     else {

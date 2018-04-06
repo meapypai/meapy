@@ -37,7 +37,6 @@ import project.meapy.meapy.utils.firebase.MessageLink;
 
 public class ChatRoomActivity extends MyAppCompatActivity {
 
-    private TextView nameGroupeChatRoom;
     private ImageView sendChatRoom;
     private EditText messageIdChatRoom;
     private RecyclerView scrollMessagesChat;
@@ -47,8 +46,11 @@ public class ChatRoomActivity extends MyAppCompatActivity {
 
     private List<Message> messages = new ArrayList<>();
 
-    private FirebaseListAdapter<Message> adapter;
-    private FirebaseDatabase database;
+    private String idGroup;
+    private String nameGroup;
+
+    public static final String EXTRA_GROUP_ID = "group_id";
+    public static final String EXTRA_GROUP_NAME = "group_name";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,42 +59,61 @@ public class ChatRoomActivity extends MyAppCompatActivity {
 
         getWindow().setBackgroundDrawableResource(R.drawable.background_chat); //solution for the background not be resize
 
-//        nameGroupeChatRoom = (TextView)findViewById(R.id.nameGroupeChatRoom);
         scrollMessagesChat = (RecyclerView)findViewById(R.id.scrollMessagesChat);
         sendChatRoom       = (ImageView)findViewById(R.id.sendChatRoom);
         messageIdChatRoom  = (EditText)findViewById(R.id.messageIdChatRoom);
         addSmileyChatRoom  = (ImageButton) findViewById(R.id.addSmileyChatRoom);
 
-        database = FirebaseDatabase.getInstance();
+        provideExtraData();
 
-        Intent i = getIntent();
-        final String idGroup = i.getStringExtra(OneGroupActivity.EXTRA_GROUP_ID);
-        String nameGroup = i.getStringExtra(OneGroupActivity.EXTRA_GROUP_NAME);
         setTitle(nameGroup);
 
-//        nameGroupeChatRoom.setText(nameGroup); //set the title of the group in the activity
-
-        final MessagesAdapter adapter = new MessagesAdapter(messages);
-        scrollMessagesChat.setLayoutManager(new LinearLayoutManager(this));
-        MessageLink.getMessageByIdGroup(idGroup, new RunnableWithParam() {
-            @Override
-            public void run() {
-                messages.add((Message) getParam());
-                adapter.notifyDataSetChanged();
-                scrollMessagesChat.scrollToPosition(messages.size() - 1);
-            }
-        }, new RunnableWithParam() {
-            @Override
-            public void run() {}
-        });
-
-        scrollMessagesChat.setAdapter(adapter);
+        provideMessages();
 
         //to push the recycler view when keyboard is open
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setStackFromEnd(true);
         scrollMessagesChat.setLayoutManager(layoutManager);
 
+        setOnSendClick();
+
+        // ??
+        sendChatRoom.setImageResource(R.drawable.ic_send_white_24dp);
+        /*
+        messageIdChatRoom.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(messageIdChatRoom.getText().length() == 0) {
+                    sendChatRoom.setImageResource(R.drawable.ic_send_white_24dp);
+                }
+                else {
+                    sendChatRoom.setImageResource(R.drawable.ic_send_white_24dp);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable s) {}
+        }); */
+
+        addSmileyChatRoom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LinearLayout layout = (LinearLayout) findViewById(R.id.allSmileyChatRoom);
+                if(smileyCpt == 0) {
+                    layout.setVisibility(View.VISIBLE);
+//                    ChatRoomActivity.this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+                    smileyCpt += 1;
+                }
+                else {
+                    smileyCpt-=1;
+                    layout.setVisibility(View.GONE);
+                }
+            }
+        });
+    }
+
+    private void setOnSendClick(){
         sendChatRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,46 +137,28 @@ public class ChatRoomActivity extends MyAppCompatActivity {
                 }
             }
         });
-
-        messageIdChatRoom.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(messageIdChatRoom.getText().length() == 0) {
-                    sendChatRoom.setImageResource(R.drawable.ic_send_white_24dp);
-                }
-                else {
-                    sendChatRoom.setImageResource(R.drawable.ic_send_white_24dp);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        addSmileyChatRoom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LinearLayout layout = (LinearLayout) findViewById(R.id.allSmileyChatRoom);
-                if(smileyCpt == 0) {
-                    layout.setVisibility(View.VISIBLE);
-//                    ChatRoomActivity.this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-                    smileyCpt += 1;
-                }
-                else {
-                    smileyCpt-=1;
-                    layout.setVisibility(View.GONE);
-                }
-            }
-        });
     }
-
+    private void provideMessages(){
+        final MessagesAdapter adapter = new MessagesAdapter(messages);
+        scrollMessagesChat.setLayoutManager(new LinearLayoutManager(this));
+        MessageLink.getMessageByIdGroup(idGroup, new RunnableWithParam() {
+            @Override
+            public void run() {
+                messages.add((Message) getParam());
+                adapter.notifyDataSetChanged();
+                scrollMessagesChat.scrollToPosition(messages.size() - 1);
+            }
+        }, new RunnableWithParam() {
+            @Override
+            public void run() {}
+        });
+        scrollMessagesChat.setAdapter(adapter);
+    }
+    private void provideExtraData(){
+        Intent i = getIntent();
+        idGroup = i.getStringExtra(EXTRA_GROUP_ID);
+        nameGroup = i.getStringExtra(EXTRA_GROUP_NAME);
+    }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         LinearLayout layout = (LinearLayout) findViewById(R.id.allSmileyChatRoom);

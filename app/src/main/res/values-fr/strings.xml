@@ -61,6 +61,7 @@
     <!-- discipline posts-->
     <string name="disc_post_textlabel">Discipline</string>
     <string name="disc_detail_search_button_label">Chercher</string>
+    <string name="discipline_added_toast">discipline ajoutée </string>
 
     <!--post view one group-->
     <string name="name_discipline">DISCIPLINE</string>

@@ -62,9 +62,6 @@ import project.meapy.meapy.utils.firebase.PostLink;
 
 public class OneGroupActivity extends MyAppCompatActivity {
 
-    public static final String EXTRA_GROUP_ID = "group_id";
-    public static final String EXTRA_GROUP_NAME = "group_name";
-
     private TextView titleGroup;
     private TextView summaryOneGroup;
     private ImageView accedToDiscussionOneGroup;
@@ -80,6 +77,8 @@ public class OneGroupActivity extends MyAppCompatActivity {
 
     public static final int LEAVE_GROUP_REQUEST = 1;
 
+    public static final String GROUP_NAME_EXTRA = "GROUP";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,7 +91,7 @@ public class OneGroupActivity extends MyAppCompatActivity {
 
         adapterPost = new PostAdapter(OneGroupActivity.this, android.R.layout.simple_expandable_list_item_1,new ArrayList<Post>());
 
-        final Groups grp = (Groups) getIntent().getSerializableExtra("GROUP");
+        final Groups grp = (Groups) getIntent().getSerializableExtra(GROUP_NAME_EXTRA);
         group = grp;
 
 
@@ -280,8 +279,8 @@ public class OneGroupActivity extends MyAppCompatActivity {
                 break;
             case R.id.accedToDiscussionOneGroup:
                 intent = new Intent(OneGroupActivity.this, ChatRoomActivity.class);
-                intent.putExtra(EXTRA_GROUP_ID,group.getId()+"");
-                intent.putExtra(EXTRA_GROUP_NAME,group.getName());
+                intent.putExtra(ChatRoomActivity.EXTRA_GROUP_ID,group.getId()+"");
+                intent.putExtra(ChatRoomActivity.EXTRA_GROUP_NAME,group.getName());
                 break;
         }
         if(intent != null) {
