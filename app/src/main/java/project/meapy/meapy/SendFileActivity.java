@@ -187,7 +187,7 @@ public class SendFileActivity extends MyAppCompatActivity {
             public void onClick(View v) {
                 String path = fileNameSend.getText().toString();
                 File file = new File(path);
-                String description = descTextSend.getText().toString();
+                String description = descTextSend.getText().toString().replaceAll(" ",""); //suppression des espaces pr éviter une description n'ayant que des espaces
                 final Groups group = (Groups) groupNameSend.getSelectedItem();
                 final Discipline disc = (Discipline) discTextSend.getSelectedItem();
                 String title = titleTextSend.getText().toString();
