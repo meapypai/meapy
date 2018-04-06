@@ -3,6 +3,7 @@ package project.meapy.meapy;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -12,6 +13,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -137,6 +140,24 @@ public class SendFileActivity extends MyAppCompatActivity {
             }
         });
 
+        descTextSend.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String description = descTextSend.getText().toString();
+                if(checkDescription(description)){
+                    descTextSend.setTextColor(Color.GREEN);
+                }else{
+                    descTextSend.setTextColor(Color.RED);
+                }
+            }
+        });
+
         //spinner list
         nameFiles = new ArrayList<>();
         adapterSpinnerFiles = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,nameFiles);
@@ -202,7 +223,7 @@ public class SendFileActivity extends MyAppCompatActivity {
 
                 if(isGoodLength(files)) {
                     //suppression des espaces pr éviter une description n'ayant que des espaces
-                    if (description.replaceAll(" ", "").length() >= LIMIT_DESCRIPTION_LENGTH) { // USE STRING TRIM
+                    if (checkDescription(description)) { // USE STRING TRIM
 
                         if (disc != null && group != null && title != null) {
                             //TODO : ajout du fichier
@@ -269,6 +290,10 @@ public class SendFileActivity extends MyAppCompatActivity {
             loadingGroup(dataGroupsAdapter,groupsProvided.getId());
             findViewById(R.id.groupNameSend).setEnabled(false);
         }
+    }
+
+    private boolean checkDescription(String description){
+        return description.replaceAll(" ", "").length() >= LIMIT_DESCRIPTION_LENGTH;
     }
 
     @Override

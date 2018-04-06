@@ -2,10 +2,13 @@ package project.meapy.meapy;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -99,6 +102,23 @@ public class CreateGroupActivity extends MyAppCompatActivity {
             }
         });
 
+        nameCreateGroup.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {String nameGroup = nameCreateGroup.getText().toString();
+                if(checkNameGroup(nameGroup)){
+                    nameCreateGroup.setTextColor(Color.GREEN);
+                }else{
+                    nameCreateGroup.setTextColor(Color.RED);
+                }
+            }
+        });
+
         createNewGroupId.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,7 +131,7 @@ public class CreateGroupActivity extends MyAppCompatActivity {
                 String errorMessage = "";
 
                 try {
-                    if (nameGroup.length() >= MIN_LENGTH_NAME_GROUP) {
+                    if (checkNameGroup(nameGroup)) {
                         // START TEST INSERTION INTO DATABASE WITHOUT FILE
                         final Groups newGroup = new Groups();
                         newGroup.setName(nameGroup);
@@ -166,6 +186,9 @@ public class CreateGroupActivity extends MyAppCompatActivity {
 
     }
 
+    private boolean checkNameGroup(String nameGroup){
+        return nameGroup.length() >= MIN_LENGTH_NAME_GROUP;
+    }
     @Override
     protected void onStart() {
         super.onStart();
