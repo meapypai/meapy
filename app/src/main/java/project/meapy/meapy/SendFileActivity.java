@@ -202,7 +202,7 @@ public class SendFileActivity extends MyAppCompatActivity {
 
                 if(isGoodLength(files)) {
                     //suppression des espaces pr éviter une description n'ayant que des espaces
-                    if (description.replaceAll(" ", "").length() >= LIMIT_DESCRIPTION_LENGTH) {
+                    if (description.replaceAll(" ", "").length() >= LIMIT_DESCRIPTION_LENGTH) { // USE STRING TRIM
 
                         if (disc != null && group != null && title != null) {
                             //TODO : ajout du fichier
