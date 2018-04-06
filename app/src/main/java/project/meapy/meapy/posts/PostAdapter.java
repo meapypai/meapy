@@ -1,6 +1,7 @@
 package project.meapy.meapy.posts;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -39,6 +40,9 @@ import project.meapy.meapy.utils.BuilderFormatDate;
  */
 
 public class PostAdapter extends ArrayAdapter<Post> {
+
+    private static final int MAX_CHARACTERS_DESCRIPTION = 60;
+
     private Context context;
     private List<Post> list;
     public PostAdapter(@NonNull Context context, int resource, @NonNull List<Post> objects) {
@@ -62,6 +66,7 @@ public class PostAdapter extends ArrayAdapter<Post> {
             holder.imgUserOneGroup = (ImageView)convertView.findViewById(R.id.imgUserOneGroup);
             holder.datePost        = (TextView)convertView.findViewById(R.id.datePost);
             holder.nbCommentOneGroup = (TextView)convertView.findViewById(R.id.nbCommentOneGroup);
+            holder.barLeftPost = (ImageView)convertView.findViewById(R.id.barLeftPost);
             convertView.setTag(holder);
 //            holder.diffUpDown  = (TextView)convertView.findViewById(R.id.diffUpDown);
         }
@@ -74,10 +79,9 @@ public class PostAdapter extends ArrayAdapter<Post> {
 
         holder.title.setText(currentPost.getTitle());
         holder.discipline.setText(currentPost.getDisciplineName());
-        holder.description.setText(currentPost.getTextContent());
+        holder.description.setText(slitString(currentPost.getTextContent()));
         holder.user.setText(currentPost.getUser());
         holder.datePost.setText(BuilderFormatDate.getNbDayPastSinceToday(currentPost.getDate()));
-
 
         DatabaseReference refComments = FirebaseDatabase.getInstance().getReference("groups/"+currentPost.getGroupId()+"/disciplines/"
                                                              +currentPost.getDisciplineId()+"/posts/"
@@ -110,6 +114,7 @@ public class PostAdapter extends ArrayAdapter<Post> {
                     StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + user.getUid() + "/" + user.getNameImageProfil());
                     Glide.with(context).using(new FirebaseImageLoader()).load(ref).asBitmap().into(holder.imgUserOneGroup); //image à partir de la réference passée
                 }
+                holder.barLeftPost.setBackgroundColor(Color.parseColor(user.getChatBubbleColor()));
             }
 
             @Override
@@ -119,5 +124,21 @@ public class PostAdapter extends ArrayAdapter<Post> {
         });
 
         return convertView;
+    }
+
+    private String slitString(String str) {
+        int i = 0;
+        String res = "";
+        if(str.length() > 60) {
+            while (i < MAX_CHARACTERS_DESCRIPTION) {
+                res += str.substring(i, i + 1);
+                i++;
+            }
+            res += "...";
+        }
+        else {
+            res = str;
+        }
+        return res;
     }
 }

@@ -148,7 +148,7 @@
         android:layout_below="@id/dividerFileAndComment"
         android:layout_above="@id/writeCommentPostDetails"
         android:divider="@android:color/transparent"
-        >
+        android:dividerHeight="20dp">
 
     </ListView>
 

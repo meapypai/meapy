@@ -98,6 +98,11 @@
     <string name="discipline_send_hint">Discipline</string>
     <string name="descr_send_label">Description</string>
     <string name="send_btn_label">Send</string>
+    <string name="error_description_file">Description length must be highter than</string>
+    <string name="error_length_file">Length files must be lower than</string>
+    <string name="error_fields_file">You must choose groups, discipline and title</string>
+    <string name="caracters">caracters</string>
+
 
     <!-- one group activity -->
     <string name="code_saved_clip_toast">code saved in the clipboard</string>

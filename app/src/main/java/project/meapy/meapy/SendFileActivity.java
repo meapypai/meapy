@@ -52,6 +52,8 @@ import project.meapy.meapy.utils.firebase.DisciplineLink;
 
 public class SendFileActivity extends MyAppCompatActivity {
 
+    private static final double MAX_LENGTH_FILES = 20.0; //megabytes
+
     private static  final int REQUEST_PERMISSION_READ_EXTERNAL_STORAGE = 7;
     private static final int REQUEST_LOAD_FILE = 5;
     private static final int LIMIT_DESCRIPTION_LENGTH = 20;
@@ -197,58 +199,63 @@ public class SendFileActivity extends MyAppCompatActivity {
                 //TODO : verifier que le groupe existe//
                 // on force maintenant l'utilisateur a prendre des groupes existants//
 
-                //suppression des espaces pr éviter une description n'ayant que des espaces
-                if(description.replaceAll(" ","").length() >= LIMIT_DESCRIPTION_LENGTH) {
 
-                    if(disc != null && group != null && title!=null) {
-                        //TODO : ajout du fichier
-                        final Post post = new Post();
-                        post.setTextContent(description);
-                        post.setTitle(title);
-                        post.setGroupId(group.getId());
-                        post.setDisciplineId(disc.getId());
-                        post.setDisciplineName(disc.getName());
-                        if(MyApplication.getUser() != null) {
-                            post.setNameImageUser(MyApplication.getUser().getNameImageProfil());
-                        }
-                        post.setUser(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
-                        post.setDate(new Date());
-                        FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
-                        if(fUser != null) {
-                            post.setUser_uid(fUser.getUid());
-                        }
-                        // inserer le(s) fichier(s)
-                        FirebaseStorage storage = FirebaseStorage.getInstance();
-                        StorageReference filesRef = storage.getReference();
-                        List<String> filesPaths = post.getFilesPaths();
-                        for(int i = 0; i < files.size(); i++) {
-                            File f = files.get(i);
-                            if(f.exists()) {
-                                String suffix = f.getName().split(Pattern.quote("."))[1];
-                                String filenameDb = String.format("file_%d_%d.%s",i,post.getId(),suffix);
-                                filesPaths.add(filenameDb);
-                                StorageReference groupFiles = filesRef.child("data_groups/" + group.getId() + "/" + filenameDb);
-                                Uri uriFile = Uri.fromFile(files.get(i));
-                                groupFiles.putFile(uriFile);
+                if(isGoodLength(files)) {
+                    //suppression des espaces pr éviter une description n'ayant que des espaces
+                    if (description.replaceAll(" ", "").length() >= LIMIT_DESCRIPTION_LENGTH) {
+
+                        if (disc != null && group != null && title != null) {
+                            //TODO : ajout du fichier
+                            final Post post = new Post();
+                            post.setTextContent(description);
+                            post.setTitle(title);
+                            post.setGroupId(group.getId());
+                            post.setDisciplineId(disc.getId());
+                            post.setDisciplineName(disc.getName());
+                            if (MyApplication.getUser() != null) {
+                                post.setNameImageUser(MyApplication.getUser().getNameImageProfil());
                             }
+                            post.setUser(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+                            post.setDate(new Date());
+                            FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
+                            if (fUser != null) {
+                                post.setUser_uid(fUser.getUid());
+                            }
+                            // inserer le(s) fichier(s)
+                            FirebaseStorage storage = FirebaseStorage.getInstance();
+                            StorageReference filesRef = storage.getReference();
+                            List<String> filesPaths = post.getFilesPaths();
+                            for (int i = 0; i < files.size(); i++) {
+                                File f = files.get(i);
+                                if (f.exists()) {
+                                    String suffix = f.getName().split(Pattern.quote("."))[1];
+                                    String filenameDb = String.format("file_%d_%d.%s", i, post.getId(), suffix);
+                                    filesPaths.add(filenameDb);
+                                    StorageReference groupFiles = filesRef.child("data_groups/" + group.getId() + "/" + filenameDb);
+                                    Uri uriFile = Uri.fromFile(files.get(i));
+                                    groupFiles.putFile(uriFile);
+                                }
+                            }
+                            post.setFilesPaths(filesPaths);
+                            //                        post.setFilePath(uriFile.getLastPathSegment());
+                            // inserer le lien group post dans database
+                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            //DatabaseReference groupsDisc = database.getReference("groups/"+ group.getId() + "/disciplines/"+disc.getId());
+
+                            DatabaseReference groupspost = database.getReference("groups/" + group.getId() + "/disciplines/" + disc.getId() + "/posts/").child(post.getId() + "");
+                            groupspost.setValue(post);
+                            Toast.makeText(SendFileActivity.this, "post added", Toast.LENGTH_LONG).show();
+                            finish();
+
+                        } else {
+                            Toast.makeText(SendFileActivity.this, getResources().getString(R.string.error_fields_file), Toast.LENGTH_SHORT).show();
                         }
-                        post.setFilesPaths(filesPaths);
-//                        post.setFilePath(uriFile.getLastPathSegment());
-                        // inserer le lien group post dans database
-                        FirebaseDatabase database = FirebaseDatabase.getInstance();
-                        //DatabaseReference groupsDisc = database.getReference("groups/"+ group.getId() + "/disciplines/"+disc.getId());
-
-                        DatabaseReference groupspost = database.getReference("groups/"+ group.getId() + "/disciplines/"+disc.getId()+ "/posts/").child(post.getId()+"");
-                        groupspost.setValue(post);
-                        Toast.makeText(SendFileActivity.this,"post added",Toast.LENGTH_LONG).show();
-                        finish();
-
-                    }else{
-                        Toast.makeText(SendFileActivity.this, "you must choose groups and discipline and title", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(SendFileActivity.this, getResources().getString(R.string.error_description_file) + " " + LIMIT_DESCRIPTION_LENGTH + " " + "@string/caracters", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else {
-                    Toast.makeText(SendFileActivity.this, "Description length must be highter than " + LIMIT_DESCRIPTION_LENGTH, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SendFileActivity.this, getResources().getString(R.string.error_length_file) + " " + LIMIT_DESCRIPTION_LENGTH, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -393,5 +400,15 @@ public class SendFileActivity extends MyAppCompatActivity {
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
         }
+    }
+
+    private boolean isGoodLength(List<File> files) {
+        double totalLength = 0; //taille des fichiers ajoutés
+        for(File f : files) {
+            totalLength += f.length();
+        }
+        double ko = totalLength / 1024; // nb kilobytes
+        double mo = ko / 2024; //nb megabytes
+        return mo <= MAX_LENGTH_FILES;
     }
 }

@@ -97,6 +97,10 @@
     <string name="discipline_send_hint">Discipline</string>
     <string name="descr_send_label">Description</string>
     <string name="send_btn_label">Ajouter</string>
+    <string name="error_description_file">La description doit avoir au moins</string>
+    <string name="error_length_file">La taille des fichiers doit être plus petite que </string>
+    <string name="error_fields_file">Groupe, matière et titre requis</string>
+    <string name="caracters">caractères</string>
 
     <!-- one group activity -->
     <string name="code_saved_clip_toast">Code copié dans le presse-papier</string>

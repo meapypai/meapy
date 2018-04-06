@@ -5,74 +5,138 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
+    android:paddingBottom="10dp"
     android:elevation="2dp"
     app:cardElevation="2dp">
 
-    <TextView
-        android:id="@+id/datePost"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginRight="7dp"
-        android:layout_marginTop="5dp"
-        android:fontFamily="@font/roboto_light"
-        android:textSize="11sp"
-        android:text="@string/date_post"/>
+        android:layout_height="wrap_content">
 
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="25dp"
-        android:paddingBottom="10dp"
-        android:paddingLeft="15dp">
 
-        <RelativeLayout
-            android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@id/postLikeContent"
+        <ImageView
+            android:id="@+id/barLeftPost"
+            android:layout_width="3dp"
+            android:layout_height="match_parent"
+            app:layout_constraintLeft_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="parent"
+            android:background="@color/lightGrey"/>
+
+        <TextView
+            android:id="@+id/datePost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textualContentPost"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/titlePostViewOneGroup"
-                android:gravity="left"
-                android:textStyle="bold"
-                android:layout_marginRight="20dp"
-                android:text="TITLE"/>
-
-            <TextView
-                android:layout_toRightOf="@id/titlePostViewOneGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:textStyle="italic"
-                android:id="@+id/discPostViewOneGroup"
-                android:text="@string/name_discipline"/>
-
-            <TextView
-                android:layout_below="@id/titlePostViewOneGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/descrPostViewOneGroup"
-                android:text="@string/description_post"/>
-
-        </RelativeLayout>
+            app:layout_constraintRight_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:fontFamily="@font/roboto_light"
+            android:textSize="11sp"
+            android:text="@string/date_post"/>
 
         <RelativeLayout
-           android:id="@+id/postLikeContent"
-            android:layout_width="wrap_content"
+            xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="10dp"
-            android:layout_centerVertical="true">
-            <LinearLayout
+            android:paddingTop="20dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="15dp">
+
+            <RelativeLayout
+                android:layout_alignParentLeft="true"
+                android:layout_toLeftOf="@id/postLikeContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/textualContentPost"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/titlePostViewOneGroup"
+                    android:gravity="left"
+                    android:textStyle="bold"
+                    android:layout_marginRight="20dp"
+                    android:text="TITLE"/>
+
+                <TextView
+                    android:layout_below="@id/titlePostViewOneGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/descrPostViewOneGroup"
+                    android:text="@string/description_post"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+               android:id="@+id/postLikeContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="10dp"
                 android:layout_centerVertical="true">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true">*
+
+                    <TextView
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:textStyle="italic"
+                        android:id="@+id/discPostViewOneGroup"
+                        android:text="@string/name_discipline"/>
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="30dp"
+                android:layout_below="@+id/textualContentPost">
+
                 <ImageView
+                    android:id="@+id/imgUserOneGroup"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/avatar"
+                    android:scaleType="centerCrop"/>
+
+                <TextView
+                    android:id="@+id/userPostOneGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/roboto_thin"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/imgUserOneGroup"
+                    android:layout_marginLeft="5dp"
+                    android:text="Momo"/>
+
+                <ImageView
+                    android:id="@+id/imgCommentOneGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_comment_grey_24dp" />
+
+                <TextView
+                    android:id="@+id/nbCommentOneGroup"
+                    android:layout_toRightOf="@+id/imgCommentOneGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="0"
+                    android:layout_marginLeft="2dp"/>
+
+
+                <ImageView
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@+id/nbCommentOneGroup"
                     android:src="@drawable/ic_thumbs_up_down_black_24dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -80,58 +144,18 @@
                     android:backgroundTint="@android:color/transparent"
                     android:id="@+id/imgUpDown" />
                 <TextView
+                    android:layout_toRightOf="@+id/imgUpDown"
                     android:id="@+id/diffUpDown"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_marginRight="15dp"
                     android:layout_centerVertical="true"
+                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"/>
-            </LinearLayout>
+
+            </RelativeLayout>
 
         </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="40dp"
-            android:layout_below="@+id/postLikeContent">
-
-            <ImageView
-                android:id="@+id/imgUserOneGroup"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/avatar"
-                android:scaleType="centerCrop"/>
-
-            <TextView
-                android:id="@+id/userPostOneGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:fontFamily="@font/roboto_thin"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/imgUserOneGroup"
-                android:layout_marginLeft="5dp"
-                android:text="Momo"/>
-
-            <ImageView
-                android:id="@+id/imgCommentOneGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:src="@drawable/ic_comment_grey_24dp" />
-
-            <TextView
-                android:id="@+id/nbCommentOneGroup"
-                android:layout_toRightOf="@+id/imgCommentOneGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="0"
-                android:layout_marginLeft="2dp"/>
-        </RelativeLayout>
-
-    </RelativeLayout>
+    </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>
