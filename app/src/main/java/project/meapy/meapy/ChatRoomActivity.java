@@ -156,9 +156,13 @@ public class ChatRoomActivity extends MyAppCompatActivity {
                 scrollMessagesChat.scrollToPosition(messages.size() - 1);
                 FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
                 if(fUser != null) {
-                    if(!MyApplication.isAppIsInBackground() && !msg.isReadedByUser(fUser.getUid())) {
+                    if(NotificationThread.isStartedChatRoom(idGroup) && !msg.isReadedByUser(fUser.getUid())) {
                         msg.setReadedBy(fUser.getUid());
                         MessageLink.addCurrentUserRead(idGroup+"",msg);
+                    }else{
+                        // TODO gerer le cas ou l'utilisateur est dans l'actitivy mais que l'ecran est eteint
+                        // au reveil et s'il est dans le bon groupe, indiquer au serveur que les messages recu lors de son
+                        // absence ont ete lu
                     }
                 }
 
