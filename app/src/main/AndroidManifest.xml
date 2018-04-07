@@ -91,6 +91,11 @@
         <activity android:name=".ProfilActivity"
             android:label="@string/profil_label"
             android:screenOrientation="portrait"></activity>
+
+        <activity android:name=".NotificationActivity"
+            android:label="@string/notifications"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

@@ -9,6 +9,14 @@
             />
     </Preference>
 
+    <Preference android:title="Notifications"
+        android:key="notifs">
+        <intent
+            android:targetPackage="project.meapy.meapy"
+            android:targetClass="project.meapy.meapy.NotificationActivity"
+            />
+    </Preference>
+
     <ListPreference
         android:title="@string/title_theme_color"
         android:key="themeColor"

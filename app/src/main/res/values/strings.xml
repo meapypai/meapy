@@ -66,6 +66,9 @@
 
     <string name="create_group_button">CREATE</string>
 
+    <!--Notification  activity-->
+    <string name="notifications">Notifications</string>
+
     <!-- discipline posts-->
     <string name="disc_post_textlabel">Discipline</string>
     <string name="disc_detail_search_button_label">SEARCH</string>

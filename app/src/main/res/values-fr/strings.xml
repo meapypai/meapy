@@ -64,6 +64,9 @@
 
     <string name="create_group_button">CREER</string>
 
+    <!--Notification  activity-->
+    <string name="notifications">Notifications</string>
+
     <!-- discipline posts-->
     <string name="disc_post_textlabel">Discipline</string>
     <string name="disc_detail_search_button_label">Chercher</string>
@@ -135,8 +138,6 @@
     <string name="title_invite_person_menu">Inviter</string>
     <string name="title_message_group_menu">Messages</string>
     <string name="title_delete_post_menu">Supprimer</string>
-
-
 
     <!-- Google Login strings -->
     <!--<string name="default_web_client_id">meapyid</string>-->
