@@ -16,7 +16,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import project.meapy.meapy.bean.Groups;
@@ -47,6 +49,7 @@ public class NotificationThread extends Thread {
     private static final int ID_NOTIFICATION_MESSAGE = 11;
     private static final int ID_NOTIFICATION_NOTIFIER = 1000;
 
+    private List<Groups> idGroupToNotify = new ArrayList<>();
     public NotificationThread(Context context) {
         this.context =  context;
     }
@@ -71,22 +74,58 @@ public class NotificationThread extends Thread {
             @Override
             public void run() {
                 final Groups grp = (Groups) getParam();
-
+                addGroupToNotify(grp);
                 MessageLink.getLatestMessageByGroupId(grp.getId() + "", new RunnableWithParam() {
                     @Override
                     public void run() {
-                        if(!isStartedChatRoom(grp.getId())) {
+                        if (!isStartedChatRoom(grp.getId())) {
                             Message msg = (Message) getParam();
-                            NotificationThread.this.notifyMessage(msg, grp);
+                            if (isGroupToNotify(grp)) {
+                                NotificationThread.this.notifyMessage(msg, grp);
+                            }
                             //MediaPlayer mp = MediaPlayer.create(context,R.raw.intuition);
                             //mp.start();
                         }
                     }
                 });
             }
-        }, null);
+        }, new RunnableWithParam() {
+            @Override
+            public void run() {
+                final Groups grp = (Groups) getParam();
+                removeGroupToNotify(grp);
+            }
+        });
     }
 
+    private boolean isGroupToNotify(Groups grp){
+        synchronized (idGroupToNotify){
+            for(Groups group : idGroupToNotify)
+                if(group.equals(grp))
+                    return true;
+            return false;
+        }
+    }
+    private void addGroupToNotify(Groups grp){
+        boolean toAdd = true;
+        synchronized (idGroupToNotify){
+            for(Groups group : idGroupToNotify)
+                if(group.equals(grp))
+                    toAdd = false;
+            if(toAdd)
+                idGroupToNotify.add(grp);
+        }
+    }
+    private void removeGroupToNotify(Groups grp){
+        List<Groups> toRemove = new ArrayList<>();
+        synchronized (idGroupToNotify){
+            for(Groups group : idGroupToNotify)
+                if(group.equals(grp))
+                    toRemove.add(group);
+            for(Groups g : toRemove)
+                idGroupToNotify.remove(g);
+        }
+    }
     private void onNewNotif(){
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+"/notifications");
 

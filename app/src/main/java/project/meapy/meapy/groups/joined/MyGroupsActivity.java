@@ -88,7 +88,7 @@ public class MyGroupsActivity extends MyAppCompatActivity {
         }, new RunnableWithParam() {
             @Override
             public void run() {
-                onGroupRemoved((int)getParam());
+                onGroupRemoved(((Groups)getParam()).getId());
             }
         });
     }

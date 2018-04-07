@@ -52,8 +52,9 @@ public class GroupLink {
                 public void onChildRemoved(DataSnapshot dataSnapshot) {
                     Integer idGrp = dataSnapshot.getValue(Integer.class);
                     if(onGroupRemoved != null) {
-                        onGroupRemoved.setParam(idGrp);
-                        onGroupRemoved.run();
+                        provideGroupById(idGrp, onGroupRemoved);
+                        //onGroupRemoved.setParam(idGrp);
+                        //onGroupRemoved.run();
 
                     }
                 }
