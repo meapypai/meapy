@@ -23,9 +23,12 @@ import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -133,6 +136,7 @@ public class ChatRoomActivity extends MyAppCompatActivity {
                     if(MyApplication.getUser()!= null) {
                         m.setColorNameUser(MyApplication.getUser().getChatBubbleColor());
                     }
+                    m.setReadedBy(FirebaseAuth.getInstance().getCurrentUser().getUid());
                     MessageLink.sendMessageToGroup(idGroup+"",m);
 
                 }
@@ -145,15 +149,36 @@ public class ChatRoomActivity extends MyAppCompatActivity {
         MessageLink.getMessageByIdGroup(idGroup+"", new RunnableWithParam() {
             @Override
             public void run() {
-                messages.add((Message) getParam());
+                Message msg = (Message) getParam();
+                messages.add(msg);
+                sortMessages(messages);
                 adapter.notifyDataSetChanged();
                 scrollMessagesChat.scrollToPosition(messages.size() - 1);
+                FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
+                if(fUser != null) {
+                    if(!MyApplication.isAppIsInBackground() && !msg.isReadedByUser(fUser.getUid())) {
+                        msg.setReadedBy(fUser.getUid());
+                        MessageLink.addCurrentUserRead(idGroup+"",msg);
+                    }
+                }
+
             }
-        }, new RunnableWithParam() {
-            @Override
-            public void run() {}
-        });
+        }, null);
         scrollMessagesChat.setAdapter(adapter);
+    }
+
+    private void sortMessages(List<Message> messages){
+        Collections.sort(messages, new Comparator<Message>() {
+            @Override
+            public int compare(Message message, Message t1) {
+                if(message.getDate().after(t1.getDate()))
+                    return 1;
+                else if (message.getDate().before(t1.getDate())){
+                    return -1;
+                }return 0;
+
+            }
+        });
     }
     private void provideExtraData(){
         Intent i = getIntent();

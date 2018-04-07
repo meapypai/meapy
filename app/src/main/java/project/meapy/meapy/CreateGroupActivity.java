@@ -37,6 +37,7 @@ import project.meapy.meapy.utils.GroupsUserAdder;
 import project.meapy.meapy.utils.ProviderFilePath;
 import project.meapy.meapy.utils.RunnableWithParam;
 import project.meapy.meapy.utils.firebase.FileLink;
+import project.meapy.meapy.utils.firebase.MessageLink;
 
 public class CreateGroupActivity extends MyAppCompatActivity {
 
@@ -235,7 +236,8 @@ public class CreateGroupActivity extends MyAppCompatActivity {
         m.setDate(new Date());
         m.setColorNameUser("#ED2225"); //couleur par défault pour ladmin à mettre dans une classe Admin
         m.setuIdUser(UUID.randomUUID().toString());
-        FirebaseDatabase.getInstance().getReference("groups/"+newGroup.getId()+"/discussions/" + discussion.getId()).setValue(m);
+        MessageLink.sendMessageToGroup(newGroup.getId()+"",m);
+        //FirebaseDatabase.getInstance().getReference("groups/"+newGroup.getId()+"/discussions/" + discussion.getId()).setValue(m);
         finish();
     }
 

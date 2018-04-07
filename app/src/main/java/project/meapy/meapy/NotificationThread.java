@@ -10,6 +10,7 @@ import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -82,9 +83,10 @@ public class NotificationThread extends Thread {
                 MessageLink.getLatestMessageByGroupId(grp.getId() + "", new RunnableWithParam() {
                     @Override
                     public void run() {
-                        if (!isStartedChatRoom(grp.getId())) {
+                        if (!isStartedChatRoom(grp.getId()) && isGroupToNotify(grp)) {
                             Message msg = (Message) getParam();
-                            if (isGroupToNotify(grp)) {
+                            FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
+                            if(fUser != null && !msg.isReadedByUser(fUser.getUid())) {
                                 NotificationThread.this.notifyMessage(msg, grp);
                             }
                             //MediaPlayer mp = MediaPlayer.create(context,R.raw.intuition);

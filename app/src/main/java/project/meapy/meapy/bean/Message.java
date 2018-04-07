@@ -1,6 +1,10 @@
 package project.meapy.meapy.bean;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by yassi on 13/03/2018.
@@ -13,6 +17,7 @@ public class Message extends DomainObject {
     private String uIdUser;
     private Date date;
     private String colorNameUser;
+    private Map<String,String> readByUsers = new HashMap<String,String>();
 
     public Date getDate() {
         return date;
@@ -56,5 +61,20 @@ public class Message extends DomainObject {
 
     public void setColorNameUser(String colorNameUser) {
         this.colorNameUser = colorNameUser;
+    }
+
+    public Map<String,String> getReadByUsers() {
+        return readByUsers;
+    }
+
+    public boolean isReadedByUser(String uid){
+        if(readByUsers != null) {
+            return readByUsers.containsKey(uid);
+        }return false;
+    }
+
+    public void setReadedBy(String uid){
+        if(readByUsers != null)
+            readByUsers.put(uid,uid);
     }
 }

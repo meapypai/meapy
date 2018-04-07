@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Date;
 import java.util.List;
@@ -38,8 +39,8 @@ public class MessagesAdapter extends RecyclerView.Adapter{
     @Override
     public int getItemViewType(int position) {
         Message m = messages.get(position);
-
-        if(m.getuIdUser().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+        FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(m.getuIdUser().equals(fUser.getUid())) {
             return MESSAGE_SENT;
         }
         else {

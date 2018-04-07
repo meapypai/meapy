@@ -1,11 +1,15 @@
 package project.meapy.meapy.utils.firebase;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.Random;
 
 import project.meapy.meapy.bean.Message;
 import project.meapy.meapy.utils.RunnableWithParam;
@@ -32,16 +36,20 @@ public class MessageLink {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Message m = dataSnapshot.getValue(Message.class);
-                onMessageAdded.setParam(m);
-                onMessageAdded.run();
+                if(onMessageAdded != null) {
+                    onMessageAdded.setParam(m);
+                    onMessageAdded.run();
+                }
             }
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 Message m = dataSnapshot.getValue(Message.class);
-                onMessageRemoved.setParam(m);
-                onMessageRemoved.run();
+                if(onMessageRemoved != null) {
+                    onMessageRemoved.setParam(m);
+                    onMessageRemoved.run();
+                }
             }
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
@@ -87,7 +95,16 @@ public class MessageLink {
         });
     }
     public static void sendMessageToGroup(String idGroup, Message m){
-        final DatabaseReference ref = FirebaseDatabase.getInstance().getReference("groups/"+idGroup+"/discussions");
-        ref.push().setValue(m);
+        final DatabaseReference ref = FirebaseDatabase.getInstance().getReference("groups/"+idGroup+"/discussions/"+m.getId());
+        ref.setValue(m);
+    }
+
+    public static void addCurrentUserRead(String idGroup, Message msg){
+        FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(fUser != null) {
+            FirebaseDatabase.getInstance()
+                    .getReference("groups/" + idGroup + "/discussions/" + msg.getId() + "/readByUsers/" +
+                    fUser.getUid()).setValue(fUser.getUid());
+        }
     }
 }
