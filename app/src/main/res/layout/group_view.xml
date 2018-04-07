@@ -28,11 +28,13 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp">
 
+        <!--android:fontFamily="@font/roboto_regular"-->
+        <!--android:textStyle="bold"-->
+
         <TextView
             android:id="@+id/nameGroup"
-            android:fontFamily="@font/roboto_regular"
-            android:textStyle="bold"
             android:text="@string/name_group_my_groups"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

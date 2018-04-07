@@ -15,6 +15,7 @@ import java.util.List;
 
 import project.meapy.meapy.bean.Discipline;
 import project.meapy.meapy.bean.Groups;
+import project.meapy.meapy.utils.BuilderColor;
 import project.meapy.meapy.utils.firebase.DisciplineLink;
 
 public class AddDisciplineActivity extends AppCompatActivity {
@@ -38,6 +39,7 @@ public class AddDisciplineActivity extends AppCompatActivity {
                     if(!nameDiscplineAlreadyExists(disciplines,discName)) {
                         Discipline disc = new Discipline();
                         disc.setName(discName);
+                        disc.setColor(BuilderColor.generateHexaColor());
                         DisciplineLink.addDiscipline(grp,disc);
                         Toast.makeText(AddDisciplineActivity.this, getString(R.string.discipline_added_toast) + discName, Toast.LENGTH_LONG).show();
                         finish();

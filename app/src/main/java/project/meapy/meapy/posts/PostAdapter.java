@@ -31,6 +31,8 @@ import java.util.List;
 import project.meapy.meapy.MyApplication;
 import project.meapy.meapy.R;
 import project.meapy.meapy.RegisterActivity;
+import project.meapy.meapy.bean.Discipline;
+import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.bean.Post;
 import project.meapy.meapy.bean.User;
 import project.meapy.meapy.utils.BuilderFormatDate;
@@ -45,9 +47,12 @@ public class PostAdapter extends ArrayAdapter<Post> {
 
     private Context context;
     private List<Post> list;
-    public PostAdapter(@NonNull Context context, int resource, @NonNull List<Post> objects) {
+    private Groups group;
+
+    public PostAdapter(@NonNull Context context, int resource, @NonNull List<Post> objects, Groups grp) {
         super(context, resource, objects);
         this.context = context;
+        this.group = grp;
         list=objects;
     }
 
@@ -100,13 +105,12 @@ public class PostAdapter extends ArrayAdapter<Post> {
             }
         });
 
-
-        //si image par defaut
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users/"+currentPost.getUser_uid());
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                User user = (User)dataSnapshot.getValue(User.class);
+                final User user = (User)dataSnapshot.getValue(User.class);
+                //si image par defaut
                 if(currentPost.getNameImageUser().equals(User.DEFAULT_IMAGE_USER_NAME)) {
                     holder.imgUserOneGroup.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.default_avatar));
                 }
@@ -114,7 +118,40 @@ public class PostAdapter extends ArrayAdapter<Post> {
                     StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + user.getUid() + "/" + user.getNameImageProfil());
                     Glide.with(context).using(new FirebaseImageLoader()).load(ref).asBitmap().into(holder.imgUserOneGroup); //image à partir de la réference passée
                 }
-                holder.barLeftPost.setBackgroundColor(Color.parseColor(user.getChatBubbleColor()));
+
+                DatabaseReference discpRef = FirebaseDatabase.getInstance().getReference("groups/" + group.getId()+ "/disciplines");
+                discpRef.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        Toast.makeText(context,group.getId() + "",  Toast.LENGTH_LONG).show();
+                        Discipline d = (Discipline)dataSnapshot.getValue(Discipline.class);
+                        if(d.getName().equals(currentPost.getDisciplineName())) {
+                            //bar color at the left side
+                            holder.barLeftPost.setBackgroundColor(Color.parseColor(d.getColor()));
+                        }
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
             }
 
             @Override

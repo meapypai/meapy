@@ -9,6 +9,8 @@ import android.os.Parcelable;
 
 public class Discipline extends DomainObject implements Parcelable {
     String name;
+    String color;
+
     public Discipline(){super();}
 
     protected Discipline(Parcel in) {
@@ -45,5 +47,13 @@ public class Discipline extends DomainObject implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }

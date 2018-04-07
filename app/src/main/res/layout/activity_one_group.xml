@@ -57,7 +57,7 @@
                         android:layout_marginLeft="10dp"
                         android:text="@string/group_name_one_group"
                         android:textSize="20dp"
-                        android:textStyle="bold" />
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2" />
 
                     <TextView
                         android:id="@+id/summaryOneGroup"
@@ -74,12 +74,10 @@
 
             <ListView
                 android:id="@+id/postsOneGroup"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:divider="@android:color/transparent"
                 android:dividerHeight="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:layout_below="@id/headerOneGroup">
 
                 <!-- mettre les differents posts ici -->

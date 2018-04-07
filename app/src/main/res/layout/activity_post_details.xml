@@ -48,7 +48,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Titre du post"
-                                android:textStyle="bold"
+                                android:fontFamily="@font/roboto_regular"
+                                android:textColor="@android:color/black"
                                 android:padding="10dp"
                                 />
                             <TextView
@@ -147,8 +148,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/dividerFileAndComment"
         android:layout_above="@id/writeCommentPostDetails"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="20dp">
+        android:divider="@android:color/transparent">
 
     </ListView>
 

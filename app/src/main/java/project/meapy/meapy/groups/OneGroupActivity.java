@@ -93,11 +93,10 @@ public class OneGroupActivity extends MyAppCompatActivity {
         titleGroup = findViewById(R.id.groupNameOneGroup);
         accedToDiscussionOneGroup = (ImageView)findViewById(R.id.accedToDiscussionOneGroup);
 
-        adapterPost = new PostAdapter(OneGroupActivity.this, android.R.layout.simple_expandable_list_item_1,new ArrayList<Post>());
-
         final Groups grp = (Groups) getIntent().getSerializableExtra(GROUP_NAME_EXTRA);
         group = grp;
 
+        adapterPost = new PostAdapter(OneGroupActivity.this, android.R.layout.simple_expandable_list_item_1,new ArrayList<Post>(), grp);
 
         String name = grp.getName();
         titleGroup.setText(name);
