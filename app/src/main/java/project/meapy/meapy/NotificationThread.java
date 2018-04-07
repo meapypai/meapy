@@ -45,6 +45,7 @@ public class NotificationThread extends Thread {
     private static final int LOGO_NOTIF = R.drawable.logo_app1_without_background;
 
     private static final int ID_NOTIFICATION_MESSAGE = 11;
+    private static final int ID_NOTIFICATION_NOTIFIER = 1000;
 
     public NotificationThread(Context context) {
         this.context =  context;
@@ -134,7 +135,7 @@ public class NotificationThread extends Thread {
 
             Notification notification = buildr.build();
             notification.flags = Notification.FLAG_AUTO_CANCEL;
-            notificationManager.notify(11,notification);
+            notificationManager.notify(ID_NOTIFICATION_NOTIFIER + notif.getId(),notification);
         }else {
             Notification.Builder builder = new Notification.Builder(context).setWhen(System.currentTimeMillis())
                     .setTicker(notif.getTitle())
@@ -142,8 +143,9 @@ public class NotificationThread extends Thread {
                     .setContentTitle(notif.getTitle())
                     .setContentText(notif.getContent())
                     .setContentIntent(pendingIntent);
-
-            manager.notify(11, builder.build());
+            Notification notification = builder.build();
+            notification.flags = Notification.FLAG_AUTO_CANCEL;
+            manager.notify(ID_NOTIFICATION_NOTIFIER + notif.getId(), notification);
         }
     }
     private void notifyMessage(Message msg, Groups grp){
