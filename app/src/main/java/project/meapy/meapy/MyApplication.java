@@ -20,6 +20,7 @@ import project.meapy.meapy.storage.StoreBean;
 public class MyApplication extends Application{
     private static Context c;
     private static User user;
+    private static NotificationThread notifThread;
 
     public MyApplication(){
         super();
@@ -64,7 +65,14 @@ public class MyApplication extends Application{
     }
 
     public static void launch(){
-        NotificationThread t = new NotificationThread(c);
-        t.start();
+        notifThread = new NotificationThread(c);
+        notifThread.start();
+    }
+
+    public static void restartNotifThread(){
+        if(notifThread != null){
+            notifThread.interrupt();
+            launch();
+        }
     }
 }

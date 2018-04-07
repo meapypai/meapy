@@ -48,12 +48,14 @@ import project.meapy.meapy.DisciplinePostsActivity;
 import project.meapy.meapy.LeaveGroupActivity;
 import project.meapy.meapy.MyAppCompatActivity;
 import project.meapy.meapy.MyApplication;
+import project.meapy.meapy.NotificationThread;
 import project.meapy.meapy.PostDetailsActivity;
 import project.meapy.meapy.R;
 import project.meapy.meapy.SendFileActivity;
 import project.meapy.meapy.bean.Discipline;
 import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.bean.Post;
+import project.meapy.meapy.groups.joined.MyGroupsActivity;
 import project.meapy.meapy.posts.PostAdapter;
 import project.meapy.meapy.utils.CodeGroupsGenerator;
 import project.meapy.meapy.utils.RunnableWithParam;
@@ -241,6 +243,9 @@ public class OneGroupActivity extends MyAppCompatActivity {
                     uid = fUser.getUid();
                     GroupLink.leaveGroups(uid,group);
                     Toast.makeText(getApplicationContext(), getString(R.string.leave_group_toast), Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getApplicationContext(), MyGroupsActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
                     finish();
                 }
             }

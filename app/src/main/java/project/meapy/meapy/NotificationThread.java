@@ -71,6 +71,7 @@ public class NotificationThread extends Thread {
             @Override
             public void run() {
                 final Groups grp = (Groups) getParam();
+
                 MessageLink.getLatestMessageByGroupId(grp.getId() + "", new RunnableWithParam() {
                     @Override
                     public void run() {
@@ -149,12 +150,9 @@ public class NotificationThread extends Thread {
         }
     }
     private void notifyMessage(Message msg, Groups grp){
-
-        //creation de la notification
-
         PendingIntent pendingIntent = getPendingIntentMessage(msg,grp);
-
         NotificationManager manager = (NotificationManager)context.getSystemService(NOTIFICATION_SERVICE);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel mChannel = getNotificationChannelMessage();
             // Register the channel with the system; you can't change the importance

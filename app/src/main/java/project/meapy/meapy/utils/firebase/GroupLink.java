@@ -41,16 +41,21 @@ public class GroupLink {
             FirebaseDatabase.getInstance().getReference("users/"+uid+"/groupsId/").addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    Integer idGrp = dataSnapshot.getValue(Integer.class);
-                    provideGroupById(idGrp,onGroupAdded);
+                    if(onGroupAdded != null) {
+                        Integer idGrp = dataSnapshot.getValue(Integer.class);
+                        provideGroupById(idGrp, onGroupAdded);
+                    }
                 }
                 @Override
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
                 @Override
                 public void onChildRemoved(DataSnapshot dataSnapshot) {
                     Integer idGrp = dataSnapshot.getValue(Integer.class);
-                    onGroupRemoved.setParam(idGrp);
-                    onGroupRemoved.run();
+                    if(onGroupRemoved != null) {
+                        onGroupRemoved.setParam(idGrp);
+                        onGroupRemoved.run();
+
+                    }
                 }
                 @Override
                 public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
