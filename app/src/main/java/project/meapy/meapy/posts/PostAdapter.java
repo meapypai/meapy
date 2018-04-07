@@ -123,7 +123,6 @@ public class PostAdapter extends ArrayAdapter<Post> {
                 discpRef.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        Toast.makeText(context,group.getId() + "",  Toast.LENGTH_LONG).show();
                         Discipline d = (Discipline)dataSnapshot.getValue(Discipline.class);
                         if(d.getName().equals(currentPost.getDisciplineName())) {
                             //bar color at the left side
