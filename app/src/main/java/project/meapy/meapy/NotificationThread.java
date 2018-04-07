@@ -6,7 +6,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
@@ -17,15 +16,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.bean.Message;
 import project.meapy.meapy.bean.Notifier;
-import project.meapy.meapy.groups.OneGroupActivity;
 import project.meapy.meapy.groups.joined.MyGroupsActivity;
 import project.meapy.meapy.utils.RunnableWithParam;
 import project.meapy.meapy.utils.firebase.GroupLink;
@@ -33,6 +29,7 @@ import project.meapy.meapy.utils.firebase.MessageLink;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static android.media.CamcorderProfile.get;
 
 /**
  * Created by yassi on 20/03/2018.
@@ -45,6 +42,10 @@ public class NotificationThread extends Thread {
     public static final String ID_NOTIFICATION = "id_notification";
     private static Map<Integer,Boolean> chatRoomStarted = new HashMap<>();
 
+    private static final int LOGO_NOTIF = R.drawable.logo_app1_without_background;
+
+    private static final int ID_NOTIFICATION_MESSAGE = 11;
+
     public NotificationThread(Context context) {
         this.context =  context;
     }
@@ -53,7 +54,10 @@ public class NotificationThread extends Thread {
         chatRoomStarted.put(idGroup,b);
     }
     public static boolean isStartedChatRoom(int idGroup){
-        return chatRoomStarted.get(idGroup);
+        Boolean b = chatRoomStarted.get(idGroup);
+        if(b != null)
+            return b;
+        return false;
     }
     @Override
     public void run() {
@@ -123,7 +127,7 @@ public class NotificationThread extends Thread {
             notificationManager.createNotificationChannel(mChannel);
             NotificationCompat.Builder buildr = new NotificationCompat.Builder(context, "default")
                     .setTicker(notif.getTitle())
-                    .setSmallIcon(R.drawable.logo_app1)
+                    .setSmallIcon(LOGO_NOTIF)
                     .setContentTitle(notif.getTitle())
                     .setContentText(notif.getContent())
                     .setContentIntent(pendingIntent);
@@ -134,7 +138,7 @@ public class NotificationThread extends Thread {
         }else {
             Notification.Builder builder = new Notification.Builder(context).setWhen(System.currentTimeMillis())
                     .setTicker(notif.getTitle())
-                    .setSmallIcon(R.drawable.logo_app1)
+                    .setSmallIcon(LOGO_NOTIF)
                     .setContentTitle(notif.getTitle())
                     .setContentText(notif.getContent())
                     .setContentIntent(pendingIntent);
@@ -145,47 +149,70 @@ public class NotificationThread extends Thread {
     private void notifyMessage(Message msg, Groups grp){
 
         //creation de la notification
+
+        PendingIntent pendingIntent = getPendingIntentMessage(msg,grp);
+
         NotificationManager manager = (NotificationManager)context.getSystemService(NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel mChannel = getNotificationChannelMessage();
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            if(mChannel != null) {
+                manager.createNotificationChannel(mChannel);
+                NotificationCompat.Builder buildr = new NotificationCompat.Builder(context, "default")
+                        .setTicker("title1")
+                        .setSmallIcon(LOGO_NOTIF)
+                        .setContentTitle(getTitleMessageNotification(grp, msg))
+                        .setContentText(msg.getContent())
+                        .setContentIntent(pendingIntent);
+                Notification notif = buildr.build();
+                setFlagsNotifMessage(notif);
+                notify(ID_NOTIFICATION_MESSAGE+ grp.getId(),manager,notif);
+            }
+        }else{
+            Notification.Builder builder = new Notification.Builder(context).setWhen(System.currentTimeMillis())
+                    .setTicker("title1")
+                    .setSmallIcon(LOGO_NOTIF)
+                    .setContentTitle(getTitleMessageNotification(grp,msg))
+                    .setContentText(msg.getContent())
+                    .setContentIntent(pendingIntent);
+            Notification notif = builder.build();
+            setFlagsNotifMessage(notif);
+            notify(ID_NOTIFICATION_MESSAGE + grp.getId(),manager,notif);
+        }
+    }
+
+    private void notify(int id, NotificationManager manager, Notification notif){
+        manager.notify(id,notif);
+    }
+    private void setFlagsNotifMessage(Notification notif){
+        notif.flags = Notification.FLAG_AUTO_CANCEL;
+    }
+
+    private String getTitleMessageNotification(Groups grp, Message msg){
+        return grp.getName() + " : "+ msg.getNameUser();
+    }
+
+    private PendingIntent getPendingIntentMessage(Message msg, Groups grp){
         Intent intent = new Intent(context, ChatRoomActivity.class);
         intent.putExtra(ID_NOTIFICATION,msg.getId());
         intent.putExtra(ChatRoomActivity.EXTRA_GROUP_ID,grp.getId()+"");
         intent.putExtra(ChatRoomActivity.EXTRA_GROUP_NAME,grp.getName());
 
         intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context,REQUEST_NOTIFICATION,intent,PendingIntent.FLAG_ONE_SHOT);
+        return PendingIntent.getActivity(context,REQUEST_NOTIFICATION,intent,PendingIntent.FLAG_ONE_SHOT);
+    }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+    private NotificationChannel getNotificationChannelMessage(){
+        NotificationChannel mChannel = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             // Create the NotificationChannel
             CharSequence name = "channel_name";
             String description = "desc";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel mChannel = new NotificationChannel("default", name, importance);
+            mChannel = new NotificationChannel("default", name, importance);
             mChannel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-            NotificationManager notificationManager = (NotificationManager) context.getSystemService(
-                    NOTIFICATION_SERVICE);
-            notificationManager.createNotificationChannel(mChannel);
-            NotificationCompat.Builder buildr = new NotificationCompat.Builder(context, "default")
-                    .setTicker("title1")
-                    .setSmallIcon(R.drawable.logo_app1)
-                    .setContentTitle(grp.getName() + " : "+ msg.getNameUser())
-                    .setContentText(msg.getContent())
-                    .setContentIntent(pendingIntent);
-
-            Notification notif = buildr.build();
-            notif.flags = Notification.FLAG_AUTO_CANCEL;
-            notificationManager.notify(11,notif);
-        }else{
-            Notification.Builder builder = new Notification.Builder(context).setWhen(System.currentTimeMillis())
-                    .setTicker("title1")
-                    .setSmallIcon(R.drawable.logo_app1)
-                    .setContentTitle(grp.getName() + " : "+ msg.getNameUser())
-                    .setContentText(msg.getContent())
-                    .setContentIntent(pendingIntent);
-            Notification notif = builder.build();
-            notif.flags = Notification.FLAG_AUTO_CANCEL;
-            manager.notify(11,builder.build());
         }
+        return mChannel;
     }
 }
