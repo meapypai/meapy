@@ -262,7 +262,7 @@ public class NotificationThread extends Thread {
             if(!(grp instanceof Groups))
                 return false;
             synchronized (idGroupToNotify){
-                for(Groups group : idGroupToNotify)
+                for(Groups group : this)
                     if(group.equals(grp))
                         return true;
                 return false;
@@ -272,13 +272,13 @@ public class NotificationThread extends Thread {
         @Override
         public boolean add(Groups grp){
             boolean toAdd = true;
-            synchronized (idGroupToNotify){
-                for(Groups group : idGroupToNotify)
+            //synchronized (idGroupToNotify){
+                for(Groups group : this)
                     if(group.equals(grp))
                         toAdd = false;
                 if(toAdd)
-                    idGroupToNotify.add(grp);
-            }
+                    super.add(grp);
+            //}
             return true;
         }
 
@@ -287,13 +287,13 @@ public class NotificationThread extends Thread {
             if(!(grp instanceof Groups))
                 return false;
             List<Groups> toRemove = new ArrayList<>();
-            synchronized (idGroupToNotify){
-                for(Groups group : idGroupToNotify)
+            //synchronized (idGroupToNotify){
+                for(Groups group : this)
                     if(group.equals(grp))
                         toRemove.add(group);
                 for(Groups g : toRemove)
-                    idGroupToNotify.remove(g);
-            }
+                    super.remove(g);
+            //}
             return true;
         }
     }
