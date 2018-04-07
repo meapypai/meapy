@@ -49,7 +49,11 @@ public class NotificationThread extends Thread {
     private static final int ID_NOTIFICATION_MESSAGE = 11;
     private static final int ID_NOTIFICATION_NOTIFIER = 1000;
 
-    private List<Groups> idGroupToNotify = new ArrayList<>();
+    private Map<Integer,Integer> idNotifMessageNotification = new HashMap<>();
+
+    private NotificationManager notifManager;
+
+    private List<Groups> idGroupToNotify = new GroupList();
     public NotificationThread(Context context) {
         this.context =  context;
     }
@@ -98,34 +102,22 @@ public class NotificationThread extends Thread {
         });
     }
 
-    private boolean isGroupToNotify(Groups grp){
-        synchronized (idGroupToNotify){
-            for(Groups group : idGroupToNotify)
-                if(group.equals(grp))
-                    return true;
-            return false;
-        }
-    }
     private void addGroupToNotify(Groups grp){
-        boolean toAdd = true;
-        synchronized (idGroupToNotify){
-            for(Groups group : idGroupToNotify)
-                if(group.equals(grp))
-                    toAdd = false;
-            if(toAdd)
-                idGroupToNotify.add(grp);
-        }
+        idGroupToNotify.add(grp);
     }
+
+    private boolean isGroupToNotify(Groups grp){
+        return idGroupToNotify.contains(grp);
+    }
+
     private void removeGroupToNotify(Groups grp){
-        List<Groups> toRemove = new ArrayList<>();
-        synchronized (idGroupToNotify){
-            for(Groups group : idGroupToNotify)
-                if(group.equals(grp))
-                    toRemove.add(group);
-            for(Groups g : toRemove)
-                idGroupToNotify.remove(g);
-        }
+        idGroupToNotify.remove(grp);
+        Integer idNotifToRemove = idNotifMessageNotification.get(grp.getId());
+        if(notifManager != null && idNotifToRemove != null)
+            notifManager.cancel(idNotifToRemove);
     }
+
+
     private void onNewNotif(){
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+"/notifications");
 
@@ -147,7 +139,7 @@ public class NotificationThread extends Thread {
     }
     private void notify(Notifier notif){
         //creation de la notification
-        NotificationManager manager = (NotificationManager)context.getSystemService(NOTIFICATION_SERVICE);
+        notifManager= (NotificationManager)context.getSystemService(NOTIFICATION_SERVICE);
         Intent intent = new Intent(context, MyGroupsActivity.class);
         intent.putExtra(ID_NOTIFICATION,notif.getId());
 
@@ -163,9 +155,8 @@ public class NotificationThread extends Thread {
             mChannel.setDescription(description);
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this
-            NotificationManager notificationManager = (NotificationManager) context.getSystemService(
-                    NOTIFICATION_SERVICE);
-            notificationManager.createNotificationChannel(mChannel);
+
+            notifManager.createNotificationChannel(mChannel);
             NotificationCompat.Builder buildr = new NotificationCompat.Builder(context, "default")
                     .setTicker(notif.getTitle())
                     .setSmallIcon(LOGO_NOTIF)
@@ -175,7 +166,7 @@ public class NotificationThread extends Thread {
 
             Notification notification = buildr.build();
             notification.flags = Notification.FLAG_AUTO_CANCEL;
-            notificationManager.notify(ID_NOTIFICATION_NOTIFIER + notif.getId(),notification);
+            notifManager.notify(ID_NOTIFICATION_NOTIFIER + notif.getId(),notification);
         }else {
             Notification.Builder builder = new Notification.Builder(context).setWhen(System.currentTimeMillis())
                     .setTicker(notif.getTitle())
@@ -185,28 +176,30 @@ public class NotificationThread extends Thread {
                     .setContentIntent(pendingIntent);
             Notification notification = builder.build();
             notification.flags = Notification.FLAG_AUTO_CANCEL;
-            manager.notify(ID_NOTIFICATION_NOTIFIER + notif.getId(), notification);
+            notifManager.notify(ID_NOTIFICATION_NOTIFIER + notif.getId(), notification);
         }
     }
     private void notifyMessage(Message msg, Groups grp){
         PendingIntent pendingIntent = getPendingIntentMessage(msg,grp);
-        NotificationManager manager = (NotificationManager)context.getSystemService(NOTIFICATION_SERVICE);
-
+        notifManager = (NotificationManager)context.getSystemService(NOTIFICATION_SERVICE);
+        Notification notif = null;
+        int idNotifMsg = 0;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel mChannel = getNotificationChannelMessage();
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this
             if(mChannel != null) {
-                manager.createNotificationChannel(mChannel);
+                notifManager.createNotificationChannel(mChannel);
                 NotificationCompat.Builder buildr = new NotificationCompat.Builder(context, "default")
                         .setTicker("title1")
                         .setSmallIcon(LOGO_NOTIF)
                         .setContentTitle(getTitleMessageNotification(grp, msg))
                         .setContentText(msg.getContent())
                         .setContentIntent(pendingIntent);
-                Notification notif = buildr.build();
+                notif  = buildr.build();
                 setFlagsNotifMessage(notif);
-                notify(ID_NOTIFICATION_MESSAGE+ grp.getId(),manager,notif);
+                idNotifMsg = ID_NOTIFICATION_MESSAGE+ grp.getId();
+                notify(idNotifMsg,notifManager,notif);
             }
         }else{
             Notification.Builder builder = new Notification.Builder(context).setWhen(System.currentTimeMillis())
@@ -215,10 +208,13 @@ public class NotificationThread extends Thread {
                     .setContentTitle(getTitleMessageNotification(grp,msg))
                     .setContentText(msg.getContent())
                     .setContentIntent(pendingIntent);
-            Notification notif = builder.build();
+            notif = builder.build();
             setFlagsNotifMessage(notif);
-            notify(ID_NOTIFICATION_MESSAGE + grp.getId(),manager,notif);
+            idNotifMsg = ID_NOTIFICATION_MESSAGE+ grp.getId();
+            notify(idNotifMsg,notifManager,notif);
         }
+        if(notif != null && idNotifMsg != 0)
+            idNotifMessageNotification.put(grp.getId(),idNotifMsg);
     }
 
     private void notify(int id, NotificationManager manager, Notification notif){
@@ -253,5 +249,52 @@ public class NotificationThread extends Thread {
             mChannel.setDescription(description);
         }
         return mChannel;
+    }
+
+
+    public class GroupList extends ArrayList<Groups>{
+        public GroupList(){
+            super();
+        }
+
+        @Override
+        public boolean contains(Object grp){
+            if(!(grp instanceof Groups))
+                return false;
+            synchronized (idGroupToNotify){
+                for(Groups group : idGroupToNotify)
+                    if(group.equals(grp))
+                        return true;
+                return false;
+            }
+        }
+
+        @Override
+        public boolean add(Groups grp){
+            boolean toAdd = true;
+            synchronized (idGroupToNotify){
+                for(Groups group : idGroupToNotify)
+                    if(group.equals(grp))
+                        toAdd = false;
+                if(toAdd)
+                    idGroupToNotify.add(grp);
+            }
+            return true;
+        }
+
+        @Override
+        public boolean remove(Object grp){
+            if(!(grp instanceof Groups))
+                return false;
+            List<Groups> toRemove = new ArrayList<>();
+            synchronized (idGroupToNotify){
+                for(Groups group : idGroupToNotify)
+                    if(group.equals(grp))
+                        toRemove.add(group);
+                for(Groups g : toRemove)
+                    idGroupToNotify.remove(g);
+            }
+            return true;
+        }
     }
 }
