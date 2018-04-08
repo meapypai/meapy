@@ -1,12 +1,18 @@
 package project.meapy.meapy.members;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
@@ -72,6 +78,16 @@ public class MembersAdapter extends RecyclerView.Adapter {
         public void bind(User user) {
             firstnameMember.setText(user.getFirstName());
             lastnameMember.setText(user.getLastName());
+
+            //si image par defaut
+            if(user.getNameImageProfil().equals(User.DEFAULT_IMAGE_USER_NAME)) {
+                imgMember.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.default_avatar));
+            }
+            else {
+                StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + user.getUid() + "/" + user.getNameImageProfil());
+                Glide.with(context).using(new FirebaseImageLoader()).load(ref).asBitmap().into(imgMember); //image à partir de la réference passée
+            }
+
             if(user.getRank() == 1) { //s'il est admin
                 adminMember.setVisibility(View.VISIBLE);
             }
