@@ -59,7 +59,6 @@ public class MembersActivity extends MyAppCompatActivity {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 User user = (User)dataSnapshot.getValue(User.class);
-                                Toast.makeText(MembersActivity.this,user.getLastName(),Toast.LENGTH_LONG).show();
                                 users.add(user);
                                 membersAdapter.notifyDataSetChanged();
                             }
@@ -94,11 +93,6 @@ public class MembersActivity extends MyAppCompatActivity {
             }
         });
 
-//        User u = new User();
-//        u.setLastName("sansaoui");
-//        u.setFirstName("yassine");
-//        u.setUid("Tqy6w4ptVTZkLaXfooMaEzOmINs1");
-//        users.add(u);
         members_recycleview.setAdapter(membersAdapter);
         members_recycleview.setLayoutManager(new LinearLayoutManager(this));
     }

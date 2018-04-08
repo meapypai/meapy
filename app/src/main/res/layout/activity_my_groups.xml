@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:background="@android:color/white"
     tools:context="project.meapy.meapy.groups.joined.MyGroupsActivity">
 
     <ListView

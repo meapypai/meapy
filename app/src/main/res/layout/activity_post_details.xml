@@ -102,25 +102,37 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center">
 
-            <ImageButton
-                android:id="@+id/downPostDetails"
+            <LinearLayout
+                android:padding="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/grey"
-                android:src="@drawable/ic_exposure_plus_1_white_24dp"
-                android:text="-1" />
+                android:background="@drawable/note_background_post">
 
-            <ImageButton
+                <ImageButton
+                    android:id="@+id/downPostDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/holo_green_dark"
+                    android:background="@drawable/ic_exposure_plus_1_white_24dp"
+                    android:text="-1" />
+            </LinearLayout>
 
-                android:id="@+id/upPostDetails"
-                android:layout_width="wrap_content"
+
+            <LinearLayout
+                android:padding="5dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/downPostDetails"
-                android:layout_marginRight="25dp"
-                android:backgroundTint="@color/lightGrey"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/note_background_post">
 
-                android:src="@drawable/ic_exposure_neg_1_white_24dp" />
-
+                <ImageButton
+                    android:id="@+id/upPostDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/downPostDetails"
+                    android:backgroundTint="@android:color/holo_red_dark"
+                    android:background="@drawable/ic_exposure_neg_1_white_24dp" />
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>

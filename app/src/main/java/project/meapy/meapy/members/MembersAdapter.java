@@ -75,7 +75,7 @@ public class MembersAdapter extends RecyclerView.Adapter {
             adminMember = (TextView)itemView.findViewById(R.id.adminMember);
         }
 
-        public void bind(User user) {
+        public void bind(final User user) {
             firstnameMember.setText(user.getFirstName());
             lastnameMember.setText(user.getLastName());
 
@@ -84,8 +84,14 @@ public class MembersAdapter extends RecyclerView.Adapter {
                 imgMember.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.default_avatar));
             }
             else {
-                StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + user.getUid() + "/" + user.getNameImageProfil());
-                Glide.with(context).using(new FirebaseImageLoader()).load(ref).asBitmap().into(imgMember); //image à partir de la réference passée
+                new Runnable() {
+
+                    @Override
+                    public void run() {
+                        StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + user.getUid() + "/" + user.getNameImageProfil());
+                        Glide.with(context).using(new FirebaseImageLoader()).load(ref).asBitmap().into(imgMember); //image à partir de la réference passée
+                    }
+                }.run();
             }
 
             if(user.getRank() == 1) { //s'il est admin
