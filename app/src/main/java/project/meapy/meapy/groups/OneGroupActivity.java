@@ -113,6 +113,7 @@ public class OneGroupActivity extends MyAppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(OneGroupActivity.this, AddDisciplineActivity.class);
                 intent.putExtra(AddDisciplineActivity.GROUP_EXTRA_NAME,grp);
+                intent.putParcelableArrayListExtra(AddDisciplineActivity.DISCS_EXTRA_NAME, listDiscipline);
                 startActivity(intent);
             }
         });

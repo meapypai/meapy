@@ -83,6 +83,8 @@ public class SendFileActivity extends MyAppCompatActivity {
 
     final List<Groups> listGroups = new ArrayList<Groups>();
 
+    final ArrayList<Discipline> listDisc = new ArrayList<>();
+
     private Groups groupsProvided;
 
     public static final String GROUP_EXTRA_NAME = "GROUP";
@@ -166,8 +168,7 @@ public class SendFileActivity extends MyAppCompatActivity {
         filesSendFile.setAdapter(adapterSpinnerFiles);
 
 
-        final ArrayList<Parcelable> listDisc = new ArrayList<>();
-        final ArrayAdapter<Parcelable> dataDiscsAdapter = new ArrayAdapter<Parcelable>(this,
+        final ArrayAdapter<Discipline> dataDiscsAdapter = new ArrayAdapter<Discipline>(this,
                 android.R.layout.simple_spinner_item, listDisc);
         dataDiscsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         discTextSend.setAdapter(dataDiscsAdapter);
@@ -203,8 +204,8 @@ public class SendFileActivity extends MyAppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),AddDisciplineActivity.class);
-                intent.putExtra("GROUP",(Groups)groupNameSend.getSelectedItem());
-                intent.putParcelableArrayListExtra("DISCPLINES", listDisc);
+                intent.putExtra(AddDisciplineActivity.GROUP_EXTRA_NAME,(Groups)groupNameSend.getSelectedItem());
+                intent.putParcelableArrayListExtra(AddDisciplineActivity.DISCS_EXTRA_NAME, listDisc);
                 startActivity(intent);
             }
         });
