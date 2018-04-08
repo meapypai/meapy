@@ -20,7 +20,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-
             <ImageView
                 android:id="@+id/barLeftPost"
                 android:layout_width="3dp"
@@ -119,10 +118,7 @@
                         android:id="@+id/userPostOneGroup"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_regular"
-                        android:textStyle="bold"
-                        android:textColor="@android:color/black"
-                        android:textSize="12dp"
+                        style="@style/authorStyle"
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/imgUserOneGroup"
                         android:layout_marginLeft="5dp"
@@ -166,21 +162,32 @@
                         <!--android:text="0"/>-->
 
                     <RelativeLayout
-                        android:layout_toRightOf="@+id/nbCommentOneGroup"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/add_minus_background_post"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
 
                         <LinearLayout
+                            android:paddingLeft="2dp"
+                            android:paddingRight="5dp"
+                            android:background="@drawable/add_background_post"
+                            android:id="@+id/moinsLayout"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
 
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:backgroundTint="@android:color/holo_red_dark"
+                                android:layout_gravity="center"
+                                android:backgroundTint="@android:color/holo_green_dark"
                                 android:background="@drawable/ic_exposure_plus_1_white_24dp"/>
 
                             <TextView
+                                android:layout_marginLeft="7dp"
+                                android:layout_gravity="center"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0"/>
@@ -188,8 +195,27 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:paddingLeft="2dp"
+                            android:paddingRight="5dp"
+                            android:background="@drawable/minus_background_post"
+                            android:id="@+id/plusLayout"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@id/moinsLayout">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:backgroundTint="@android:color/holo_red_dark"
+                                android:background="@drawable/ic_exposure_neg_1_white_24dp"/>
+
+                            <TextView
+                                android:layout_marginLeft="7dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="0"/>
 
                         </LinearLayout>
 

@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/imgUserComment"
             android:text="@string/author_post"
-            android:textStyle="bold"/>
+            style="@style/authorStyle"/>
 
         <TextView
             android:id="@+id/dateComment"
@@ -43,6 +43,7 @@
             android:layout_marginLeft="25dp"
             android:layout_below="@id/dateComment"
             android:layout_marginTop="10dp"
+            android:textColor="@android:color/black"
             android:textSize="12dp"
             android:text="@string/comment_post"/>
     </RelativeLayout>

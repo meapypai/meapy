@@ -119,38 +119,43 @@ public class PostAdapter extends ArrayAdapter<Post> {
                     Glide.with(context).using(new FirebaseImageLoader()).load(ref).asBitmap().into(holder.imgUserOneGroup); //image à partir de la réference passée
                 }
 
-                DatabaseReference discpRef = FirebaseDatabase.getInstance().getReference("groups/" + group.getId()+ "/disciplines");
-                discpRef.addChildEventListener(new ChildEventListener() {
+                new Runnable() {
                     @Override
-                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        Discipline d = (Discipline)dataSnapshot.getValue(Discipline.class);
-                        if(d.getName().equals(currentPost.getDisciplineName())) {
-                            //bar color at the left side
-                            holder.barLeftPost.setBackgroundColor(Color.parseColor(d.getColor()));
-                        }
+                    public void run() {
+
+                        DatabaseReference discpRef = FirebaseDatabase.getInstance().getReference("groups/" + group.getId()+ "/disciplines");
+                        discpRef.addChildEventListener(new ChildEventListener() {
+                            @Override
+                            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                Discipline d = (Discipline)dataSnapshot.getValue(Discipline.class);
+                                if(d.getName().equals(currentPost.getDisciplineName())) {
+                                    //bar color at the left side
+                                    holder.barLeftPost.setBackgroundColor(Color.parseColor(d.getColor()));
+                                }
+                            }
+
+                            @Override
+                            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                            }
+
+                            @Override
+                            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                            }
+
+                            @Override
+                            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
                     }
-
-                    @Override
-                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                    }
-
-                    @Override
-                    public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                    }
-
-                    @Override
-                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-
+                }.run();;
             }
 
             @Override

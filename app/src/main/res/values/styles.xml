@@ -25,4 +25,10 @@
     </style>
 
 
+    <style name="authorStyle">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">12dp</item>
+    </style>
+
 </resources>
