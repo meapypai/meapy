@@ -96,6 +96,11 @@
             android:label="@string/notifications"
             android:screenOrientation="portrait">
         </activity>
+
+        <activity android:name=".MembersActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/members_label">
+        </activity>
     </application>
 
 </manifest>

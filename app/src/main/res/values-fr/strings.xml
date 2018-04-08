@@ -37,6 +37,7 @@
     <string name="posts_label">Posts</string>
     <string name="settings_label">Paramètres</string>
     <string name="profil_label">Profil</string>
+    <string name="members_label">Membres</string>
 
     <!--Strings related to Register Activity-->
     <string name="first_name_register">Prénom</string>
@@ -65,7 +66,7 @@
     <string name="create_group_button">CREER</string>
 
     <!--Notification  activity-->
-    <string name="notifications">Notifications</string>
+    <string name="notification">Notifications</string>
 
     <!-- discipline posts-->
     <string name="disc_post_textlabel">Discipline</string>

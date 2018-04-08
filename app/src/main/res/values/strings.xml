@@ -38,6 +38,7 @@
     <string name="posts_label">Posts</string>
     <string name="settings_label">Settings</string>
     <string name="profil_label">Profil</string>
+    <string name="members_label">Members</string>
 
     <!--Strings related to Register Activity-->
     <string name="first_name_register">First name</string>

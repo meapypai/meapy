@@ -46,6 +46,7 @@ import project.meapy.meapy.ChatRoomActivity;
 import project.meapy.meapy.CreateGroupActivity;
 import project.meapy.meapy.DisciplinePostsActivity;
 import project.meapy.meapy.LeaveGroupActivity;
+import project.meapy.meapy.MembersActivity;
 import project.meapy.meapy.MyAppCompatActivity;
 import project.meapy.meapy.MyApplication;
 import project.meapy.meapy.NotificationThread;
@@ -272,6 +273,10 @@ public class OneGroupActivity extends MyAppCompatActivity {
                 intent = new Intent(OneGroupActivity.this, ChatRoomActivity.class);
                 intent.putExtra(ChatRoomActivity.EXTRA_GROUP_ID,group.getId()+"");
                 intent.putExtra(ChatRoomActivity.EXTRA_GROUP_NAME,group.getName());
+                break;
+            case R.id.membersOneGroup:
+                intent  = new Intent(this, MembersActivity.class);
+                intent.putExtra(ChatRoomActivity.EXTRA_GROUP_ID,group.getId()+"");
                 break;
         }
         if(intent != null) {
