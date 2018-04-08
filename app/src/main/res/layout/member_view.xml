@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
@@ -36,8 +36,9 @@
     </LinearLayout>
 
     <ImageView
-        android:layout_toRightOf="@+id/nameLayoutMember"
-        android:layout_centerVertical="true"
+        app:layout_constraintLeft_toRightOf="@+id/nameLayoutMember"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
         android:layout_width="10dp"
         android:layout_height="10dp"
         android:background="@drawable/round"
@@ -45,8 +46,22 @@
 
     <ImageView
         style="@style/divider"
-        android:layout_below="@+id/nameLayoutMember"
+        app:layout_constraintBottom_toTopOf="parent"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp" />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/adminMember"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        android:padding="5dp"
+        android:visibility="gone"
+        android:background="@drawable/admin_background_member"
+        android:textColor="@android:color/holo_red_light"
+        android:text="Admin"/>
+
+</android.support.constraint.ConstraintLayout>

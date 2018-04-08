@@ -59,17 +59,22 @@ public class MembersAdapter extends RecyclerView.Adapter {
         private ImageView imgMember;
         private TextView firstnameMember;
         private TextView lastnameMember;
+        private TextView adminMember;
 
         public MemberHolder(View itemView) {
             super(itemView);
             imgMember = (ImageView)itemView.findViewById(R.id.imgMember);
             firstnameMember = (TextView)itemView.findViewById(R.id.firstnameMember);
             lastnameMember = (TextView)itemView.findViewById(R.id.lastnameMember);
+            adminMember = (TextView)itemView.findViewById(R.id.adminMember);
         }
 
         public void bind(User user) {
             firstnameMember.setText(user.getFirstName());
             lastnameMember.setText(user.getLastName());
+            if(user.getRank() == 1) { //s'il est admin
+                adminMember.setVisibility(View.VISIBLE);
+            }
         }
     }
 }
