@@ -50,12 +50,9 @@
     </LinearLayout>
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_centerHorizontal="true"
+        style="@style/divider"
         android:layout_below="@+id/layoutLinesText"
         android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:background="@drawable/divider"/>
+        android:layout_marginLeft="20dp" />
 
 </RelativeLayout>
