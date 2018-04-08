@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context="project.meapy.meapy.RegisterActivity">
 
     <LinearLayout
@@ -29,7 +30,7 @@
             android:textColor="@color/meapyColor"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:fontFamily="@font/roboto_black"
+            android:fontFamily="@font/roboto_thin"
             />
 
 
@@ -68,6 +69,7 @@
             <EditText
                 android:id="@+id/firstNameIdRegister"
                 style="@style/fieldStyle"
+                android:textColorHint="@color/lightGrey"
                 android:hint="@string/first_name_register"/>
 
         </LinearLayout>
@@ -76,7 +78,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@drawable/divider"
+            android:background="@drawable/divider_register"
             />
 
         <!--Last Name-->
@@ -98,6 +100,7 @@
             <EditText
                 android:id="@+id/lastNameIdRegister"
                 style="@style/fieldStyle"
+                android:textColorHint="@color/lightGrey"
                 android:hint="@string/last_name_register"/>
 
         </LinearLayout>
@@ -105,7 +108,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@drawable/divider"
+            android:background="@drawable/divider_register"
             />
 
         <!--Email -->
@@ -126,6 +129,7 @@
             <EditText
                 android:id="@+id/emailIdRegister"
                 style="@style/fieldStyle"
+                android:textColorHint="@color/lightGrey"
                 android:hint="@string/prompt_email" />
 
         </LinearLayout>
@@ -133,7 +137,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@drawable/divider"
+            android:background="@drawable/divider_register"
             />
 
         <!--Password -->
@@ -155,6 +159,7 @@
                 android:id="@+id/passwordIdRegister"
                 style="@style/fieldStyle"
                 android:hint="@string/prompt_password"
+                android:textColorHint="@color/lightGrey"
                 android:inputType="textPassword"/>
 
         </LinearLayout>
@@ -162,7 +167,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@drawable/divider"
+            android:background="@drawable/divider_register"
             />
 
         <Button
