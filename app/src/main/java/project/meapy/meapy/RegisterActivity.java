@@ -62,19 +62,19 @@ public class RegisterActivity extends MyAppCompatActivity {
                                 registration.register(user);
                             }
                             else {
-                                errorMessage = "Password not valid";
+                                errorMessage = getResources().getString(R.string.incorrect_password);
                             }
                         }
                         else {
-                            errorMessage = "Mail not valid";
+                            errorMessage = getResources().getString(R.string.incorrect_mail);
                         }
                     }
                     else {
-                        errorMessage = "Lastname not valid";
+                        errorMessage = getResources().getString(R.string.incorrect_lastname);
                     }
                 }
                 else {
-                    errorMessage = "Firstname not valid";
+                    errorMessage = getResources().getString(R.string.incorrect_firstname);
                 }
 
                 //creation de la vue d'erreur
@@ -92,7 +92,7 @@ public class RegisterActivity extends MyAppCompatActivity {
     }
 
     private boolean isValidName(String name) {
-        Pattern pattern = Pattern.compile("[A-Za-z]{4,}");
+        Pattern pattern = Pattern.compile("[A-Za-z]{2,}");
         Matcher matcher = pattern.matcher(name);
         return matcher.matches();
     }

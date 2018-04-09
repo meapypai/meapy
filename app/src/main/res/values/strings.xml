@@ -45,6 +45,10 @@
     <string name="last_name_register">Last name</string>
     <string name="sign_up_button">Sign Up</string>
     <string name="title_register">Create account</string>
+    <string name="incorrect_password">Password must contains at least 8 characters</string>
+    <string name="incorrect_mail">Mail not valid</string>
+    <string name="incorrect_firstname">Firstname not valid</string>
+    <string name="incorrect_lastname">Lastname not valid</string>
 
     <!-- add discipline activity -->
     <string name="creation_of_discipline">Creation of Discipline</string>
@@ -103,8 +107,9 @@
     <string name="descr_send_label">Description</string>
     <string name="send_btn_label">Send</string>
     <string name="error_description_file">Description length must be highter than</string>
+    <string name="error_title_file">Title length must be highter than</string>
     <string name="error_length_file">Length files must be lower than</string>
-    <string name="error_fields_file">You must choose groups, discipline and title</string>
+    <string name="error_fields_file">You must choose groups and discpline</string>
     <string name="caracters">caracters</string>
 
 

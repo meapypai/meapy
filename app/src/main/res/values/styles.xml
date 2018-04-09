@@ -44,6 +44,7 @@
         <item name="android:background">@drawable/com_facebook_button_like_icon_selected</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:backgroundTint">@android:color/holo_green_dark</item>
+        <item name="android:layout_marginLeft">5dp</item>
     </style>
 
 </resources>
