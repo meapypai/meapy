@@ -21,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,7 +60,9 @@ public class SendFileActivity extends MyAppCompatActivity {
 
     private static  final int REQUEST_PERMISSION_READ_EXTERNAL_STORAGE = 7;
     private static final int REQUEST_LOAD_FILE = 5;
+
     private static final int LIMIT_DESCRIPTION_LENGTH = 20;
+    private static final int LIMIT_TITLE_LENGTH = 20;
 
     private ImageButton addDiscBtn;
     private ImageButton addGrpBtn;
@@ -152,12 +155,32 @@ public class SendFileActivity extends MyAppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 String description = descTextSend.getText().toString();
+                ImageView correct_desc = (ImageView)findViewById(R.id.correct_desc);
                 if(checkDescription(description)){
-                    descTextSend.setBackgroundColor(Color.argb(50,150,150,150));
-                    //descTextSend.setTextColor(Color.GREEN);
-                }else{
-                    descTextSend.setBackgroundColor(Color.argb(100,150,150,150));
-                    //descTextSend.setTextColor(Color.RED);
+                    correct_desc.setBackgroundTintList(ContextCompat.getColorStateList(SendFileActivity.this,android.R.color.holo_green_dark));
+                }
+                else {
+                    correct_desc.setBackgroundTintList(ContextCompat.getColorStateList(SendFileActivity.this,android.R.color.white));
+                }
+            }
+        });
+
+        titleTextSend.addTextChangedListener(new TextWatcher() { // TODO REVOIR
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String title = titleTextSend.getText().toString();
+                ImageView correct_title = (ImageView)findViewById(R.id.correct_title);
+                if(checkDescription(title)){
+                    correct_title.setBackgroundTintList(ContextCompat.getColorStateList(SendFileActivity.this,android.R.color.holo_green_dark));
+                }
+                else {
+                    correct_title.setBackgroundTintList(ContextCompat.getColorStateList(SendFileActivity.this,android.R.color.white));
                 }
             }
         });
@@ -184,6 +207,8 @@ public class SendFileActivity extends MyAppCompatActivity {
                             Discipline disc = (Discipline) getParam();
                             idToDisc.put(disc.getId(), disc);
                             dataDiscsAdapter.add(disc);
+
+
                         }
                     }, new RunnableWithParam() {
                         @Override
@@ -196,6 +221,20 @@ public class SendFileActivity extends MyAppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+        discTextSend.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ImageView correct_disc = (ImageView)findViewById(R.id.correct_disc);
+                correct_disc.setBackgroundTintList(ContextCompat.getColorStateList(SendFileActivity.this,android.R.color.holo_green_dark));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
@@ -225,61 +264,66 @@ public class SendFileActivity extends MyAppCompatActivity {
 
 
                 if(isGoodLength(files)) {
-                    //suppression des espaces pr éviter une description n'ayant que des espaces
-                    if (checkDescription(description)) { // USE STRING TRIM
+                    if(checkTitle(title)) {
+                        //suppression des espaces pr éviter une description n'ayant que des espaces
+                        if (checkDescription(description)) { // USE STRING TRIM
 
-                        if (disc != null && group != null && title != null) {
-                            //TODO : ajout du fichier
-                            final Post post = new Post();
-                            post.setTextContent(description);
-                            post.setTitle(title);
-                            post.setGroupId(group.getId());
-                            post.setDisciplineId(disc.getId());
-                            post.setDisciplineName(disc.getName());
-                            if (MyApplication.getUser() != null) {
-                                post.setNameImageUser(MyApplication.getUser().getNameImageProfil());
-                            }
-                            post.setUser(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
-                            post.setDate(new Date());
-                            FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
-                            if (fUser != null) {
-                                post.setUser_uid(fUser.getUid());
-                            }
-                            // inserer le(s) fichier(s)
-                            FirebaseStorage storage = FirebaseStorage.getInstance();
-                            StorageReference filesRef = storage.getReference();
-                            List<String> filesPaths = post.getFilesPaths();
-                            for (int i = 0; i < files.size(); i++) {
-                                File f = files.get(i);
-                                if (f.exists()) {
-                                    String suffix = f.getName().split(Pattern.quote("."))[1];
-                                    String filenameDb = String.format("file_%d_%d.%s", i, post.getId(), suffix);
-                                    filesPaths.add(filenameDb);
-                                    StorageReference groupFiles = filesRef.child("data_groups/" + group.getId() + "/" + filenameDb);
-                                    Uri uriFile = Uri.fromFile(files.get(i));
-                                    groupFiles.putFile(uriFile);
+                            if (disc != null && group != null && title != null) {
+                                //TODO : ajout du fichier
+                                final Post post = new Post();
+                                post.setTextContent(description);
+                                post.setTitle(title);
+                                post.setGroupId(group.getId());
+                                post.setDisciplineId(disc.getId());
+                                post.setDisciplineName(disc.getName());
+                                if (MyApplication.getUser() != null) {
+                                    post.setNameImageUser(MyApplication.getUser().getNameImageProfil());
                                 }
+                                post.setUser(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+                                post.setDate(new Date());
+                                FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
+                                if (fUser != null) {
+                                    post.setUser_uid(fUser.getUid());
+                                }
+                                // inserer le(s) fichier(s)
+                                FirebaseStorage storage = FirebaseStorage.getInstance();
+                                StorageReference filesRef = storage.getReference();
+                                List<String> filesPaths = post.getFilesPaths();
+                                for (int i = 0; i < files.size(); i++) {
+                                    File f = files.get(i);
+                                    if (f.exists()) {
+                                        String suffix = f.getName().split(Pattern.quote("."))[1];
+                                        String filenameDb = String.format("file_%d_%d.%s", i, post.getId(), suffix);
+                                        filesPaths.add(filenameDb);
+                                        StorageReference groupFiles = filesRef.child("data_groups/" + group.getId() + "/" + filenameDb);
+                                        Uri uriFile = Uri.fromFile(files.get(i));
+                                        groupFiles.putFile(uriFile);
+                                    }
+                                }
+                                post.setFilesPaths(filesPaths);
+                                //                        post.setFilePath(uriFile.getLastPathSegment());
+                                // inserer le lien group post dans database
+                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                //DatabaseReference groupsDisc = database.getReference("groups/"+ group.getId() + "/disciplines/"+disc.getId());
+
+                                DatabaseReference groupspost = database.getReference("groups/" + group.getId() + "/disciplines/" + disc.getId() + "/posts/").child(post.getId() + "");
+                                groupspost.setValue(post);
+                                Toast.makeText(SendFileActivity.this, "post added", Toast.LENGTH_LONG).show();
+                                finish();
+
+                            } else {
+                                Toast.makeText(SendFileActivity.this, getResources().getString(R.string.error_fields_file), Toast.LENGTH_SHORT).show();
                             }
-                            post.setFilesPaths(filesPaths);
-                            //                        post.setFilePath(uriFile.getLastPathSegment());
-                            // inserer le lien group post dans database
-                            FirebaseDatabase database = FirebaseDatabase.getInstance();
-                            //DatabaseReference groupsDisc = database.getReference("groups/"+ group.getId() + "/disciplines/"+disc.getId());
-
-                            DatabaseReference groupspost = database.getReference("groups/" + group.getId() + "/disciplines/" + disc.getId() + "/posts/").child(post.getId() + "");
-                            groupspost.setValue(post);
-                            Toast.makeText(SendFileActivity.this, "post added", Toast.LENGTH_LONG).show();
-                            finish();
-
                         } else {
-                            Toast.makeText(SendFileActivity.this, getResources().getString(R.string.error_fields_file), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SendFileActivity.this, getResources().getString(R.string.error_description_file) + " " + LIMIT_DESCRIPTION_LENGTH + " " + "@string/caracters", Toast.LENGTH_SHORT).show();
                         }
-                    } else {
-                        Toast.makeText(SendFileActivity.this, getResources().getString(R.string.error_description_file) + " " + LIMIT_DESCRIPTION_LENGTH + " " + "@string/caracters", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(SendFileActivity.this, getResources().getString(R.string.error_title_file) + " " + LIMIT_TITLE_LENGTH + " " + "@string/caracters", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else {
-                    Toast.makeText(SendFileActivity.this, getResources().getString(R.string.error_length_file) + " " + LIMIT_DESCRIPTION_LENGTH, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SendFileActivity.this, getResources().getString(R.string.error_length_file) + " " + MAX_LENGTH_FILES + " Mo", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -291,6 +335,7 @@ public class SendFileActivity extends MyAppCompatActivity {
                     android.R.layout.simple_spinner_item, new ArrayList<Groups>());
             groupNameSend.setAdapter(dataGroupsAdapter);
             loadingGroup(dataGroupsAdapter,groupsProvided.getId());
+
             findViewById(R.id.groupNameSend).setEnabled(false);
         }
     }
@@ -298,6 +343,11 @@ public class SendFileActivity extends MyAppCompatActivity {
     private boolean checkDescription(String description){
         return description.replaceAll(" ", "").length() >= LIMIT_DESCRIPTION_LENGTH;
     }
+
+    private boolean checkTitle(String title) {
+        return title.replaceAll(" ", "").length() >= LIMIT_TITLE_LENGTH;
+    }
+
 
     @Override
     protected void onStart() {
@@ -361,15 +411,18 @@ public class SendFileActivity extends MyAppCompatActivity {
     static int count = 0;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        ImageView correct_file = (ImageView)findViewById(R.id.correct_file);
         if(requestCode == REQUEST_LOAD_FILE) {
             if(resultCode == RESULT_OK) {
                 Uri uri = data.getData();
+                correct_file.setBackgroundTintList(ContextCompat.getColorStateList(SendFileActivity.this,android.R.color.holo_green_dark));
                 addDocument(uri);
             }
         }
         if(requestCode == REQUEST_TAKE_PHOTO){
             if(resultCode == RESULT_OK) {
                 File file = new File(mCurrentPhotoPath);
+                correct_file.setBackgroundTintList(ContextCompat.getColorStateList(SendFileActivity.this,android.R.color.holo_green_dark));
                 Toast.makeText(getApplicationContext(),file.getName(),Toast.LENGTH_LONG).show();
                 addDocument(file);
             }

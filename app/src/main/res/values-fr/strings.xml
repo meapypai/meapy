@@ -44,6 +44,11 @@
     <string name="last_name_register">Nom</string>
     <string name="sign_up_button">S\'inscrire</string>
     <string name="title_register">Créer un compte</string>
+    <style name="incorrect_password"></style>
+    <string name="incorrect_password">Le mot de passe doit contenir au moins 8 caractères</string>
+    <string name="incorrect_mail">Email non valide</string>
+    <string name="incorrect_firstname">Prénom non valide</string>
+    <string name="incorrect_lastname">Nom nom valide</string>
 
     <!-- add discipline activity -->
     <string name="creation_of_discipline">Ajouter une discipline</string>
@@ -102,8 +107,9 @@
     <string name="descr_send_label">Description</string>
     <string name="send_btn_label">Ajouter</string>
     <string name="error_description_file">La description doit avoir au moins</string>
+    <string name="error_title_file">Le title doit avoir au moins</string>
     <string name="error_length_file">La taille des fichiers doit être plus petite que </string>
-    <string name="error_fields_file">Groupe, matière et titre requis</string>
+    <string name="error_fields_file">Groupe et matière requis</string>
     <string name="caracters">caractères</string>
 
     <!-- one group activity -->
