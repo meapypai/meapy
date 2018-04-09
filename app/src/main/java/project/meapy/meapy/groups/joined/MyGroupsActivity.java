@@ -49,6 +49,8 @@ public class MyGroupsActivity extends MyAppCompatActivity {
     ListView listView;
     GroupsAdapter adapter;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
