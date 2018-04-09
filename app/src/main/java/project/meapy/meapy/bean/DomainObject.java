@@ -8,7 +8,7 @@ import java.util.Random;
  */
 
 public class DomainObject implements Serializable {
-    private int id;
+    protected int id;
     public DomainObject(){
         id = new Random().nextInt();
     }

@@ -17,6 +17,7 @@ import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.bean.Post;
 import project.meapy.meapy.posts.PostAdapter;
 import project.meapy.meapy.utils.RunnableWithParam;
+import project.meapy.meapy.utils.firebase.DisciplineLink;
 import project.meapy.meapy.utils.firebase.PostLink;
 
 public class DisciplinePostsActivity extends MyAppCompatActivity {
@@ -25,21 +26,36 @@ public class DisciplinePostsActivity extends MyAppCompatActivity {
     public static final String GROUP_EXTRA_NAME = "GROUPS";
     public static final String CURR_DISC_EXTRA_NAME = "CURRDISCIDX";
     public static final String DISCS_EXTRA_NAME = "DISCS";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discipline_posts);
         grp = (Groups) getIntent().getSerializableExtra(GROUP_EXTRA_NAME);
-        List<Discipline> discList = (List<Discipline>) getIntent().getSerializableExtra(DISCS_EXTRA_NAME);
-        int current = (int) getIntent().getSerializableExtra(CURR_DISC_EXTRA_NAME);
 
-        Spinner spinner = findViewById(R.id.spinnerDiscPosts);
+        //List<Discipline> discList = (List<Discipline>) getIntent().getSerializableExtra(DISCS_EXTRA_NAME);
+        final int current = (int) getIntent().getSerializableExtra(CURR_DISC_EXTRA_NAME);
 
+        final Spinner spinner = findViewById(R.id.spinnerDiscPosts);
+
+        final List<Discipline> discList = new ArrayList<>();
         final ArrayAdapter<Discipline> dataDiscsAdapter = new ArrayAdapter<Discipline>(this,
                 android.R.layout.simple_spinner_item, discList);
         dataDiscsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(dataDiscsAdapter);
-        spinner.setSelection(current);
+        DisciplineLink.getDisciplineByGroupId(grp.getId(), new RunnableWithParam() {
+            @Override
+            public void run() {
+                Discipline disc = (Discipline) getParam();
+                dataDiscsAdapter.add(disc);
+                if(current == disc.getId()){
+                    int idx = dataDiscsAdapter.getPosition(disc);
+                    spinner.setSelection(idx);
+                }
+
+            }
+        },null);
+        //spinner.setSelection(current);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -71,7 +87,7 @@ public class DisciplinePostsActivity extends MyAppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Post post = adapter.getItem(i);
                 Intent intent = new Intent(getApplicationContext(), PostDetailsActivity.class);
-                intent.putExtra("POST", (Serializable) post);
+                intent.putExtra(PostDetailsActivity.POST_EXTRA_NAME, (Serializable) post);
                 startActivity(intent);
             }
         });
