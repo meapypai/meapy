@@ -78,7 +78,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@drawable/divider_register"
+            android:background="@drawable/divider_light_grey"
             />
 
         <!--Last Name-->
@@ -108,7 +108,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@drawable/divider_register"
+            android:background="@drawable/divider_light_grey"
             />
 
         <!--Email -->
@@ -137,7 +137,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@drawable/divider_register"
+            android:background="@drawable/divider_light_grey"
             />
 
         <!--Password -->
@@ -167,7 +167,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@drawable/divider_register"
+            android:background="@drawable/divider_light_grey"
             />
 
         <Button
