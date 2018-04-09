@@ -17,6 +17,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import project.meapy.meapy.ChatRoomActivity;
+import project.meapy.meapy.MyAppCompatActivity;
 import project.meapy.meapy.R;
 import project.meapy.meapy.bean.Groups;
 
@@ -24,7 +25,7 @@ import project.meapy.meapy.bean.Groups;
  * Created by sansaoui on 12/02/18.
  */
 
-public class DiscussionGroupsActivity extends AppCompatActivity {
+public class DiscussionGroupsActivity extends MyAppCompatActivity {
 
     public static final String EXTRA_GROUP_ID = "group_id";
     public static final String EXTRA_GROUP_NAME = "group_name";

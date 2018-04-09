@@ -20,7 +20,7 @@ import project.meapy.meapy.logins.DefaultLogin;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends MyAppCompatActivity {
 
     private Button mSignButton;
     private AutoCompleteTextView mEmailView;

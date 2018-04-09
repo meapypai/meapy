@@ -9,6 +9,7 @@ import android.os.Build;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 import project.meapy.meapy.bean.User;
 import project.meapy.meapy.storage.StoreBean;
@@ -21,6 +22,19 @@ public class MyApplication extends Application{
     private static Context c;
     private static User user;
     private static NotificationThread notifThread;
+    private static Stack<MyAppCompatActivity> stackApp = new Stack<>();
+
+    public static void addActivity(MyAppCompatActivity act){
+        stackApp.push(act);
+    }
+
+    public static MyAppCompatActivity removeActivity(){
+        return stackApp.pop();
+    }
+
+    public static MyAppCompatActivity getCurrentActivity(){
+        return stackApp.peek();
+    }
 
     public MyApplication(){
         super();

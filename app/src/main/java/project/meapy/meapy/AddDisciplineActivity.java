@@ -22,7 +22,7 @@ import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.utils.BuilderColor;
 import project.meapy.meapy.utils.firebase.DisciplineLink;
 
-public class AddDisciplineActivity extends AppCompatActivity {
+public class AddDisciplineActivity extends MyAppCompatActivity {
 
     public static final String GROUP_EXTRA_NAME = "GROUP";
     public static final String DISCS_EXTRA_NAME = "DISCPLINES";

@@ -41,6 +41,17 @@ public class MyAppCompatActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+        MyApplication.addActivity(this);
+    }
+    @Override
+    protected void onPause(){
+        super.onPause();
+        MyApplication.removeActivity();
+    }
+
     public int getColorSelectedOnSettings() {
         return this.colorSelectedOnSettings;
     }
