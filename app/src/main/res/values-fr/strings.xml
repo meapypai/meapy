@@ -48,7 +48,7 @@
     <!-- add discipline activity -->
     <string name="creation_of_discipline">Ajouter une discipline</string>
     <string name="discipline_name_hint">Nom de la discipline</string>
-    <string name="displine_already_exists">La matière existe déjà</string>
+    <style name="displine_already_exists">La matière existe déjà</style>
 
     <!-- chat room activity -->
     <string name="write_message_hint">Ecrire un message...</string>
@@ -66,7 +66,7 @@
     <string name="create_group_button">CREER</string>
 
     <!--Notification  activity-->
-    <string name="notifications">Notifications</string>
+    <string name="notification">Notifications</string>
 
     <!-- discipline posts-->
     <string name="disc_post_textlabel">Discipline</string>
