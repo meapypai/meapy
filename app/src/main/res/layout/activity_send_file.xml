@@ -9,19 +9,34 @@
     android:id="@+id/sendFileLay">
 
 
-    <EditText
+    <LinearLayout
+        android:id="@+id/layoutTitle"
         android:layout_marginTop="50dp"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_centerHorizontal="true"
-        android:id="@+id/titleTextSend"
-        android:hint="@string/title_send_hint" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_weight="2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/titleTextSend"
+            android:hint="@string/title_send_hint" />
+
+        <ImageView
+            android:backgroundTint="@android:color/white"
+            style="@style/correctFieldStyle"/>
+
+    </LinearLayout>
+
     <RelativeLayout
         android:layout_margin="20dp"
         android:layout_width="250dp"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
-        android:layout_below="@id/titleTextSend"
+        android:layout_below="@id/layoutTitle"
         >
         <RelativeLayout
             android:layout_width="match_parent"
@@ -43,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/fileNameSend"
-                android:layout_toLeftOf="@+id/importFileBtnSend" />
+                />
 
             <ImageButton
                 android:id="@+id/importFileBtnSend"
@@ -51,12 +66,17 @@
                 android:backgroundTint="@color/colorButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/correct_file"
                 android:textColor="@android:color/white"
                 android:text="+"/>
 
-
+            <ImageView
+                android:id="@+id/correct_file"
+                style="@style/correctFieldStyle"
+                android:layout_centerVertical="true"
+                android:backgroundTint="@android:color/white"
+                android:layout_alignParentRight="true"/>
 
         </RelativeLayout>
 
@@ -86,14 +106,22 @@
 
             <ImageButton
                 android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="+"
+                android:layout_toLeftOf="@+id/correct_group"
                 android:id="@+id/addGroupSendFile"
                 android:textColor="@android:color/white"
                 android:src="@drawable/ic_add_black_24dp"
                 android:backgroundTint="@color/colorButton"/>
+
+            <ImageView
+                android:id="@+id/correct_group"
+                style="@style/correctFieldStyle"
+                android:layout_centerVertical="true"
+                android:backgroundTint="@android:color/white"
+                android:layout_alignParentRight="true"/>
+
         </RelativeLayout>
 
         <RelativeLayout
@@ -122,23 +150,40 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_toLeftOf="@+id/correct_disc"
                 android:text="+"
                 android:id="@+id/addDiscSendFile"
                 android:textColor="@android:color/white"
                 android:src="@drawable/ic_add_black_24dp"
                 android:backgroundTint="@color/colorButton"/>
+
+            <ImageView
+                android:id="@+id/correct_disc"
+                style="@style/correctFieldStyle"
+                android:layout_centerVertical="true"
+                android:backgroundTint="@android:color/white"
+                android:layout_alignParentRight="true"/>
+
         </RelativeLayout>
 
-        <EditText
-            android:layout_centerHorizontal="true"
-            android:id="@+id/descTextSend"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/descr_send_label"
             android:layout_below="@id/discSendFile"
-            />
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content">
 
+            <EditText
+                android:id="@+id/descTextSend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:hint="@string/descr_send_label" />
+
+            <ImageView
+               style="@style/correctFieldStyle"
+                android:backgroundTint="@android:color/white"/>
+
+        </LinearLayout>
 
     </RelativeLayout>
 

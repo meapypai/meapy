@@ -38,4 +38,12 @@
         <item name="android:background">@drawable/divider_light_grey</item>
     </style>
 
+    <style name="correctFieldStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/com_facebook_button_like_icon_selected</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:backgroundTint">@android:color/holo_green_dark</item>
+    </style>
+
 </resources>
