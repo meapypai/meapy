@@ -18,6 +18,7 @@ import java.util.List;
 
 import project.meapy.meapy.R;
 import project.meapy.meapy.bean.User;
+import project.meapy.meapy.utils.RetrieveImage;
 
 /**
  * Created by yassi on 08/04/2018.
@@ -89,7 +90,8 @@ public class MembersAdapter extends RecyclerView.Adapter {
                     @Override
                     public void run() {
                         StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + user.getUid() + "/" + user.getNameImageProfil());
-                        Glide.with(context).using(new FirebaseImageLoader()).load(ref).asBitmap().into(imgMember); //image à partir de la réference passée
+//                        Glide.with(context).using(new FirebaseImageLoader()).load(ref).asBitmap().into(imgMember); //image à partir de la réference passée
+                        RetrieveImage.glide(ref,context,imgMember);
                     }
                 }.run();
             }

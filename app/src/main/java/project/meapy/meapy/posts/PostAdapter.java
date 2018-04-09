@@ -36,6 +36,7 @@ import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.bean.Post;
 import project.meapy.meapy.bean.User;
 import project.meapy.meapy.utils.BuilderFormatDate;
+import project.meapy.meapy.utils.RetrieveImage;
 
 /**
  * Created by tarek on 13/03/18.
@@ -116,7 +117,8 @@ public class PostAdapter extends ArrayAdapter<Post> {
                 }
                 else {
                     StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + user.getUid() + "/" + user.getNameImageProfil());
-                    Glide.with(context).using(new FirebaseImageLoader()).load(ref).asBitmap().into(holder.imgUserOneGroup); //image à partir de la réference passée
+//                    Glide.with(context).using(new FirebaseImageLoader()).load(ref).asBitmap().into(holder.imgUserOneGroup); //image à partir de la réference passée
+                    RetrieveImage.glide(ref,context,holder.imgUserOneGroup);
                 }
 
                 new Runnable() {

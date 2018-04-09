@@ -31,6 +31,7 @@ import project.meapy.meapy.RegisterActivity;
 import project.meapy.meapy.bean.Comment;
 import project.meapy.meapy.bean.User;
 import project.meapy.meapy.utils.BuilderFormatDate;
+import project.meapy.meapy.utils.RetrieveImage;
 
 /**
  * Created by tarek on 15/03/18.
@@ -83,7 +84,8 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
                 }
                 else {
                     StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + user.getUid() + "/" + user.getNameImageProfil());
-                    Glide.with(context).using(new FirebaseImageLoader()).load(ref).asBitmap().into(holder.imgUserComment); //image à partir de la réference passée
+//                    Glide.with(context).using(new FirebaseImageLoader()).load(ref).asBitmap().into(holder.imgUserComment); //image à partir de la réference passée
+                    RetrieveImage.glide(ref,context,holder.imgUserComment);
                 }
 
             }
