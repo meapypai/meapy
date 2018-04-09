@@ -25,11 +25,13 @@ import java.util.Map;
 import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.bean.Message;
 import project.meapy.meapy.bean.Notifier;
+import project.meapy.meapy.groups.GroupsList;
 import project.meapy.meapy.groups.joined.MyGroupsActivity;
 import project.meapy.meapy.utils.NotificationWorker;
 import project.meapy.meapy.utils.RunnableWithParam;
 import project.meapy.meapy.utils.firebase.GroupLink;
 import project.meapy.meapy.utils.firebase.MessageLink;
+import project.meapy.meapy.utils.firebase.NotificationLink;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
@@ -56,7 +58,7 @@ public class NotificationThread extends Thread {
     private Map<Integer,Integer> idNotifMessageNotification = new HashMap<>();
 
 
-    private List<Groups> idGroupToNotify = new GroupList();
+    private List<Groups> idGroupToNotify = new GroupsList();
     public NotificationThread(Context context) {
         this.context =  context;
         worker = new NotificationWorker(context);
@@ -124,31 +126,26 @@ public class NotificationThread extends Thread {
 
 
     private void onNewNotif(){
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+"/notifications");
-
-        ref.addChildEventListener(new ChildEventListener() {
+        NotificationLink.provideNotifierByCurrentUser(new RunnableWithParam() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Notifier notif = (Notifier) dataSnapshot.getValue(Notifier.class);
+            public void run() {
+                Notifier notif = (Notifier) getParam();
                 NotificationThread.this.notify(notif);
             }
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {}
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
         });
+
     }
-    private void notify(Notifier notif){
+
+    private PendingIntent getPendingIntentNotifier(Notifier notif){
         //creation de la notification
         Intent intent = new Intent(context, MyGroupsActivity.class);
         intent.putExtra(ID_NOTIFICATION,notif.getId());
 
         intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context,REQUEST_NOTIFICATION,intent,PendingIntent.FLAG_ONE_SHOT);
+        return PendingIntent.getActivity(context,REQUEST_NOTIFICATION,intent,PendingIntent.FLAG_ONE_SHOT);
+    }
+    private void notify(Notifier notif){
+        PendingIntent pendingIntent = getPendingIntentNotifier(notif);
         worker.make(notif.getTitle(),notif.getContent(),pendingIntent,LOGO_NOTIF,
                 ID_NOTIFICATION_NOTIFIER + notif.getId(),Notification.FLAG_AUTO_CANCEL);
        // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -256,52 +253,5 @@ public class NotificationThread extends Thread {
             mChannel.setDescription(description);
         }
         return mChannel;
-    }
-
-
-    public class GroupList extends ArrayList<Groups>{
-        public GroupList(){
-            super();
-        }
-
-        @Override
-        public boolean contains(Object grp){
-            if(!(grp instanceof Groups))
-                return false;
-            synchronized (this){
-                for(Groups group : this)
-                    if(group.equals(grp))
-                        return true;
-                return false;
-            }
-        }
-
-        @Override
-        public boolean add(Groups grp){
-            boolean toAdd = true;
-            synchronized (this){
-                for(Groups group : this)
-                    if(group.equals(grp))
-                        toAdd = false;
-                if(toAdd)
-                    super.add(grp);
-            }
-            return true;
-        }
-
-        @Override
-        public boolean remove(Object grp){
-            if(!(grp instanceof Groups))
-                return false;
-            List<Groups> toRemove = new ArrayList<>();
-            synchronized (this){
-                for(Groups group : this)
-                    if(group.equals(grp))
-                        toRemove.add(group);
-                for(Groups g : toRemove)
-                    super.remove(g);
-            }
-            return true;
-        }
     }
 }
