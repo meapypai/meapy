@@ -213,11 +213,10 @@ public class OneGroupActivity extends MyAppCompatActivity {
                 menuItem.setChecked(true);
                 Intent intent = new Intent(getApplicationContext(),DisciplinePostsActivity.class);
                 intent.putExtra(DisciplinePostsActivity.GROUP_EXTRA_NAME,group);
-                intent.putExtra(DisciplinePostsActivity.DISCS_EXTRA_NAME,(Serializable)listDiscipline);
-                intent.putExtra(DisciplinePostsActivity.CURR_DISC_EXTRA_NAME,listDiscipline.indexOf(disc));
+                intent.putExtra(DisciplinePostsActivity.CURR_DISC_EXTRA_NAME,disc.getId());
                 startActivity(intent);
                 menuItem.setChecked(false);
-                openDrawer();
+                closeDrawer();
                 return false;
             }
         });

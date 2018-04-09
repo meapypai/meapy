@@ -22,8 +22,10 @@ public class PostLink {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                         Post post = dataSnapshot.getValue(Post.class);
-                        onPostAdded.setParam(post);
-                        onPostAdded.run();
+                        if(onPostAdded != null) {
+                            onPostAdded.setParam(post);
+                            onPostAdded.run();
+                        }
                     }
 
                     @Override

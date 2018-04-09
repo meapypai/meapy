@@ -26,6 +26,7 @@ import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.bean.Message;
 import project.meapy.meapy.bean.Notifier;
 import project.meapy.meapy.groups.joined.MyGroupsActivity;
+import project.meapy.meapy.utils.NotificationWorker;
 import project.meapy.meapy.utils.RunnableWithParam;
 import project.meapy.meapy.utils.firebase.GroupLink;
 import project.meapy.meapy.utils.firebase.MessageLink;
@@ -50,13 +51,15 @@ public class NotificationThread extends Thread {
     private static final int ID_NOTIFICATION_MESSAGE = 11;
     private static final int ID_NOTIFICATION_NOTIFIER = 1000;
 
+    private static NotificationWorker worker ;
+
     private Map<Integer,Integer> idNotifMessageNotification = new HashMap<>();
 
-    private NotificationManager notifManager;
 
     private List<Groups> idGroupToNotify = new GroupList();
     public NotificationThread(Context context) {
         this.context =  context;
+        worker = new NotificationWorker(context);
     }
 
     public static void setStartedChatRoom(int idGroup, boolean b){
@@ -115,8 +118,8 @@ public class NotificationThread extends Thread {
     private void removeGroupToNotify(Groups grp){
         idGroupToNotify.remove(grp);
         Integer idNotifToRemove = idNotifMessageNotification.get(grp.getId());
-        if(notifManager != null && idNotifToRemove != null)
-            notifManager.cancel(idNotifToRemove);
+        if(idNotifToRemove != null)
+            worker.cancelNotifById(idNotifToRemove);
     }
 
 
@@ -141,16 +144,16 @@ public class NotificationThread extends Thread {
     }
     private void notify(Notifier notif){
         //creation de la notification
-        notifManager= (NotificationManager)context.getSystemService(NOTIFICATION_SERVICE);
         Intent intent = new Intent(context, MyGroupsActivity.class);
         intent.putExtra(ID_NOTIFICATION,notif.getId());
 
         intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context,REQUEST_NOTIFICATION,intent,PendingIntent.FLAG_ONE_SHOT);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        worker.make(notif.getTitle(),notif.getContent(),pendingIntent,LOGO_NOTIF,
+                ID_NOTIFICATION_NOTIFIER + notif.getId(),Notification.FLAG_AUTO_CANCEL);
+       // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // Create the NotificationChannel
-            CharSequence name = "channel_name";
+           /* CharSequence name = "channel_name";
             String description = "desc";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel mChannel = new NotificationChannel("default", name, importance);
@@ -168,9 +171,9 @@ public class NotificationThread extends Thread {
 
             Notification notification = buildr.build();
             notification.flags = Notification.FLAG_AUTO_CANCEL;
-            notifManager.notify(ID_NOTIFICATION_NOTIFIER + notif.getId(),notification);
-        }else {
-            Notification.Builder builder = new Notification.Builder(context).setWhen(System.currentTimeMillis())
+            notifManager.notify(ID_NOTIFICATION_NOTIFIER + notif.getId(),notification);*/
+       // }else {
+           /* Notification.Builder builder = new Notification.Builder(context).setWhen(System.currentTimeMillis())
                     .setTicker(notif.getTitle())
                     .setSmallIcon(LOGO_NOTIF)
                     .setContentTitle(notif.getTitle())
@@ -178,16 +181,18 @@ public class NotificationThread extends Thread {
                     .setContentIntent(pendingIntent);
             Notification notification = builder.build();
             notification.flags = Notification.FLAG_AUTO_CANCEL;
-            notifManager.notify(ID_NOTIFICATION_NOTIFIER + notif.getId(), notification);
-        }
+            notifManager.notify(ID_NOTIFICATION_NOTIFIER + notif.getId(), notification);*/
+       // }
     }
     private void notifyMessage(Message msg, Groups grp){
         PendingIntent pendingIntent = getPendingIntentMessage(msg,grp);
-        notifManager = (NotificationManager)context.getSystemService(NOTIFICATION_SERVICE);
+        //notifManager = (NotificationManager)context.getSystemService(NOTIFICATION_SERVICE);
         Notification notif = null;
         int idNotifMsg = 0;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel mChannel = getNotificationChannelMessage();
+        notif = worker.make(getTitleMessageNotification(grp,msg),msg.getContent(),pendingIntent,LOGO_NOTIF,
+                ID_NOTIFICATION_MESSAGE+ grp.getId(),Notification.FLAG_AUTO_CANCEL);
+       // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            /*NotificationChannel mChannel = getNotificationChannelMessage();
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this
             if(mChannel != null) {
@@ -201,10 +206,10 @@ public class NotificationThread extends Thread {
                 notif  = buildr.build();
                 setFlagsNotifMessage(notif);
                 idNotifMsg = ID_NOTIFICATION_MESSAGE+ grp.getId();
-                notify(idNotifMsg,notifManager,notif);
-            }
-        }else{
-            Notification.Builder builder = new Notification.Builder(context).setWhen(System.currentTimeMillis())
+                notify(idNotifMsg,notifManager,notif);*/
+            //}
+        //}else{
+            /*Notification.Builder builder = new Notification.Builder(context).setWhen(System.currentTimeMillis())
                     .setTicker("title1")
                     .setSmallIcon(LOGO_NOTIF)
                     .setContentTitle(getTitleMessageNotification(grp,msg))
@@ -213,8 +218,8 @@ public class NotificationThread extends Thread {
             notif = builder.build();
             setFlagsNotifMessage(notif);
             idNotifMsg = ID_NOTIFICATION_MESSAGE+ grp.getId();
-            notify(idNotifMsg,notifManager,notif);
-        }
+            notify(idNotifMsg,notifManager,notif);*/
+        //}
         if(notif != null && idNotifMsg != 0)
             idNotifMessageNotification.put(grp.getId(),idNotifMsg);
     }
