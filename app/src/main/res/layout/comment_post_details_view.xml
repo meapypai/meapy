@@ -55,6 +55,6 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_below="@+id/layoutPost"
-        android:src="@drawable/divider_register" />
+        android:src="@drawable/divider_light_grey" />
 
 </RelativeLayout>
