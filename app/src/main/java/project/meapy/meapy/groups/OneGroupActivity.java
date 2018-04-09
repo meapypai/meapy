@@ -112,7 +112,7 @@ public class OneGroupActivity extends MyAppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(OneGroupActivity.this, AddDisciplineActivity.class);
-                intent.putExtra(AddDisciplineActivity.GROUP_EXTRA_NAME,grp);
+                intent.putExtra(AddDisciplineActivity.GROUP_EXTRA_NAME,group.getId()+"");
                 intent.putParcelableArrayListExtra(AddDisciplineActivity.DISCS_EXTRA_NAME, listDiscipline);
                 startActivity(intent);
             }
@@ -140,6 +140,7 @@ public class OneGroupActivity extends MyAppCompatActivity {
                 Post post = (Post) adapterPost.getItem(i);
                 Intent intent = new Intent(OneGroupActivity.this, PostDetailsActivity.class);
                 intent.putExtra(PostDetailsActivity.POST_EXTRA_NAME,post);
+                intent.putExtra(PostDetailsActivity.ID_GROUP_EXTRA_NAME,group.getId()+"");
                 startActivity(intent);
             }
         });

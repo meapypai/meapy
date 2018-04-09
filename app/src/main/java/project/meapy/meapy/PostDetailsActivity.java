@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -27,7 +28,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -39,6 +44,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import project.meapy.meapy.bean.Comment;
+import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.bean.Post;
 import project.meapy.meapy.comments.CommentAdapter;
 import project.meapy.meapy.utils.RunnableWithParam;
@@ -50,7 +56,10 @@ public class PostDetailsActivity extends MyAppCompatActivity {
     private Post curPost;
     private Menu menu;
 
+    private ImageButton downPostDetails;
+    private ImageButton upPostDetails;
     private ImageButton sendComment;
+
     private RelativeLayout layoutDescriptionFile;
     private EditText commentContent;
     private TextView titlePostTv;
@@ -58,11 +67,15 @@ public class PostDetailsActivity extends MyAppCompatActivity {
     private TextView contentPostTv;
 
     public static final String POST_EXTRA_NAME = "POST";
+    public static final String ID_GROUP_EXTRA_NAME = "ID_GROUP";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_details);
+
+        downPostDetails = (ImageButton)findViewById(R.id.downPostDetails);
+        upPostDetails = (ImageButton)findViewById(R.id.upPostDetails);
 
         layoutDescriptionFile = (RelativeLayout)findViewById(R.id.layoutDescriptionFile);
         commentContent        = findViewById(R.id.contentCommentPostDetails);
@@ -72,10 +85,12 @@ public class PostDetailsActivity extends MyAppCompatActivity {
         contentPostTv         = findViewById(R.id.contentPostDetails);
 
         final Post post = (Post) getIntent().getSerializableExtra(POST_EXTRA_NAME);
+        final String idGroup = getIntent().getStringExtra(ID_GROUP_EXTRA_NAME);
         curPost = post;
 
         contentPostTv.setText(post.getTextContent());
 
+        Toast.makeText(this,idGroup,Toast.LENGTH_SHORT).show();
 
         titlePostTv.setText(post.getTitle());
 
@@ -91,6 +106,22 @@ public class PostDetailsActivity extends MyAppCompatActivity {
         }else{
             descFiles.setText(getString(R.string.no_files));
         }
+
+        downPostDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MarkThread markThread = new MarkThread(v,post,idGroup);
+                markThread.run();
+            }
+        });
+
+        upPostDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MarkThread markThread = new MarkThread(v,post,idGroup);
+                markThread.run();
+            }
+        });
 
         sendComment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -254,6 +285,42 @@ public class PostDetailsActivity extends MyAppCompatActivity {
         public synchronized void onFailure(@NonNull Exception e) {
             // failure
             Toast.makeText(getApplicationContext(), "file "+(++i)+" download fail", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    private class MarkThread implements Runnable {
+
+        private Post post;
+        private String idGroup;
+        private ImageView imageView;
+
+        public MarkThread(View view, Post post, String idGroup) {
+            this.post = post;
+            this.idGroup = idGroup;
+            this.imageView = (ImageView)view;
+        }
+
+        @Override
+        public synchronized void run() {
+            String ref = "groups/" + idGroup + "/disciplines/" + post.getDisciplineId() + "/posts/" + post.getId();
+            final DatabaseReference refPost = FirebaseDatabase.getInstance().getReference(ref);
+            refPost.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Post p = (Post)dataSnapshot.getValue(Post.class);
+                    if(imageView.equals(upPostDetails)) {
+                        refPost.child("nbPositiveMark").setValue(p.getNbPositiveMark() + 1);
+                    }
+                    else if(imageView.equals(downPostDetails)) {
+                        refPost.child("nbNegativeMark").setValue(p.getNbNegativeMark() + 1);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
         }
     }
 }

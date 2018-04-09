@@ -13,7 +13,8 @@ public class Post extends DomainObject{
     private String user;
     private String nameImageUser;
     private String textContent;
-    private int diffUpDown;
+    private int nbPositiveMark;
+    private int nbNegativeMark;
     //private String filePath;
     private List<String> filesPaths = new ArrayList<>();
     private int groupId;
@@ -97,14 +98,6 @@ public class Post extends DomainObject{
         this.user = user;
     }
 
-    public int getDiffUpDown() {
-        return diffUpDown;
-    }
-
-    public void setDiffUpDown(int diffUpDown) {
-        this.diffUpDown = diffUpDown;
-    }
-
     public Date getDate() {
         return date;
     }
@@ -119,5 +112,21 @@ public class Post extends DomainObject{
 
     public void setNameImageUser(String nameImageUser) {
         this.nameImageUser = nameImageUser;
+    }
+
+    public int getNbPositiveMark() {
+        return nbPositiveMark;
+    }
+
+    public void setNbPositiveMark(int nbPositiveMark) {
+        this.nbPositiveMark = nbPositiveMark;
+    }
+
+    public int getNbNegativeMark() {
+        return nbNegativeMark;
+    }
+
+    public void setNbNegativeMark(int nbNegativeMark) {
+        this.nbNegativeMark = nbNegativeMark;
     }
 }
