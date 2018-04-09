@@ -48,7 +48,7 @@
     <!-- add discipline activity -->
     <string name="creation_of_discipline">Ajouter une discipline</string>
     <string name="discipline_name_hint">Nom de la discipline</string>
-    <style name="displine_already_exists">La matière existe déjà</style>
+    <string name="displine_already_exists">La matière existe déjà</string>
 
     <!-- chat room activity -->
     <string name="write_message_hint">Ecrire un message...</string>
