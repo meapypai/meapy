@@ -43,6 +43,7 @@
                     android:id="@+id/imageGroupOneGroup"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/logo_app1" />
 
                 <RelativeLayout
