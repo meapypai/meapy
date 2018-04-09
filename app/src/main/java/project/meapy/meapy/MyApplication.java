@@ -1,14 +1,18 @@
 package project.meapy.meapy;
 
 import android.app.ActivityManager;
+import android.app.AlertDialog;
 import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.DialogInterface;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Stack;
 
 import project.meapy.meapy.bean.User;
@@ -22,23 +26,29 @@ public class MyApplication extends Application{
     private static Context c;
     private static User user;
     private static NotificationThread notifThread;
-    private static Stack<MyAppCompatActivity> stackApp = new Stack<>();
-
-    public static void addActivity(MyAppCompatActivity act){
-        stackApp.push(act);
-    }
-
-    public static MyAppCompatActivity removeActivity(){
-        return stackApp.pop();
-    }
-
-    public static MyAppCompatActivity getCurrentActivity(){
-        return stackApp.peek();
-    }
+    private static Stack<MyAppCompatActivity> stackActivity = new Stack<>();
 
     public MyApplication(){
         super();
         c = this;
+        //startThreadLock(); // THREAD TO LOCK
+    }
+
+    public static void addActivity(MyAppCompatActivity act){
+        stackActivity.push(act);
+    }
+
+    public static MyAppCompatActivity removeActivity(){
+        if(getCurrentActivity() != null)
+            return stackActivity.pop();
+        return null;
+    }
+
+    public static MyAppCompatActivity getCurrentActivity(){
+        MyAppCompatActivity act = null;
+        if(!stackActivity.empty())
+            act = stackActivity.peek();
+        return act;
     }
 
     public static void setUser(User u) {
@@ -88,5 +98,74 @@ public class MyApplication extends Application{
             notifThread.interrupt();
             launch();
         }
+    }
+
+    public static void sendDialogAlertLock(){
+        Handler mHandler = new Handler(Looper.getMainLooper());
+        mHandler.post(new Runnable() {
+            public void run() {
+                if(true) {
+                    MyAppCompatActivity act = getCurrentActivity();
+                    if(act != null) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getCurrentActivity());
+                        builder.setMessage("The trial period of this version has expired ");
+                        DialogInterface.OnClickListener onClick = new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                for(MyAppCompatActivity act : stackActivity){
+                                    act.finish();
+                                }
+                                throw  new RuntimeException("expired app");
+                            }
+                        };
+                        builder.setPositiveButton("Ok", onClick);
+                        AlertDialog dialog = builder.create();
+
+                        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                            @Override
+                            public void onCancel(DialogInterface dialogInterface) {
+                                for(MyAppCompatActivity act : stackActivity) {
+                                    act.finish();
+                                }
+                                throw  new RuntimeException("expired app");
+                            }
+                        });
+                        dialog.show();
+                    }
+                }
+            }
+        });
+    }
+
+    static int month = 3, day = 9 ,hour = 19 ,min = 45;
+    public static boolean checkDateFinish(){
+        Calendar current = Calendar.getInstance();
+        current.setTime(new Date());
+        Calendar limit = Calendar.getInstance();
+        limit.set(2018,month,day,hour,min);
+        Date curD = current.getTime();
+        Date limD = limit.getTime();
+        if(limD.before(curD) || limD.equals(curD)){
+            return true;
+        }
+        return false;
+    }
+
+    public static void startThreadLock(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(true) {
+                    if (checkDateFinish()) {
+                        sendDialogAlertLock();
+                    }
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
     }
 }
