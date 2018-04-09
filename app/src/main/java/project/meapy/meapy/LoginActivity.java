@@ -14,9 +14,6 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.Calendar;
-import java.util.Date;
-
 import project.meapy.meapy.groups.joined.MyGroupsActivity;
 import project.meapy.meapy.logins.DefaultLogin;
 
@@ -75,6 +72,7 @@ public class LoginActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
         if (currentUser != null){
 
             Intent intent = new Intent(LoginActivity.this, MyGroupsActivity.class);
@@ -83,24 +81,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onResume(){
-        super.onResume();
-        // TODO TODO a supprimer !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        if(checkDateFinish()){
-            finish();
-        }
-    }
-
-    private boolean checkDateFinish(){
-        Date current = new Date();
-        Calendar limit = Calendar.getInstance();
-        int month = 4, day = 9 ,hour = 15 ,min = 7;
-        limit.set(2018,month,day,hour,min);
-        if(limit.getTime().after(current)){
-            return true;
-        }return false;
-    }
 
 
 
