@@ -27,20 +27,24 @@ public class DisciplinePostsActivity extends MyAppCompatActivity {
     public static final String CURR_DISC_EXTRA_NAME = "CURRDISCIDX";
     public static final String DISCS_EXTRA_NAME = "DISCS";
 
+    private final List<Discipline> discList = new ArrayList<>();
+
+    private Spinner spinner;
+    private ArrayAdapter<Discipline> dataDiscsAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discipline_posts);
         grp = (Groups) getIntent().getSerializableExtra(GROUP_EXTRA_NAME);
 
-        //List<Discipline> discList = (List<Discipline>) getIntent().getSerializableExtra(DISCS_EXTRA_NAME);
-        final int current = (int) getIntent().getSerializableExtra(CURR_DISC_EXTRA_NAME);
+        final int currentDiscId = (int) getIntent().getSerializableExtra(CURR_DISC_EXTRA_NAME);
 
-        final Spinner spinner = findViewById(R.id.spinnerDiscPosts);
-
-        final List<Discipline> discList = new ArrayList<>();
-        final ArrayAdapter<Discipline> dataDiscsAdapter = new ArrayAdapter<Discipline>(this,
+        dataDiscsAdapter = new ArrayAdapter<Discipline>(this,
                 android.R.layout.simple_spinner_item, discList);
+
+        spinner = findViewById(R.id.spinnerDiscPosts);
+
         dataDiscsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(dataDiscsAdapter);
         DisciplineLink.getDisciplineByGroupId(grp.getId(), new RunnableWithParam() {
@@ -48,14 +52,14 @@ public class DisciplinePostsActivity extends MyAppCompatActivity {
             public void run() {
                 Discipline disc = (Discipline) getParam();
                 dataDiscsAdapter.add(disc);
-                if(current == disc.getId()){
+                if(currentDiscId == disc.getId()){
                     int idx = dataDiscsAdapter.getPosition(disc);
                     spinner.setSelection(idx);
                 }
 
             }
         },null);
-        //spinner.setSelection(current);
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
