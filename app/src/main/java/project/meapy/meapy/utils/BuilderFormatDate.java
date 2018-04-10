@@ -38,7 +38,7 @@ public class BuilderFormatDate {
         Long s = (dToday.getTime() - d.getTime())/1000;
         int hours = (int) (s / 3600);
         int minutes = (int) (s / 60);
-        int seconds = (int) (minutes % 60);
+        int seconds = (int) (s % 60);
         int days = hours / 24;
         if(days == 0) {
             if(hours == 0) {
