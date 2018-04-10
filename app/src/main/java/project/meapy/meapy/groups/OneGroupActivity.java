@@ -279,6 +279,11 @@ public class OneGroupActivity extends MyAppCompatActivity {
                 intent  = new Intent(this, MembersActivity.class);
                 intent.putExtra(ChatRoomActivity.EXTRA_GROUP_ID,group.getId()+"");
                 break;
+            case R.id.shareGroup:
+                intent = new Intent(Intent.ACTION_SEND);
+                intent.putExtra(Intent.EXTRA_TEXT,getResources().getString(R.string.invitation_code_to_group) + " " +generateCodeForGroup());
+                intent.setType("text/plain");
+                startActivityForResult(Intent.createChooser(intent,"Share code"), 20);
         }
         if(intent != null) {
             startActivity(intent);
@@ -287,12 +292,21 @@ public class OneGroupActivity extends MyAppCompatActivity {
     }
 
     private void inviteAction(){
+        String generatedCode = generateCodeForGroup();
+        saveCodeIntoClipboard(generatedCode);
+    }
+
+    private String generateCodeForGroup(){
         String generatedCode = group.getCodeToJoin();
         if((group.getCodeToJoin() == null) || (group.getCodeToJoin().length()==0)){
             generatedCode = CodeGroupsGenerator.generate();
             group.setCodeToJoin(generatedCode);
             InvitationLink.setInviteCode(group,generatedCode);
         }
+        return generatedCode;
+    }
+
+    private void saveCodeIntoClipboard(String generatedCode ) {
         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText("simple text", generatedCode);
         clipboard.setPrimaryClip(clip);
