@@ -61,7 +61,7 @@ public class PostAdapter extends ArrayAdapter<Post> {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         final PostHolder holder;
 
         if(convertView == null) {
@@ -101,6 +101,7 @@ public class PostAdapter extends ArrayAdapter<Post> {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Post p = (Post)dataSnapshot.getValue(Post.class);
+                list.set(position,p); //to update the post of the list
                 holder.nbPosMarkOneGroup.setText(String.valueOf(p.getNbPositiveMark()));
                 holder.nbNegMarkOneGroup.setText(String.valueOf(p.getNbNegativeMark()));
             }
