@@ -61,8 +61,8 @@ public class SendFileActivity extends MyAppCompatActivity {
     private static  final int REQUEST_PERMISSION_READ_EXTERNAL_STORAGE = 7;
     private static final int REQUEST_LOAD_FILE = 5;
 
-    private static final int LIMIT_DESCRIPTION_LENGTH = 20;
-    private static final int LIMIT_TITLE_LENGTH = 20;
+    private static final int LIMIT_DESCRIPTION_LENGTH = 15;
+    private static final int LIMIT_TITLE_LENGTH = 15;
 
     private ImageButton addDiscBtn;
     private ImageButton addGrpBtn;

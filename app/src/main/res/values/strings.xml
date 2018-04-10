@@ -69,6 +69,7 @@
     <string name="limit_hint">Limit</string>
     <string name="add_user_create_group">Add user</string>
     <string name="invalid_name_group">Name group invalid</string>
+    <string name="group_created">Group created</string>
 
     <string name="create_group_button">CREATE</string>
 
@@ -121,7 +122,7 @@
     <string name="error_length_file">Length files must be lower than</string>
     <string name="error_fields_file">You must choose groups and discpline</string>
     <string name="caracters">caracters</string>
-
+    <string name="post_added">Post added</string>
 
     <!-- one group activity -->
     <string name="code_saved_clip_toast">code saved in the clipboard</string>

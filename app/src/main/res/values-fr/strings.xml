@@ -68,6 +68,7 @@
     <string name="limit_hint">Limite</string>
     <string name="add_user_create_group">Ajouter une personne</string>
     <string name="invalid_name_group">Nom de groupe invalide</string>
+    <string name="group_created">Groupe créé</string>
 
     <string name="create_group_button">CREER</string>
 
@@ -121,6 +122,7 @@
     <string name="error_length_file">La taille des fichiers doit être plus petite que </string>
     <string name="error_fields_file">Groupe et matière requis</string>
     <string name="caracters">caractères</string>
+    <string name="post_added">Post ajouté</string>
 
     <!-- one group activity -->
     <string name="code_saved_clip_toast">Code copié dans le presse-papier</string>

@@ -197,7 +197,7 @@ public class CreateGroupActivity extends MyAppCompatActivity {
     }
 
     private void onSucessInsertFile(File file, Groups newGroup){
-        Toast.makeText(CreateGroupActivity.this, "inserting group", Toast.LENGTH_LONG).show();
+//        Toast.makeText(CreateGroupActivity.this, "inserting group", Toast.LENGTH_LONG).show();
         if(file == null) {
             newGroup.setImageName(CreateGroupActivity.DEFAULT_IMAGE_GROUP);
         }
