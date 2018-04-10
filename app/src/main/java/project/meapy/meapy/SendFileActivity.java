@@ -423,7 +423,6 @@ public class SendFileActivity extends MyAppCompatActivity {
             if(resultCode == RESULT_OK) {
                 File file = new File(mCurrentPhotoPath);
                 correct_file.setBackgroundTintList(ContextCompat.getColorStateList(SendFileActivity.this,android.R.color.holo_green_dark));
-                Toast.makeText(getApplicationContext(),file.getName(),Toast.LENGTH_LONG).show();
                 addDocument(file);
             }
         }

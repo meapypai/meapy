@@ -68,6 +68,7 @@
     <string name="tag_name_hint">Tag group</string>
     <string name="limit_hint">Limit</string>
     <string name="add_user_create_group">Add user</string>
+    <string name="invalid_name_group">Name group invalid</string>
 
     <string name="create_group_button">CREATE</string>
 
@@ -77,6 +78,15 @@
     <!-- discipline posts-->
     <string name="disc_post_textlabel">Discipline</string>
     <string name="disc_detail_search_button_label">SEARCH</string>
+        <!--adapter post-->
+    <string name="second_text_post">second ago</string>
+    <string name="seconds_text_post">seconds ago</string>
+    <string name="minute_text_post">minute ago</string>
+    <string name="minutes_text_post">minutes ago</string>
+    <string name="hour_text_post">hour ago</string>
+    <string name="hours_text_post">hours ago</string>
+    <string name="day_text_post">day ago</string>
+    <string name="days_text_post">days ago</string>
 
     <!--post view one group-->
     <string name="name_discipline">DISCIPLINE</string>

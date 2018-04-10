@@ -67,6 +67,7 @@
     <string name="tag_name_hint">Tag du groupe</string>
     <string name="limit_hint">Limite</string>
     <string name="add_user_create_group">Ajouter une personne</string>
+    <string name="invalid_name_group">Nom de groupe invalide</string>
 
     <string name="create_group_button">CREER</string>
 
@@ -116,7 +117,7 @@
     <string name="descr_send_label">Description</string>
     <string name="send_btn_label">Ajouter</string>
     <string name="error_description_file">La description doit avoir au moins</string>
-    <string name="error_title_file">Le title doit avoir au moins</string>
+    <string name="error_title_file">Le titre doit contenir au moins</string>
     <string name="error_length_file">La taille des fichiers doit être plus petite que </string>
     <string name="error_fields_file">Groupe et matière requis</string>
     <string name="caracters">caractères</string>

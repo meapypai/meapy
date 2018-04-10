@@ -49,7 +49,7 @@ public class CreateGroupActivity extends MyAppCompatActivity {
 
     private static final int MIN_LENGTH_NAME_GROUP = 3;
 
-    private ErrorView errorView;
+//    private ErrorView errorView; //pas utilisé pr le moment
 
     private EditText nameCreateGroup;
     private TextView imageCreateGroup;
@@ -112,10 +112,11 @@ public class CreateGroupActivity extends MyAppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {String nameGroup = nameCreateGroup.getText().toString();
+                ImageView correct_name_group = (ImageView)findViewById(R.id.correct_name_group);
                 if(checkNameGroup(nameGroup)){
-                    nameCreateGroup.setTextColor(Color.GREEN);
+                    correct_name_group.setBackgroundTintList(ContextCompat.getColorStateList(CreateGroupActivity.this,android.R.color.holo_green_dark));
                 }else{
-                    nameCreateGroup.setTextColor(Color.RED);
+                    correct_name_group.setBackgroundTintList(ContextCompat.getColorStateList(CreateGroupActivity.this,android.R.color.white));
                 }
             }
         });
@@ -131,48 +132,43 @@ public class CreateGroupActivity extends MyAppCompatActivity {
 
                 String errorMessage = "";
 
-                try {
-                    if (checkNameGroup(nameGroup)) {
-                        // START TEST INSERTION INTO DATABASE WITHOUT FILE
-                        final Groups newGroup = new Groups();
-                        newGroup.setName(nameGroup);
-                        newGroup.setSummary(summary);
+                if (checkNameGroup(nameGroup)) {
+                    // START TEST INSERTION INTO DATABASE WITHOUT FILE
+                    final Groups newGroup = new Groups();
+                    newGroup.setName(nameGroup);
+                    newGroup.setSummary(summary);
 
-                        // END TEST
-                        final File file = new File(pathFile);
-                        if(file.exists()) {
-                            FileLink.insertFile(new RunnableWithParam() {
-                                @Override
-                                public void run() {
-                                    onSucessInsertFile(file,newGroup);
-                                }
-                            },file,newGroup);
-                        }
-                        else {
-                            new Runnable() {
-                                @Override
-                                public void run() {
-                                    onSucessInsertFile(null,newGroup);
-                                }
-                            }.run();
-                        }
+                    // END TEST
+                    final File file = new File(pathFile);
+                    if(file.exists()) {
+                        FileLink.insertFile(new RunnableWithParam() {
+                            @Override
+                            public void run() {
+                                onSucessInsertFile(file,newGroup);
+                            }
+                        },file,newGroup);
                     }
                     else {
-                        errorMessage = "Name groupe invalid";
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                onSucessInsertFile(null,newGroup);
+                            }
+                        }.run();
                     }
                 }
-                catch(NumberFormatException e) {
-                    errorMessage = "Limit invalid";
+                else {
+                    Toast.makeText(CreateGroupActivity.this,getResources().getString(R.string.invalid_name_group),Toast.LENGTH_SHORT).show();
                 }
 
-                if(errorView == null) {
-                    errorView = new ErrorView(CreateGroupActivity.this);
-
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
-                    CreateGroupActivity.this.addContentView(errorView, params);
-                }
-                errorView.setText(errorMessage);
+//                if(errorView == null) {
+//                    errorView = new ErrorView(CreateGroupActivity.this);
+//
+//                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+//
+//                    CreateGroupActivity.this.addContentView(errorView, params);
+//                }
+//                errorView.setText(errorMessage);
                 btn.setEnabled(true);
             }
         });
@@ -193,8 +189,6 @@ public class CreateGroupActivity extends MyAppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if(MyApplication.getUser() !=  null)
-            Toast.makeText(getApplicationContext(),"user : "+ MyApplication.getUser().getLastName(),Toast.LENGTH_LONG).show();
 
         //change widgets'color in terms of settings
         insertCreateGroup.setBackgroundTintList(ContextCompat.getColorStateList(this,colorId));
