@@ -27,10 +27,12 @@
 
     </LinearLayout>
     <ListView
+        android:id="@+id/listPostDiscPosts"
         android:layout_below="@id/headerDiscPosts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/listPostDiscPosts">
+        android:dividerHeight="5dp"
+        android:divider="@android:color/transparent">
 
 
     </ListView>
