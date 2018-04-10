@@ -98,7 +98,6 @@ public class ProfilActivity extends MyAppCompatActivity {
     }
 
     private void onSucessInsertFile() {
-        Toast.makeText(this, "ok:" + MyApplication.getUser().getUid(), Toast.LENGTH_SHORT).show();
         if(MyApplication.getUser() != null) {
             StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + MyApplication.getUser().getUid() + "/" + MyApplication.getUser().getNameImageProfil());
             Toast.makeText(this, MyApplication.getUser().getUid(), Toast.LENGTH_LONG).show();
