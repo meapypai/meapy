@@ -91,13 +91,14 @@ public class PostDetailsActivity extends MyAppCompatActivity {
         curPost = post;
 
 
-        //if post already marked by the user
+//        if post already marked by the user
         if(postAlreadyMarked(post,"negative")) {
-            disablePosMarkButton();
+            markDownBtn();
+            demarkUpBtn();
         }
-        else if(postAlreadyMarked(post,"positive")) {
-            Toast.makeText(this,"oii",Toast.LENGTH_SHORT).show();
-            disableNegMarkButton();
+        else if( postAlreadyMarked(post,"positive")) {
+            markUpBtn();
+            demarkDownBtn();
         }
 
         //set description detail and title
@@ -123,32 +124,17 @@ public class PostDetailsActivity extends MyAppCompatActivity {
         downPostDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(postAlreadyMarked(post,"negative")) {
-                    enablePosMarkButton();
-                }
-                else if(postAlreadyMarked(post,"positive")) {
-                    disableNegMarkButton();
-                }
-                else {
-                    MarkThread markThread = new MarkThread(v,post,idGroup);
-                    markThread.run();
-                }
+                MarkThread markThread = new MarkThread(v,post,idGroup);
+                markThread.run();
+
             }
         });
 
         upPostDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(postAlreadyMarked(post,"positive")) {
-                    enableNegMarkButton();
-                }
-                else if(postAlreadyMarked(post,"negative")) {
-                    disablePosMarkButton();
-                }
-                else {
-                    MarkThread markThread = new MarkThread(v,post,idGroup);
-                    markThread.run();
-                }
+                MarkThread markThread = new MarkThread(v,post,idGroup);
+                markThread.run();
             }
         });
 
@@ -339,17 +325,45 @@ public class PostDetailsActivity extends MyAppCompatActivity {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     Post p = (Post)dataSnapshot.getValue(Post.class);
+                    //positive
                     if(imageView.equals(upPostDetails)) {
-                        refPost.child("nbPositiveMark").setValue(p.getNbPositiveMark() + 1);
-                        refPost.child("markedByUserId/" + MyApplication.getUser().getUid()).setValue("positive");
-                        //set colors buttons marks
-                        disableNegMarkButton();
+                        if(postAlreadyMarked(p,"positive")) {
+                            refPost.child("nbPositiveMark").setValue(p.getNbPositiveMark() - 1);
+                            refPost.child("markedByUserId/" + MyApplication.getUser().getUid()).removeValue();
+                            demarkUpBtn();
+                        }
+                        else if(postAlreadyMarked(p,"negative")) {
+                            refPost.child("nbPositiveMark").setValue(p.getNbPositiveMark() + 1);
+                            refPost.child("nbNegativeMark").setValue(p.getNbNegativeMark() - 1);
+                            refPost.child("markedByUserId/" + MyApplication.getUser().getUid()).setValue("positive");
+                            demarkDownBtn();
+                            markUpBtn();
+                        }
+                        else {
+                            refPost.child("nbPositiveMark").setValue(p.getNbPositiveMark() + 1);
+                            markUpBtn();
+                            refPost.child("markedByUserId/" + MyApplication.getUser().getUid()).setValue("positive");
+                        }
                     }
+                    //negative
                     else if(imageView.equals(downPostDetails)) {
-                        refPost.child("nbNegativeMark").setValue(p.getNbNegativeMark() + 1);
-                        refPost.child("markedByUserId/" + MyApplication.getUser().getUid()).setValue("negative");
-                        //set colors buttons marks
-                        disablePosMarkButton();
+                        if(postAlreadyMarked(p,"negative")) {
+                            refPost.child("nbNegativeMark").setValue(p.getNbNegativeMark() - 1);
+                            refPost.child("markedByUserId/" + MyApplication.getUser().getUid()).removeValue();
+                            demarkDownBtn();
+                        }
+                        else if(postAlreadyMarked(p,"positive")) {
+                            refPost.child("markedByUserId/" + MyApplication.getUser().getUid()).setValue("negative");
+                            refPost.child("nbPositiveMark").setValue(p.getNbPositiveMark() - 1);
+                            refPost.child("nbNegativeMark").setValue(p.getNbNegativeMark() + 1);
+                            demarkUpBtn();
+                            markDownBtn();
+                        }
+                        else {
+                            refPost.child("nbNegativeMark").setValue(p.getNbNegativeMark() + 1);
+                            markDownBtn();
+                            refPost.child("markedByUserId/" + MyApplication.getUser().getUid()).setValue("negative");
+                        }
                     }
                 }
 
@@ -360,37 +374,34 @@ public class PostDetailsActivity extends MyAppCompatActivity {
         }
     }
 
-    private void disableNegMarkButton() {
-        downPostDetails.setBackgroundTintList(ContextCompat.getColorStateList(PostDetailsActivity.this,R.color.lightGrey));
-        upPostDetails.setBackgroundTintList(ContextCompat.getColorStateList(PostDetailsActivity.this,android.R.color.white));
-        LinearLayout layoutUpPost = (LinearLayout)findViewById(R.id.layoutUpPost);
-        layoutUpPost.setBackground(ContextCompat.getDrawable(PostDetailsActivity.this,R.drawable.background_post_marked_up));
+
+    private void markDownBtn() {
+        LinearLayout layout = (LinearLayout)findViewById(R.id.layoutDownPost);
+        downPostDetails.setBackgroundTintList(ContextCompat.getColorStateList(PostDetailsActivity.this, R.color.lightGrey));
+        layout.setBackground(ContextCompat.getDrawable(PostDetailsActivity.this, R.drawable.background_post_marked_down));
     }
 
-    private void enableNegMarkButton() {
+    private void demarkDownBtn() {
+        LinearLayout layout = (LinearLayout)findViewById(R.id.layoutDownPost);
         downPostDetails.setBackgroundTintList(ContextCompat.getColorStateList(PostDetailsActivity.this,android.R.color.holo_red_dark));
-        upPostDetails.setBackgroundTintList(ContextCompat.getColorStateList(PostDetailsActivity.this,android.R.color.holo_green_dark));
-        LinearLayout layoutUpPost = (LinearLayout)findViewById(R.id.layoutUpPost);
-        layoutUpPost.setBackground(ContextCompat.getDrawable(PostDetailsActivity.this,R.drawable.note_background_post));
+        layout.setBackground(ContextCompat.getDrawable(PostDetailsActivity.this,R.drawable.note_background_post));
     }
 
-    private void disablePosMarkButton() {
+    private void markUpBtn() {
+        LinearLayout layout = (LinearLayout)findViewById(R.id.layoutUpPost);
         upPostDetails.setBackgroundTintList(ContextCompat.getColorStateList(PostDetailsActivity.this,R.color.lightGrey));
-        downPostDetails.setBackgroundTintList(ContextCompat.getColorStateList(PostDetailsActivity.this,android.R.color.white));
-        LinearLayout layoutDownPost = (LinearLayout)findViewById(R.id.layoutDownPost);
-        layoutDownPost.setBackground(ContextCompat.getDrawable(PostDetailsActivity.this,R.drawable.background_post_marked_down));
+        layout.setBackground(ContextCompat.getDrawable(PostDetailsActivity.this,R.drawable.background_post_marked_up));
     }
 
-    private void enablePosMarkButton() {
+    private void demarkUpBtn() {
+        LinearLayout layout = (LinearLayout)findViewById(R.id.layoutUpPost);
         upPostDetails.setBackgroundTintList(ContextCompat.getColorStateList(PostDetailsActivity.this,android.R.color.holo_green_dark));
-        downPostDetails.setBackgroundTintList(ContextCompat.getColorStateList(PostDetailsActivity.this,android.R.color.holo_red_dark));
-        LinearLayout layoutDownPost = (LinearLayout)findViewById(R.id.layoutDownPost);
-        layoutDownPost.setBackground(ContextCompat.getDrawable(PostDetailsActivity.this,R.drawable.note_background_post));
+        layout.setBackground(ContextCompat.getDrawable(PostDetailsActivity.this,R.drawable.note_background_post));
     }
 
-    private boolean postAlreadyMarked(Post post, String posOrNeg) {
-        if(post.getMarkedByUserId().containsKey(MyApplication.getUser().getUid())) {
-            if(post.getMarkedByUserId().get(MyApplication.getUser().getUid()).equals(posOrNeg)) {
+    private boolean postAlreadyMarked(Post p, String posOrNeg) {
+        if(p.getMarkedByUserId().containsKey(MyApplication.getUser().getUid())) {
+            if(p.getMarkedByUserId().get(MyApplication.getUser().getUid()).equals(posOrNeg)) {
                 return true;
             }
         }
