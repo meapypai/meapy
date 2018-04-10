@@ -186,6 +186,7 @@
                                 android:background="@drawable/ic_exposure_plus_1_white_24dp"/>
 
                             <TextView
+                                android:id="@+id/nbPosMarkOneGroup"
                                 android:layout_marginLeft="7dp"
                                 android:layout_gravity="center"
                                 android:layout_width="wrap_content"
@@ -211,6 +212,7 @@
                                 android:background="@drawable/ic_exposure_neg_1_white_24dp"/>
 
                             <TextView
+                                android:id="@+id/nbNegMarkOneGroup"
                                 android:layout_marginLeft="7dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"

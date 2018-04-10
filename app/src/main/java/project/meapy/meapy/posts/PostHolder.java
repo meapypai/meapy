@@ -19,4 +19,6 @@ public class PostHolder {
     public TextView datePost;
     public TextView nbCommentOneGroup;
     public ImageView barLeftPost;
+    public TextView nbNegMarkOneGroup;
+    public TextView nbPosMarkOneGroup;
 }

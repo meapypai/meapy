@@ -3,6 +3,9 @@ package project.meapy.meapy.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by yassi on 11/03/2018.
  */
@@ -118,4 +121,5 @@ public class User implements Parcelable {
     public void setRank(int rank) {
         this.rank = rank;
     }
+
 }

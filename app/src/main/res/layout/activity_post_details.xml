@@ -103,6 +103,7 @@
             android:layout_gravity="center">
 
             <LinearLayout
+                android:id="@+id/layoutUpPost"
                 android:padding="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -119,6 +120,7 @@
 
 
             <LinearLayout
+                android:id="@+id/layoutDownPost"
                 android:padding="5dp"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"

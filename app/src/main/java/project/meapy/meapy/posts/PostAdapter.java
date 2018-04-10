@@ -25,6 +25,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import org.w3c.dom.Text;
+
 import java.util.Date;
 import java.util.List;
 
@@ -73,8 +75,9 @@ public class PostAdapter extends ArrayAdapter<Post> {
             holder.datePost        = (TextView)convertView.findViewById(R.id.datePost);
             holder.nbCommentOneGroup = (TextView)convertView.findViewById(R.id.nbCommentOneGroup);
             holder.barLeftPost = (ImageView)convertView.findViewById(R.id.barLeftPost);
+            holder.nbNegMarkOneGroup = (TextView)convertView.findViewById(R.id.nbNegMarkOneGroup);
+            holder.nbPosMarkOneGroup = (TextView)convertView.findViewById(R.id.nbPosMarkOneGroup);
             convertView.setTag(holder);
-//            holder.diffUpDown  = (TextView)convertView.findViewById(R.id.diffUpDown);
         }
         else {
             holder = (PostHolder) convertView.getTag();
@@ -89,10 +92,28 @@ public class PostAdapter extends ArrayAdapter<Post> {
         holder.user.setText(currentPost.getUser());
         holder.datePost.setText(BuilderFormatDate.getNbDayPastSinceToday(currentPost.getDate()));
 
-        DatabaseReference refComments = FirebaseDatabase.getInstance().getReference("groups/"+currentPost.getGroupId()+"/disciplines/"
-                                                             +currentPost.getDisciplineId()+"/posts/"
-                                                             +currentPost.getId()+"/comments");
+        String refPostStr = "groups/"+currentPost.getGroupId()+"/disciplines/"
+                +currentPost.getDisciplineId()+"/posts/"
+                +currentPost.getId();
 
+        DatabaseReference refPost = FirebaseDatabase.getInstance().getReference(refPostStr);
+        refPost.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Post p = (Post)dataSnapshot.getValue(Post.class);
+                holder.nbPosMarkOneGroup.setText(String.valueOf(p.getNbPositiveMark()));
+                holder.nbNegMarkOneGroup.setText(String.valueOf(p.getNbNegativeMark()));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+//        listener for number of comments
+        DatabaseReference refComments = FirebaseDatabase.getInstance().getReference(refPostStr +"/comments");
         refComments.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -106,6 +127,8 @@ public class PostAdapter extends ArrayAdapter<Post> {
             }
         });
 
+
+//        listener for update the image of the person who post
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users/"+currentPost.getUser_uid());
         userRef.addValueEventListener(new ValueEventListener() {
             @Override

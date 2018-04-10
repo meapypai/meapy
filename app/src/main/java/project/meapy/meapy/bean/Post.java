@@ -2,7 +2,9 @@ package project.meapy.meapy.bean;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by tarek on 08/03/18.
@@ -22,6 +24,7 @@ public class Post extends DomainObject{
     private String disciplineName;
     private int disciplineId;
     private Date date;
+    protected Map<String,String> markedByUserId = new HashMap<>(); //users id who marked the post and in value positive or negative
 
     public List<String> getFilesPaths() {
         return filesPaths;
@@ -128,5 +131,14 @@ public class Post extends DomainObject{
 
     public void setNbNegativeMark(int nbNegativeMark) {
         this.nbNegativeMark = nbNegativeMark;
+    }
+
+
+    public Map<String,String> getMarkedByUserId() {
+        return markedByUserId;
+    }
+
+    public void addUserIdMark(String userId, String negOrPosMark) {
+        this.markedByUserId.put(userId, negOrPosMark);
     }
 }
