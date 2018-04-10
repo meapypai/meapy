@@ -77,6 +77,15 @@
     <string name="disc_post_textlabel">Discipline</string>
     <string name="disc_detail_search_button_label">Chercher</string>
     <string name="discipline_added_toast">discipline ajoutée </string>
+        <!--adapter post-->
+    <string name="second_text_post">seconde</string>
+    <string name="seconds_text_post">secondes</string>
+    <string name="minute_text_post">minute</string>
+    <string name="minutes_text_post">minutes</string>
+    <string name="hour_text_post">heure</string>
+    <string name="hours_text_post">heures</string>
+    <string name="day_text_post">jour</string>
+    <string name="days_text_post">jours</string>
 
     <!--post view one group-->
     <string name="name_discipline">DISCIPLINE</string>

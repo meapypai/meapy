@@ -90,7 +90,7 @@ public class PostAdapter extends ArrayAdapter<Post> {
         holder.discipline.setText(currentPost.getDisciplineName());
         holder.description.setText(slitString(currentPost.getTextContent()));
         holder.user.setText(currentPost.getUser());
-        holder.datePost.setText(BuilderFormatDate.getNbDayPastSinceToday(currentPost.getDate()));
+        holder.datePost.setText(BuilderFormatDate.getNbDayPastSinceToday(context,currentPost.getDate()));
 
         String refPostStr = "groups/"+currentPost.getGroupId()+"/disciplines/"
                 +currentPost.getDisciplineId()+"/posts/"
