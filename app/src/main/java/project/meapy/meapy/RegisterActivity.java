@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,7 +16,7 @@ import project.meapy.meapy.utils.Registration;
 
 public class RegisterActivity extends MyAppCompatActivity {
 
-    private ErrorView errorView; //vu pour afficher l'erreur
+//    private ErrorView errorView; //vu pour afficher l'erreur
 
     private Button signUpBtnIdRegister;
 
@@ -23,6 +24,7 @@ public class RegisterActivity extends MyAppCompatActivity {
     private EditText lastNameIdRegister;
     private EditText emailIdRegister;
     private EditText passwordIdRegister;
+    private TextView errorFieldRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class RegisterActivity extends MyAppCompatActivity {
         lastNameIdRegister  = (EditText)findViewById(R.id.lastNameIdRegister);
         emailIdRegister     = (EditText)findViewById(R.id.emailIdRegister);
         passwordIdRegister  = (EditText)findViewById(R.id.passwordIdRegister);
+        errorFieldRegister  = (TextView)findViewById(R.id.errorFieldRegister);
 
         signUpBtnIdRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,15 +80,17 @@ public class RegisterActivity extends MyAppCompatActivity {
                     errorMessage = getResources().getString(R.string.incorrect_firstname);
                 }
 
-                //creation de la vue d'erreur
-                if(errorView == null) {
-                    errorView = new ErrorView(RegisterActivity.this);
+//                //creation de la vue d'erreur
+//                if(errorView == null) {
+//                    errorView = new ErrorView(RegisterActivity.this);
+//
+//                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+//
+//                    RegisterActivity.this.addContentView(errorView, params);
+//                }
+                errorFieldRegister.setText(errorMessage);
 
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
-                    RegisterActivity.this.addContentView(errorView, params);
-                }
-                errorView.setText(errorMessage);
+                //on  peut de nouveau essayer de s'enregistrer
                 signUpBtnIdRegister.setEnabled(true);
             }
         });
@@ -98,7 +103,7 @@ public class RegisterActivity extends MyAppCompatActivity {
     }
 
     private boolean isValidMail(String mail) {
-        Pattern pattern = Pattern.compile("^\\w[\\w\\.]*\\w@\\w+\\.[a-z]{2,4}"); //yassine.sansaoui@hotmail.fr
+        Pattern pattern = Pattern.compile("^\\w[\\w\\.]*\\w@\\w+\\.[a-z]{2,4}");
         Matcher matcher = pattern.matcher(mail);
         return matcher.matches();
     }

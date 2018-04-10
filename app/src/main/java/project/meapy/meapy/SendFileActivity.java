@@ -315,11 +315,11 @@ public class SendFileActivity extends MyAppCompatActivity {
                                 Toast.makeText(SendFileActivity.this, getResources().getString(R.string.error_fields_file), Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(SendFileActivity.this, getResources().getString(R.string.error_description_file) + " " + LIMIT_DESCRIPTION_LENGTH + " " + "@string/caracters", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SendFileActivity.this, getResources().getString(R.string.error_description_file) + " " + LIMIT_DESCRIPTION_LENGTH + " " + getResources().getString(R.string.caracters), Toast.LENGTH_SHORT).show();
                         }
                     }
                     else {
-                        Toast.makeText(SendFileActivity.this, getResources().getString(R.string.error_title_file) + " " + LIMIT_TITLE_LENGTH + " " + "@string/caracters", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SendFileActivity.this, getResources().getString(R.string.error_title_file) + " " + LIMIT_TITLE_LENGTH + " " + getResources().getString(R.string.caracters), Toast.LENGTH_SHORT).show();
                     }
                 }
                 else {

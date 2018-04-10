@@ -43,9 +43,21 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_marginTop="70dp"
+
+    <!--champs d'erreur-->
+    <TextView
+        android:id="@+id/errorFieldRegister"
         android:layout_below="@+id/topRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/error"
+        android:fontFamily="@font/roboto_regular"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="35dp"
+        android:layout_centerHorizontal="true"/>
+
+    <LinearLayout
+        android:layout_below="@+id/errorFieldRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

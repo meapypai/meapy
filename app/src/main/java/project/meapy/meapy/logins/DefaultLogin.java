@@ -60,7 +60,6 @@ public class DefaultLogin {
 
                             //set user's name into firebase user
                             String displayName = u.getFirstName() + " " + u.getLastName(); //name will be display on chat, comment...
-                            Toast.makeText(c,"user : "+ displayName,Toast.LENGTH_LONG).show();
                             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                     .setDisplayName(displayName).build();
 

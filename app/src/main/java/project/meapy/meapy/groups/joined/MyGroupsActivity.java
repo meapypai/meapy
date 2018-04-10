@@ -176,7 +176,7 @@ public class MyGroupsActivity extends MyAppCompatActivity {
     protected void onStart() {
         super.onStart();
         if(MyApplication.getUser() !=  null)
-            Toast.makeText(getApplicationContext(),"user : "+ MyApplication.getUser().getLastName(),Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"Bienvenue "+ MyApplication.getUser().getFirstName(),Toast.LENGTH_LONG).show();
         //to notify user if he's added to a group
         MyApplication.launch();
 
