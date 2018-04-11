@@ -295,9 +295,9 @@ public class OneGroupActivity extends MyAppCompatActivity {
                 break;
             case R.id.shareGroup:
                 intent = new Intent(Intent.ACTION_SEND);
-                intent.putExtra(Intent.EXTRA_TEXT,getResources().getString(R.string.invitation_code_to_group) + " " +generateCodeForGroup());
+                intent.putExtra(Intent.EXTRA_TEXT,getResources().getString(R.string.invitation_code_to_group) + " " );
                 intent.setType("text/plain");
-                startActivityForResult(Intent.createChooser(intent,"Share code"), 20);
+                intent = Intent.createChooser(intent,"Share code");
         }
         if(intent != null) {
             startActivity(intent);
