@@ -132,7 +132,7 @@
 
     <!-- one group activity -->
     <string name="code_saved_clip_toast">Code copié dans le presse-papier</string>
-    <string name="leave_group_toast">quitter le groupe</string>
+    <string name="leave_group_toast">Groupe quitté</string>
     <string name="group_name_one_group">NOM DU GROUPE</string>
     <string name="tag_group_one_group">Groupe de travail</string>
     <string name="invitation_code_to_group">Rejoins mon groupe sur Meapy avec le code suivant: </string>
