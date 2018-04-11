@@ -16,6 +16,10 @@ import project.meapy.meapy.utils.Registration;
 
 public class RegisterActivity extends MyAppCompatActivity {
 
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
+            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
+
 //    private ErrorView errorView; //vu pour afficher l'erreur
 
     private Button signUpBtnIdRegister;
@@ -103,8 +107,7 @@ public class RegisterActivity extends MyAppCompatActivity {
     }
 
     private boolean isValidMail(String mail) {
-        Pattern pattern = Pattern.compile("^\\w[\\w\\.]*\\w@\\w+\\.[a-z]{2,4}");
-        Matcher matcher = pattern.matcher(mail);
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(mail);
         return matcher.matches();
     }
 
