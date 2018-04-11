@@ -18,7 +18,7 @@ public class User implements Parcelable {
     protected String firstName;
     protected String lastName;
     protected String uid;
-    protected String nameImageProfil = DEFAULT_IMAGE_USER_NAME;
+    protected String nameImageProfil;
     protected String chatBubbleColor;
     protected int rank; //to see if the user is admin or not
 
@@ -72,6 +72,7 @@ public class User implements Parcelable {
         this.firstName = firstName;
         this.lastName  = lastName;
         this.email     = email;
+        this.setNameImageProfil(DEFAULT_IMAGE_USER_NAME);
     }
 
     public String getFirstName() {

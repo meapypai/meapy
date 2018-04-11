@@ -69,7 +69,7 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
 //        Toast.makeText(context,currentComment.getAuthorStr(),Toast.LENGTH_SHORT).show();
         holder.tvAuthor.setText(currentComment.getAuthorStr());
         holder.tvContent.setText(currentComment.getContent());
-        holder.dateComment.setText(BuilderFormatDate.getNbDayPastSinceToday(context,currentComment.getDate()));
+        holder.dateComment.setText(BuilderFormatDate.getNbDayPastSinceToday(context, currentComment.getDate()));
 
 
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users/"+currentComment.getUserId());

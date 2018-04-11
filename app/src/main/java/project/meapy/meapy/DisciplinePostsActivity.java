@@ -77,7 +77,7 @@ public class DisciplinePostsActivity extends MyAppCompatActivity {
     private void providePosts(Discipline disc){
         ListView listView = findViewById(R.id.listPostDiscPosts);
         final ArrayAdapter<Post> adapter = new PostAdapter(getApplicationContext(),
-                android.R.layout.simple_expandable_list_item_1,new ArrayList<Post>(), grp);
+                R.layout.post_view_one_group,new ArrayList<Post>(), grp);
         listView.setAdapter(adapter);
 
         PostLink.getPostsByDiscId(disc.getId(), new RunnableWithParam() {
