@@ -243,7 +243,7 @@ public class SendFileActivity extends MyAppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),AddDisciplineActivity.class);
-                intent.putExtra(AddDisciplineActivity.GROUP_EXTRA_NAME,(Groups)groupNameSend.getSelectedItem());
+                intent.putExtra(AddDisciplineActivity.GROUP_EXTRA_NAME,((Groups)groupNameSend.getSelectedItem());
                 intent.putParcelableArrayListExtra(AddDisciplineActivity.DISCS_EXTRA_NAME, listDisc);
                 startActivity(intent);
             }
