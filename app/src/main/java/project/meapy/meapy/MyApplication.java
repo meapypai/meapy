@@ -137,12 +137,12 @@ public class MyApplication extends Application{
         });
     }
 
-    static int month = 3, day = 9 ,hour = 19 ,min = 45;
+    static int year=2018,month = 3, day = 16 ,hour = 12 ,min = 0;
     public static boolean checkDateFinish(){
         Calendar current = Calendar.getInstance();
         current.setTime(new Date());
         Calendar limit = Calendar.getInstance();
-        limit.set(2018,month,day,hour,min);
+        limit.set(year,month,day,hour,min);
         Date curD = current.getTime();
         Date limD = limit.getTime();
         if(limD.before(curD) || limD.equals(curD)){
