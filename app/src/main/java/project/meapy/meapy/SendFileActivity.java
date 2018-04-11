@@ -1,8 +1,10 @@
 package project.meapy.meapy;
 
 import android.Manifest;
+import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -430,12 +432,14 @@ public class SendFileActivity extends MyAppCompatActivity {
 
     private void addDocument(Uri uri){
         ProviderFilePath pfp = new ProviderFilePath(this);
-        String path = pfp.getPathFromUri(uri);
+        String path = pfp.getPathFromUri(uri);//pfp.getPathFromUri(uri);
         File file = new File(path);
         addDocument(file);
     }
+
     private void addDocument(File file){
-        nameFiles.add(file.getName()); //ajout du nom du fichier pour l'adapter du spinner
+        String name = file.getName();
+        nameFiles.add(name); //ajout du nom du fichier pour l'adapter du spinner
         files.add(file); //ajout du fichier à upload
         adapterSpinnerFiles.notifyDataSetChanged();
     }
