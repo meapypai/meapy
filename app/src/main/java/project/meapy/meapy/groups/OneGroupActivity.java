@@ -204,7 +204,6 @@ public class OneGroupActivity extends MyAppCompatActivity {
         drawerLayout.setDrawerListener(actionBarDrawerToggle);
     }
     private void onDisciplineAdded(final Discipline disc){
-        final HashMap<Integer, Post> idPostToPost = new HashMap<>();
         listDiscipline.add(disc);
         MenuItem it  =subMenuDisc.add(disc.getName());
         it.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
@@ -225,7 +224,6 @@ public class OneGroupActivity extends MyAppCompatActivity {
             public void run() {
                 Post post = (Post) getParam();
                 adapterPost.add(post);
-                idPostToPost.put(post.getId(),post);
             }
         }, new RunnableWithParam() {
             @Override
