@@ -204,7 +204,7 @@ public class CreateGroupActivity extends MyAppCompatActivity {
         else {
             newGroup.setImageName(file.getName());
         }
-        Toast.makeText(CreateGroupActivity.this,"group created",Toast.LENGTH_LONG).show();
+        Toast.makeText(CreateGroupActivity.this,getResources().getString(R.string.group_created),Toast.LENGTH_LONG).show();
         //insertion of group
         GroupsMapper mapper = new GroupsMapper();
         mapper.insert(newGroup);
@@ -226,7 +226,7 @@ public class CreateGroupActivity extends MyAppCompatActivity {
         Discussion discussion = new Discussion();
         Message m = new Message();
         m.setNameUser("Admin");
-        m.setContent("Welcolme to the group discussion");
+        m.setContent(getResources().getString(R.string.welcome));
         m.setDate(new Date());
         m.setColorNameUser("#ED2225"); //couleur par défault pour ladmin à mettre dans une classe Admin
         m.setuIdUser(UUID.randomUUID().toString());
