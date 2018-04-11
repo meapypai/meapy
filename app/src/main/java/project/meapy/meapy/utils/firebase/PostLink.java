@@ -15,7 +15,7 @@ import project.meapy.meapy.utils.RunnableWithParam;
 
 public class PostLink {
 
-    public static void getPostsByDiscId(int discId, final RunnableWithParam onPostAdded,/*final RunnableWithParam onPostRemoved,*/final RunnableWithParam onPostChanged, int groupId){
+    public static void getPostsByDiscId(int discId, final RunnableWithParam onPostAdded,final RunnableWithParam onPostRemoved,/*final RunnableWithParam onPostChanged,*/ int groupId){
         DatabaseReference postsRef = FirebaseDatabase.getInstance().getReference("groups/"+groupId+"/disciplines/"+discId+"/posts");
         postsRef
                 .addChildEventListener(new ChildEventListener() {
