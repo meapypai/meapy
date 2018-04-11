@@ -1,11 +1,15 @@
 package project.meapy.meapy;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -226,13 +230,33 @@ public class PostDetailsActivity extends MyAppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.deletePostDetails){
-            Toast.makeText(getApplicationContext(),"delete post",Toast.LENGTH_LONG).show();
-            PostLink.deletePost(curPost);
-            FileLink.deleteFilesPost(curPost);
-            finish();
-        }
-        return true;
+        if (item.getItemId() == R.id.deletePostDetails) {
+            //Toast.makeText(getApplicationContext(),"delete post",Toast.LENGTH_LONG).show();
+            Handler mHandler = new Handler(Looper.getMainLooper());
+            mHandler.post(new Runnable() {
+                public void run() {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(PostDetailsActivity.this);
+                    builder.setMessage(R.string.confirm_delete_post);
+                    builder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            PostLink.deletePost(curPost);
+                            FileLink.deleteFilesPost(curPost);
+                            finish();
+                        }
+                    });
+                    builder.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+            });
+
+        }return true;
     }
 
     private void downloadFile(){

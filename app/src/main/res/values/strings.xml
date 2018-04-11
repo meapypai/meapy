@@ -98,7 +98,8 @@
     <string name="tag_group_my_groups">Groupe de travail</string>
     <string name="name_group_my_groups">Groupe 1</string>
 
-
+    <!-- post detail -->
+    <string name="confirm_delete_post">Do you really want to delete this post ?</string>
     <!--comment post details -->
     <string name="comment_post">CONTENT</string>
     <string name="author_post">AUTHOR</string>

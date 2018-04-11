@@ -223,15 +223,31 @@ public class OneGroupActivity extends MyAppCompatActivity {
         PostLink.getPostsByDiscId(disc.getId(), new RunnableWithParam() {
             @Override
             public void run() {
-                adapterPost.add((Post) getParam());
-                idPostToPost.put(((Post) getParam()).getId(),(Post) getParam());
+                Post post = (Post) getParam();
+                adapterPost.add(post);
+                idPostToPost.put(post.getId(),post);
             }
         }, new RunnableWithParam() {
             @Override
             public void run() {
-                adapterPost.remove(idPostToPost.get(((Post)getParam()).getId()));
+                Post post = (Post) getParam();
+                int idRemove = post.getId();
+                deletePostById(idRemove);
             }
         }, group.getId());
+    }
+
+    private void deletePostById(int id){
+        Post toDelete = null;
+        for(int i = 0; i < adapterPost.getCount();i++){
+            Post post =(Post) adapterPost.getItem(i);
+            if(post.getId() == id){
+                toDelete = post;
+            }
+        }
+        if(toDelete != null){
+            adapterPost.remove(toDelete);
+        }
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

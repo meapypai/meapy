@@ -75,6 +75,8 @@
     <!--Notification  activity-->
     <string name="notification">Notifications</string>
 
+    <!-- post detail -->
+    <string name="confirm_delete_post">Voulez-vous vraiment supprimer ce post ?</string>
     <!-- discipline posts-->
     <string name="disc_post_textlabel">Discipline</string>
     <string name="disc_detail_search_button_label">Chercher</string>
