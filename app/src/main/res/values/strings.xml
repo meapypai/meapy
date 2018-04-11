@@ -111,6 +111,9 @@
     <!-- leave group activity -->
     <string name="question_leave">Are you sure to leave this group ?</string>
 
+    <!--chat room activity-->
+    <string name="welcome">Welcome to the chat group</string>
+
     <!-- send file activity -->
     <string name="title_send_hint">Title</string>
     <string name="filename_send_hint">Filename</string>
