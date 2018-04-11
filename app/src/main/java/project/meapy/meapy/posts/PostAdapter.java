@@ -101,9 +101,11 @@ public class PostAdapter extends ArrayAdapter<Post> {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Post p = (Post)dataSnapshot.getValue(Post.class);
-                list.set(position,p); //to update the post of the list
-                holder.nbPosMarkOneGroup.setText(String.valueOf(p.getNbPositiveMark()));
-                holder.nbNegMarkOneGroup.setText(String.valueOf(p.getNbNegativeMark()));
+                if(p != null) { // TODO voir pourquoi il est nul quand on demande la suppression d'un post
+                    list.set(position, p); //to update the post of the list
+                    holder.nbPosMarkOneGroup.setText(String.valueOf(p.getNbPositiveMark()));
+                    holder.nbNegMarkOneGroup.setText(String.valueOf(p.getNbNegativeMark()));
+                }
             }
 
             @Override
