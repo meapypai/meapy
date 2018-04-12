@@ -147,6 +147,7 @@ public class SendFileActivity extends MyAppCompatActivity {
             }
         });
 
+        //onDescTextChange();
         descTextSend.addTextChangedListener(new TextWatcher() { // TODO REVOIR
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
@@ -167,6 +168,7 @@ public class SendFileActivity extends MyAppCompatActivity {
             }
         });
 
+        //onTitleTextChange();
         titleTextSend.addTextChangedListener(new TextWatcher() { // TODO REVOIR
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
