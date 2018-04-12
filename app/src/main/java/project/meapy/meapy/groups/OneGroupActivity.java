@@ -102,7 +102,17 @@ public class OneGroupActivity extends MyAppCompatActivity {
         final Groups grp = (Groups) getIntent().getSerializableExtra(GROUP_NAME_EXTRA);
         group = grp;
 
-        adapterPost = new PostAdapter2(posts,group);
+        adapterPost = new PostAdapter2(posts,group,new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int position = listView.getChildLayoutPosition(view);
+                Post post = (Post) adapterPost.getItem(position);
+                Intent intent = new Intent(OneGroupActivity.this, PostDetailsActivity.class);
+                intent.putExtra(PostDetailsActivity.POST_EXTRA_NAME,post);
+                intent.putExtra(PostDetailsActivity.ID_GROUP_EXTRA_NAME,group.getId()+"");
+                startActivity(intent);
+            }
+        });
 
         String name = grp.getName();
         titleGroup.setText(name);
@@ -139,6 +149,7 @@ public class OneGroupActivity extends MyAppCompatActivity {
             }
         }, null);
 
+        //listView.setOnClickListener();
 //
 //        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override

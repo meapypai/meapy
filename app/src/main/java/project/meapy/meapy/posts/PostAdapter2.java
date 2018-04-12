@@ -41,18 +41,25 @@ public class PostAdapter2 extends RecyclerView.Adapter {
     private List<Post> posts;
     private Context context;
     private Groups group;
+    private View.OnClickListener itemClickListener;
 
-    public PostAdapter2(List<Post> posts, Groups group) {
+    public PostAdapter2(List<Post> posts, Groups group,View.OnClickListener itemClickListener) {
         this.posts = posts;
         this.group = group;
+        this.itemClickListener = itemClickListener;
+    }
+
+    public Post getItem(int i){
+        return posts.get(i);
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
         context = parent.getContext();
-
         view = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_view_one_group,parent,false);
+        if(itemClickListener != null)
+            view.setOnClickListener(itemClickListener);
         return new PostHolder(view);
     }
 
@@ -100,6 +107,7 @@ public class PostAdapter2 extends RecyclerView.Adapter {
             nbNegMarkOneGroup = (TextView)itemView.findViewById(R.id.nbNegMarkOneGroup);
             nbPosMarkOneGroup = (TextView)itemView.findViewById(R.id.nbPosMarkOneGroup);
         }
+
 
         public void bind(final Post post, int position) {
             title.setText(post.getTitle());
