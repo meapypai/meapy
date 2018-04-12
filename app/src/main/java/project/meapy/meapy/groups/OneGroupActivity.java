@@ -343,7 +343,6 @@ public class OneGroupActivity extends MyAppCompatActivity {
                 intent.putExtra(DisciplinePostsActivity.CURR_DISC_EXTRA_NAME,disc.getId());
                 startActivity(intent);
                 menuItem.setChecked(false);
-                closeDrawer();
                 return false;
             }
         });
