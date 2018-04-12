@@ -19,6 +19,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,8 +30,10 @@ import android.view.SubMenu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -66,6 +71,7 @@ import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.bean.Post;
 import project.meapy.meapy.groups.joined.MyGroupsActivity;
 import project.meapy.meapy.posts.PostAdapter2;
+import project.meapy.meapy.utils.BuilderColor;
 import project.meapy.meapy.utils.CodeGroupsGenerator;
 import project.meapy.meapy.utils.RunnableWithParam;
 import project.meapy.meapy.utils.firebase.DisciplineLink;
@@ -131,13 +137,9 @@ public class OneGroupActivity extends MyAppCompatActivity {
         addDisc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(OneGroupActivity.this, AddDisciplineActivity.class);
-                intent.putExtra(AddDisciplineActivity.GROUP_EXTRA_NAME,group);
-                intent.putParcelableArrayListExtra(AddDisciplineActivity.DISCS_EXTRA_NAME, listDiscipline);
-                startActivity(intent);
+                askNewDiscName();
             }
         });
-
 
         final NavigationView navigationView = findViewById(R.id.side_menu_one_group);
 
@@ -225,12 +227,80 @@ public class OneGroupActivity extends MyAppCompatActivity {
                         dialog.show();
                     }
                 });
-
-
-                //Intent i = new Intent(getApplicationContext(), LeaveGroupActivity.class);
-                //startActivityForResult(i, LEAVE_GROUP_REQUEST);
             }
         });
+    }
+
+    private void onCreateDiscipline(final EditText edit){
+        String discName = edit.getText().toString();
+        if (discName.length() > 0) {
+            if (!nameDiscplineAlreadyExists(listDiscipline, discName)) {
+                Discipline disc = new Discipline();
+                disc.setName(discName);
+                disc.setColor(BuilderColor.generateHexaColor());
+                DisciplineLink.addDiscipline(group, disc);
+                Toast.makeText(getApplicationContext(),"created",Toast.LENGTH_LONG).show();
+            } else {
+
+                edit.setText("");
+                askNewDiscName();
+                Toast.makeText(getApplicationContext(),"not created",Toast.LENGTH_LONG).show();
+            }
+        }
+
+    }
+    private boolean nameDiscplineAlreadyExists(List<Discipline> disciplines, String nameDiscipline) {
+        for(Discipline d: disciplines) {
+            if(d.getName().toUpperCase().equals(nameDiscipline.toUpperCase())) {
+                return true;
+            }
+        }
+        return false;
+    }
+    private AlertDialog dialogNewDisc;
+    private void askNewDiscName(){
+        final EditText nameEdit = new EditText(OneGroupActivity.this);
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+             @Override
+             public void run() {
+                 if(dialogNewDisc == null) {
+                     AlertDialog.Builder builder = new AlertDialog.Builder(OneGroupActivity.this);
+
+                     LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                             LinearLayout.LayoutParams.MATCH_PARENT);
+                     nameEdit.setLayoutParams(lp);
+                     builder.setMessage(getString(R.string.creation_of_discipline));
+                     builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                         @Override
+                         public void onClick(DialogInterface dialogInterface, int i) {
+                             onCreateDiscipline(nameEdit);
+                         }
+                     });
+                     builder.setView(nameEdit);
+                     dialogNewDisc = builder.create();
+                     dialogNewDisc.show();
+                     dialogNewDisc.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                 }
+
+                 nameEdit.addTextChangedListener(new TextWatcher() {
+                     @Override
+                     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+                     @Override
+                     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+                     @Override
+                     public void afterTextChanged(Editable editable) {
+                         String discName = nameEdit.getText().toString();
+                         if(discName.length() > 0 && !nameDiscplineAlreadyExists(listDiscipline, discName)) {
+                             dialogNewDisc.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                         }else{
+                             dialogNewDisc.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                         }
+                     }
+                 });
+             }
+         }
+        );
     }
 
     @Override
@@ -297,28 +367,6 @@ public class OneGroupActivity extends MyAppCompatActivity {
         if(toDelete != null){
             posts.remove(toDelete);
             adapterPost.notifyDataSetChanged();
-        }
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == LEAVE_GROUP_REQUEST) {
-            if(resultCode == Activity.RESULT_OK){
-                boolean result=data.getBooleanExtra("result",false);
-                FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
-                String uid = null;
-                if(fUser != null && result == true) {
-                    uid = fUser.getUid();
-                    GroupLink.leaveGroups(uid,group);
-                    Toast.makeText(getApplicationContext(), getString(R.string.leave_group_toast), Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(getApplicationContext(), MyGroupsActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                    finish();
-                }
-            }
-            if (resultCode == Activity.RESULT_CANCELED) {
-                //Write your code if there's no result
-            }
         }
     }
 
