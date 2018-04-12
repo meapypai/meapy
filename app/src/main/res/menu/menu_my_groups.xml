@@ -15,13 +15,6 @@
         android:id="@+id/joinGrpMenu"
         app:showAsAction="always"></item>
 
-
-    <!--<item android:icon="@drawable/ic_chat_black_24dp"-->
-        <!--android:id="@+id/discussionsId"-->
-        <!--android:visible="true"-->
-        <!--app:showAsAction="ifRoom" android:title="My messages">-->
-    <!--</item>-->
-
     <item android:title="@string/title_settings_menu"
         android:id="@+id/settings"
         android:visible="true">

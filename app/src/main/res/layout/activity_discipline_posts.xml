@@ -5,27 +5,25 @@
     android:layout_height="match_parent"
     tools:context="project.meapy.meapy.DisciplinePostsActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+
         android:id="@+id/headerDiscPosts">
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="@string/disc_post_textlabel"
-           />
+
         <Spinner
             android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:id="@+id/spinnerDiscPosts"></Spinner>
-        <Button
-            android:layout_width="wrap_content"
+        <EditText
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/disc_detail_search_button_label"
+            android:id="@+id/fieldSearchedDisPosts"
+            android:layout_toRightOf="@id/spinnerDiscPosts"
             />
 
-    </LinearLayout>
+    </RelativeLayout>
     <ListView
         android:id="@+id/listPostDiscPosts"
         android:layout_below="@id/headerDiscPosts"

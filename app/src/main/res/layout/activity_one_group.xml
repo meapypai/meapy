@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/drawer_one_group"
+    android:background="@android:color/white"
     tools:context="project.meapy.meapy.groups.OneGroupActivity">
 
     <RelativeLayout
@@ -123,6 +124,15 @@
                     android:id="@+id/leaveGroupPostDetails"
                     android:backgroundTint="@android:color/transparent"
                     android:src="@drawable/ic_exit_to_app_white_24dp"/>
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/transparent"
+                    android:layout_centerHorizontal="true"
+                    android:maxWidth="24dp"
+                    android:maxHeight="24dp"
+                    android:id="@+id/searchingPostOneGroup"
+                    android:src="@drawable/ic_search_white_24dp"/>
             </RelativeLayout>
 
             <RelativeLayout

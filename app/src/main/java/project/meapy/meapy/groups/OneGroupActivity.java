@@ -89,6 +89,7 @@ public class OneGroupActivity extends MyAppCompatActivity {
         summaryOneGroup = findViewById(R.id.summaryOneGroup);
         titleGroup = findViewById(R.id.groupNameOneGroup);
 
+
         final Groups grp = (Groups) getIntent().getSerializableExtra(GROUP_NAME_EXTRA);
         group = grp;
 
@@ -116,8 +117,10 @@ public class OneGroupActivity extends MyAppCompatActivity {
 
         Intent intent = null ;
         switch(item.getItemId()) {
-            case R.id.inviteOneGroup:
-                inviteAction();
+            case R.id.searchingPosts:
+                intent = new Intent(getApplicationContext(),DisciplinePostsActivity.class);
+                intent.putExtra(DisciplinePostsActivity.GROUP_EXTRA_NAME,group);
+                intent.putExtra(DisciplinePostsActivity.CURR_DISC_EXTRA_NAME,DisciplinePostsActivity.ID_ALL_DISC);
                 break;
             case R.id.accedToDiscussionOneGroup:
                 intent = new Intent(OneGroupActivity.this, ChatRoomActivity.class);
