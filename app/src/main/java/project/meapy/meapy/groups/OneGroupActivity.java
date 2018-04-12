@@ -1,6 +1,5 @@
 package project.meapy.meapy.groups;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -21,20 +20,15 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.SubMenu;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,27 +36,17 @@ import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import project.meapy.meapy.AddDisciplineActivity;
 import project.meapy.meapy.ChatRoomActivity;
 import project.meapy.meapy.CreateGroupActivity;
 import project.meapy.meapy.DisciplinePostsActivity;
-import project.meapy.meapy.LeaveGroupActivity;
 import project.meapy.meapy.MembersActivity;
 import project.meapy.meapy.MyAppCompatActivity;
-import project.meapy.meapy.MyApplication;
-import project.meapy.meapy.NotificationThread;
 import project.meapy.meapy.PostDetailsActivity;
 import project.meapy.meapy.R;
 import project.meapy.meapy.SendFileActivity;
@@ -75,7 +59,6 @@ import project.meapy.meapy.utils.BuilderColor;
 import project.meapy.meapy.utils.CodeGroupsGenerator;
 import project.meapy.meapy.utils.RunnableWithParam;
 import project.meapy.meapy.utils.firebase.DisciplineLink;
-import project.meapy.meapy.utils.firebase.FileLink;
 import project.meapy.meapy.utils.firebase.GroupLink;
 import project.meapy.meapy.utils.firebase.InvitationLink;
 import project.meapy.meapy.utils.firebase.PostLink;
@@ -410,7 +393,7 @@ public class OneGroupActivity extends MyAppCompatActivity {
         return generatedCode;
     }
 
-    private void saveCodeIntoClipboard(String generatedCode ) {
+    private void saveCodeIntoClipboard(String generatedCode) {
         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText("simple text", generatedCode);
         clipboard.setPrimaryClip(clip);
