@@ -63,8 +63,8 @@ public class SendFileActivity extends MyAppCompatActivity {
     private static  final int REQUEST_PERMISSION_READ_EXTERNAL_STORAGE = 7;
     private static final int REQUEST_LOAD_FILE = 5;
 
-    private static final int LIMIT_DESCRIPTION_LENGTH = 15;
-    private static final int LIMIT_TITLE_LENGTH = 15;
+    private static final int LIMIT_DESCRIPTION_LENGTH = 0;
+    private static final int LIMIT_TITLE_LENGTH = 5;
 
     private ImageButton addDiscBtn;
     private ImageButton addGrpBtn;
@@ -178,7 +178,7 @@ public class SendFileActivity extends MyAppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 String title = titleTextSend.getText().toString();
                 ImageView correct_title = (ImageView)findViewById(R.id.correct_title);
-                if(checkDescription(title)){
+                if(checkTitle(title)){
                     correct_title.setBackgroundTintList(ContextCompat.getColorStateList(SendFileActivity.this,android.R.color.holo_green_dark));
                 }
                 else {
@@ -337,7 +337,7 @@ public class SendFileActivity extends MyAppCompatActivity {
                     android.R.layout.simple_spinner_item, new ArrayList<Groups>());
             groupNameSend.setAdapter(dataGroupsAdapter);
             loadingGroup(dataGroupsAdapter,groupsProvided.getId());
-
+            findViewById(R.id.addGroupSendFile).setVisibility(View.INVISIBLE);
             findViewById(R.id.groupNameSend).setEnabled(false);
         }
     }
