@@ -31,6 +31,10 @@ import project.meapy.meapy.bean.User;
 import project.meapy.meapy.groups.OneGroupActivity;
 import project.meapy.meapy.members.MembersAdapter;
 import project.meapy.meapy.utils.RetrieveImage;
+import project.meapy.meapy.utils.RunnableWithParam;
+import project.meapy.meapy.utils.firebase.DisciplineLink;
+import project.meapy.meapy.utils.firebase.PostLink;
+import project.meapy.meapy.utils.firebase.UserLink;
 
 /**
  * Created by yassi on 12/04/2018.
@@ -115,101 +119,49 @@ public class PostAdapter2 extends RecyclerView.Adapter {
             description.setText(post.getTextContent());
             user.setText(post.getUser());
 
-            String refPostStr = "groups/"+post.getGroupId()+"/disciplines/"
-                    +post.getDisciplineId()+"/posts/"
-                    +post.getId();
 
-            //listener positive or negative marks
-            DatabaseReference refPost = FirebaseDatabase.getInstance().getReference(refPostStr);
-            refPost.addValueEventListener(new ValueEventListener() {
+            PostLink.provideMarkForPost(post, new RunnableWithParam() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    Post p = (Post)dataSnapshot.getValue(Post.class);
+                public void run() {
+                    Post p = (Post)getParam();
 //                    list.set(position,p); //to update the post of the list
                     nbPosMarkOneGroup.setText(String.valueOf(p.getNbPositiveMark()));
                     nbNegMarkOneGroup.setText(String.valueOf(p.getNbNegativeMark()));
                 }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
             });
 
-            //listener for number of comments
-            DatabaseReference refComments = FirebaseDatabase.getInstance().getReference(refPostStr +"/comments");
-            refComments.addValueEventListener(new ValueEventListener() {
+            PostLink.provideNumberOfCommentForPost(post, new RunnableWithParam() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    int  n = (int) dataSnapshot.getChildrenCount();
+                public void run() {
+                    int  n = (int)getParam();
                     nbCommentOneGroup.setText(String.valueOf(n));
                 }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
             });
+            //listener for number of comments
 
-            //listener for change the image of the post (image profil)
-            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users/"+post.getUser_uid());
-            userRef.addValueEventListener(new ValueEventListener() {
+            UserLink.provideUserForPost(post, new RunnableWithParam() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    User user = (User)dataSnapshot.getValue(User.class);
-
+                public void run() {
+                    User user = (User) getParam();
                     //si image par defaut
                     if(user.getNameImageProfil().equals(User.DEFAULT_IMAGE_USER_NAME)) {
-                        imgUserOneGroup.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.default_avatar));
+                        imgUserOneGroup.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.default_avatar));
                     }
                     else {
                         StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + user.getUid() + "/" + user.getNameImageProfil());
                         RetrieveImage.glide(ref,context,imgUserOneGroup);
                     }
-
-                    new Runnable() {
-                        @Override
-                        public void run() {
-
-                            DatabaseReference discpRef = FirebaseDatabase.getInstance().getReference("groups/" + group.getId()+ "/disciplines");
-                            discpRef.addChildEventListener(new ChildEventListener() {
-                                @Override
-                                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                                    Discipline d = (Discipline)dataSnapshot.getValue(Discipline.class);
-                                    if(d.getName().equals(post.getDisciplineName())) {
-                                        //bar color at the left side
-                                        barLeftPost.setBackgroundColor(Color.parseColor(d.getColor()));
-                                    }
-                                }
-
-                                @Override
-                                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                                }
-
-                                @Override
-                                public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                                }
-
-                                @Override
-                                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                                }
-
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-
-                                }
-                            });
-                        }
-                    }.run();;
-
                 }
-
+            });
+            //listener for change the image of the post (image profil)
+            DisciplineLink.provideDisciplineColorForPost(post, new RunnableWithParam() {
                 @Override
-                public void onCancelled(DatabaseError databaseError) {
-
+                public void run() {
+                    Discipline d = (Discipline) getParam();
+                    if(d.getName().equals(post.getDisciplineName())) {
+                        //bar color at the left side
+                        barLeftPost.setBackgroundColor(Color.parseColor(d.getColor()));
+                    }
                 }
             });
         }

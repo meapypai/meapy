@@ -1,5 +1,7 @@
 package project.meapy.meapy.utils.firebase;
 
+import android.graphics.Color;
+
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -8,6 +10,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import project.meapy.meapy.bean.Discipline;
 import project.meapy.meapy.bean.Groups;
+import project.meapy.meapy.bean.Post;
 import project.meapy.meapy.utils.RunnableWithParam;
 
 /**
@@ -15,6 +18,39 @@ import project.meapy.meapy.utils.RunnableWithParam;
  */
 
 public class DisciplineLink {
+    public static void provideDisciplineColorForPost(final Post post, final RunnableWithParam onAdded){
+        DatabaseReference discpRef = FirebaseDatabase.getInstance().getReference("groups/" + post.getGroupId()+ "/disciplines");
+        discpRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Discipline d = (Discipline)dataSnapshot.getValue(Discipline.class);
+                if(onAdded != null){
+                    onAdded.setParam(d);
+                    onAdded.run();
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 
     public static void getDisciplineByGroupId(int idGroup, final RunnableWithParam onDiscAdded, final RunnableWithParam onDiscRemoved){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
