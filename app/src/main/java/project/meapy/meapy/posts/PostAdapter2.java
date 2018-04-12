@@ -22,6 +22,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
+import project.meapy.meapy.MyApplication;
 import project.meapy.meapy.PostDetailsActivity;
 import project.meapy.meapy.R;
 import project.meapy.meapy.bean.Discipline;
@@ -149,7 +150,8 @@ public class PostAdapter2 extends RecyclerView.Adapter {
                     }
                     else {
                         StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + user.getUid() + "/" + user.getNameImageProfil());
-                        RetrieveImage.glide(ref,context,imgUserOneGroup);
+                        if(!context.isRestricted())
+                            RetrieveImage.glide(ref, MyApplication.getCurrentActivity(),imgUserOneGroup);
                     }
                 }
             });

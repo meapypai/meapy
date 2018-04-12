@@ -19,6 +19,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.File;
@@ -137,6 +139,8 @@ public class CreateGroupActivity extends MyAppCompatActivity {
                     final Groups newGroup = new Groups();
                     newGroup.setName(nameGroup);
                     newGroup.setSummary(summary);
+                    FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
+                    newGroup.setIdUserAdmin(fUser.getUid());
 
                     // END TEST
                     final File file = new File(pathFile);

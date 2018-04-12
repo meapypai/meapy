@@ -1,11 +1,15 @@
 package project.meapy.meapy.groups;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
@@ -65,6 +69,7 @@ import project.meapy.meapy.posts.PostAdapter2;
 import project.meapy.meapy.utils.CodeGroupsGenerator;
 import project.meapy.meapy.utils.RunnableWithParam;
 import project.meapy.meapy.utils.firebase.DisciplineLink;
+import project.meapy.meapy.utils.firebase.FileLink;
 import project.meapy.meapy.utils.firebase.GroupLink;
 import project.meapy.meapy.utils.firebase.InvitationLink;
 import project.meapy.meapy.utils.firebase.PostLink;
@@ -194,8 +199,36 @@ public class OneGroupActivity extends MyAppCompatActivity {
         findViewById(R.id.leaveGroupPostDetails).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), LeaveGroupActivity.class);
-                startActivityForResult(i, LEAVE_GROUP_REQUEST);
+                //Toast.makeText(getApplicationContext(),"delete post",Toast.LENGTH_LONG).show();
+                Handler mHandler = new Handler(Looper.getMainLooper());
+                mHandler.post(new Runnable() {
+                    public void run() {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(OneGroupActivity.this);
+                        builder.setMessage(getString(R.string.question_leave));
+                        builder.setNegativeButton(getString(R.string.no),null);
+                        builder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
+                                if(fUser != null) {
+                                    String uid = fUser.getUid();
+                                    GroupLink.leaveGroups(uid,group);
+                                    Toast.makeText(getApplicationContext(), getString(R.string.leave_group_toast), Toast.LENGTH_LONG).show();
+                                    Intent intent = new Intent(getApplicationContext(), MyGroupsActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    }
+                });
+
+
+                //Intent i = new Intent(getApplicationContext(), LeaveGroupActivity.class);
+                //startActivityForResult(i, LEAVE_GROUP_REQUEST);
             }
         });
     }

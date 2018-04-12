@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public class Groups extends DomainObject{
     private String name;
-    private int idUserAdmin;
+    private String idUserAdmin;
     private String imageName;
     private String codeToJoin;
     private String summary;
@@ -31,11 +31,11 @@ public class Groups extends DomainObject{
         this.name = name;
     }
 
-    public int getIdUserAdmin() {
+    public String getIdUserAdmin() {
         return idUserAdmin;
     }
 
-    public void setIdUserAdmin(int idUserAdmin) {
+    public void setIdUserAdmin(String idUserAdmin) {
         this.idUserAdmin = idUserAdmin;
     }
 
