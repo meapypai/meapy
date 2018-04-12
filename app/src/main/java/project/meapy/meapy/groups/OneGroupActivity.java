@@ -12,10 +12,13 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.SubMenu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -40,6 +43,7 @@ import com.google.firebase.storage.StorageReference;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import project.meapy.meapy.AddDisciplineActivity;
 import project.meapy.meapy.ChatRoomActivity;
@@ -57,7 +61,7 @@ import project.meapy.meapy.bean.Discipline;
 import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.bean.Post;
 import project.meapy.meapy.groups.joined.MyGroupsActivity;
-import project.meapy.meapy.posts.PostAdapter;
+import project.meapy.meapy.posts.PostAdapter2;
 import project.meapy.meapy.utils.CodeGroupsGenerator;
 import project.meapy.meapy.utils.RunnableWithParam;
 import project.meapy.meapy.utils.firebase.DisciplineLink;
@@ -71,8 +75,9 @@ public class OneGroupActivity extends MyAppCompatActivity {
     private TextView summaryOneGroup;
     private ImageView accedToDiscussionOneGroup;
 
-    ListView listView;
-    ArrayAdapter adapterPost;
+    RecyclerView listView;
+    PostAdapter2 adapterPost;
+    List<Post> posts = new ArrayList<>();
     SubMenu subMenuDisc;
     final ArrayList<Discipline> listDiscipline = new ArrayList<>();
 
@@ -97,7 +102,7 @@ public class OneGroupActivity extends MyAppCompatActivity {
         final Groups grp = (Groups) getIntent().getSerializableExtra(GROUP_NAME_EXTRA);
         group = grp;
 
-        adapterPost = new PostAdapter(OneGroupActivity.this, android.R.layout.simple_expandable_list_item_1,new ArrayList<Post>(), grp);
+        adapterPost = new PostAdapter2(posts,group);
 
         String name = grp.getName();
         titleGroup.setText(name);
@@ -125,6 +130,7 @@ public class OneGroupActivity extends MyAppCompatActivity {
         findViewById(R.id.footerNavigationView).setBackground(getColorDrawable());
 
         listView.setAdapter(adapterPost);
+        listView.setLayoutManager(new LinearLayoutManager(this));
 
         DisciplineLink.getDisciplineByGroupId(group.getId(), new RunnableWithParam() {
             @Override
@@ -133,17 +139,17 @@ public class OneGroupActivity extends MyAppCompatActivity {
             }
         }, null);
 
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Post post = (Post) adapterPost.getItem(i);
-                Intent intent = new Intent(OneGroupActivity.this, PostDetailsActivity.class);
-                intent.putExtra(PostDetailsActivity.POST_EXTRA_NAME,post);
-                intent.putExtra(PostDetailsActivity.ID_GROUP_EXTRA_NAME,group.getId()+"");
-                startActivity(intent);
-            }
-        });
+//
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Post post = (Post) adapterPost.getItem(i);
+//                Intent intent = new Intent(OneGroupActivity.this, PostDetailsActivity.class);
+//                intent.putExtra(PostDetailsActivity.POST_EXTRA_NAME,post);
+//                intent.putExtra(PostDetailsActivity.ID_GROUP_EXTRA_NAME,group.getId()+"");
+//                startActivity(intent);
+//            }
+//        });
 
         fBtn = findViewById(R.id.sendFileOneGroup);
         fBtn.setOnClickListener(new View.OnClickListener() {
@@ -223,7 +229,8 @@ public class OneGroupActivity extends MyAppCompatActivity {
             @Override
             public void run() {
                 Post post = (Post) getParam();
-                adapterPost.add(post);
+                posts.add(post);
+                adapterPost.notifyDataSetChanged();
             }
         }, new RunnableWithParam() {
             @Override
@@ -237,14 +244,15 @@ public class OneGroupActivity extends MyAppCompatActivity {
 
     private void deletePostById(int id){
         Post toDelete = null;
-        for(int i = 0; i < adapterPost.getCount();i++){
-            Post post =(Post) adapterPost.getItem(i);
+        for(int i = 0; i < adapterPost.getItemCount();i++){
+            Post post =(Post) posts.get(i);
             if(post.getId() == id){
                 toDelete = post;
             }
         }
         if(toDelete != null){
-            adapterPost.remove(toDelete);
+            posts.remove(toDelete);
+            adapterPost.notifyDataSetChanged();
         }
     }
     @Override
