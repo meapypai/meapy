@@ -360,18 +360,7 @@ public class OneGroupActivity extends MyAppCompatActivity {
             public void run() {
                 Post post = (Post) getParam();
                 posts.add(post);
-                Collections.sort(posts, new Comparator<Post>() {
-                    @Override
-                    public int compare(Post post, Post t1) {
-                        if(post.getDate().before(t1.getDate())){
-                            return 1;
-                        }else if(post.getDate().after(t1.getDate())){
-                            return -1;
-                        }else{
-                            return 0;
-                        }
-                    }
-                });
+                adapterPost.sort();
                 adapterPost.notifyDataSetChanged();
             }
         }, new RunnableWithParam() {

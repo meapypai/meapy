@@ -20,6 +20,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import project.meapy.meapy.MyApplication;
@@ -170,5 +173,26 @@ public class PostAdapter2 extends RecyclerView.Adapter {
                 }
             });
         }
+    }
+
+    public void sort(){
+        Collections.sort(posts, new Comparator<Post>() {
+            @Override
+            public int compare(Post post, Post t1) {
+                if(post.getDate().before(t1.getDate())){
+                    return 1;
+                }else if(post.getDate().after(t1.getDate())){
+                    return -1;
+                }else{
+                    if(post.getNbPositiveMark() > t1.getNbPositiveMark()){
+                        return 1;
+                    }else if(post.getNbPositiveMark() < t1.getNbPositiveMark()){
+                        return -1;
+                    }else{
+                        return 0;
+                    }
+                }
+            }
+        });
     }
 }
