@@ -4,16 +4,16 @@
 
 
     <item
-        android:title="@string/title_invite_person_menu"
+        android:title="@string/search_posts_onegroup_menu"
         android:icon="@drawable/ic_search_white_24dp"
         android:id="@+id/searchingPosts"
         app:showAsAction="always"
         ></item>
     <item
-        android:title="Share"
+        android:title="@string/title_invite_person_menu"
         android:icon="@drawable/ic_share_white_24dp"
         android:id="@+id/shareGroup"
-        app:showAsAction="always"></item>
+        app:showAsAction="never"></item>
 
     <item
         android:title="@string/title_message_group_menu"

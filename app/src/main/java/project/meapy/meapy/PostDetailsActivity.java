@@ -94,7 +94,6 @@ public class PostDetailsActivity extends MyAppCompatActivity {
         final String idGroup = getIntent().getStringExtra(ID_GROUP_EXTRA_NAME);
         curPost = post;
 
-
 //        if post already marked by the user
         if(postAlreadyMarked(post,"negative")) {
             markDownBtn();
@@ -256,7 +255,8 @@ public class PostDetailsActivity extends MyAppCompatActivity {
                 }
             });
 
-        }return true;
+        }
+        return true;
     }
 
     private void downloadFile(){

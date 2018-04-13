@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,10 +25,32 @@ public class MyAppCompatActivity extends AppCompatActivity {
     public MyAppCompatActivity() {
         super();
     }
+    private void configureToolbar(){
+        if(toolbarToConfig()) {
+            android.support.v7.app.ActionBar actionbar = getSupportActionBar();
+            if (actionbar != null) {
+                actionbar.setDisplayHomeAsUpEnabled(true);
+                actionbar.setHomeButtonEnabled(true);
+            }
+        }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
+    protected boolean toolbarToConfig(){
+        return true;
+    }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        configureToolbar();
     }
 
     @Override

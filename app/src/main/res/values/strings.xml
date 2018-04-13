@@ -162,6 +162,8 @@
     <!--One group menu-->
     <string name="title_invite_person_menu">Invite</string>
     <string name="title_message_group_menu">Messages</string>
+    <string name="search_posts_onegroup_menu">Search</string>
+
     <string name="title_delete_post_menu">Delete</string>
 
     <!-- Google Login strings -->
