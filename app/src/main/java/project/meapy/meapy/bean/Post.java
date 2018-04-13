@@ -24,6 +24,16 @@ public class Post extends DomainObject{
     private String disciplineName;
     private int disciplineId;
     private Date date;
+    private List<String> notifiedUser = new ArrayList<>();
+
+    public List<String> getNotifiedUser() {
+        return notifiedUser;
+    }
+
+    public void setNotifiedUser(List<String> notifiedUser) {
+        this.notifiedUser = notifiedUser;
+    }
+
     protected Map<String,String> markedByUserId = new HashMap<>(); //users id who marked the post and in value positive or negative
 
     public List<String> getFilesPaths() {

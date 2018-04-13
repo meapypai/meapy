@@ -6,34 +6,29 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
-import android.support.v4.app.NotificationCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import project.meapy.meapy.bean.Discipline;
 import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.bean.Message;
 import project.meapy.meapy.bean.Notifier;
+import project.meapy.meapy.bean.Post;
 import project.meapy.meapy.groups.GroupsList;
 import project.meapy.meapy.groups.joined.MyGroupsActivity;
 import project.meapy.meapy.utils.NotificationWorker;
 import project.meapy.meapy.utils.RunnableWithParam;
+import project.meapy.meapy.utils.firebase.DisciplineLink;
 import project.meapy.meapy.utils.firebase.GroupLink;
 import project.meapy.meapy.utils.firebase.MessageLink;
 import project.meapy.meapy.utils.firebase.NotificationLink;
+import project.meapy.meapy.utils.firebase.PostLink;
 
-import static android.content.Context.NOTIFICATION_SERVICE;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static android.media.CamcorderProfile.get;
 
@@ -76,29 +71,64 @@ public class NotificationThread extends Thread {
     @Override
     public void run() {
         onNewNotif();
-        onNewMessageReceived();
-
+        onNewGroupDataReceived();
+        //onNewPostReceived();
     }
-    private void onNewMessageReceived(){
+
+    private void onNewMessageReceived(final Groups grp){
+        MessageLink.getMessageByIdGroup(grp.getId() + "", new RunnableWithParam() {
+            @Override
+            public void run() {
+                if (!isStartedChatRoom(grp.getId()) && isGroupToNotify(grp)) {
+                    Message msg = (Message) getParam();
+                    FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
+                    if(fUser != null && !msg.isReadedByUser(fUser.getUid())) {
+                        NotificationThread.this.notifyMessage(msg, grp);
+                    }
+                    //MediaPlayer mp = MediaPlayer.create(context,R.raw.intuition);
+                    //mp.start();
+                }
+            }
+        },null);
+    }
+
+    private void onNewPostReceived(final Groups grp){
+        DisciplineLink.getDisciplineByGroupId(grp.getId(), new RunnableWithParam() {
+            @Override
+            public void run() {
+                final Discipline disc = (Discipline) getParam();
+                PostLink.getPostsByDiscId(disc.getId(), new RunnableWithParam() {
+                    @Override
+                    public void run() {
+                        Post post = (Post) getParam();
+                        FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
+                        if(fUser != null && !post.getNotifiedUser().contains(fUser.getUid())){
+                            NotificationThread.this.notifyPost(post,grp,disc);
+                        }
+
+                    }
+                },null,grp.getId());
+            }
+        },null);
+    }
+    private void notifyPost(Post post, Groups grp, Discipline disc){
+        Notifier notif = new Notifier();
+        notif.setId(post.getId());
+        notif.setTitle("New Post in "+grp.getName());
+        notif.setContent(post.getTitle() + " by "+post.getUser());
+        Intent intent = new Intent(context,PostDetailsActivity.class);
+        intent.putExtra(PostDetailsActivity.POST_EXTRA_NAME,post);
+        intent.putExtra(PostDetailsActivity.ID_GROUP_EXTRA_NAME, grp.getId());
+        notify(notif, intent);
+    }
+    private void onNewGroupDataReceived(){
         GroupLink.provideGroupsByCurrentuser(new RunnableWithParam() {
             @Override
             public void run() {
                 final Groups grp = (Groups) getParam();
                 addGroupToNotify(grp);
-                MessageLink.getLatestMessageByGroupId(grp.getId() + "", new RunnableWithParam() {
-                    @Override
-                    public void run() {
-                        if (!isStartedChatRoom(grp.getId()) && isGroupToNotify(grp)) {
-                            Message msg = (Message) getParam();
-                            FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
-                            if(fUser != null && !msg.isReadedByUser(fUser.getUid())) {
-                                NotificationThread.this.notifyMessage(msg, grp);
-                            }
-                            //MediaPlayer mp = MediaPlayer.create(context,R.raw.intuition);
-                            //mp.start();
-                        }
-                    }
-                });
+                onNewMessageReceived(grp);
+                //onNewPostReceived(grp);
             }
         }, new RunnableWithParam() {
             @Override
@@ -130,102 +160,32 @@ public class NotificationThread extends Thread {
             @Override
             public void run() {
                 Notifier notif = (Notifier) getParam();
-                NotificationThread.this.notify(notif);
+                Intent intent = new Intent(context, MyGroupsActivity.class);
+                intent.putExtra(ID_NOTIFICATION,notif.getId());
+                NotificationThread.this.notify(notif, intent);
             }
         });
 
     }
 
-    private PendingIntent getPendingIntentNotifier(Notifier notif){
-        //creation de la notification
-        Intent intent = new Intent(context, MyGroupsActivity.class);
-        intent.putExtra(ID_NOTIFICATION,notif.getId());
-
+    private PendingIntent getPendingIntentNotifier(Notifier notif, Intent intent){
         intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
         return PendingIntent.getActivity(context,REQUEST_NOTIFICATION,intent,PendingIntent.FLAG_ONE_SHOT);
     }
-    private void notify(Notifier notif){
-        PendingIntent pendingIntent = getPendingIntentNotifier(notif);
+    private void notify(Notifier notif, Intent intent){
+        PendingIntent pendingIntent = getPendingIntentNotifier(notif, intent);
         worker.make(notif.getTitle(),notif.getContent(),pendingIntent,LOGO_NOTIF,
                 ID_NOTIFICATION_NOTIFIER + notif.getId(),Notification.FLAG_AUTO_CANCEL);
-       // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            // Create the NotificationChannel
-           /* CharSequence name = "channel_name";
-            String description = "desc";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel mChannel = new NotificationChannel("default", name, importance);
-            mChannel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
 
-            notifManager.createNotificationChannel(mChannel);
-            NotificationCompat.Builder buildr = new NotificationCompat.Builder(context, "default")
-                    .setTicker(notif.getTitle())
-                    .setSmallIcon(LOGO_NOTIF)
-                    .setContentTitle(notif.getTitle())
-                    .setContentText(notif.getContent())
-                    .setContentIntent(pendingIntent);
-
-            Notification notification = buildr.build();
-            notification.flags = Notification.FLAG_AUTO_CANCEL;
-            notifManager.notify(ID_NOTIFICATION_NOTIFIER + notif.getId(),notification);*/
-       // }else {
-           /* Notification.Builder builder = new Notification.Builder(context).setWhen(System.currentTimeMillis())
-                    .setTicker(notif.getTitle())
-                    .setSmallIcon(LOGO_NOTIF)
-                    .setContentTitle(notif.getTitle())
-                    .setContentText(notif.getContent())
-                    .setContentIntent(pendingIntent);
-            Notification notification = builder.build();
-            notification.flags = Notification.FLAG_AUTO_CANCEL;
-            notifManager.notify(ID_NOTIFICATION_NOTIFIER + notif.getId(), notification);*/
-       // }
     }
     private void notifyMessage(Message msg, Groups grp){
         PendingIntent pendingIntent = getPendingIntentMessage(msg,grp);
-        //notifManager = (NotificationManager)context.getSystemService(NOTIFICATION_SERVICE);
         Notification notif = null;
         int idNotifMsg = 0;
         notif = worker.make(getTitleMessageNotification(grp,msg),msg.getContent(),pendingIntent,LOGO_NOTIF,
                 ID_NOTIFICATION_MESSAGE+ grp.getId(),Notification.FLAG_AUTO_CANCEL);
-       // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            /*NotificationChannel mChannel = getNotificationChannelMessage();
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-            if(mChannel != null) {
-                notifManager.createNotificationChannel(mChannel);
-                NotificationCompat.Builder buildr = new NotificationCompat.Builder(context, "default")
-                        .setTicker("title1")
-                        .setSmallIcon(LOGO_NOTIF)
-                        .setContentTitle(getTitleMessageNotification(grp, msg))
-                        .setContentText(msg.getContent())
-                        .setContentIntent(pendingIntent);
-                notif  = buildr.build();
-                setFlagsNotifMessage(notif);
-                idNotifMsg = ID_NOTIFICATION_MESSAGE+ grp.getId();
-                notify(idNotifMsg,notifManager,notif);*/
-            //}
-        //}else{
-            /*Notification.Builder builder = new Notification.Builder(context).setWhen(System.currentTimeMillis())
-                    .setTicker("title1")
-                    .setSmallIcon(LOGO_NOTIF)
-                    .setContentTitle(getTitleMessageNotification(grp,msg))
-                    .setContentText(msg.getContent())
-                    .setContentIntent(pendingIntent);
-            notif = builder.build();
-            setFlagsNotifMessage(notif);
-            idNotifMsg = ID_NOTIFICATION_MESSAGE+ grp.getId();
-            notify(idNotifMsg,notifManager,notif);*/
-        //}
         if(notif != null && idNotifMsg != 0)
             idNotifMessageNotification.put(grp.getId(),idNotifMsg);
-    }
-
-    private void notify(int id, NotificationManager manager, Notification notif){
-        manager.notify(id,notif);
-    }
-    private void setFlagsNotifMessage(Notification notif){
-        notif.flags = Notification.FLAG_AUTO_CANCEL;
     }
 
     private String getTitleMessageNotification(Groups grp, Message msg){
@@ -240,18 +200,5 @@ public class NotificationThread extends Thread {
 
         intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
         return PendingIntent.getActivity(context,REQUEST_NOTIFICATION,intent,PendingIntent.FLAG_ONE_SHOT);
-    }
-
-    private NotificationChannel getNotificationChannelMessage(){
-        NotificationChannel mChannel = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            // Create the NotificationChannel
-            CharSequence name = "channel_name";
-            String description = "desc";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            mChannel = new NotificationChannel("default", name, importance);
-            mChannel.setDescription(description);
-        }
-        return mChannel;
     }
 }
