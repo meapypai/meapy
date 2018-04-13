@@ -40,6 +40,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import project.meapy.meapy.ChatRoomActivity;
@@ -358,6 +360,18 @@ public class OneGroupActivity extends MyAppCompatActivity {
             public void run() {
                 Post post = (Post) getParam();
                 posts.add(post);
+                Collections.sort(posts, new Comparator<Post>() {
+                    @Override
+                    public int compare(Post post, Post t1) {
+                        if(post.getDate().before(t1.getDate())){
+                            return 1;
+                        }else if(post.getDate().after(t1.getDate())){
+                            return -1;
+                        }else{
+                            return 0;
+                        }
+                    }
+                });
                 adapterPost.notifyDataSetChanged();
             }
         }, new RunnableWithParam() {
