@@ -216,23 +216,22 @@ public class OneGroupActivity extends MyAppCompatActivity {
         handler.post(new Runnable() {
              @Override
              public void run() {
-                 if(dialogNewDisc == null) {
-                     AlertDialog.Builder builder = new AlertDialog.Builder(OneGroupActivity.this);
-                     LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                             LinearLayout.LayoutParams.MATCH_PARENT);
-                     nameEdit.setLayoutParams(lp);
-                     builder.setMessage(getString(R.string.creation_of_discipline));
-                     builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                         @Override
-                         public void onClick(DialogInterface dialogInterface, int i) {
-                             onCreateDiscipline(nameEdit);
-                         }
-                     });
-                     builder.setView(nameEdit);
-                     dialogNewDisc = builder.create();
-                     dialogNewDisc.show();
-                     dialogNewDisc.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
-                 }
+                 AlertDialog.Builder builder = new AlertDialog.Builder(OneGroupActivity.this);
+                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                         LinearLayout.LayoutParams.MATCH_PARENT);
+                 nameEdit.setLayoutParams(lp);
+                 builder.setMessage(getString(R.string.creation_of_discipline));
+                 builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                     @Override
+                     public void onClick(DialogInterface dialogInterface, int i) {
+                         onCreateDiscipline(nameEdit);
+                     }
+                 });
+                 builder.setView(nameEdit);
+                 dialogNewDisc = builder.create();
+                 dialogNewDisc.show();
+                 dialogNewDisc.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+
                  configureOnTextChangeNewDisc(nameEdit);
              }
          }
@@ -283,6 +282,13 @@ public class OneGroupActivity extends MyAppCompatActivity {
             @Override
             public void onClick(View view) {
                 askNewDiscName();
+            }
+        });
+
+        findViewById(R.id.manageGroupOneGroup).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),"manage groups not yet implemented",Toast.LENGTH_LONG).show();
             }
         });
     }
