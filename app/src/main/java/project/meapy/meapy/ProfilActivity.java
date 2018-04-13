@@ -100,7 +100,6 @@ public class ProfilActivity extends MyAppCompatActivity {
     private void onSucessInsertFile() {
         if(MyApplication.getUser() != null) {
             StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + MyApplication.getUser().getUid() + "/" + MyApplication.getUser().getNameImageProfil());
-            Toast.makeText(this, MyApplication.getUser().getUid(), Toast.LENGTH_LONG).show();
             Glide.with(this).using(new FirebaseImageLoader()).load(ref).asBitmap().into(imgUserProfil); //image à partir de la réference passée
         }
     }
