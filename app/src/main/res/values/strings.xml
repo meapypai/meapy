@@ -125,6 +125,7 @@
     <string name="error_title_file">Title length must be highter than</string>
     <string name="error_length_file">Length files must be lower than</string>
     <string name="error_fields_file">You must choose groups and discpline</string>
+    <string name="group_must_be_selected">A group must be selected before</string>
     <string name="caracters">caracters</string>
     <string name="post_added">Post added</string>
 

@@ -1,7 +1,9 @@
 package project.meapy.meapy;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -9,6 +11,8 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
@@ -25,6 +29,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +41,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ThrowOnExtraProperties;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -54,6 +60,7 @@ import java.util.regex.Pattern;
 import project.meapy.meapy.bean.Discipline;
 import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.bean.Post;
+import project.meapy.meapy.utils.BuilderColor;
 import project.meapy.meapy.utils.ProviderFilePath;
 import project.meapy.meapy.utils.RunnableWithParam;
 import project.meapy.meapy.utils.firebase.DisciplineLink;
@@ -202,10 +209,13 @@ public class SendFileActivity extends MyAppCompatActivity {
         dataDiscsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         discTextSend.setAdapter(dataDiscsAdapter);
         final Map<Integer, Discipline> idToDisc = new HashMap<>();
+        findViewById(R.id.correct_group).setBackgroundTintList(ContextCompat.getColorStateList(SendFileActivity.this,android.R.color.white));
         groupNameSend.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 dataDiscsAdapter.clear();
+                findViewById(R.id.correct_group).
+                        setBackgroundTintList(ContextCompat.getColorStateList(SendFileActivity.this,android.R.color.holo_green_dark));
                 Groups grp = (Groups) groupNameSend.getSelectedItem();
                     DisciplineLink.getDisciplineByGroupId(grp.getId(), new RunnableWithParam() {
                         @Override
@@ -227,7 +237,6 @@ public class SendFileActivity extends MyAppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
 
@@ -248,10 +257,7 @@ public class SendFileActivity extends MyAppCompatActivity {
         addDiscBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),AddDisciplineActivity.class);
-                intent.putExtra(AddDisciplineActivity.GROUP_EXTRA_NAME,((Groups)groupNameSend.getSelectedItem()));
-                intent.putParcelableArrayListExtra(AddDisciplineActivity.DISCS_EXTRA_NAME, listDisc);
-                startActivity(intent);
+                askNewDiscName();
             }
         });
 
@@ -345,6 +351,83 @@ public class SendFileActivity extends MyAppCompatActivity {
             findViewById(R.id.groupNameSend).setEnabled(false);
         }
     }
+
+    private AlertDialog dialogNewDisc;
+    private void askNewDiscName(){
+        if(groupNameSend.getCount() != 0) {
+            final EditText nameEdit = new EditText(SendFileActivity.this);
+            Handler handler = new Handler(Looper.getMainLooper());
+            handler.post(new Runnable() {
+                             @Override
+                             public void run() {
+                                 AlertDialog.Builder builder = new AlertDialog.Builder(SendFileActivity.this);
+                                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                                         LinearLayout.LayoutParams.MATCH_PARENT);
+                                 nameEdit.setLayoutParams(lp);
+                                 builder.setMessage(getString(R.string.creation_of_discipline));
+                                 builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                     @Override
+                                     public void onClick(DialogInterface dialogInterface, int i) {
+                                         onCreateDiscipline(nameEdit);
+                                     }
+                                 });
+                                 builder.setView(nameEdit);
+                                 dialogNewDisc = builder.create();
+                                 dialogNewDisc.show();
+                                 dialogNewDisc.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+
+                                 configureOnTextChangeNewDisc(nameEdit);
+                             }
+                         }
+            );
+        }else{
+            Toast.makeText(getApplicationContext(),getString(R.string.group_must_be_selected), Toast.LENGTH_LONG).show();
+        }
+    }
+    private void onCreateDiscipline(final EditText edit){
+        String discName = edit.getText().toString();
+        if (discName.length() > 0) {
+            if (!nameDiscplineAlreadyExists(listDisc, discName)) {
+                Discipline disc = new Discipline();
+                disc.setName(discName);
+                disc.setColor(BuilderColor.generateHexaColor());
+                DisciplineLink.addDiscipline((Groups)groupNameSend.getSelectedItem(), disc);
+                Toast.makeText(getApplicationContext(),"created",Toast.LENGTH_LONG).show();
+            } else {
+
+                edit.setText("");
+                askNewDiscName();
+                Toast.makeText(getApplicationContext(),"not created",Toast.LENGTH_LONG).show();
+            }
+        }
+
+    }
+    private boolean nameDiscplineAlreadyExists(List<Discipline> disciplines, String nameDiscipline) {
+        for(Discipline d: disciplines) {
+            if(d.getName().toUpperCase().equals(nameDiscipline.toUpperCase())) {
+                return true;
+            }
+        }
+        return false;
+    }
+    private void configureOnTextChangeNewDisc(final EditText nameEdit){
+        nameEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String discName = nameEdit.getText().toString();
+                if(discName.length() > 0 && !nameDiscplineAlreadyExists(listDisc, discName)) {
+                    dialogNewDisc.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                }else{
+                    dialogNewDisc.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                }
+            }
+        });
+    }
+
 
     private boolean checkDescription(String description){
         return description.replaceAll(" ", "").length() >= LIMIT_DESCRIPTION_LENGTH;

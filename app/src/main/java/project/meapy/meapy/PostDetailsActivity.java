@@ -256,7 +256,7 @@ public class PostDetailsActivity extends MyAppCompatActivity {
             });
 
         }
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 
     private void downloadFile(){

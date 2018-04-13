@@ -129,6 +129,7 @@
     <string name="error_fields_file">Groupe et matière requis</string>
     <string name="caracters">caractères</string>
     <string name="post_added">Post ajouté</string>
+    <string name="group_must_be_selected">Veuillez d\'abord selectionner un groupe</string>
 
     <!-- one group activity -->
     <string name="code_saved_clip_toast">Code copié dans le presse-papier</string>
