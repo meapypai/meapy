@@ -56,11 +56,9 @@ import project.meapy.meapy.bean.Post;
 import project.meapy.meapy.groups.joined.MyGroupsActivity;
 import project.meapy.meapy.posts.PostAdapter2;
 import project.meapy.meapy.utils.BuilderColor;
-import project.meapy.meapy.utils.CodeGroupsGenerator;
 import project.meapy.meapy.utils.RunnableWithParam;
 import project.meapy.meapy.utils.firebase.DisciplineLink;
 import project.meapy.meapy.utils.firebase.GroupLink;
-import project.meapy.meapy.utils.firebase.InvitationLink;
 import project.meapy.meapy.utils.firebase.PostLink;
 
 public class OneGroupActivity extends MyAppCompatActivity {
@@ -93,7 +91,7 @@ public class OneGroupActivity extends MyAppCompatActivity {
         final Groups grp = (Groups) getIntent().getSerializableExtra(GROUP_NAME_EXTRA);
         group = grp;
 
-        providePost();
+        configurePosts();
         configureSummaryGroup();
         configureToolbar();
         configureDiscMenu();
@@ -254,7 +252,7 @@ public class OneGroupActivity extends MyAppCompatActivity {
             }
         });
     }
-    private void providePost(){
+    private void configurePosts(){
         adapterPost = new PostAdapter2(posts,group,new View.OnClickListener() {
             @Override
             public void onClick(View view) {

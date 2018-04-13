@@ -125,9 +125,11 @@ public class PostAdapter2 extends RecyclerView.Adapter {
                 @Override
                 public void run() {
                     Post p = (Post)getParam();
+                    if(p != null) {
 //                    list.set(position,p); //to update the post of the list
-                    nbPosMarkOneGroup.setText(String.valueOf(p.getNbPositiveMark()));
-                    nbNegMarkOneGroup.setText(String.valueOf(p.getNbNegativeMark()));
+                        nbPosMarkOneGroup.setText(String.valueOf(p.getNbPositiveMark()));
+                        nbNegMarkOneGroup.setText(String.valueOf(p.getNbNegativeMark()));
+                    }
                 }
             });
 
