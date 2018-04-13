@@ -31,6 +31,7 @@ import project.meapy.meapy.bean.Post;
 import project.meapy.meapy.bean.User;
 import project.meapy.meapy.groups.OneGroupActivity;
 import project.meapy.meapy.members.MembersAdapter;
+import project.meapy.meapy.utils.BuilderFormatDate;
 import project.meapy.meapy.utils.RetrieveImage;
 import project.meapy.meapy.utils.RunnableWithParam;
 import project.meapy.meapy.utils.firebase.DisciplineLink;
@@ -119,7 +120,7 @@ public class PostAdapter2 extends RecyclerView.Adapter {
             discipline.setText(post.getDisciplineName());
             description.setText(post.getTextContent());
             user.setText(post.getUser());
-
+            datePost.setText(BuilderFormatDate.getNbDayPastSinceToday(context,post.getDate()));
 
             PostLink.provideMarkForPost(post, new RunnableWithParam() {
                 @Override

@@ -49,7 +49,7 @@ public class AddDisciplineActivity extends MyAppCompatActivity {
                         disc.setName(discName);
                         disc.setColor(BuilderColor.generateHexaColor());
                         DisciplineLink.addDiscipline(grp,disc);
-                        Toast.makeText(AddDisciplineActivity.this, getString(R.string.discipline_added_toast) + discName, Toast.LENGTH_LONG).show();
+                        Toast.makeText(AddDisciplineActivity.this, getString(R.string.discipline_added_toast), Toast.LENGTH_LONG).show();
                         finish();
                     }
                     else {

@@ -313,7 +313,7 @@ public class SendFileActivity extends MyAppCompatActivity {
 
                                 DatabaseReference groupspost = database.getReference("groups/" + group.getId() + "/disciplines/" + disc.getId() + "/posts/").child(post.getId() + "");
                                 groupspost.setValue(post);
-                                Toast.makeText(SendFileActivity.this, "post added", Toast.LENGTH_LONG).show();
+                                Toast.makeText(SendFileActivity.this, getResources().getString(R.string.post_added), Toast.LENGTH_LONG).show();
                                 finish();
 
                             } else {
