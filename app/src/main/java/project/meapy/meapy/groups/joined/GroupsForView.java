@@ -36,7 +36,7 @@ public class GroupsForView extends DomainObject {
     }
 
     public String getSummary() {
-        return summary;
+        return summary+" ";
     }
 
     public void setSummary(String summary) {
