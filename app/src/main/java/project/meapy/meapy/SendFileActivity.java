@@ -48,6 +48,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
 import java.util.regex.Pattern;
 
 import project.meapy.meapy.bean.Discipline;
@@ -441,10 +442,12 @@ public class SendFileActivity extends MyAppCompatActivity {
     }
 
     private void addDocument(File file){
-        String name = file.getName();
-        nameFiles.add(name); //ajout du nom du fichier pour l'adapter du spinner
-        files.add(file); //ajout du fichier à upload
-        adapterSpinnerFiles.notifyDataSetChanged();
+        if(file.exists()) {
+            String name = file.getName();
+            nameFiles.add(name); //ajout du nom du fichier pour l'adapter du spinner
+            files.add(file); //ajout du fichier à upload
+            adapterSpinnerFiles.notifyDataSetChanged();
+        }
     }
 
     String mCurrentPhotoPath;

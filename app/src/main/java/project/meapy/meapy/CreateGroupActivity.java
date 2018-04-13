@@ -44,6 +44,8 @@ import project.meapy.meapy.utils.firebase.FileLink;
 import project.meapy.meapy.utils.firebase.InvitationLink;
 import project.meapy.meapy.utils.firebase.MessageLink;
 
+import static android.app.Activity.RESULT_OK;
+
 public class CreateGroupActivity extends MyAppCompatActivity {
 
     public static final String DEFAULT_IMAGE_GROUP = "default_image_group.gif";

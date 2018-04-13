@@ -49,8 +49,8 @@ public class ProviderFilePath {
                 String docId = DocumentsContract.getDocumentId(uri);
                 String[] split = docId.split(":");
                 String type = split[0];
-                
-                return Environment.getExternalStorageDirectory() + "/" + split[1];
+//                path =  Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + uri.
+                Toast.makeText(context,"Ajout de fichier depuis la carte non possible pour le moment",Toast.LENGTH_LONG).show();
             }
             return path;
         }
