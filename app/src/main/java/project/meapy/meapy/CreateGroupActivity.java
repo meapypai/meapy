@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.File;
+import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,10 +36,12 @@ import project.meapy.meapy.bean.Message;
 import project.meapy.meapy.bean.Notifier;
 import project.meapy.meapy.bean.User;
 import project.meapy.meapy.database.GroupsMapper;
+import project.meapy.meapy.utils.CodeGroupsGenerator;
 import project.meapy.meapy.utils.GroupsUserAdder;
 import project.meapy.meapy.utils.ProviderFilePath;
 import project.meapy.meapy.utils.RunnableWithParam;
 import project.meapy.meapy.utils.firebase.FileLink;
+import project.meapy.meapy.utils.firebase.InvitationLink;
 import project.meapy.meapy.utils.firebase.MessageLink;
 
 public class CreateGroupActivity extends MyAppCompatActivity {
@@ -139,6 +142,7 @@ public class CreateGroupActivity extends MyAppCompatActivity {
                     final Groups newGroup = new Groups();
                     newGroup.setName(nameGroup);
                     newGroup.setSummary(summary);
+                    generateCodeForGroup(newGroup);
                     FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
                     newGroup.setIdUserAdmin(fUser.getUid());
 
@@ -239,7 +243,15 @@ public class CreateGroupActivity extends MyAppCompatActivity {
         finish();
     }
 
-
+    private String generateCodeForGroup(Groups group){
+        String generatedCode = group.getCodeToJoin();
+        if((group.getCodeToJoin() == null) || (group.getCodeToJoin().length()==0)){
+            generatedCode = CodeGroupsGenerator.generate();
+            group.setCodeToJoin(generatedCode);
+            InvitationLink.setInviteCode(group,generatedCode);
+        }
+        return generatedCode;
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //request concernant l'import d'une image

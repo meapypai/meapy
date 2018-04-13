@@ -133,7 +133,7 @@ public class OneGroupActivity extends MyAppCompatActivity {
                 break;
             case R.id.shareGroup:
                 intent = new Intent(Intent.ACTION_SEND);
-                intent.putExtra(Intent.EXTRA_TEXT,getResources().getString(R.string.invitation_code_to_group) + " " );
+                intent.putExtra(Intent.EXTRA_TEXT,getResources().getString(R.string.invitation_code_to_group) + group.getCodeToJoin() );
                 intent.setType("text/plain");
                 intent = Intent.createChooser(intent,"Share code");
         }
@@ -378,21 +378,6 @@ public class OneGroupActivity extends MyAppCompatActivity {
             posts.remove(toDelete);
             adapterPost.notifyDataSetChanged();
         }
-    }
-
-    private void inviteAction(){
-        String generatedCode = generateCodeForGroup();
-        saveCodeIntoClipboard(generatedCode);
-    }
-
-    private String generateCodeForGroup(){
-        String generatedCode = group.getCodeToJoin();
-        if((group.getCodeToJoin() == null) || (group.getCodeToJoin().length()==0)){
-            generatedCode = CodeGroupsGenerator.generate();
-            group.setCodeToJoin(generatedCode);
-            InvitationLink.setInviteCode(group,generatedCode);
-        }
-        return generatedCode;
     }
 
     private void saveCodeIntoClipboard(String generatedCode) {

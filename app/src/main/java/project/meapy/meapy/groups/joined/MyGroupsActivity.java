@@ -1,17 +1,25 @@
 package project.meapy.meapy.groups.joined;
 
+import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -32,6 +40,7 @@ import project.meapy.meapy.SendFileActivity;
 import project.meapy.meapy.SettingsActivity;
 import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.groups.OneGroupActivity;
+import project.meapy.meapy.utils.CodeGroupsGenerator;
 import project.meapy.meapy.utils.RunnableWithParam;
 import project.meapy.meapy.utils.firebase.GroupLink;
 import project.meapy.meapy.utils.firebase.NotificationLink;
@@ -135,11 +144,62 @@ public class MyGroupsActivity extends MyAppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 break;
             case R.id.joinGrpMenu:
-                intent = new Intent(getApplicationContext(), JoinGroupActivity.class);
+                sendDialogForJoinGroup();
+                //intent = new Intent(getApplicationContext(), JoinGroupActivity.class);
                 break;
         }
-        startActivity(intent);
+        if(intent != null) {
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void sendDialogForJoinGroup(){
+        final EditText codeEdit = new EditText(getApplicationContext());
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MyGroupsActivity.this);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT);
+                codeEdit.setLayoutParams(lp);
+                builder.setView(codeEdit);
+                builder.setMessage(R.string.title_join_group_menu);
+                builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String code = codeEdit.getText().toString();
+                        GroupLink.joinGroupByCode(code);
+                    }
+                });
+                final AlertDialog dialog = builder.create();
+                dialog.show();
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+
+                codeEdit.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+                        String code = codeEdit.getText().toString();
+                        if(code.length() != CodeGroupsGenerator.CODE_SIZE){
+                            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                        }else{
+                            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                        }
+                    }
+                });
+            }
+        });
     }
 
     @Override

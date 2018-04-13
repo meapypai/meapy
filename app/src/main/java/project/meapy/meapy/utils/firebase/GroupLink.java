@@ -71,6 +71,7 @@ public class GroupLink {
     }
 
     public static void joinGroupByCode(String code){
+        code = code.toUpperCase();
         FirebaseDatabase.getInstance().getReference("codeToGroups/"+code).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
