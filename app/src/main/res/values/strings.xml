@@ -29,6 +29,10 @@
     <string name="sign_in_fb">Sign in with Facebook</string>
     <string name="sign_in_gm">Sign in with Gmail</string>
     <string name="text_if_user_is_register">Create account ?</string>
+    <string name="password_forgot">forgot password ?</string>
+    <string name="reset_pass_will_be_send">Password reinitialization mail will be sent</string>
+    <string name="write_your_email">Write your email :</string>
+    <string name="reset_pass_failed">Reinitialization password failed</string>
 
     <!-- String related to label activity -->
     <string name="groups_label_name">My groups</string>

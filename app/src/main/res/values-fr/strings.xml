@@ -28,6 +28,10 @@
     <string name="sign_in_fb">Connexion avec Facebook</string>
     <string name="sign_in_gm">Connexion avec Gmail</string>
     <string name="text_if_user_is_register">Créer un compte ?</string>
+    <string name="password_forgot">Mot de passe oublié ?</string>
+    <string name="reset_pass_will_be_send">Mail de reinitialisation de mot de passe envoyé</string>
+    <string name="write_your_email">Ecrivez votre adresse mail :</string>
+    <string name="reset_pass_failed">Reinitialisation du mot de passe échouée</string>
 
     <!-- String related to label activity -->
     <string name="groups_label_name">Mes groupes</string>

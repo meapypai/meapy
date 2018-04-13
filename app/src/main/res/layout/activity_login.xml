@@ -161,6 +161,14 @@
             <!--android:textColor="@android:color/white" />-->
         </LinearLayout>
 
+
+        <TextView
+            android:id="@+id/password_forgot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/password_forgot"
+            android:textColor="@color/colorWhite"
+            android:layout_gravity="bottom|end"/>
         <!--<Button-->
         <!--android:id="@+id/register"-->
         <!--style="?android:textAppearanceSmall"-->
