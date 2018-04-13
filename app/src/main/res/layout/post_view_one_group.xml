@@ -174,7 +174,7 @@
                             android:paddingLeft="5dp"
                             android:paddingRight="7dp"
                             android:background="@drawable/add_background_post"
-                            android:id="@+id/moinsLayout"
+                            android:id="@+id/plusLayout"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
 
@@ -199,10 +199,10 @@
                             android:paddingLeft="5dp"
                             android:paddingRight="7dp"
                             android:background="@drawable/minus_background_post"
-                            android:id="@+id/plusLayout"
+                            android:id="@+id/moinsLayout"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_toRightOf="@id/moinsLayout">
+                            android:layout_toRightOf="@id/plusLayout">
 
                             <ImageView
                                 android:layout_width="20dp"

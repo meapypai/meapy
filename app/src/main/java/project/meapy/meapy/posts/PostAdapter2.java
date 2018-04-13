@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -56,6 +57,7 @@ public class PostAdapter2 extends RecyclerView.Adapter {
         this.posts = posts;
         this.group = group;
         this.itemClickListener = itemClickListener;
+
     }
 
     public Post getItem(int i){
@@ -67,6 +69,18 @@ public class PostAdapter2 extends RecyclerView.Adapter {
         View view;
         context = parent.getContext();
         view = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_view_one_group,parent,false);
+        view.findViewById(R.id.plusLayout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Toast.makeText(context,"PLUS",Toast.LENGTH_LONG).show();
+            }
+        });
+        view.findViewById(R.id.moinsLayout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Toast.makeText(context,"MOINS",Toast.LENGTH_LONG).show();
+            }
+        });
         if(itemClickListener != null)
             view.setOnClickListener(itemClickListener);
         return new PostHolder(view);
