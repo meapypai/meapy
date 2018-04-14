@@ -29,6 +29,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -51,19 +56,31 @@ import java.util.regex.Pattern;
 import project.meapy.meapy.bean.Comment;
 import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.bean.Post;
+import project.meapy.meapy.bean.User;
 import project.meapy.meapy.comments.CommentAdapter;
+import project.meapy.meapy.groups.OneGroupActivity;
 import project.meapy.meapy.utils.RunnableWithParam;
 import project.meapy.meapy.utils.firebase.CommentLink;
 import project.meapy.meapy.utils.firebase.FileLink;
 import project.meapy.meapy.utils.firebase.PostLink;
 
-public class PostDetailsActivity extends MyAppCompatActivity {
+public class PostDetailsActivity extends MyAppCompatActivity implements RewardedVideoAdListener{
+
+    public static final String SAMPLE_APMOB_ID = "ca-app-pub-3940256099942544~3347511713";
+    public static final String SAMPLE_APMOB_UNIT_ID = "ca-app-pub-3940256099942544/5224354917";
+
+    private RewardedVideoAd rewardedVideoAd;
+
+    public static final int MIN_COINS_TO_DOWNLOAD_FILE = 1;
+    public static final int COINS_REMOVED_ON_DOWNLOADED_FILE = 1;
+
     private Post curPost;
     private Menu menu;
 
     private ImageButton downPostDetails;
     private ImageButton upPostDetails;
     private ImageButton sendComment;
+    private ImageButton downloadFilesBtn;
 
     private RelativeLayout layoutDescriptionFile;
     private EditText commentContent;
@@ -81,6 +98,7 @@ public class PostDetailsActivity extends MyAppCompatActivity {
 
         downPostDetails = (ImageButton)findViewById(R.id.downPostDetails);
         upPostDetails = (ImageButton)findViewById(R.id.upPostDetails);
+        downloadFilesBtn = (ImageButton)findViewById(R.id.downloadFilePostDetails);
 
         layoutDescriptionFile = (RelativeLayout)findViewById(R.id.layoutDescriptionFile);
         commentContent        = findViewById(R.id.contentCommentPostDetails);
@@ -88,6 +106,17 @@ public class PostDetailsActivity extends MyAppCompatActivity {
         titlePostTv           = findViewById(R.id.titlePostDetails);
         descFiles             = findViewById(R.id.descFilesPostDetails);
         contentPostTv         = findViewById(R.id.contentPostDetails);
+
+
+        //initialize ads
+        MobileAds.initialize(this,SAMPLE_APMOB_ID);
+
+        //video will be displayed
+        rewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
+        rewardedVideoAd.setRewardedVideoAdListener(this);
+
+        //to load the video
+        loadVideoAd();
 
         //extra retrieved post and id of the group
         final Post post = (Post) getIntent().getSerializableExtra(POST_EXTRA_NAME);
@@ -190,14 +219,34 @@ public class PostDetailsActivity extends MyAppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 112);
         }
 
-        ImageButton downloadFilesBtn = findViewById(R.id.downloadFilePostDetails);
         if(curPost.getFilesPaths().size() >= 1) {
             downloadFilesBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
-                    Toast.makeText(getApplicationContext(),getString(R.string.download_started),Toast.LENGTH_SHORT).show();
-                    downloadFile();
+                    if(MyApplication.getUser().getCoins() >= MIN_COINS_TO_DOWNLOAD_FILE) {
+                        Toast.makeText(getApplicationContext(), getString(R.string.download_started), Toast.LENGTH_SHORT).show();
+                        downloadFile();
+                    }
+                    else {
+                        Handler mHandler = new Handler(Looper.getMainLooper());
+                        mHandler.post(new Runnable() {
+                            public void run() {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(PostDetailsActivity.this);
+                                builder.setMessage(getString(R.string.question_reload_coins));
+                                builder.setNegativeButton(getString(R.string.no),null);
+                                builder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        if(rewardedVideoAd.isLoaded()) {
+                                            rewardedVideoAd.show();
+                                        }
+                                    }
+                                });
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+                            }
+                        });
+                    }
                 }
             });
         }else{
@@ -259,6 +308,12 @@ public class PostDetailsActivity extends MyAppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void loadVideoAd() {
+        if(!rewardedVideoAd.isLoaded()) {
+            rewardedVideoAd.loadAd(SAMPLE_APMOB_UNIT_ID,new AdRequest.Builder().build());
+        }
+    }
+
     private void downloadFile(){
         List<String> filesPaths = curPost.getFilesPaths();
         OnSuccessFailureFileDownload sucessFailureListener = new OnSuccessFailureFileDownload();
@@ -275,6 +330,7 @@ public class PostDetailsActivity extends MyAppCompatActivity {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                     Toast.makeText(getApplicationContext(), "file  download success "+dir.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+                    MyApplication.getUser().setCoins(MyApplication.getUser().getCoins() -  COINS_REMOVED_ON_DOWNLOADED_FILE); //set the coins of the user
                     galleryAddPic(localFile);
                 }
             })
@@ -308,6 +364,47 @@ public class PostDetailsActivity extends MyAppCompatActivity {
         mediaScanIntent.setData(contentUri);
         this.sendBroadcast(mediaScanIntent);
     }
+
+    @Override
+    protected void onPause() {
+        rewardedVideoAd.pause(this);
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        rewardedVideoAd.resume(this);
+        super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        rewardedVideoAd.destroy(this);
+        super.onDestroy();
+    }
+
+    @Override
+    public void onRewardedVideoAdLoaded() {}
+
+    @Override
+    public void onRewardedVideoAdOpened() {}
+
+    @Override
+    public void onRewardedVideoStarted() {}
+
+    @Override
+    public void onRewardedVideoAdClosed() {}
+
+    @Override
+    public void onRewarded(RewardItem rewardItem) {
+        MyApplication.getUser().setCoins(MyApplication.getUser().getCoins()+ User.DEFAULT_NUMBER_COINS); //set user coins
+    }
+
+    @Override
+    public void onRewardedVideoAdLeftApplication() {}
+
+    @Override
+    public void onRewardedVideoAdFailedToLoad(int i) {}
 
 
     class OnSuccessFailureFileDownload implements OnSuccessListener,OnFailureListener{

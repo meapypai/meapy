@@ -32,6 +32,7 @@ import java.util.Map;
 import project.meapy.meapy.CreateGroupActivity;
 import project.meapy.meapy.JoinGroupActivity;
 import project.meapy.meapy.LoginActivity;
+import project.meapy.meapy.MyAccountActivity;
 import project.meapy.meapy.MyAppCompatActivity;
 import project.meapy.meapy.MyApplication;
 import project.meapy.meapy.NotificationThread;
@@ -147,6 +148,8 @@ public class MyGroupsActivity extends MyAppCompatActivity {
                 sendDialogForJoinGroup();
                 //intent = new Intent(getApplicationContext(), JoinGroupActivity.class);
                 break;
+            case R.id.myAccountId:
+                intent = new Intent(this, MyAccountActivity.class);
         }
         if(intent != null) {
             startActivity(intent);

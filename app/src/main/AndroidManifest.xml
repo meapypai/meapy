@@ -121,7 +121,7 @@
 
 
         <activity android:name=".ReloadCoinsActivity"
-            android:theme="@style/Theme.AppCompat.Dialog"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"
             android:screenOrientation="portrait">
         </activity>
 
