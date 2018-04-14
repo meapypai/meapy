@@ -446,7 +446,7 @@ public class PostDetailsActivity extends MyAppCompatActivity implements Rewarded
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     Post p = (Post)dataSnapshot.getValue(Post.class);
-                    //positive
+                    //positive mark
                     if(imageView.equals(upPostDetails)) {
                         if(postAlreadyMarked(p,"positive")) {
                             refPost.child("nbPositiveMark").setValue(p.getNbPositiveMark() - 1);
@@ -466,7 +466,7 @@ public class PostDetailsActivity extends MyAppCompatActivity implements Rewarded
                             refPost.child("markedByUserId/" + MyApplication.getUser().getUid()).setValue("positive");
                         }
                     }
-                    //negative
+                    //negative mark
                     else if(imageView.equals(downPostDetails)) {
                         if(postAlreadyMarked(p,"negative")) {
                             refPost.child("nbNegativeMark").setValue(p.getNbNegativeMark() - 1);

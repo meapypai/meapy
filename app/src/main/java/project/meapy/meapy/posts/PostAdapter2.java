@@ -132,7 +132,7 @@ public class PostAdapter2 extends RecyclerView.Adapter {
         }
 
 
-        public void bind(final Post post, int position) {
+        public void bind(final Post post, final int position) {
             title.setText(post.getTitle());
             discipline.setText(post.getDisciplineName());
             description.setText(post.getTextContent());
@@ -144,7 +144,7 @@ public class PostAdapter2 extends RecyclerView.Adapter {
                 public void run() {
                     Post p = (Post)getParam();
                     if(p != null) {
-//                    list.set(position,p); //to update the post of the list
+                        posts.set(position,p); //to update the post of the list
                         nbPosMarkOneGroup.setText(String.valueOf(p.getNbPositiveMark()));
                         nbNegMarkOneGroup.setText(String.valueOf(p.getNbNegativeMark()));
                     }
