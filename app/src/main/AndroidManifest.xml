@@ -42,48 +42,59 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".groups.discussions.DiscussionGroupsActivity"
             android:label="@string/groups_label_name"
             android:screenOrientation="portrait"></activity>
+
         <activity
             android:name=".SendFileActivity"
             android:label="@string/add_file_label"
             android:screenOrientation="portrait"></activity>
+
         <activity
             android:name=".ChatRoomActivity"
             android:screenOrientation="portrait"
-
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+
         <activity
             android:name=".CreateGroupActivity"
             android:label="@string/create_group_label"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".RegisterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
+
         <activity
             android:name=".PostDetailsActivity"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".groups.joined.MyGroupsActivity"
             android:label="@string/my_groups_label"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".groups.OneGroupActivity"
             android:label="@string/posts_label"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
         <activity
             android:name=".AddDisciplineActivity"
             android:theme="@style/Theme.AppCompat.Dialog" />
         <activity android:name=".DisciplinePostsActivity" />
+
         <activity
             android:name=".LeaveGroupActivity"
             android:theme="@style/Theme.AppCompat.Dialog" />
+
         <activity android:name=".SearchUserActivity"></activity>
+
         <activity android:name=".JoinGroupActivity"
             android:theme="@style/Theme.AppCompat.Dialog"></activity>
 
@@ -104,6 +115,16 @@
             android:screenOrientation="portrait"
             android:label="@string/members_label">
         </activity>
+
+        <activity android:name=".MyAccountActivity"
+            android:screenOrientation="portrait"></activity>
+
+
+        <activity android:name=".ReloadCoinsActivity"
+            android:theme="@style/Theme.AppCompat.Dialog"
+            android:screenOrientation="portrait">
+        </activity>
+
     </application>
 
 </manifest>

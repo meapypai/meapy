@@ -145,6 +145,9 @@
     <!--profil activity-->
     <string name="first_last_name">Nom Prénom</string>
 
+    <!--reload coins activity-->
+    <string name="question_reload_coins">Recharger mes Meaps ?</string>
+
     <!--settings activity-->
     <string name="title_theme_color">Thème</string>
     <string name="dialog_theme_color">Choisir une couleur</string>
@@ -154,7 +157,7 @@
     <string name="green_color_theme">Vert</string>
     <string name="blue_color_theme">Bleu</string>
 
-    <!--String related to menus-->
+                                                  <!--String related to menus-->
 
     <!--Menu my groups-->
     <string name="title_join_group_menu">Rejoindre un groupe</string>

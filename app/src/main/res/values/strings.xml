@@ -144,6 +144,9 @@
     <!--profil activity-->
     <string name="first_last_name">Firstname Lastname</string>
 
+    <!--reload coins activity-->
+    <string name="question_reload_coins">Reload my Meaps ?</string>
+
     <!--settings activity-->
     <string name="title_theme_color">Theme color</string>
     <string name="dialog_theme_color">Select a color</string>
