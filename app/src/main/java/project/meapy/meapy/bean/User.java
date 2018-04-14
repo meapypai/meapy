@@ -13,6 +13,7 @@ import java.util.List;
 public class User implements Parcelable {
 
     public static final String DEFAULT_IMAGE_USER_NAME = "default_avatar.png";
+    public static final int DEFAULT_NUMBER_COINS = 3;
 
     protected String email;
     protected String firstName;
@@ -20,6 +21,7 @@ public class User implements Parcelable {
     protected String uid;
     protected String nameImageProfil;
     protected String chatBubbleColor;
+    protected int coins;
     protected int rank; //to see if the user is admin or not
 
     protected User(Parcel in) {
@@ -27,6 +29,7 @@ public class User implements Parcelable {
         lastName = in.readString();
         email = in.readString();
         uid = in.readString();
+        this.setCoins(DEFAULT_NUMBER_COINS);
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -113,6 +116,14 @@ public class User implements Parcelable {
 
     public void setChatBubbleColor(String chatBubbleColor) {
         this.chatBubbleColor = chatBubbleColor;
+    }
+
+    public int getCoins() {
+        return coins;
+    }
+
+    public void setCoins(int coins) {
+        this.coins = coins;
     }
 
     public int getRank() {

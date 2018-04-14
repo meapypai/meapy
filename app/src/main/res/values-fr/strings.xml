@@ -161,6 +161,7 @@
     <string name="title_add_file_menu">Ajout de fichiers</string>
     <string name="title_settings_menu">Paramètres</string>
     <string name="title_disconnect_menu">Déconnexion</string>
+    <string name="title_my_account_menu">Mon Compte</string>
 
     <!--Search user menu-->
     <string name="title_search_user_menu">Rechercher</string>
