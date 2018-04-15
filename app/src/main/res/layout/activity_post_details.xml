@@ -185,7 +185,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/divider"
             android:layout_toLeftOf="@id/sendCommentPostDetails"
-            android:hint="Write comment"
+            android:hint="@string/write_ccmment_hint"
             android:padding="7dp"
             android:textSize="13sp"
             android:layout_centerInParent="true"
