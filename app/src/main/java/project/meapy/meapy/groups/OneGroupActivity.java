@@ -263,6 +263,7 @@ public class OneGroupActivity extends MyAppCompatActivity {
                 int position = listView.getChildLayoutPosition(view);
                 Post post = (Post) adapterPost.getItem(position);
                 Intent intent = new Intent(OneGroupActivity.this, PostDetailsActivity.class);
+                intent.putExtra(OneGroupActivity.EXTRA_GROUP_USER_CREATOR,group.getIdUserAdmin());
                 intent.putExtra(PostDetailsActivity.POST_EXTRA_NAME,post);
                 intent.putExtra(PostDetailsActivity.ID_GROUP_EXTRA_NAME,group.getId()+"");
                 startActivity(intent);

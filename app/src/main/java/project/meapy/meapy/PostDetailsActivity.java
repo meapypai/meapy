@@ -88,6 +88,8 @@ public class PostDetailsActivity extends MyAppCompatActivity implements Rewarded
     private TextView descFiles;
     private TextView contentPostTv;
 
+    private String userAdminId;
+
     public static final String POST_EXTRA_NAME = "POST";
     public static final String ID_GROUP_EXTRA_NAME = "ID_GROUP";
 
@@ -121,6 +123,8 @@ public class PostDetailsActivity extends MyAppCompatActivity implements Rewarded
         //extra retrieved post and id of the group
         final Post post = (Post) getIntent().getSerializableExtra(POST_EXTRA_NAME);
         final String idGroup = getIntent().getStringExtra(ID_GROUP_EXTRA_NAME);
+        userAdminId = getIntent().getStringExtra(OneGroupActivity.EXTRA_GROUP_USER_CREATOR);
+
         curPost = post;
 
 //        if post already marked by the user
@@ -343,7 +347,8 @@ public class PostDetailsActivity extends MyAppCompatActivity implements Rewarded
         FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
         if(fUser != null){
             //si  créateur du post ou si admin
-            if(menu != null && curPost.getUser_uid() != null && (fUser.getUid().equals(curPost.getUser_uid()) || MyApplication.getUser().getRank() == 1)){
+            if(menu != null && curPost.getUser_uid() != null &&
+                    (fUser.getUid().equals(curPost.getUser_uid()) || MyApplication.getUser().getUid().equals(userAdminId))){
                 menu.findItem(R.id.deletePostDetails).setVisible(true);
             }
         }
