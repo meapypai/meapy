@@ -370,7 +370,7 @@ public class PostDetailsActivity extends MyAppCompatActivity implements Rewarded
 
         //download  completed set the notification
         mBuilder.setContentText(getResources().getString(R.string.download_finished)).setProgress(0,0,false);
-        notificationManager.notify(848484, mBuilder.build());
+        notificationManager.notify(curPost.getId(), mBuilder.build());
     }
 
     public boolean onPrepareOptionsMenu(Menu menu){
