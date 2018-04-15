@@ -79,6 +79,7 @@ public class OneGroupActivity extends MyAppCompatActivity {
     private FloatingActionButton fBtn;
 
     public static final String GROUP_NAME_EXTRA = "GROUP";
+    public static final String EXTRA_GROUP_USER_CREATOR = "user_creator";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,6 +131,7 @@ public class OneGroupActivity extends MyAppCompatActivity {
             case R.id.membersOneGroup:
                 intent  = new Intent(this, MembersActivity.class);
                 intent.putExtra(ChatRoomActivity.EXTRA_GROUP_ID,group.getId()+"");
+                intent.putExtra(OneGroupActivity.EXTRA_GROUP_USER_CREATOR,group.getIdUserAdmin());
                 break;
             case R.id.shareGroup:
                 intent = new Intent(Intent.ACTION_SEND);

@@ -38,10 +38,13 @@ public class MembersActivity extends MyAppCompatActivity {
 
         setContentView(R.layout.activity_members);
 
-        members_recycleview = (RecyclerView)findViewById(R.id.members_recycleview);
-        membersAdapter = new MembersAdapter(users);
-
+        //extra receive from intent
         String groupId = getIntent().getStringExtra(ChatRoomActivity.EXTRA_GROUP_ID);
+        String userAdminId =  getIntent().getStringExtra(OneGroupActivity.EXTRA_GROUP_USER_CREATOR);
+
+        //adapter member
+        members_recycleview = (RecyclerView)findViewById(R.id.members_recycleview);
+        membersAdapter = new MembersAdapter(users, userAdminId);
 
         DatabaseReference idUsersRef = FirebaseDatabase.getInstance().getReference("groups/" + groupId + "/usersId");
         idUsersRef.addChildEventListener(new ChildEventListener() {

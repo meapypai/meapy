@@ -28,9 +28,11 @@ public class MembersAdapter extends RecyclerView.Adapter {
 
     private List<User> users;
     private Context context;
+    private String userAdminId;
 
-    public MembersAdapter(List<User> users) {
+    public MembersAdapter(List<User> users, String userAdminId) {
         this.users = users;
+        this.userAdminId = userAdminId;
     }
 
     @Override
@@ -96,7 +98,8 @@ public class MembersAdapter extends RecyclerView.Adapter {
                 }.run();
             }
 
-            if(user.getRank() == 1) { //s'il est admin
+            //display admin image view
+            if(user.getUid().equals(userAdminId)) { //s'il est admin du groupe
                 adminMember.setVisibility(View.VISIBLE);
             }
         }
