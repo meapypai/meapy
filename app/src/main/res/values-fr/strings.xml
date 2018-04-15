@@ -9,7 +9,6 @@
 
     <string name="others">autres</string>
     <string name="no_files">pas de fichier(s)</string>
-    <string name="download_started">le téléchargement a demarré</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -81,6 +80,10 @@
 
     <!-- post detail -->
     <string name="confirm_delete_post">Voulez-vous vraiment supprimer ce post ?</string>
+    <string name="download_post">Téléchargement des fichiers</string>
+    <string name="download_started">Téléchargement...</string>
+    <string name="download_in_progress">en cours...</string>
+    <string name="download_finished">terminé</string>
     <string name="write_ccmment_hint">Ecrire un commentaire...</string>
 
     <!-- discipline posts-->

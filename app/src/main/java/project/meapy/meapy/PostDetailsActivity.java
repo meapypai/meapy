@@ -2,6 +2,7 @@ package project.meapy.meapy;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,6 +13,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -312,6 +315,10 @@ public class PostDetailsActivity extends MyAppCompatActivity implements Rewarded
         return super.onOptionsItemSelected(item);
     }
 
+
+    /**
+     * load the video ad
+     */
     private void loadVideoAd() {
         if(!rewardedVideoAd.isLoaded()) {
             rewardedVideoAd.loadAd(SAMPLE_APMOB_UNIT_ID,new AdRequest.Builder().build());
@@ -319,6 +326,24 @@ public class PostDetailsActivity extends MyAppCompatActivity implements Rewarded
     }
 
     private void downloadFile(){
+        //TODO : NOTIFICATION MUST BE FACTORIZE
+        Uri selectedUri = Uri.parse(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/meapy/" + curPost.getDisciplineName() + File.separator + curPost.getTitle());
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(selectedUri, "resource/folder");
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent = Intent.createChooser(intent,getResources().getString(R.string.download_post));
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "default");
+        mBuilder.setContentTitle(getResources().getString(R.string.download_post))
+                .setContentText(getResources().getString(R.string.download_in_progress))
+                .setSmallIcon(R.drawable.logo_app1_without_background)
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .setContentIntent(pendingIntent);
+
+        mBuilder.setProgress(0, 0, true);
+//        ------------------------------------------------------------------------------------
         List<String> filesPaths = curPost.getFilesPaths();
         OnSuccessFailureFileDownload sucessFailureListener = new OnSuccessFailureFileDownload();
         int i = 0;
@@ -333,13 +358,19 @@ public class PostDetailsActivity extends MyAppCompatActivity implements Rewarded
             ref.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(getApplicationContext(), "file  download success "+dir.getAbsolutePath(), Toast.LENGTH_SHORT).show();
-                    MyApplication.getUser().setCoins(MyApplication.getUser().getCoins() -  COINS_REMOVED_ON_DOWNLOADED_FILE); //set the coins of the user
+
+//                    Toast.makeText(getApplicationContext(), "file  download success "+dir.getAbsolutePath(), Toast.LENGTH_SHORT).show();
                     galleryAddPic(localFile);
                 }
             })
                     .addOnFailureListener(sucessFailureListener);
         }
+        MyApplication.getUser().setCoins(MyApplication.getUser().getCoins() -  COINS_REMOVED_ON_DOWNLOADED_FILE); //set the coins of the user
+
+
+        //download  completed set the notification
+        mBuilder.setContentText(getResources().getString(R.string.download_finished)).setProgress(0,0,false);
+        notificationManager.notify(848484, mBuilder.build());
     }
 
     public boolean onPrepareOptionsMenu(Menu menu){
@@ -398,7 +429,9 @@ public class PostDetailsActivity extends MyAppCompatActivity implements Rewarded
     public void onRewardedVideoStarted() {}
 
     @Override
-    public void onRewardedVideoAdClosed() {}
+    public void onRewardedVideoAdClosed() {
+        loadVideoAd();
+    }
 
     @Override
     public void onRewarded(RewardItem rewardItem) {

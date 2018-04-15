@@ -10,8 +10,6 @@
 
     <string name="no_files">no file(s)</string>
 
-    <string name="download_started">download started</string>
-
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -104,6 +102,10 @@
 
     <!-- post detail -->
     <string name="confirm_delete_post">Do you really want to delete this post ?</string>
+    <string name="download_post">Post download</string>
+    <string name="download_started">Donwloading...</string>
+    <string name="download_in_progress">in progress...</string>
+    <string name="download_finished">sucess</string>
     <string name="write_ccmment_hint">Write a comment...</string>
 
     <!--comment post details -->
