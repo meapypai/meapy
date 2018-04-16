@@ -72,8 +72,9 @@ public class SendFileActivity extends MyAppCompatActivity {
 
     private static  final int REQUEST_PERMISSION_READ_EXTERNAL_STORAGE = 7;
     private static final int REQUEST_LOAD_FILE = 5;
-    private static  final int REQUEST_NEW_GROUP = 8;
-    private static  final int REQUEST_NEW_DISC = 9;
+
+    public static  final int REQUEST_NEW_GROUP = 8;
+    public static  final int REQUEST_NEW_DISC = 9;
 
     private static final int LIMIT_DESCRIPTION_LENGTH = 0;
     private static final int LIMIT_TITLE_LENGTH = 5;
@@ -501,6 +502,7 @@ public class SendFileActivity extends MyAppCompatActivity {
         });
     }
 
+    private List<Integer> idGroupsAddedCurrent = new ArrayList<>();
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         ImageView correct_file = (ImageView)findViewById(R.id.correct_file);
@@ -519,10 +521,24 @@ public class SendFileActivity extends MyAppCompatActivity {
             }
         }
         if(requestCode == REQUEST_NEW_GROUP){
-
+            if(resultCode == RESULT_OK) {
+                Groups group = (Groups) data.getSerializableExtra(CreateGroupActivity.GROUP_FOR_RESULT);
+                idGroupsAddedCurrent.add(group.getId());
+                setGroupSelectedById(group.getId());
+            }
         }
         if(requestCode == REQUEST_NEW_DISC){
 
+        }
+    }
+
+    private void setGroupSelectedById(int idGroup){
+        int n = groupNameSend.getCount();
+        for(int i = 0 ; i < n ; i++){
+            Groups grp = (Groups) groupNameSend.getItemAtPosition(i);
+            if(grp.getId() == idGroup){
+                groupNameSend.setSelection(i);
+            }
         }
     }
 

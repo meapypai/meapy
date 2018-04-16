@@ -54,6 +54,7 @@ public class CreateGroupActivity extends MyAppCompatActivity {
     private static final int REQUEST_LOAD_IMAGE = 2;
     private static final int REQUEST_ADD_USERS = 3;
 
+    public static final String GROUP_FOR_RESULT = "GROUP";
     private static final int MIN_LENGTH_NAME_GROUP = 3;
 
 //    private ErrorView errorView; //pas utilisé pr le moment
@@ -146,6 +147,10 @@ public class CreateGroupActivity extends MyAppCompatActivity {
                     generateCodeForGroup(newGroup);
                     FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
                     newGroup.setIdUserAdmin(fUser.getUid());
+                    // setting data for result if this activity was created for result
+                    Intent intent = new Intent();
+                    intent.putExtra(GROUP_FOR_RESULT,newGroup);
+                    setResult(RESULT_OK,intent);
 
                     // END TEST
                     final File file = new File(pathFile);
@@ -169,7 +174,7 @@ public class CreateGroupActivity extends MyAppCompatActivity {
                 else {
                     Toast.makeText(CreateGroupActivity.this,getResources().getString(R.string.invalid_name_group),Toast.LENGTH_SHORT).show();
                 }
-
+                finish();
 //                if(errorView == null) {
 //                    errorView = new ErrorView(CreateGroupActivity.this);
 //
