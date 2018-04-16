@@ -397,6 +397,7 @@ public class SendFileActivity extends MyAppCompatActivity {
                 disc.setName(discName);
                 disc.setColor(BuilderColor.generateHexaColor());
                 DisciplineLink.addDiscipline((Groups)groupNameSend.getSelectedItem(), disc);
+                setDisciplineSelectedById(disc.getId());
                 Toast.makeText(getApplicationContext(),"created",Toast.LENGTH_LONG).show();
             } else {
 
@@ -407,6 +408,16 @@ public class SendFileActivity extends MyAppCompatActivity {
         }
 
     }
+    private void setDisciplineSelectedById(int idDisc){
+        int n = discTextSend.getCount();
+        for(int i = 0 ; i < n ; i++){
+            Discipline disc = (Discipline) discTextSend.getItemAtPosition(i);
+            if(disc.getId() == idDisc){
+                discTextSend.setSelection(i);
+            }
+        }
+    }
+
     private boolean nameDiscplineAlreadyExists(List<Discipline> disciplines, String nameDiscipline) {
         for(Discipline d: disciplines) {
             if(d.getName().toUpperCase().equals(nameDiscipline.toUpperCase())) {
@@ -526,9 +537,6 @@ public class SendFileActivity extends MyAppCompatActivity {
                 idGroupsAddedCurrent.add(group.getId());
                 setGroupSelectedById(group.getId());
             }
-        }
-        if(requestCode == REQUEST_NEW_DISC){
-
         }
     }
 
