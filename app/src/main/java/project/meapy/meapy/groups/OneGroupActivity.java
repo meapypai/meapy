@@ -68,7 +68,7 @@ public class OneGroupActivity extends MyAppCompatActivity {
     private TextView titleGroup;
     private TextView summaryOneGroup;
 
-    RecyclerView listView;
+    RecyclerView recyclerViewPosts;
     PostAdapter2 adapterPost;
     List<Post> posts = new ArrayList<>();
     SubMenu subMenuDisc;
@@ -86,7 +86,7 @@ public class OneGroupActivity extends MyAppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_one_group);
 
-        listView = findViewById(R.id.postsOneGroup);
+        recyclerViewPosts = findViewById(R.id.postsOneGroup);
         summaryOneGroup = findViewById(R.id.summaryOneGroup);
         titleGroup = findViewById(R.id.groupNameOneGroup);
 
@@ -260,7 +260,7 @@ public class OneGroupActivity extends MyAppCompatActivity {
         adapterPost = new PostAdapter2(posts,group,new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int position = listView.getChildLayoutPosition(view);
+                int position = recyclerViewPosts.getChildLayoutPosition(view);
                 Post post = (Post) adapterPost.getItem(position);
                 Intent intent = new Intent(OneGroupActivity.this, PostDetailsActivity.class);
                 intent.putExtra(OneGroupActivity.EXTRA_GROUP_USER_CREATOR,group.getIdUserAdmin());
@@ -269,8 +269,8 @@ public class OneGroupActivity extends MyAppCompatActivity {
                 startActivity(intent);
             }
         });
-        listView.setAdapter(adapterPost);
-        listView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewPosts.setAdapter(adapterPost);
+        recyclerViewPosts.setLayoutManager(new LinearLayoutManager(this));
     }
     private void configureSummaryGroup(){
         String name = group.getName();
