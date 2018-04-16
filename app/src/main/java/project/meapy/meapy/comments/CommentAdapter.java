@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,69 +33,75 @@ import project.meapy.meapy.bean.Comment;
 import project.meapy.meapy.bean.User;
 import project.meapy.meapy.utils.BuilderFormatDate;
 import project.meapy.meapy.utils.RetrieveImage;
+import project.meapy.meapy.utils.RunnableWithParam;
+import project.meapy.meapy.utils.firebase.UserLink;
 
 /**
  * Created by tarek on 15/03/18.
  */
 
-public class CommentAdapter extends ArrayAdapter<Comment> {
+public class CommentAdapter extends RecyclerView.Adapter {
 
+    private List<Comment> comments;
     private Context context;
-    private List<Comment> list;
-    public CommentAdapter(@NonNull Context context, int resource, @NonNull List<Comment> objects) {
-        super(context, resource, objects);
-        this.context = context;
-        list=objects;
+
+    public CommentAdapter(List<Comment> objects) {
+        this.comments = objects;
     }
 
-    @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        final CommentHolder holder;
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.comment_post_details_view,parent,false);
+        context = parent.getContext();
+        return new CommentHolder(view);
+    }
 
-        if(convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.comment_post_details_view,parent,false);
-            holder = new CommentHolder();
-            holder.tvAuthor  = (TextView)convertView.findViewById(R.id.authorComment);
-            holder.tvContent =  (TextView)convertView.findViewById(R.id.contentComment);
-            holder.imgUserComment = (ImageView)convertView.findViewById(R.id.imgUserComment);
-            holder.dateComment = (TextView)convertView.findViewById(R.id.dateComment);
-            convertView.setTag(holder);
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        Comment comment = comments.get(position);
+        ((CommentHolder)holder).bind(comment);
+    }
+
+    @Override
+    public int getItemCount() {
+        return comments.size();
+    }
+
+    private class CommentHolder extends RecyclerView.ViewHolder {
+
+        private TextView tvAuthor;
+        private TextView tvContent;
+        private ImageView imgUserComment;
+        private TextView dateComment;
+
+        public CommentHolder(View itemView) {
+            super(itemView);
+            tvAuthor       = itemView.findViewById(R.id.authorComment);
+            tvContent      = itemView.findViewById(R.id.contentComment);
+            imgUserComment = itemView.findViewById(R.id.imgUserComment);
+            dateComment    = itemView.findViewById(R.id.dateComment);
         }
-        else {
-            holder = (CommentHolder) convertView.getTag();
+
+        public void bind(Comment comment) {
+            tvAuthor.setText(comment.getAuthorStr());
+            tvContent.setText(comment.getContent());
+            dateComment.setText(BuilderFormatDate.getNbDayPastSinceToday(context,comment.getDate()));
+
+            UserLink.provideUserForComment(comment, new RunnableWithParam() {
+                @Override
+                public void run() {
+                    User user = (User) getParam();
+                    //si image par defaut
+                    if(user.getNameImageProfil().equals(User.DEFAULT_IMAGE_USER_NAME)) {
+                        imgUserComment.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.default_avatar));
+                    }
+                    else {
+                        StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + user.getUid() + "/" + user.getNameImageProfil());
+                        if(!context.isRestricted())
+                            RetrieveImage.glide(ref, MyApplication.getCurrentActivity(),imgUserComment);
+                    }
+                }
+            });
         }
-
-        final Comment currentComment = getItem(position);
-//        Toast.makeText(context,currentComment.getAuthorStr(),Toast.LENGTH_SHORT).show();
-        holder.tvAuthor.setText(currentComment.getAuthorStr());
-        holder.tvContent.setText(currentComment.getContent());
-        holder.dateComment.setText(BuilderFormatDate.getNbDayPastSinceToday(context, currentComment.getDate()));
-
-
-        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users/"+currentComment.getUserId());
-        userRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                User user = (User)dataSnapshot.getValue(User.class);
-
-                //si image par defaut
-                if(user.getNameImageProfil().equals(User.DEFAULT_IMAGE_USER_NAME)) {
-                    holder.imgUserComment.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.default_avatar));
-                }
-                else {
-                    StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + user.getUid() + "/" + user.getNameImageProfil());
-//                    Glide.with(context).using(new FirebaseImageLoader()).load(ref).asBitmap().into(holder.imgUserComment); //image à partir de la réference passée
-                    RetrieveImage.glide(ref,context,holder.imgUserComment);
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        return convertView;
     }
 }

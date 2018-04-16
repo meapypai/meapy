@@ -155,7 +155,7 @@
         android:layout_height="2dp"
         android:src="@drawable/divider"/>
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/commentsPostDetails"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -163,7 +163,7 @@
         android:layout_below="@+id/headerPostDetails"
         android:layout_above="@+id/writeCommentPostDetails"
         android:divider="@android:color/transparent">
-    </ListView>
+    </android.support.v7.widget.RecyclerView>
 
     <RelativeLayout
         android:id="@+id/writeCommentPostDetails"

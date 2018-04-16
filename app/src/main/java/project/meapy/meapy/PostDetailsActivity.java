@@ -16,6 +16,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -87,6 +89,8 @@ public class PostDetailsActivity extends MyAppCompatActivity implements Rewarded
     private ImageButton sendComment;
     private ImageButton downloadFilesBtn;
 
+    private RecyclerView recyclerViewComments;
+
     private RelativeLayout layoutDescriptionFile;
     private EditText commentContent;
     private TextView titlePostTv;
@@ -106,6 +110,8 @@ public class PostDetailsActivity extends MyAppCompatActivity implements Rewarded
         downPostDetails = (ImageButton)findViewById(R.id.downPostDetails);
         upPostDetails = (ImageButton)findViewById(R.id.upPostDetails);
         downloadFilesBtn = (ImageButton)findViewById(R.id.downloadFilePostDetails);
+
+        recyclerViewComments =  (RecyclerView)findViewById(R.id.commentsPostDetails);
 
         layoutDescriptionFile = (RelativeLayout)findViewById(R.id.layoutDescriptionFile);
         commentContent        = findViewById(R.id.contentCommentPostDetails);
@@ -263,15 +269,16 @@ public class PostDetailsActivity extends MyAppCompatActivity implements Rewarded
         }
 
         //comments of the post
-        ListView listView = findViewById(R.id.commentsPostDetails);
         final List<Comment> comments = new ArrayList<>();
-        final ArrayAdapter<Comment> adapter = new CommentAdapter(getApplicationContext(),
-                R.layout.comment_post_details_view,comments);
-        listView.setAdapter(adapter);
+        final CommentAdapter adapter = new CommentAdapter(comments);
+
+        recyclerViewComments.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewComments.setAdapter(adapter);
+
         CommentLink.getCommentByPost(post,new RunnableWithParam(){
             @Override
             public void run() {
-                adapter.add((Comment)getParam());
+                comments.add((Comment)getParam());
                 Collections.sort(comments, new Comparator<Comment>() {
                     @Override
                     public int compare(Comment comment, Comment t1) {
@@ -286,6 +293,7 @@ public class PostDetailsActivity extends MyAppCompatActivity implements Rewarded
                         }
                     }
                 });
+                adapter.notifyDataSetChanged();
             }
         });
 
