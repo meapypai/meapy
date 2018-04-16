@@ -53,7 +53,7 @@
         android:layout_below="@+id/fieldNameGroup"
         android:layout_toEndOf="@+id/imageCreateGroup"
         android:backgroundTint="@color/colorButton"
-        android:src="@drawable/ic_add_black_24dp" />
+        android:src="@drawable/ic_add_white_24dp" />
 
    <EditText
         android:id="@+id/summuayCreateGroup"
@@ -80,7 +80,7 @@
         android:layout_alignEnd="@+id/insertCreateGroup"
         android:layout_below="@+id/summuayCreateGroup"
         android:backgroundTint="@color/colorButton"
-        android:src="@drawable/ic_add_black_24dp" />
+        android:src="@drawable/ic_add_white_24dp" />
 
 
    <GridView
