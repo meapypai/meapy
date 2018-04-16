@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 public class GroupHolder {
 
+    public ImageView backgroundOfficialGroup;
+    public ImageView officialGroup;
     public ImageView drawable;
     public TextView nameGroup;
     public TextView summary;

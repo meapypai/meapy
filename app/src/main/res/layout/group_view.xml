@@ -1,24 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:id="@+id/mainLayoutGroupView"
+<RelativeLayout android:id="@+id/mainLayoutGroupView"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/imgGroup"
-        android:background="@drawable/avatar"
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/layoutImgGroup"
+        android:layout_height="50dp"
+        android:layout_width="50dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_height="50dp"
-        android:scaleType="centerCrop"
-        android:layout_width="50dp"/>
+        android:layout_alignParentLeft="true">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/imgGroup"
+            android:background="@drawable/messenger_button_send_round_shadow"
+            android:scaleType="centerCrop" />
+
+        <ImageView
+            android:id="@+id/backgroundOfficialGroup"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:layout_constraintBottom_toTopOf="parent"
+            app:layout_constraintRight_toLeftOf="parent"
+            android:background="@drawable/ic_check_white_circle_black_24dp"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/officialGroup"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:layout_constraintBottom_toTopOf="parent"
+            app:layout_constraintRight_toLeftOf="parent"
+            android:background="@drawable/ic_check_circle_black_24dp"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:visibility="gone"/>
+
+    </android.support.constraint.ConstraintLayout>
+
 
     <LinearLayout
         android:id="@+id/layoutLinesText"
-        android:layout_toRightOf="@+id/imgGroup"
+        android:layout_toRightOf="@+id/layoutImgGroup"
         android:layout_width="wrap_content"
         android:orientation="vertical"
         android:layout_centerVertical="true"
