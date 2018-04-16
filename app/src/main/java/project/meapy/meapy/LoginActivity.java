@@ -18,6 +18,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +42,7 @@ public class LoginActivity extends MyAppCompatActivity {
     private View mLoginFormView;
     private TextView mRegisterBtn;
     private TextView mForgotPassBtn;
+    private ProgressBar progressBar;
 
     private EditText emailLogin;
     private EditText passwordLogin;
@@ -55,7 +57,7 @@ public class LoginActivity extends MyAppCompatActivity {
         mSignButton = (Button)findViewById(R.id.email_sign_in_button);
         mRegisterBtn = (TextView)findViewById(R.id.register);
         mForgotPassBtn = (TextView)findViewById(R.id.password_forgot);
-
+        progressBar = (ProgressBar) findViewById(R.id.login_progress);
 
         emailLogin = (EditText)findViewById(R.id.emailLogin);
         passwordLogin = (EditText)findViewById(R.id.passwordLogin);
@@ -67,7 +69,7 @@ public class LoginActivity extends MyAppCompatActivity {
                 String password = passwordLogin.getText().toString();
 
                 if(!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
-                    defaultLogin = new DefaultLogin(LoginActivity.this,email,password);
+                    defaultLogin = new DefaultLogin(LoginActivity.this,email,password,mSignButton, progressBar);
                     defaultLogin.signIn();
                 }
             }

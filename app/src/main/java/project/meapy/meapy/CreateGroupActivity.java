@@ -79,7 +79,6 @@ public class CreateGroupActivity extends MyAppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_group);
-
         nameCreateGroup = (EditText)findViewById(R.id.nameCreateGroup);
         imageCreateGroup = (TextView)findViewById(R.id.imageCreateGroup);
         summuayCreateGroup = (EditText)findViewById(R.id.summuayCreateGroup);

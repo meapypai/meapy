@@ -52,6 +52,8 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -262,7 +264,7 @@ public class PostDetailsActivity extends MyAppCompatActivity implements Rewarded
 
         //comments of the post
         ListView listView = findViewById(R.id.commentsPostDetails);
-        List<Comment> comments = new ArrayList<>();
+        final List<Comment> comments = new ArrayList<>();
         final ArrayAdapter<Comment> adapter = new CommentAdapter(getApplicationContext(),
                 R.layout.comment_post_details_view,comments);
         listView.setAdapter(adapter);
@@ -270,6 +272,20 @@ public class PostDetailsActivity extends MyAppCompatActivity implements Rewarded
             @Override
             public void run() {
                 adapter.add((Comment)getParam());
+                Collections.sort(comments, new Comparator<Comment>() {
+                    @Override
+                    public int compare(Comment comment, Comment t1) {
+                        Date d1 = comment.getDate();
+                        Date d2 = t1.getDate();
+                        if(d1.before(d2)){
+                            return -1;
+                        }else if(d2.before(d1)){
+                            return 1;
+                        }else {
+                            return 0;
+                        }
+                    }
+                });
             }
         });
 

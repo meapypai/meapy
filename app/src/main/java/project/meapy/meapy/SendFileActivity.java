@@ -1,6 +1,7 @@
 package project.meapy.meapy;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
@@ -71,6 +72,8 @@ public class SendFileActivity extends MyAppCompatActivity {
 
     private static  final int REQUEST_PERMISSION_READ_EXTERNAL_STORAGE = 7;
     private static final int REQUEST_LOAD_FILE = 5;
+    private static  final int REQUEST_NEW_GROUP = 8;
+    private static  final int REQUEST_NEW_DISC = 9;
 
     private static final int LIMIT_DESCRIPTION_LENGTH = 0;
     private static final int LIMIT_TITLE_LENGTH = 5;
@@ -134,7 +137,7 @@ public class SendFileActivity extends MyAppCompatActivity {
         addGrpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),CreateGroupActivity.class));
+                startActivityForResult(new Intent(getApplicationContext(),CreateGroupActivity.class), REQUEST_NEW_GROUP);
             }
         });
         //listeners
@@ -321,6 +324,7 @@ public class SendFileActivity extends MyAppCompatActivity {
                                 DatabaseReference groupspost = database.getReference("groups/" + group.getId() + "/disciplines/" + disc.getId() + "/posts/").child(post.getId() + "");
                                 groupspost.setValue(post);
                                 Toast.makeText(SendFileActivity.this, getResources().getString(R.string.post_added), Toast.LENGTH_LONG).show();
+
                                 finish();
 
                             } else {
@@ -497,7 +501,6 @@ public class SendFileActivity extends MyAppCompatActivity {
         });
     }
 
-    static int count = 0;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         ImageView correct_file = (ImageView)findViewById(R.id.correct_file);
@@ -514,6 +517,12 @@ public class SendFileActivity extends MyAppCompatActivity {
                 correct_file.setBackgroundTintList(ContextCompat.getColorStateList(SendFileActivity.this,android.R.color.holo_green_dark));
                 addDocument(file);
             }
+        }
+        if(requestCode == REQUEST_NEW_GROUP){
+
+        }
+        if(requestCode == REQUEST_NEW_DISC){
+
         }
     }
 

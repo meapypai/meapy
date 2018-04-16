@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,27 +36,33 @@ public class DefaultLogin {
     private String email;
     private String password;
     private FirebaseAuth mAuth;
+    private Button signInButton;
+    private ProgressBar progressBar;
 
-    public DefaultLogin(Context c, String email , String password){
+    public DefaultLogin(Context c, String email , String password, Button connectionButton, ProgressBar progressBar){
         this.c = c;
         this.email = email;
         this.password = password;
+        signInButton = connectionButton;
+        this.progressBar = progressBar;
         mAuth = FirebaseAuth.getInstance();
     }
 
     public void signIn(){
-
+        signInButton.setEnabled(false);
+        progressBar.setVisibility(View.VISIBLE);
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener((Activity) c, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+
                     final FirebaseUser userF = mAuth.getCurrentUser();
 
                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/"+userF.getUid());
                     ref.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            User u = (User)dataSnapshot.getValue(User.class);
+                            User u = dataSnapshot.getValue(User.class);
 
                             //set the user logined
                             MyApplication.setUser(u);
@@ -72,14 +81,16 @@ public class DefaultLogin {
                         }
                     });
 
-                    FirebaseDatabase.getInstance().getReference("users/"+userF.getUid()); //ajout dans la database
+                    //FirebaseDatabase.getInstance().getReference("users/"+userF.getUid()); //ajout dans la database
 
                     Intent intent = new Intent(c, MyGroupsActivity.class);
                     c.startActivity(intent);
                 } else {
+                    signInButton.setEnabled(true);
                     Toast.makeText(c, "Authentication failed.",
                             Toast.LENGTH_SHORT).show();
                 }
+                progressBar.setVisibility(View.GONE);
             }
         });
     }
