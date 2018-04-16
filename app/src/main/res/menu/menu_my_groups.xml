@@ -16,7 +16,7 @@
         android:id="@+id/addFileId"
         app:showAsAction="always"></item>
     <item
-        android:icon="@drawable/ic_person_add_white_24dp"
+        android:icon="@drawable/ic_group_work_white_24dp"
         android:title="@string/title_join_group_menu"
         android:visible="true"
         android:id="@+id/joinGrpMenu"
