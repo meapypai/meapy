@@ -3,6 +3,7 @@ package project.meapy.meapy.logins;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
@@ -55,6 +56,7 @@ public class DefaultLogin {
         signInButton.setEnabled(false);
         logoLogin.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
+        progressBar.getIndeterminateDrawable().setColorFilter(Color.WHITE,android.graphics.PorterDuff.Mode.MULTIPLY);// COLOR WHITE
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener((Activity) c, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
