@@ -293,21 +293,13 @@ public class PostDetailsActivity extends MyAppCompatActivity implements Rewarded
         super.onPause();
     }
 
-    @Override
-    protected void onResume() {
-        rewardedVideoAd.resume(this);
-        //extra retrieved post and id of the group
-        final Post post = (Post) getIntent().getSerializableExtra(POST_EXTRA_NAME);
-        idGroup = getIntent().getStringExtra(ID_GROUP_EXTRA_NAME);
-        userAdminId = getIntent().getStringExtra(OneGroupActivity.EXTRA_GROUP_USER_CREATOR);
-        curPost = post;
+    private void fillDescriptionAndTitle(){
+        contentPostTv.setText(curPost.getTextContent());
+        titlePostTv.setText(curPost.getTitle());
+    }
 
-        //set description detail and title (fillDescriptionAndTitle)
-        contentPostTv.setText(post.getTextContent());
-        titlePostTv.setText(post.getTitle());
-
-        //files of the post (configureFileRepresentation)
-        List<String> filesPaths = post.getFilesPaths();
+    private void configureFileRepresentation(){
+        List<String> filesPaths = curPost.getFilesPaths();
         int size = filesPaths.size();
         if(size > 0) {
             String txt = filesPaths.get(0);
@@ -318,9 +310,9 @@ public class PostDetailsActivity extends MyAppCompatActivity implements Rewarded
         }else{
             descFiles.setText(getString(R.string.no_files));
         }
+    }
 
-        configureUpDownMarkButton();
-
+    private void configureSendCommentListener(){
         sendComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -330,46 +322,25 @@ public class PostDetailsActivity extends MyAppCompatActivity implements Rewarded
                     Comment comment = new Comment();
                     comment.setDate(new Date());
                     comment.setContent(commentTxt);
-                    comment.setPostId(post.getId());
+                    comment.setPostId(curPost.getId());
                     comment.setUserId(fUser.getUid());
                     comment.setAuthorStr(fUser.getDisplayName());
                     if(MyApplication.getUser() != null) {
                         comment.setUser(MyApplication.getUser());
                     }
-                    CommentLink.insertCommentToPost(comment,post);
+                    CommentLink.insertCommentToPost(comment,curPost);
 
                     commentContent.setText("");
                 }
             }
         });
-
-        commentContent.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(commentContent.getText().length() == 0) {
-                    sendComment.setImageResource(R.drawable.ic_send_grey_24dp);
-                }
-                else {
-                    sendComment.setImageResource(R.drawable.ic_send_black_24dp);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        //add permissions
+    }
+    private void askPermissions(){
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 112);
         }
-
+    }
+    private void configureDownloadButton(){
         if(curPost.getFilesPaths().size() >= 1) {
             downloadFilesBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -403,6 +374,46 @@ public class PostDetailsActivity extends MyAppCompatActivity implements Rewarded
         }else{
             downloadFilesBtn.setVisibility(View.INVISIBLE);
         }
+    }
+    @Override
+    protected void onResume() {
+        rewardedVideoAd.resume(this);
+        //extra retrieved post and id of the group
+        final Post post = (Post) getIntent().getSerializableExtra(POST_EXTRA_NAME);
+        idGroup = getIntent().getStringExtra(ID_GROUP_EXTRA_NAME);
+        userAdminId = getIntent().getStringExtra(OneGroupActivity.EXTRA_GROUP_USER_CREATOR);
+        curPost = post;
+
+        fillDescriptionAndTitle();
+        configureFileRepresentation();
+        configureUpDownMarkButton();
+        configureSendCommentListener();
+
+        // ??
+        commentContent.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(commentContent.getText().length() == 0) {
+                    sendComment.setImageResource(R.drawable.ic_send_grey_24dp);
+                }
+                else {
+                    sendComment.setImageResource(R.drawable.ic_send_black_24dp);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        askPermissions();
+        configureDownloadButton();
 
         //comments of the post
         final List<Comment> comments = new ArrayList<>();
@@ -415,26 +426,29 @@ public class PostDetailsActivity extends MyAppCompatActivity implements Rewarded
             @Override
             public void run() {
                 comments.add((Comment)getParam());
-                Collections.sort(comments, new Comparator<Comment>() {
-                    @Override
-                    public int compare(Comment comment, Comment t1) {
-                        Date d1 = comment.getDate();
-                        Date d2 = t1.getDate();
-                        if(d1.before(d2)){
-                            return -1;
-                        }else if(d2.before(d1)){
-                            return 1;
-                        }else {
-                            return 0;
-                        }
-                    }
-                });
+                sortComment(comments);
                 adapter.notifyDataSetChanged();
             }
         });
         super.onResume();
     }
 
+    private void sortComment(List<Comment> comments){
+        Collections.sort(comments, new Comparator<Comment>() {
+            @Override
+            public int compare(Comment comment, Comment t1) {
+                Date d1 = comment.getDate();
+                Date d2 = t1.getDate();
+                if(d1.before(d2)){
+                    return -1;
+                }else if(d2.before(d1)){
+                    return 1;
+                }else {
+                    return 0;
+                }
+            }
+        });
+    }
     @Override
     protected void onDestroy() {
         rewardedVideoAd.destroy(this);
