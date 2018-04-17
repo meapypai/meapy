@@ -2,6 +2,7 @@ package project.meapy.meapy;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -58,25 +59,23 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.regex.Pattern;
 
 import project.meapy.meapy.bean.Comment;
 import project.meapy.meapy.bean.Groups;
+import project.meapy.meapy.bean.Notifier;
 import project.meapy.meapy.bean.Post;
 import project.meapy.meapy.bean.User;
 import project.meapy.meapy.comments.CommentAdapter;
 import project.meapy.meapy.groups.OneGroupActivity;
+import project.meapy.meapy.utils.NotificationWorker;
 import project.meapy.meapy.utils.RunnableWithParam;
 import project.meapy.meapy.utils.firebase.CommentLink;
 import project.meapy.meapy.utils.firebase.FileLink;
 import project.meapy.meapy.utils.firebase.PostLink;
 
-public class PostDetailsActivity extends MyAppCompatActivity implements RewardedVideoAdListener{
-
-    public static final String SAMPLE_APMOB_ID = "ca-app-pub-3940256099942544~3347511713";
-    public static final String SAMPLE_APMOB_UNIT_ID = "ca-app-pub-3940256099942544/5224354917";
-
-    private RewardedVideoAd rewardedVideoAd;
+public class PostDetailsActivity extends MyAppCompatWithRewardedVideo{
 
     public static final int MIN_COINS_TO_DOWNLOAD_FILE = 1;
     public static final int COINS_REMOVED_ON_DOWNLOADED_FILE = 1;
@@ -120,17 +119,6 @@ public class PostDetailsActivity extends MyAppCompatActivity implements Rewarded
         titlePostTv           = findViewById(R.id.titlePostDetails);
         descFiles             = findViewById(R.id.descFilesPostDetails);
         contentPostTv         = findViewById(R.id.contentPostDetails);
-
-
-        //initialize ads
-        MobileAds.initialize(this,SAMPLE_APMOB_ID);
-
-        //video will be displayed
-        rewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
-        rewardedVideoAd.setRewardedVideoAdListener(this);
-
-        //to load the video
-        loadVideoAd();
     }
 
     @Override
@@ -201,16 +189,6 @@ public class PostDetailsActivity extends MyAppCompatActivity implements Rewarded
         return super.onOptionsItemSelected(item);
     }
 
-
-    /**
-     * load the video ad
-     */
-    private void loadVideoAd() {
-        if(!rewardedVideoAd.isLoaded()) {
-            rewardedVideoAd.loadAd(SAMPLE_APMOB_UNIT_ID,new AdRequest.Builder().build());
-        }
-    }
-
     private void downloadFile(){
         //TODO : NOTIFICATION MUST BE FACTORIZE
         Uri selectedUri = Uri.parse(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/meapy/" + curPost.getDisciplineName() + File.separator + curPost.getTitle());
@@ -218,9 +196,16 @@ public class PostDetailsActivity extends MyAppCompatActivity implements Rewarded
         intent.setDataAndType(selectedUri, "resource/folder");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent = Intent.createChooser(intent,getResources().getString(R.string.download_post));
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        //PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        NotificationWorker worker = new NotificationWorker(getApplicationContext());
+        Notifier notifier = new Notifier();
+        notifier.setTitle(getResources().getString(R.string.download_post));
+        notifier.setContent(getResources().getString(R.string.download_post));
+        int idNotif = curPost.getId();
+        worker.make(notifier,intent,R.drawable.logo_app1_without_background,idNotif, Notification.FLAG_AUTO_CANCEL);
+
+        /*NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "default");
         mBuilder.setContentTitle(getResources().getString(R.string.download_post))
                 .setContentText(getResources().getString(R.string.download_in_progress))
@@ -228,7 +213,7 @@ public class PostDetailsActivity extends MyAppCompatActivity implements Rewarded
                 .setPriority(NotificationCompat.PRIORITY_LOW)
                 .setContentIntent(pendingIntent);
 
-        mBuilder.setProgress(0, 0, true);
+        mBuilder.setProgress(0, 0, true);*/
 //        ------------------------------------------------------------------------------------
         List<String> filesPaths = curPost.getFilesPaths();
         OnSuccessFailureFileDownload sucessFailureListener = new OnSuccessFailureFileDownload();
@@ -255,8 +240,10 @@ public class PostDetailsActivity extends MyAppCompatActivity implements Rewarded
 
 
         //download  completed set the notification
-        mBuilder.setContentText(getResources().getString(R.string.download_finished)).setProgress(0,0,false);
-        notificationManager.notify(curPost.getId(), mBuilder.build());
+        //mBuilder.setContentText(getResources().getString(R.string.download_finished)).setProgress(0,0,false);
+        //notificationManager.notify(curPost.getId(), mBuilder.build());
+        notifier.setContent(getResources().getString(R.string.download_finished));
+        worker.make(notifier,intent,R.drawable.logo_app1_without_background,idNotif, Notification.FLAG_AUTO_CANCEL);
     }
 
     public boolean onPrepareOptionsMenu(Menu menu){
@@ -455,35 +442,11 @@ public class PostDetailsActivity extends MyAppCompatActivity implements Rewarded
         super.onDestroy();
     }
 
-    @Override
-    public void onRewardedVideoAdLoaded() {}
 
-    @Override
-    public void onRewardedVideoAdOpened() {}
-
-    @Override
-    public void onRewardedVideoStarted() {}
-
-    @Override
-    public void onRewardedVideoAdClosed() {
-        loadVideoAd();
-    }
-
-    @Override
-    public void onRewarded(RewardItem rewardItem) {
-        MyApplication.getUser().setCoins(MyApplication.getUser().getCoins()+ User.DEFAULT_NUMBER_COINS); //set user coins
-    }
-
-    @Override
-    public void onRewardedVideoAdLeftApplication() {}
-
-    @Override
-    public void onRewardedVideoAdFailedToLoad(int i) {}
 
 
     class OnSuccessFailureFileDownload implements OnSuccessListener,OnFailureListener{
         int i = 0;
-        List<File> files = new ArrayList<>();
         @Override
         public synchronized void onSuccess(Object o) {
             // local file created

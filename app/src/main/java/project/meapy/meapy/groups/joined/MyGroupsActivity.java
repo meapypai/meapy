@@ -21,7 +21,6 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -30,7 +29,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import project.meapy.meapy.CreateGroupActivity;
-import project.meapy.meapy.JoinGroupActivity;
 import project.meapy.meapy.LoginActivity;
 import project.meapy.meapy.MyAccountActivity;
 import project.meapy.meapy.MyAppCompatActivity;
