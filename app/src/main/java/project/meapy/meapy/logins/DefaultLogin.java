@@ -23,9 +23,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Date;
+
 import project.meapy.meapy.MyApplication;
 import project.meapy.meapy.bean.User;
 import project.meapy.meapy.groups.joined.MyGroupsActivity;
+import project.meapy.meapy.utils.firebase.UserLink;
 import project.meapy.meapy.utils.firebase.UserLogined;
 
 /**
@@ -73,6 +76,11 @@ public class DefaultLogin {
                             //set the user logined
                             MyApplication.setUser(u);
 
+                            if(u.getTimeRegistration() == null){
+                                u.setTimeRegistration(new Date());
+                                UserLink.putTimeRegistration(u);
+                            }
+
                             //set user's name into firebase user
                             String displayName = u.getFirstName() + " " + u.getLastName(); //name will be display on chat, comment...
                             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
@@ -88,7 +96,6 @@ public class DefaultLogin {
                     });
 
                     //FirebaseDatabase.getInstance().getReference("users/"+userF.getUid()); //ajout dans la database
-
                     Intent intent = new Intent(c, MyGroupsActivity.class);
                     c.startActivity(intent);
                 } else {

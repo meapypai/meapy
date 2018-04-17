@@ -82,6 +82,7 @@ public class PostDetailsActivity extends MyAppCompatActivity implements Rewarded
     public static final int COINS_REMOVED_ON_DOWNLOADED_FILE = 1;
 
     private Post curPost;
+    private String idGroup;
     private Menu menu;
 
     private ImageButton downPostDetails;
@@ -130,173 +131,6 @@ public class PostDetailsActivity extends MyAppCompatActivity implements Rewarded
 
         //to load the video
         loadVideoAd();
-
-        //extra retrieved post and id of the group
-        final Post post = (Post) getIntent().getSerializableExtra(POST_EXTRA_NAME);
-        final String idGroup = getIntent().getStringExtra(ID_GROUP_EXTRA_NAME);
-        userAdminId = getIntent().getStringExtra(OneGroupActivity.EXTRA_GROUP_USER_CREATOR);
-
-        curPost = post;
-
-//        if post already marked by the user
-        if(postAlreadyMarked(post,"negative")) {
-            markDownBtn();
-            demarkUpBtn();
-        }
-        else if( postAlreadyMarked(post,"positive")) {
-            markUpBtn();
-            demarkDownBtn();
-        }
-
-        //set description detail and title
-        contentPostTv.setText(post.getTextContent());
-        titlePostTv.setText(post.getTitle());
-
-        //files of the post
-        List<String> filesPaths = post.getFilesPaths();
-        int size = filesPaths.size();
-        if(size > 0) {
-            String txt = filesPaths.get(0);
-            if (size > 1) {
-                txt += " , "+getString(R.string.and) +" "+ (size - 1) + " "+getString(R.string.others);
-            }
-            descFiles.setText(txt);
-        }else{
-            descFiles.setText(getString(R.string.no_files));
-        }
-
-
-        //listeners
-
-        downPostDetails.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MarkThread markThread = new MarkThread(v,post,idGroup);
-                markThread.run();
-
-            }
-        });
-
-        upPostDetails.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MarkThread markThread = new MarkThread(v,post,idGroup);
-                markThread.run();
-            }
-        });
-
-        sendComment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String commentTxt = commentContent.getText().toString();
-                FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
-                if(commentTxt.length() > 0 && fUser != null) {
-                    Comment comment = new Comment();
-                    comment.setDate(new Date());
-                    comment.setContent(commentTxt);
-                    comment.setPostId(post.getId());
-                    comment.setUserId(fUser.getUid());
-                    comment.setAuthorStr(fUser.getDisplayName());
-                    if(MyApplication.getUser() != null) {
-                        comment.setUser(MyApplication.getUser());
-                    }
-                    CommentLink.insertCommentToPost(comment,post);
-
-                    commentContent.setText("");
-                }
-            }
-        });
-
-        commentContent.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(commentContent.getText().length() == 0) {
-                    sendComment.setImageResource(R.drawable.ic_send_grey_24dp);
-                }
-                else {
-                    sendComment.setImageResource(R.drawable.ic_send_black_24dp);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        //add permissions
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 112);
-        }
-
-        if(curPost.getFilesPaths().size() >= 1) {
-            downloadFilesBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(MyApplication.getUser().getCoins() >= MIN_COINS_TO_DOWNLOAD_FILE) {
-                        Toast.makeText(getApplicationContext(), getString(R.string.download_started), Toast.LENGTH_SHORT).show();
-                        downloadFile();
-                    }
-                    else {
-                        Handler mHandler = new Handler(Looper.getMainLooper());
-                        mHandler.post(new Runnable() {
-                            public void run() {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(PostDetailsActivity.this);
-                                builder.setMessage(getString(R.string.question_reload_coins));
-                                builder.setNegativeButton(getString(R.string.no),null);
-                                builder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        if(rewardedVideoAd.isLoaded()) {
-                                            rewardedVideoAd.show();
-                                        }
-                                    }
-                                });
-                                AlertDialog dialog = builder.create();
-                                dialog.show();
-                            }
-                        });
-                    }
-                }
-            });
-        }else{
-            downloadFilesBtn.setVisibility(View.INVISIBLE);
-        }
-
-        //comments of the post
-        final List<Comment> comments = new ArrayList<>();
-        final CommentAdapter adapter = new CommentAdapter(comments);
-
-        recyclerViewComments.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewComments.setAdapter(adapter);
-
-        CommentLink.getCommentByPost(post,new RunnableWithParam(){
-            @Override
-            public void run() {
-                comments.add((Comment)getParam());
-                Collections.sort(comments, new Comparator<Comment>() {
-                    @Override
-                    public int compare(Comment comment, Comment t1) {
-                        Date d1 = comment.getDate();
-                        Date d2 = t1.getDate();
-                        if(d1.before(d2)){
-                            return -1;
-                        }else if(d2.before(d1)){
-                            return 1;
-                        }else {
-                            return 0;
-                        }
-                    }
-                });
-                adapter.notifyDataSetChanged();
-            }
-        });
-
     }
 
     @Override
@@ -307,6 +141,34 @@ public class PostDetailsActivity extends MyAppCompatActivity implements Rewarded
         layoutDescriptionFile.setBackgroundColor(colorSelectedOnSettings);
     }
 
+    private void configureUpDownMarkButton(){
+        //       if post already marked by the user
+        if(postAlreadyMarked(curPost,"negative")) {
+            markDownBtn();
+            demarkUpBtn();
+        }
+        else if( postAlreadyMarked(curPost,"positive")) {
+            markUpBtn();
+            demarkDownBtn();
+        }
+        //listeners
+        downPostDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MarkThread markThread = new MarkThread(v,curPost,idGroup);
+                markThread.run();
+
+            }
+        });
+
+        upPostDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MarkThread markThread = new MarkThread(v,curPost,idGroup);
+                markThread.run();
+            }
+        });
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.deletePostDetails) {
@@ -434,6 +296,142 @@ public class PostDetailsActivity extends MyAppCompatActivity implements Rewarded
     @Override
     protected void onResume() {
         rewardedVideoAd.resume(this);
+        //extra retrieved post and id of the group
+        final Post post = (Post) getIntent().getSerializableExtra(POST_EXTRA_NAME);
+        idGroup = getIntent().getStringExtra(ID_GROUP_EXTRA_NAME);
+        userAdminId = getIntent().getStringExtra(OneGroupActivity.EXTRA_GROUP_USER_CREATOR);
+        curPost = post;
+
+        //set description detail and title (fillDescriptionAndTitle)
+        contentPostTv.setText(post.getTextContent());
+        titlePostTv.setText(post.getTitle());
+
+        //files of the post (configureFileRepresentation)
+        List<String> filesPaths = post.getFilesPaths();
+        int size = filesPaths.size();
+        if(size > 0) {
+            String txt = filesPaths.get(0);
+            if (size > 1) {
+                txt += " , "+getString(R.string.and) +" "+ (size - 1) + " "+getString(R.string.others);
+            }
+            descFiles.setText(txt);
+        }else{
+            descFiles.setText(getString(R.string.no_files));
+        }
+
+        configureUpDownMarkButton();
+
+        sendComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String commentTxt = commentContent.getText().toString();
+                FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
+                if(commentTxt.length() > 0 && fUser != null) {
+                    Comment comment = new Comment();
+                    comment.setDate(new Date());
+                    comment.setContent(commentTxt);
+                    comment.setPostId(post.getId());
+                    comment.setUserId(fUser.getUid());
+                    comment.setAuthorStr(fUser.getDisplayName());
+                    if(MyApplication.getUser() != null) {
+                        comment.setUser(MyApplication.getUser());
+                    }
+                    CommentLink.insertCommentToPost(comment,post);
+
+                    commentContent.setText("");
+                }
+            }
+        });
+
+        commentContent.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(commentContent.getText().length() == 0) {
+                    sendComment.setImageResource(R.drawable.ic_send_grey_24dp);
+                }
+                else {
+                    sendComment.setImageResource(R.drawable.ic_send_black_24dp);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        //add permissions
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 112);
+        }
+
+        if(curPost.getFilesPaths().size() >= 1) {
+            downloadFilesBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(MyApplication.getUser().getCoins() >= MIN_COINS_TO_DOWNLOAD_FILE) {
+                        Toast.makeText(getApplicationContext(), getString(R.string.download_started), Toast.LENGTH_SHORT).show();
+                        downloadFile();
+                    }
+                    else {
+                        Handler mHandler = new Handler(Looper.getMainLooper());
+                        mHandler.post(new Runnable() {
+                            public void run() {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(PostDetailsActivity.this);
+                                builder.setMessage(getString(R.string.question_reload_coins));
+                                builder.setNegativeButton(getString(R.string.no),null);
+                                builder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        if(rewardedVideoAd.isLoaded()) {
+                                            rewardedVideoAd.show();
+                                        }
+                                    }
+                                });
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+                            }
+                        });
+                    }
+                }
+            });
+        }else{
+            downloadFilesBtn.setVisibility(View.INVISIBLE);
+        }
+
+        //comments of the post
+        final List<Comment> comments = new ArrayList<>();
+        final CommentAdapter adapter = new CommentAdapter(comments);
+
+        recyclerViewComments.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewComments.setAdapter(adapter);
+
+        CommentLink.getCommentByPost(post,new RunnableWithParam(){
+            @Override
+            public void run() {
+                comments.add((Comment)getParam());
+                Collections.sort(comments, new Comparator<Comment>() {
+                    @Override
+                    public int compare(Comment comment, Comment t1) {
+                        Date d1 = comment.getDate();
+                        Date d2 = t1.getDate();
+                        if(d1.before(d2)){
+                            return -1;
+                        }else if(d2.before(d1)){
+                            return 1;
+                        }else {
+                            return 0;
+                        }
+                    }
+                });
+                adapter.notifyDataSetChanged();
+            }
+        });
         super.onResume();
     }
 

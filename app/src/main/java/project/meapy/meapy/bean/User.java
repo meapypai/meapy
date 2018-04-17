@@ -3,7 +3,9 @@ package project.meapy.meapy.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,6 +23,7 @@ public class User implements Parcelable {
     protected String uid;
     protected String nameImageProfil;
     protected String chatBubbleColor;
+    protected Date timeRegistration = new Date();
     protected int coins;
     protected int rank; //to see if the user is admin or not
 
@@ -134,4 +137,11 @@ public class User implements Parcelable {
         this.rank = rank;
     }
 
+    public Date getTimeRegistration() {
+        return timeRegistration;
+    }
+
+    public void setTimeRegistration(Date timeRegistration) {
+        this.timeRegistration = timeRegistration;
+    }
 }

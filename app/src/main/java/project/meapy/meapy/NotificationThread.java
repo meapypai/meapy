@@ -9,16 +9,22 @@ import android.content.Intent;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import project.meapy.meapy.bean.Discipline;
 import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.bean.Message;
 import project.meapy.meapy.bean.Notifier;
 import project.meapy.meapy.bean.Post;
+import project.meapy.meapy.bean.User;
 import project.meapy.meapy.groups.GroupsList;
 import project.meapy.meapy.groups.joined.MyGroupsActivity;
 import project.meapy.meapy.utils.NotificationWorker;
@@ -46,7 +52,7 @@ public class NotificationThread extends Thread {
     private static final int LOGO_NOTIF = R.drawable.logo_app1_without_background;
 
     private static final int ID_NOTIFICATION_MESSAGE = 11;
-    private static final int ID_NOTIFICATION_NOTIFIER = 1000;
+    private static final int ID_NOTIFICATION_NOTIFIER = 12;
 
     private static NotificationWorker worker ;
 
@@ -102,7 +108,12 @@ public class NotificationThread extends Thread {
                     public void run() {
                         Post post = (Post) getParam();
                         FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
-                        if(fUser != null && !post.getNotifiedUser().contains(fUser.getUid())){
+                        User currentUser = MyApplication.getUser();
+                        Date timeRegistration = currentUser.getTimeRegistration();
+                        // si ce post n'a pas ete notifie et si le post a eu lieu apres l'inscription alors notifie
+                        if(fUser != null && !post.getNotifiedUser().contains(fUser.getUid())
+                                && post.getDate().getTime() > timeRegistration.getTime() && !idPostNotified.contains(post.getId())){
+                            idPostNotified.add(post.getId());
                             NotificationThread.this.notifyPost(post,grp,disc);
                         }
 
@@ -111,15 +122,24 @@ public class NotificationThread extends Thread {
             }
         },null);
     }
+
+    private List<Integer> idPostNotified = new ArrayList<>();
     private void notifyPost(Post post, Groups grp, Discipline disc){
+        FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        post.getNotifiedUser().add(fUser.getUid());
+        PostLink.setPostReadedByUid(post, fUser.getUid());
+
         Notifier notif = new Notifier();
-        notif.setId(post.getId());
-        notif.setTitle("New Post in "+grp.getName());
-        notif.setContent(post.getTitle() + " by "+post.getUser());
-        Intent intent = new Intent(context,PostDetailsActivity.class);
-        intent.putExtra(PostDetailsActivity.POST_EXTRA_NAME,post);
-        intent.putExtra(PostDetailsActivity.ID_GROUP_EXTRA_NAME, grp.getId());
+        notif.setTitle("New Post in " + grp.getName());
+        notif.setContent(post.getTitle() + " by " + post.getUser());
+
+        Intent intent = new Intent(context, PostDetailsActivity.class);
+        intent.putExtra(PostDetailsActivity.POST_EXTRA_NAME, post);
+        intent.putExtra(PostDetailsActivity.ID_GROUP_EXTRA_NAME, grp.getId() + "");
+
         notify(notif, intent);
+
     }
     private void onNewGroupDataReceived(){
         GroupLink.provideGroupsByCurrentuser(new RunnableWithParam() {
@@ -128,7 +148,7 @@ public class NotificationThread extends Thread {
                 final Groups grp = (Groups) getParam();
                 addGroupToNotify(grp);
                 onNewMessageReceived(grp);
-                //onNewPostReceived(grp);
+                onNewPostReceived(grp);
             }
         }, new RunnableWithParam() {
             @Override
@@ -170,12 +190,12 @@ public class NotificationThread extends Thread {
 
     private PendingIntent getPendingIntentNotifier(Notifier notif, Intent intent){
         intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
-        return PendingIntent.getActivity(context,REQUEST_NOTIFICATION,intent,PendingIntent.FLAG_ONE_SHOT);
+        return PendingIntent.getActivity(context,new Random().nextInt(),intent,PendingIntent.FLAG_ONE_SHOT);
     }
     private void notify(Notifier notif, Intent intent){
         PendingIntent pendingIntent = getPendingIntentNotifier(notif, intent);
         worker.make(notif.getTitle(),notif.getContent(),pendingIntent,LOGO_NOTIF,
-                ID_NOTIFICATION_NOTIFIER + notif.getId(),Notification.FLAG_AUTO_CANCEL);
+                notif.getId(),Notification.FLAG_AUTO_CANCEL);
 
     }
     private void notifyMessage(Message msg, Groups grp){

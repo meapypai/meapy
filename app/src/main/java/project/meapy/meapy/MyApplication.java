@@ -17,6 +17,7 @@ import java.util.Stack;
 
 import project.meapy.meapy.bean.User;
 import project.meapy.meapy.storage.StoreBean;
+import project.meapy.meapy.utils.firebase.UserLink;
 
 /**
  * Created by tarek on 20/03/18.
@@ -52,6 +53,10 @@ public class MyApplication extends Application{
     }
 
     public static void setUser(User u) {
+        if(u != null && u.getTimeRegistration() == null){ // A REVOIR
+            u.setTimeRegistration(new Date());
+            UserLink.putTimeRegistration(u);
+        }
         StoreBean.storeUser(u,c);
         user = u;
     }
@@ -89,8 +94,10 @@ public class MyApplication extends Application{
     }
 
     public static void launch(){
-        notifThread = new NotificationThread(c);
-        notifThread.start();
+        if(notifThread == null) {
+            notifThread = new NotificationThread(c);
+            notifThread.start();
+        }
     }
 
     public static void restartNotifThread(){

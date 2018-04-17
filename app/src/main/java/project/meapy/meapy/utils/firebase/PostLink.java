@@ -1,5 +1,7 @@
 package project.meapy.meapy.utils.firebase;
 
+import android.provider.ContactsContract;
+
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -7,6 +9,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.bean.Post;
 import project.meapy.meapy.utils.RunnableWithParam;
 
@@ -15,6 +18,11 @@ import project.meapy.meapy.utils.RunnableWithParam;
  */
 
 public class PostLink {
+    public static void setPostReadedByUid(Post post, String uid){
+        String ref = "groups/"+post.getGroupId()+"/disciplines/"+post.getDisciplineId()+"/posts/"+post.getId()+"/notifiedUser";
+        FirebaseDatabase.getInstance().getReference(ref).setValue(post.getNotifiedUser());
+    }
+
     public static void provideNumberOfCommentForPost(Post post, final RunnableWithParam onChange){
         String refPostStr = "groups/"+post.getGroupId()+"/disciplines/"
                 +post.getDisciplineId()+"/posts/"

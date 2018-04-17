@@ -175,14 +175,7 @@ public class CreateGroupActivity extends MyAppCompatActivity {
                     Toast.makeText(CreateGroupActivity.this,getResources().getString(R.string.invalid_name_group),Toast.LENGTH_SHORT).show();
                 }
                 finish();
-//                if(errorView == null) {
-//                    errorView = new ErrorView(CreateGroupActivity.this);
-//
-//                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//
-//                    CreateGroupActivity.this.addContentView(errorView, params);
-//                }
-//                errorView.setText(errorMessage);
+
                 btn.setEnabled(true);
             }
         });

@@ -22,6 +22,9 @@ import project.meapy.meapy.utils.RunnableWithParam;
  */
 
 public class UserLink {
+    public static void putTimeRegistration(User user){
+        FirebaseDatabase.getInstance().getReference("users/"+user.getUid()+"/timeRegistration/").setValue(user.getTimeRegistration());
+    }
     public static void provideUserForPost(Post post, final RunnableWithParam onChange){
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users/"+post.getUser_uid());
         userRef.addValueEventListener(new MyValueEventListener(onChange));
