@@ -6,8 +6,8 @@ package project.meapy.meapy.bean;
 
 public class Notifier extends DomainObject{
 
-    private String title;
-    private String content;
+    protected String title;
+    protected String content;
 
     public Notifier() {
         super();

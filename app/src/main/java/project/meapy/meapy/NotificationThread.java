@@ -22,8 +22,10 @@ import java.util.Random;
 import project.meapy.meapy.bean.Discipline;
 import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.bean.Message;
+import project.meapy.meapy.bean.MessageNotifier;
 import project.meapy.meapy.bean.Notifier;
 import project.meapy.meapy.bean.Post;
+import project.meapy.meapy.bean.PostNotifier;
 import project.meapy.meapy.bean.User;
 import project.meapy.meapy.groups.GroupsList;
 import project.meapy.meapy.groups.joined.MyGroupsActivity;
@@ -45,21 +47,20 @@ import static android.media.CamcorderProfile.get;
 public class NotificationThread extends Thread {
 
     Context context;
-    public static final int REQUEST_NOTIFICATION = 5;
     public static final String ID_NOTIFICATION = "id_notification";
     private static Map<Integer,Boolean> chatRoomStarted = new HashMap<>();
 
     private static final int LOGO_NOTIF = R.drawable.logo_app1_without_background;
 
     private static final int ID_NOTIFICATION_MESSAGE = 11;
-    private static final int ID_NOTIFICATION_NOTIFIER = 12;
 
     private static NotificationWorker worker ;
 
     private Map<Integer,Integer> idNotifMessageNotification = new HashMap<>();
 
-
+    private List<Integer> idPostNotified = new ArrayList<>();
     private List<Groups> idGroupToNotify = new GroupsList();
+
     public NotificationThread(Context context) {
         this.context =  context;
         worker = new NotificationWorker(context);
@@ -78,7 +79,6 @@ public class NotificationThread extends Thread {
     public void run() {
         onNewNotif();
         onNewGroupDataReceived();
-        //onNewPostReceived();
     }
 
     private void onNewMessageReceived(final Groups grp){
@@ -91,8 +91,6 @@ public class NotificationThread extends Thread {
                     if(fUser != null && !msg.isReadedByUser(fUser.getUid())) {
                         NotificationThread.this.notifyMessage(msg, grp);
                     }
-                    //MediaPlayer mp = MediaPlayer.create(context,R.raw.intuition);
-                    //mp.start();
                 }
             }
         },null);
@@ -124,24 +122,6 @@ public class NotificationThread extends Thread {
         },null);
     }
 
-    private List<Integer> idPostNotified = new ArrayList<>();
-    private void notifyPost(Post post, Groups grp, Discipline disc){
-        FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        post.getNotifiedUser().add(fUser.getUid());
-        PostLink.setPostReadedByUid(post, fUser.getUid());
-
-        Notifier notif = new Notifier();
-        notif.setTitle("New Post in " + grp.getName());
-        notif.setContent(post.getTitle() + " by " + post.getUser());
-
-        Intent intent = new Intent(context, PostDetailsActivity.class);
-        intent.putExtra(PostDetailsActivity.POST_EXTRA_NAME, post);
-        intent.putExtra(PostDetailsActivity.ID_GROUP_EXTRA_NAME, grp.getId() + "");
-
-        notify(notif, intent);
-
-    }
     private void onNewGroupDataReceived(){
         GroupLink.provideGroupsByCurrentuser(new RunnableWithParam() {
             @Override
@@ -175,7 +155,6 @@ public class NotificationThread extends Thread {
             worker.cancelNotifById(idNotifToRemove);
     }
 
-
     private void onNewNotif(){
         NotificationLink.provideNotifierByCurrentUser(new RunnableWithParam() {
             @Override
@@ -189,37 +168,39 @@ public class NotificationThread extends Thread {
 
     }
 
-    private PendingIntent getPendingIntentNotifier(Notifier notif, Intent intent){
-        intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
-        return PendingIntent.getActivity(context,new Random().nextInt(),intent,PendingIntent.FLAG_ONE_SHOT);
-    }
     private void notify(Notifier notif, Intent intent){
-        PendingIntent pendingIntent = getPendingIntentNotifier(notif, intent);
-        worker.make(notif.getTitle(),notif.getContent(),pendingIntent,LOGO_NOTIF,
+        worker.make(notif,intent,LOGO_NOTIF,
                 notif.getId(),Notification.FLAG_AUTO_CANCEL);
 
     }
     private void notifyMessage(Message msg, Groups grp){
-        PendingIntent pendingIntent = getPendingIntentMessage(msg,grp);
-        Notification notif = null;
-        int idNotifMsg = 0;
-        notif = worker.make(getTitleMessageNotification(grp,msg),msg.getContent(),pendingIntent,LOGO_NOTIF,
-                ID_NOTIFICATION_MESSAGE+ grp.getId(),Notification.FLAG_AUTO_CANCEL);
-        if(notif != null && idNotifMsg != 0)
-            idNotifMessageNotification.put(grp.getId(),idNotifMsg);
-    }
+        int idNotifMsg = ID_NOTIFICATION_MESSAGE+ grp.getId();
+        Notifier notifier = new MessageNotifier(msg,grp,idNotifMsg);
 
-    private String getTitleMessageNotification(Groups grp, Message msg){
-        return grp.getName() + " : "+ msg.getNameUser();
-    }
-
-    private PendingIntent getPendingIntentMessage(Message msg, Groups grp){
         Intent intent = new Intent(context, ChatRoomActivity.class);
         intent.putExtra(ID_NOTIFICATION,msg.getId());
         intent.putExtra(ChatRoomActivity.EXTRA_GROUP_ID,grp.getId()+"");
         intent.putExtra(ChatRoomActivity.EXTRA_GROUP_NAME,grp.getName());
 
-        intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
-        return PendingIntent.getActivity(context,REQUEST_NOTIFICATION,intent,PendingIntent.FLAG_ONE_SHOT);
+        notify(notifier,intent);
+        if(idNotifMsg != 0)
+            idNotifMessageNotification.put(grp.getId(),idNotifMsg);
     }
+
+    private void notifyPost(Post post, Groups grp, Discipline disc){
+        FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        post.getNotifiedUser().add(fUser.getUid());
+        PostLink.setPostReadedByUid(post, fUser.getUid());
+
+        Notifier notif = new PostNotifier(post,grp);
+
+        Intent intent = new Intent(context, PostDetailsActivity.class);
+        intent.putExtra(PostDetailsActivity.POST_EXTRA_NAME, post);
+        intent.putExtra(PostDetailsActivity.ID_GROUP_EXTRA_NAME, grp.getId() + "");
+
+        notify(notif, intent);
+    }
+
+
 }

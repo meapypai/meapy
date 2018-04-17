@@ -5,12 +5,17 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
+import java.util.Random;
+
 import project.meapy.meapy.NotificationThread;
+import project.meapy.meapy.bean.Notifier;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class NotificationWorker{
     Context context;
@@ -24,7 +29,10 @@ public class NotificationWorker{
         manager.cancel(id);
     }
 
-    public Notification make(String title, String content, PendingIntent pendingIntent, int RidLogo, int idNotif, int flags){
+    public Notification make(Notifier notifier, Intent intent, int RidLogo, int idNotif, int flags){
+        PendingIntent pendingIntent = getPendingIntentNotifier(notifier, intent);
+        String title = notifier.getTitle();
+        String content = notifier.getContent();
         Notification notification = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // Create the NotificationChannel
@@ -57,5 +65,10 @@ public class NotificationWorker{
             manager.notify(idNotif, notification);
         }
         return notification;
+    }
+
+    private PendingIntent getPendingIntentNotifier(Notifier notif, Intent intent){
+        intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+        return PendingIntent.getActivity(context,new Random().nextInt(),intent,PendingIntent.FLAG_ONE_SHOT);
     }
 }
