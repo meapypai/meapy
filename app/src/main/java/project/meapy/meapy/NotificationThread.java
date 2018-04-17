@@ -112,7 +112,8 @@ public class NotificationThread extends Thread {
                         Date timeRegistration = currentUser.getTimeRegistration();
                         // si ce post n'a pas ete notifie et si le post a eu lieu apres l'inscription alors notifie
                         if(fUser != null && !post.getNotifiedUser().contains(fUser.getUid())
-                                && post.getDate().getTime() > timeRegistration.getTime() && !idPostNotified.contains(post.getId())){
+                                && post.getDate().getTime() > timeRegistration.getTime() && !idPostNotified.contains(post.getId())
+                                && !post.getUser_uid().equals(currentUser.getUid())){
                             idPostNotified.add(post.getId());
                             NotificationThread.this.notifyPost(post,grp,disc);
                         }
