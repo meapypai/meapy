@@ -183,4 +183,7 @@
     <!-- Google Login strings -->
     <!--<string name="default_web_client_id">meapyid</string>-->
 
+    <!-- NOTIFICATION -->
+    <string name="new_post_in_group">Nouveau post dans le groupe : </string>
+
 </resources>

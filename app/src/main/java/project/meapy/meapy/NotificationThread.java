@@ -193,7 +193,7 @@ public class NotificationThread extends Thread {
         post.getNotifiedUser().add(fUser.getUid());
         PostLink.setPostReadedByUid(post, fUser.getUid());
 
-        Notifier notif = new PostNotifier(post,grp);
+        Notifier notif = new PostNotifier(post,grp, context);
 
         Intent intent = new Intent(context, PostDetailsActivity.class);
         intent.putExtra(PostDetailsActivity.POST_EXTRA_NAME, post);
