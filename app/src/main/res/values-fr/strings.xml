@@ -188,4 +188,8 @@
     <string name="new_group_for_you">Nouveau groupe pour vous !</string>
     <string name="you_have_been_added_group">Vous avez été ajouté au groupe </string>
 
+
+    <string name="vertical_ellipsis">&#8942;</string>
+
+
 </resources>
