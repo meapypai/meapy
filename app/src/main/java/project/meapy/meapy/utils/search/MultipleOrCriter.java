@@ -35,6 +35,7 @@ public class MultipleOrCriter<T> implements Criter<T>{
     @Override
     public boolean match(T obj) {
         synchronized (criters) {
+            if(criters.size() == 0)return true;
             int nMatching = 0;
             if(criters.size() != 0) {
                 for (Criter criter : criters) {

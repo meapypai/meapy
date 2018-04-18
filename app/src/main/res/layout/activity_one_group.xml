@@ -34,6 +34,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></android.support.v7.widget.Toolbar>
 
+            <android.support.v7.widget.SearchView
+                android:id="@+id/search_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></android.support.v7.widget.SearchView>
             <RelativeLayout
                 android:id="@+id/headerOneGroup"
                 android:layout_width="match_parent"
@@ -58,14 +62,6 @@
                         android:layout_height="wrap_content"
 
                         android:id="@+id/spinnerDiscFilter"></Spinner>
-                    <EditText
-                        android:hint="@string/search_field_hint"
-                        android:descendantFocusability="blocksDescendants"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/fieldSearchedPosts"
-                        android:layout_below="@id/spinnerDiscFilter"
-                        />
 
                 </RelativeLayout>
 

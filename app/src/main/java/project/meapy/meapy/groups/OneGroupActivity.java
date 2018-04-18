@@ -1,6 +1,7 @@
 package project.meapy.meapy.groups;
 
 import android.app.AlertDialog;
+import android.app.SearchManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -17,9 +18,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -87,11 +90,12 @@ public class OneGroupActivity extends MyAppCompatActivity {
     private FloatingActionButton fBtn;
 
     private Spinner discFilterSpinner;
-    private EditText fieldSearchedPosts;
     private Discipline allDisc;
 
     public static final String GROUP_NAME_EXTRA = "GROUP";
     public static final String EXTRA_GROUP_USER_CREATOR = "user_creator";
+
+    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,7 +126,6 @@ public class OneGroupActivity extends MyAppCompatActivity {
     private void configureFilterArea(){
         constructAllDisc();
         discFilterSpinner = findViewById(R.id.spinnerDiscFilter);
-        fieldSearchedPosts = findViewById(R.id.fieldSearchedPosts);
         // to avoid keyboard show due to edit text
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
@@ -139,43 +142,29 @@ public class OneGroupActivity extends MyAppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 discSelected = (Discipline) discFilterSpinner.getSelectedItem();
-                updatePostsView();
+                updatePostsView("");
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {}
         });
-
-        fieldSearchedPosts.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-            @Override
-            public void afterTextChanged(Editable editable) {
-                updatePostsView();
-            }
-        });
     }
-    private void updatePostsView(){
+    private void updatePostsView(String query){
         postsForView.clear();
         adapterPost.notifyDataSetChanged();
-        if(discSelected == allDisc){
-            postsForView.addAll(posts);
-            adapterPost.notifyDataSetChanged();
-        }else {
-            String searched = fieldSearchedPosts.getText().toString();
-            Criter criter = getCritersForPosts(searched);
-            for (Post p : posts) {
-                if (criter.match(p)) {
-                    postsForView.add(p);
-                    adapterPost.notifyDataSetChanged();
-                }
+        String searched = query;
+        Criter criter = getCritersForPosts(searched);
+        for (Post p : posts) {
+            if (criter.match(p)) {
+                postsForView.add(p);
+                adapterPost.notifyDataSetChanged();
             }
         }
     }
     private Criter getCritersForPosts(String searched){
         MultipleOrCriter criters = new MultipleOrCriter();
-        criters.addCriter(new PostDiscIdCriter(discSelected.getId()));
+        if(discSelected.getId() != ID_ALL_DISC) {
+            criters.addCriter(new PostDiscIdCriter(discSelected.getId()));
+        }
         if(searched.length() > 0) {
             criters.addCriter(new TitlePostContainsCriter(searched));
             criters.addCriter(new ContentPostContainsCriter(searched));
@@ -221,6 +210,7 @@ public class OneGroupActivity extends MyAppCompatActivity {
                 intent.putExtra(Intent.EXTRA_TEXT,getResources().getString(R.string.invitation_code_to_group) + group.getCodeToJoin() );
                 intent.setType("text/plain");
                 intent = Intent.createChooser(intent,"Share code");
+                break;
         }
         if(intent != null) {
             startActivity(intent);
@@ -231,6 +221,10 @@ public class OneGroupActivity extends MyAppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.onegroup_menu, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.searchingPosts);
+        searchItem.setActionView(searchView);
+
         return true;
     }
     private void configureLeaveGroupAction(){
@@ -401,6 +395,21 @@ public class OneGroupActivity extends MyAppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.app_name,R.string.app_name);
         drawerLayout.setDrawerListener(actionBarDrawerToggle);
+
+        searchView = findViewById(R.id.search_view);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                updatePostsView(newText);
+                Toast.makeText(getApplicationContext(),newText,Toast.LENGTH_LONG).show();
+                return false;
+            }
+        });
     }
     private void onDisciplineAdded(final Discipline disc){
         listDiscipline.add(disc);
