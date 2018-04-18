@@ -7,6 +7,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -71,6 +72,7 @@ import project.meapy.meapy.utils.lists.DisciplineList;
 import project.meapy.meapy.utils.search.ContentPostContainsCriter;
 import project.meapy.meapy.utils.search.Criter;
 import project.meapy.meapy.utils.search.DiscNamePostCriter;
+import project.meapy.meapy.utils.search.MultipleAndCriter;
 import project.meapy.meapy.utils.search.MultipleOrCriter;
 import project.meapy.meapy.utils.search.PostDiscIdCriter;
 import project.meapy.meapy.utils.search.TitlePostContainsCriter;
@@ -116,7 +118,6 @@ public class OneGroupActivity extends MyAppCompatActivity {
         configureColorNavigationView();
         provideDiscipline();
         configureSendFileAction();
-        configureImageGroup();
         configureLeaveGroupAction();
 
     }
@@ -161,17 +162,22 @@ public class OneGroupActivity extends MyAppCompatActivity {
         }
     }
     private Criter getCritersForPosts(String searched){
-        MultipleOrCriter criters = new MultipleOrCriter();
+        MultipleAndCriter critersAnd = new MultipleAndCriter();
+        MultipleOrCriter critersOr = new MultipleOrCriter();
+
         if(discSelected.getId() != ID_ALL_DISC) {
-            criters.addCriter(new PostDiscIdCriter(discSelected.getId()));
+            critersAnd.add(new PostDiscIdCriter(discSelected.getId()));
         }
+
         if(searched.length() > 0) {
-            criters.addCriter(new TitlePostContainsCriter(searched));
-            criters.addCriter(new ContentPostContainsCriter(searched));
-            criters.addCriter(new UsernamePostContainsCriter(searched));
-            criters.addCriter(new DiscNamePostCriter(searched));
+            critersOr.addCriter(new TitlePostContainsCriter(searched));
+            critersOr.addCriter(new ContentPostContainsCriter(searched));
+            critersOr.addCriter(new UsernamePostContainsCriter(searched));
+            critersOr.addCriter(new DiscNamePostCriter(searched));
         }
-        return criters;
+
+        critersAnd.add(critersOr);
+        return critersAnd;
     }
     public static final int ID_ALL_DISC = 0;
     private static final String ALL_DISC_NAME = "all";
@@ -223,8 +229,8 @@ public class OneGroupActivity extends MyAppCompatActivity {
         inflater.inflate(R.menu.onegroup_menu, menu);
 
         MenuItem searchItem = menu.findItem(R.id.searchingPosts);
+        searchItem.setIcon(R.drawable.ic_search_white_24dp);
         searchItem.setActionView(searchView);
-
         return true;
     }
     private void configureLeaveGroupAction(){
@@ -372,17 +378,6 @@ public class OneGroupActivity extends MyAppCompatActivity {
             }
         });
     }
-    private void configureImageGroup(){
-        ImageView imageView = findViewById(R.id.imageGroupOneGroup);
-        if(group.getImageName().equals(CreateGroupActivity.DEFAULT_IMAGE_GROUP)) {
-            imageView.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.group_default));
-        }
-        else {
-            StorageReference ref = FirebaseStorage.getInstance().getReference("data_groups/" + group.getId() +"/"+group.getImageName());
-            Glide.with(getApplicationContext()).using(new FirebaseImageLoader()).load(ref).asBitmap().into(imageView);
-
-        }
-    }
 
     private void configureToolbar(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarOnegroup);
@@ -406,7 +401,6 @@ public class OneGroupActivity extends MyAppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 updatePostsView(newText);
-                Toast.makeText(getApplicationContext(),newText,Toast.LENGTH_LONG).show();
                 return false;
             }
         });

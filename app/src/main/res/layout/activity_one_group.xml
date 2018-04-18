@@ -44,26 +44,11 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp">
 
-                <ImageView
-                    android:id="@+id/imageGroupOneGroup"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/logo_app1" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
+                <Spinner
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/headerFilterPosts"
-                    android:layout_toRightOf="@id/imageGroupOneGroup">
 
-                    <Spinner
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-
-                        android:id="@+id/spinnerDiscFilter"></Spinner>
-
-                </RelativeLayout>
+                    android:id="@+id/spinnerDiscFilter"></Spinner>
 
             </RelativeLayout>
 

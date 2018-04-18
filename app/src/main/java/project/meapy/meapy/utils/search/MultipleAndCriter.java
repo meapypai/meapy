@@ -35,9 +35,18 @@ public class MultipleAndCriter<T> implements Criter<T>{
     public boolean match(T obj) {
         synchronized (criters) {
             for (Criter criter : criters) {
-                return false;
+                if(!criter.match(obj)){
+                    return false;
+                }
+
             }
         }
         return true;
+    }
+
+    public void add(Criter c){
+        synchronized (criters){
+            criters.add(c);
+        }
     }
 }
