@@ -44,6 +44,7 @@ public class DisciplinePostsActivity extends MyAppCompatActivity {
     private final List<Post> allPostList    = new ArrayList<>() ;
     private final List<Discipline> allDiscList = new ArrayList<>();
 
+    // LIST OF DATA ALREADY PROVIDED FROM DATABASE
     private List<Integer> disciplinesLoaded = new ArrayList<>();
     private List<Integer> postLoaded        = new ArrayList<>();
 
@@ -122,6 +123,7 @@ public class DisciplinePostsActivity extends MyAppCompatActivity {
         criters.addCriter(new PostDiscIdCriter(currentDisc.getId()));criters.addCriter(new TitlePostContainsCriter(searched));
         criters.addCriter(new ContentPostContainsCriter(searched));criters.addCriter(new UsernamePostContainsCriter(searched));
         criters.addCriter(new DiscNamePostCriter(searched));
+        return criters;
     }
 
     private Discipline getAllDisc(){
@@ -190,12 +192,15 @@ public class DisciplinePostsActivity extends MyAppCompatActivity {
                 }
             });
         }else{
-            for(Discipline d : allDiscList){
-                if(d!= allDisc && !disciplinesLoaded.contains(d)){
-                    provideAndSetPosts(d);
-                }
+            provideAllDiscsPosts();
+        }
+    }
+
+    private void provideAllDiscsPosts(){
+        for(Discipline d : allDiscList){
+            if(d!= allDisc && !disciplinesLoaded.contains(d)){
+                provideAndSetPosts(d);
             }
-            //adapterPost.addAll(allPostList);
         }
     }
 }
