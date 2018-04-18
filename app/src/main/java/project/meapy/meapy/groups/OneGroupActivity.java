@@ -25,11 +25,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -55,26 +59,36 @@ import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.bean.Post;
 import project.meapy.meapy.groups.joined.MyGroupsActivity;
 import project.meapy.meapy.posts.PostAdapter2;
-import project.meapy.meapy.utils.BuilderColor;
+import project.meapy.meapy.utils.DisciplineService;
 import project.meapy.meapy.utils.RunnableWithParam;
 import project.meapy.meapy.utils.firebase.DisciplineLink;
 import project.meapy.meapy.utils.firebase.GroupLink;
 import project.meapy.meapy.utils.firebase.PostLink;
+import project.meapy.meapy.utils.lists.DisciplineList;
+import project.meapy.meapy.utils.search.ContentPostContainsCriter;
+import project.meapy.meapy.utils.search.Criter;
+import project.meapy.meapy.utils.search.DiscNamePostCriter;
+import project.meapy.meapy.utils.search.MultipleOrCriter;
+import project.meapy.meapy.utils.search.PostDiscIdCriter;
+import project.meapy.meapy.utils.search.TitlePostContainsCriter;
+import project.meapy.meapy.utils.search.UsernamePostContainsCriter;
 
 public class OneGroupActivity extends MyAppCompatActivity {
 
-    private TextView titleGroup;
-    private TextView summaryOneGroup;
-
     RecyclerView recyclerViewPosts;
     PostAdapter2 adapterPost;
+    List<Post> postsForView = new ArrayList<>();
     List<Post> posts = new ArrayList<>();
     SubMenu subMenuDisc;
-    final ArrayList<Discipline> listDiscipline = new ArrayList<>();
+    final DisciplineList listDiscipline = new DisciplineList();
 
     private Groups group;
 
     private FloatingActionButton fBtn;
+
+    private Spinner discFilterSpinner;
+    private EditText fieldSearchedPosts;
+    private Discipline allDisc;
 
     public static final String GROUP_NAME_EXTRA = "GROUP";
     public static final String EXTRA_GROUP_USER_CREATOR = "user_creator";
@@ -85,24 +99,100 @@ public class OneGroupActivity extends MyAppCompatActivity {
         setContentView(R.layout.activity_one_group);
 
         recyclerViewPosts = findViewById(R.id.postsOneGroup);
-        summaryOneGroup = findViewById(R.id.summaryOneGroup);
-        titleGroup = findViewById(R.id.groupNameOneGroup);
 
 
         final Groups grp = (Groups) getIntent().getSerializableExtra(GROUP_NAME_EXTRA);
         group = grp;
 
+        configureFilterArea();
         configurePosts();
-        configureSummaryGroup();
         configureToolbar();
+
         configureDiscMenu();
         configureColorNavigationView();
         provideDiscipline();
         configureSendFileAction();
         configureImageGroup();
         configureLeaveGroupAction();
+
     }
 
+    private ArrayAdapter<Discipline> discsFilterAdapter;
+    private Discipline discSelected;
+    private void configureFilterArea(){
+        constructAllDisc();
+        discFilterSpinner = findViewById(R.id.spinnerDiscFilter);
+        fieldSearchedPosts = findViewById(R.id.fieldSearchedPosts);
+        // to avoid keyboard show due to edit text
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        discsFilterAdapter = new ArrayAdapter<>(getApplicationContext(),
+                android.R.layout.simple_spinner_item, listDiscipline);
+        discsFilterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        discFilterSpinner.setAdapter(discsFilterAdapter);
+
+        listDiscipline.add(allDisc);
+        discSelected = allDisc;
+        discFilterSpinner.setSelection(0);
+        postsForView.addAll(posts);
+        discFilterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                discSelected = (Discipline) discFilterSpinner.getSelectedItem();
+                updatePostsView();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
+
+        fieldSearchedPosts.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void afterTextChanged(Editable editable) {
+                updatePostsView();
+            }
+        });
+    }
+    private void updatePostsView(){
+        postsForView.clear();
+        adapterPost.notifyDataSetChanged();
+        if(discSelected == allDisc){
+            postsForView.addAll(posts);
+            adapterPost.notifyDataSetChanged();
+        }else {
+            String searched = fieldSearchedPosts.getText().toString();
+            Criter criter = getCritersForPosts(searched);
+            for (Post p : posts) {
+                if (criter.match(p)) {
+                    postsForView.add(p);
+                    adapterPost.notifyDataSetChanged();
+                }
+            }
+        }
+    }
+    private Criter getCritersForPosts(String searched){
+        MultipleOrCriter criters = new MultipleOrCriter();
+        criters.addCriter(new PostDiscIdCriter(discSelected.getId()));
+        if(searched.length() > 0) {
+            criters.addCriter(new TitlePostContainsCriter(searched));
+            criters.addCriter(new ContentPostContainsCriter(searched));
+            criters.addCriter(new UsernamePostContainsCriter(searched));
+            criters.addCriter(new DiscNamePostCriter(searched));
+        }
+        return criters;
+    }
+    public static final int ID_ALL_DISC = 0;
+    private static final String ALL_DISC_NAME = "all";
+    private Discipline constructAllDisc(){
+        if(allDisc == null) {
+            allDisc = new Discipline();
+            allDisc.setName(ALL_DISC_NAME);
+            allDisc.setId(ID_ALL_DISC);
+        }return allDisc;
+    }
     @Override
     protected void onStart() {
         super.onStart();
@@ -116,11 +206,6 @@ public class OneGroupActivity extends MyAppCompatActivity {
 
         Intent intent = null ;
         switch(item.getItemId()) {
-            case R.id.searchingPosts:
-                intent = new Intent(getApplicationContext(),DisciplinePostsActivity.class);
-                intent.putExtra(DisciplinePostsActivity.GROUP_EXTRA_NAME,group);
-                intent.putExtra(DisciplinePostsActivity.CURR_DISC_EXTRA_NAME,DisciplinePostsActivity.ID_ALL_DISC);
-                break;
             case R.id.accedToDiscussionOneGroup:
                 intent = new Intent(OneGroupActivity.this, ChatRoomActivity.class);
                 intent.putExtra(ChatRoomActivity.EXTRA_GROUP_ID,group.getId()+"");
@@ -185,29 +270,8 @@ public class OneGroupActivity extends MyAppCompatActivity {
     }
     private void onCreateDiscipline(final EditText edit){
         String discName = edit.getText().toString();
-        if (discName.length() > 0) {
-            if (!nameDiscplineAlreadyExists(listDiscipline, discName)) {
-                Discipline disc = new Discipline();
-                disc.setName(discName);
-                disc.setColor(BuilderColor.generateHexaColor());
-                DisciplineLink.addDiscipline(group, disc);
-                Toast.makeText(getApplicationContext(),"created",Toast.LENGTH_LONG).show();
-            } else {
-
-                edit.setText("");
-                askNewDiscName();
-                Toast.makeText(getApplicationContext(),"not created",Toast.LENGTH_LONG).show();
-            }
-        }
-
-    }
-    private boolean nameDiscplineAlreadyExists(List<Discipline> disciplines, String nameDiscipline) {
-        for(Discipline d: disciplines) {
-            if(d.getName().toUpperCase().equals(nameDiscipline.toUpperCase())) {
-                return true;
-            }
-        }
-        return false;
+        DisciplineService.createDiscipline(discName,group);
+        Toast.makeText(getApplicationContext(),"created",Toast.LENGTH_LONG).show();
     }
     private AlertDialog dialogNewDisc;
     private void askNewDiscName(){
@@ -246,7 +310,7 @@ public class OneGroupActivity extends MyAppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 String discName = nameEdit.getText().toString();
-                if(discName.length() > 0 && !nameDiscplineAlreadyExists(listDiscipline, discName)) {
+                if(discName.length() > 0 && !listDiscipline.containsDisciplineByName(discName)) {
                     dialogNewDisc.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
                 }else{
                     dialogNewDisc.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
@@ -255,7 +319,7 @@ public class OneGroupActivity extends MyAppCompatActivity {
         });
     }
     private void configurePosts(){
-        adapterPost = new PostAdapter2(posts,group,new View.OnClickListener() {
+        adapterPost = new PostAdapter2(postsForView,group,new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int position = recyclerViewPosts.getChildLayoutPosition(view);
@@ -270,11 +334,7 @@ public class OneGroupActivity extends MyAppCompatActivity {
         recyclerViewPosts.setAdapter(adapterPost);
         recyclerViewPosts.setLayoutManager(new LinearLayoutManager(this));
     }
-    private void configureSummaryGroup(){
-        String name = group.getName();
-        titleGroup.setText(name);
-        summaryOneGroup.setText(group.getSummary());
-    }
+
     private void configureDiscMenu(){
         final Menu menu = ((NavigationView)findViewById(R.id.side_menu_one_group)).getMenu();
         subMenuDisc = menu.addSubMenu("Discipline");
@@ -303,6 +363,7 @@ public class OneGroupActivity extends MyAppCompatActivity {
             @Override
             public void run() {
                 onDisciplineAdded((Discipline) getParam());
+                discsFilterAdapter.notifyDataSetChanged();
             }
         }, null);
     }
