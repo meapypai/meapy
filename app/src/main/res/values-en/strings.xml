@@ -179,6 +179,9 @@
 
     <string name="title_delete_post_menu">Delete</string>
 
+    <!--Comment post details menu-->
+    <string name="report_comment_post_details">Report</string>
+
     <!-- Google Login strings -->
     <!--<string name="default_web_client_id">meapyid</string>-->
 
@@ -188,6 +191,5 @@
     <string name="you_have_been_added_group">You\'ve been added on group </string>
 
 
-    <string name="vertical_ellipsis">&#8942;</string>
 
 </resources>

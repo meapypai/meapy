@@ -180,6 +180,9 @@
     <string name="title_delete_post_menu">Supprimer</string>
     <string name="search_posts_onegroup_menu">Rechercher</string>
 
+    <!--Comment post details menu-->
+    <string name="report_comment_post_details">Signaler</string>
+
     <!-- Google Login strings -->
     <!--<string name="default_web_client_id">meapyid</string>-->
 
@@ -189,7 +192,6 @@
     <string name="you_have_been_added_group">Vous avez été ajouté au groupe </string>
 
 
-    <string name="vertical_ellipsis">&#8942;</string>
 
 
 </resources>

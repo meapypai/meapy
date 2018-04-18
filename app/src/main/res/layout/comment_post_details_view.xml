@@ -48,16 +48,15 @@
             android:text="@string/comment_post"/>
 
 
-        <TextView
-            android:id="@+id/textViewOptions"
+        <ImageButton
+            android:id="@+id/menuCommentPostDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-            android:textColor="@color/grey"
-            android:textStyle="bold"
-            android:text="@string/vertical_ellipsis"/>
+            android:background="@drawable/ic_more_vert_white_24dp"
+            android:backgroundTint="@color/lightGrey">
+        </ImageButton>
 
     </RelativeLayout>
 
