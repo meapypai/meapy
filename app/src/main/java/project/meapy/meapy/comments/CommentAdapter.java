@@ -6,10 +6,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,13 +76,15 @@ public class CommentAdapter extends RecyclerView.Adapter {
         private TextView tvContent;
         private ImageView imgUserComment;
         private TextView dateComment;
+        private ImageButton menuCommentPostDetails;
 
         public CommentHolder(View itemView) {
             super(itemView);
-            tvAuthor       = itemView.findViewById(R.id.authorComment);
-            tvContent      = itemView.findViewById(R.id.contentComment);
-            imgUserComment = itemView.findViewById(R.id.imgUserComment);
-            dateComment    = itemView.findViewById(R.id.dateComment);
+            tvAuthor               = itemView.findViewById(R.id.authorComment);
+            tvContent              = itemView.findViewById(R.id.contentComment);
+            imgUserComment         = itemView.findViewById(R.id.imgUserComment);
+            dateComment            = itemView.findViewById(R.id.dateComment);
+            menuCommentPostDetails = itemView.findViewById(R.id.menuCommentPostDetails);
         }
 
         public void bind(Comment comment) {
@@ -100,6 +105,26 @@ public class CommentAdapter extends RecyclerView.Adapter {
                         if(!context.isRestricted())
                             RetrieveImage.glide(ref, MyApplication.getCurrentActivity(),imgUserComment);
                     }
+                }
+            });
+
+            menuCommentPostDetails.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PopupMenu menu = new PopupMenu(context,menuCommentPostDetails);
+                    menu.inflate(R.menu.menu_comment_post_details);
+
+                    menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            switch (item.getItemId()) {
+                                case R.id.reportComment:
+                                    break;
+                            }
+                            return false;
+                        }
+                    });
+                    menu.show();
                 }
             });
         }

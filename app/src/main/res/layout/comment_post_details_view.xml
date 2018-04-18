@@ -55,7 +55,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:background="@drawable/ic_more_vert_white_24dp"
-            android:backgroundTint="@color/lightGrey">
+            android:backgroundTint="@color/optionsMenu">
         </ImageButton>
 
     </RelativeLayout>
