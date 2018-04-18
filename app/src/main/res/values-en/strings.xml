@@ -148,6 +148,9 @@
     <!--profil activity-->
     <string name="first_last_name">Firstname Lastname</string>
 
+    <!--modify profil  activity-->
+    <string name="modify_profil_label">Modify my profil</string>
+
     <!--reload coins activity-->
     <string name="question_reload_coins">Reload my Meaps ?</string>
 

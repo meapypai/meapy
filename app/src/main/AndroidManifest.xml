@@ -110,9 +110,9 @@
             android:screenOrientation="portrait"></activity>
 
 
-        <activity android:name=".ReloadCoinsActivity"
-            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"
-            android:screenOrientation="portrait">
+        <activity android:name=".ModifyProfilActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/modify_profil_label">
         </activity>
 
     </application>
