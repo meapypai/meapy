@@ -56,14 +56,15 @@
                     <Spinner
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
+
                         android:id="@+id/spinnerDiscFilter"></Spinner>
                     <EditText
+                        android:hint="@string/search_field_hint"
                         android:descendantFocusability="blocksDescendants"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/fieldSearchedPosts"
-                        android:layout_toRightOf="@id/spinnerDiscFilter"
+                        android:layout_below="@id/spinnerDiscFilter"
                         />
 
                 </RelativeLayout>

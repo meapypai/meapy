@@ -144,6 +144,7 @@
     <string name="tag_group_one_group">Groupe de travail</string>
     <string name="invitation_code_to_group">Join my group in Meapy with this code: </string>
     <string name="title_my_account_menu">My Account</string>
+    <string name="search_field_hint">search a post...</string>
 
     <!--profil activity-->
     <string name="first_last_name">Firstname Lastname</string>

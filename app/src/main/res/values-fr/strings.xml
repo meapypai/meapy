@@ -146,6 +146,7 @@
     <string name="group_name_one_group">NOM DU GROUPE</string>
     <string name="tag_group_one_group">Groupe de travail</string>
     <string name="invitation_code_to_group">Rejoins mon groupe sur Meapy avec le code suivant: </string>
+    <string name="search_field_hint">Rechercher un post...</string>
 
     <!--profil activity-->
     <string name="first_last_name">Nom Prénom</string>
