@@ -66,7 +66,7 @@
 
     <!-- create group activity -->
     <string name="group_name_hint">Name</string>
-    <string name="image_name_hint">Image</string>
+    <string name="image_name_hint">Image group</string>
     <string name="tag_name_hint">Tag group</string>
     <string name="limit_hint">Limit</string>
     <string name="add_user_create_group">Add user</string>
@@ -124,7 +124,7 @@
 
     <!-- send file activity -->
     <string name="title_send_hint">Title</string>
-    <string name="filename_send_hint">Filename</string>
+    <string name="filename_send_hint">File(s)</string>
     <string name="group_send_hint">Group</string>
     <string name="discipline_send_hint">Discipline</string>
     <string name="descr_send_label">Description</string>
