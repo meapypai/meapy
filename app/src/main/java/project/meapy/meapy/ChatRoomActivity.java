@@ -1,35 +1,21 @@
 package project.meapy.meapy;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.view.DragEvent;
 import android.view.KeyEvent;
-import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,10 +23,11 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+import project.meapy.meapy.activities.MyAppCompatActivity;
 import project.meapy.meapy.bean.Message;
 import project.meapy.meapy.chat.MessagesAdapter;
-import project.meapy.meapy.groups.OneGroupActivity;
 import project.meapy.meapy.utils.RunnableWithParam;
+import project.meapy.meapy.utils.SorterService;
 import project.meapy.meapy.utils.firebase.MessageLink;
 
 public class ChatRoomActivity extends MyAppCompatActivity {
@@ -71,6 +58,34 @@ public class ChatRoomActivity extends MyAppCompatActivity {
         sendChatRoom       = (ImageView)findViewById(R.id.sendChatRoom);
         messageIdChatRoom  = (EditText)findViewById(R.id.messageIdChatRoom);
         addSmileyChatRoom  = (ImageButton) findViewById(R.id.addSmileyChatRoom);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        LinearLayout layout = (LinearLayout) findViewById(R.id.allSmileyChatRoom);
+        if(keyCode == KeyEvent.KEYCODE_BACK) {
+            if(smileyCpt == 1) {
+                layout.setVisibility(View.GONE);
+                smileyCpt-=1;
+                return true;
+            }
+        }
+        return super.onKeyDown(keyCode,event);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        sendChatRoom.setBackgroundTintList(ContextCompat.getColorStateList(this,colorId));
+    }
+
+    protected void onPause(){
+        super.onPause();
+        NotificationThread.setStartedChatRoom(idGroup,false);
+    }
+
+    protected void onResume(){
+        super.onResume();
 
         provideExtraData();
 
@@ -87,22 +102,6 @@ public class ChatRoomActivity extends MyAppCompatActivity {
 
         // ??
         sendChatRoom.setImageResource(R.drawable.ic_send_white_24dp);
-        /*
-        messageIdChatRoom.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(messageIdChatRoom.getText().length() == 0) {
-                    sendChatRoom.setImageResource(R.drawable.ic_send_white_24dp);
-                }
-                else {
-                    sendChatRoom.setImageResource(R.drawable.ic_send_white_24dp);
-                }
-            }
-            @Override
-            public void afterTextChanged(Editable s) {}
-        }); */
 
         addSmileyChatRoom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,7 +109,6 @@ public class ChatRoomActivity extends MyAppCompatActivity {
                 LinearLayout layout = (LinearLayout) findViewById(R.id.allSmileyChatRoom);
                 if(smileyCpt == 0) {
                     layout.setVisibility(View.VISIBLE);
-//                    ChatRoomActivity.this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
                     smileyCpt += 1;
                 }
                 else {
@@ -156,7 +154,7 @@ public class ChatRoomActivity extends MyAppCompatActivity {
             public void run() {
                 Message msg = (Message) getParam();
                 messages.add(msg);
-                sortMessages(messages);
+                SorterService.sortMessages(messages);
                 adapter.notifyDataSetChanged();
                 scrollMessagesChat.scrollToPosition(messages.size() - 1);
                 FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -175,51 +173,9 @@ public class ChatRoomActivity extends MyAppCompatActivity {
         }, null);
         scrollMessagesChat.setAdapter(adapter);
     }
-
-    private void sortMessages(List<Message> messages){
-        Collections.sort(messages, new Comparator<Message>() {
-            @Override
-            public int compare(Message message, Message t1) {
-                if(message.getDate().after(t1.getDate()))
-                    return 1;
-                else if (message.getDate().before(t1.getDate())){
-                    return -1;
-                }return 0;
-
-            }
-        });
-    }
     private void provideExtraData(){
         Intent i = getIntent();
         idGroup = Integer.parseInt(i.getStringExtra(EXTRA_GROUP_ID));
         nameGroup = i.getStringExtra(EXTRA_GROUP_NAME);
-    }
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        LinearLayout layout = (LinearLayout) findViewById(R.id.allSmileyChatRoom);
-        if(keyCode == KeyEvent.KEYCODE_BACK) {
-            if(smileyCpt == 1) {
-                layout.setVisibility(View.GONE);
-                smileyCpt-=1;
-                return true;
-            }
-        }
-        return super.onKeyDown(keyCode,event);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        sendChatRoom.setBackgroundTintList(ContextCompat.getColorStateList(this,colorId));
-    }
-
-    protected void onPause(){
-        super.onPause();
-        NotificationThread.setStartedChatRoom(idGroup,false);
-    }
-
-    protected void onResume(){
-        super.onResume();
-        NotificationThread.setStartedChatRoom(idGroup,true);
     }
 }

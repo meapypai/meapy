@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.support.annotation.Nullable;
 
+import project.meapy.meapy.activities.MyAppCompatActivity;
+
 /**
  * Created by yassi on 07/04/2018.
  */
 
-public class NotificationActivity extends  MyAppCompatActivity{
+public class NotificationActivity extends MyAppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

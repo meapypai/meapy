@@ -1,4 +1,4 @@
-package project.meapy.meapy;
+package project.meapy.meapy.activities;
 
 import android.os.Bundle;
 
@@ -8,6 +8,7 @@ import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
+import project.meapy.meapy.MyApplication;
 import project.meapy.meapy.bean.User;
 
 public class MyAppCompatWithRewardedVideo extends MyAppCompatActivity implements RewardedVideoAdListener {

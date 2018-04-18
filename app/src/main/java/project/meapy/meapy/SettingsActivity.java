@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.support.annotation.Nullable;
 
+import project.meapy.meapy.activities.MyAppCompatActivity;
+
 /**
  * Created by yassi on 22/03/2018.
  */

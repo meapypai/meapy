@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -16,8 +15,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import project.meapy.meapy.activities.MyAppCompatActivity;
 import project.meapy.meapy.bean.User;
-import project.meapy.meapy.chat.MessagesAdapter;
 import project.meapy.meapy.groups.OneGroupActivity;
 import project.meapy.meapy.members.MembersAdapter;
 

@@ -185,5 +185,7 @@
 
     <!-- NOTIFICATION -->
     <string name="new_post_in_group">Nouveau post dans le groupe : </string>
+    <string name="new_group_for_you">Nouveau groupe pour vous !</string>
+    <string name="you_have_been_added_group">Vous avez été ajouté au groupe </string>
 
 </resources>

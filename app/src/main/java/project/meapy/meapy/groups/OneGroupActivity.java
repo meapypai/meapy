@@ -40,15 +40,13 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import project.meapy.meapy.ChatRoomActivity;
 import project.meapy.meapy.CreateGroupActivity;
 import project.meapy.meapy.DisciplinePostsActivity;
 import project.meapy.meapy.MembersActivity;
-import project.meapy.meapy.MyAppCompatActivity;
+import project.meapy.meapy.activities.MyAppCompatActivity;
 import project.meapy.meapy.PostDetailsActivity;
 import project.meapy.meapy.R;
 import project.meapy.meapy.SendFileActivity;

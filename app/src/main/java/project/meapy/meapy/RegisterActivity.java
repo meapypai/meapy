@@ -4,12 +4,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import project.meapy.meapy.activities.MyAppCompatActivity;
 import project.meapy.meapy.bean.User;
 import project.meapy.meapy.utils.BuilderColor;
 import project.meapy.meapy.utils.Registration;

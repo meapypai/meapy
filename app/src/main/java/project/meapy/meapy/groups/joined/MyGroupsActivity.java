@@ -31,7 +31,7 @@ import java.util.Map;
 import project.meapy.meapy.CreateGroupActivity;
 import project.meapy.meapy.LoginActivity;
 import project.meapy.meapy.MyAccountActivity;
-import project.meapy.meapy.MyAppCompatActivity;
+import project.meapy.meapy.activities.MyAppCompatActivity;
 import project.meapy.meapy.MyApplication;
 import project.meapy.meapy.NotificationThread;
 import project.meapy.meapy.R;

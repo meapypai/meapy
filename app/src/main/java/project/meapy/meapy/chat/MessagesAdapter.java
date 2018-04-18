@@ -9,15 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.Date;
 import java.util.List;
 
-import project.meapy.meapy.MyAppCompatActivity;
+import project.meapy.meapy.activities.MyAppCompatActivity;
 import project.meapy.meapy.R;
 import project.meapy.meapy.bean.Message;
 import project.meapy.meapy.utils.BuilderFormatDate;

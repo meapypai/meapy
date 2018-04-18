@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,6 +15,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import project.meapy.meapy.activities.MyAppCompatActivity;
 import project.meapy.meapy.bean.Discipline;
 import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.bean.Post;
@@ -23,13 +23,23 @@ import project.meapy.meapy.posts.PostAdapter;
 import project.meapy.meapy.utils.RunnableWithParam;
 import project.meapy.meapy.utils.firebase.DisciplineLink;
 import project.meapy.meapy.utils.firebase.PostLink;
+import project.meapy.meapy.utils.search.ContentPostContainsCriter;
+import project.meapy.meapy.utils.search.Criter;
+import project.meapy.meapy.utils.search.DiscNamePostCriter;
+import project.meapy.meapy.utils.search.MultipleAndCriter;
+import project.meapy.meapy.utils.search.MultipleOrCriter;
+import project.meapy.meapy.utils.search.PostDiscIdCriter;
+import project.meapy.meapy.utils.search.TitlePostContainsCriter;
+import project.meapy.meapy.utils.search.UsernamePostContainsCriter;
 
 public class DisciplinePostsActivity extends MyAppCompatActivity {
     private Groups grp;
 
     public static final String GROUP_EXTRA_NAME = "GROUPS";
     public static final String CURR_DISC_EXTRA_NAME = "CURRDISCIDX";
+
     public static final int ID_ALL_DISC = 0;
+    private static final String ALL_DISC_NAME = "all";
 
     private final List<Post> allPostList    = new ArrayList<>() ;
     private final List<Discipline> allDiscList = new ArrayList<>();
@@ -55,11 +65,9 @@ public class DisciplinePostsActivity extends MyAppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discipline_posts);
         grp = (Groups) getIntent().getSerializableExtra(GROUP_EXTRA_NAME);
-        allDisc = new Discipline();
-        allDisc.setName("all");
-        allDisc.setId(ID_ALL_DISC);
 
         discIdToStart = (int) getIntent().getSerializableExtra(CURR_DISC_EXTRA_NAME);
+        getAllDisc();
 
         dataDiscsAdapter = new ArrayAdapter<Discipline>(this,
                 android.R.layout.simple_spinner_item, new ArrayList<Discipline>());
@@ -77,17 +85,18 @@ public class DisciplinePostsActivity extends MyAppCompatActivity {
         listView.setAdapter(adapterPost);
 
 
+        configureOnSearchEdit();
 
+        provideDisciplines();
+        configureSpinner();
+
+    }
+    private void configureOnSearchEdit(){
         searchEdit.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
             @Override
             public void afterTextChanged(Editable editable) {
@@ -95,13 +104,9 @@ public class DisciplinePostsActivity extends MyAppCompatActivity {
                 adapterPost.clear();
 
                 if(searched.length() > 0) {
-                    for (Post p : allPostList) {
-                        String title = p.getTitle().toLowerCase();
-                        String content = p.getTextContent().toLowerCase();
-                        String username = p.getUser().toLowerCase();
-                        if ( (p.getDisciplineId() == currentDisc.getId() || currentDisc == allDisc) && (title.contains(searched)
-                                || content.contains(searched)
-                                || username.contains(searched) )) {
+                   Criter criter = getCritersForPosts(searched);
+                    for(Post p : allPostList){
+                        if(criter.match(p)){
                             adapterPost.add(p);
                         }
                     }
@@ -110,10 +115,21 @@ public class DisciplinePostsActivity extends MyAppCompatActivity {
                 }
             }
         });
+    }
 
-        provideDisciplines();
-        configureSpinner();
+    private Criter getCritersForPosts(String searched){
+        MultipleOrCriter criters = new MultipleOrCriter();
+        criters.addCriter(new PostDiscIdCriter(currentDisc.getId()));criters.addCriter(new TitlePostContainsCriter(searched));
+        criters.addCriter(new ContentPostContainsCriter(searched));criters.addCriter(new UsernamePostContainsCriter(searched));
+        criters.addCriter(new DiscNamePostCriter(searched));
+    }
 
+    private Discipline getAllDisc(){
+        if(allDisc == null) {
+            allDisc = new Discipline();
+            allDisc.setName(ALL_DISC_NAME);
+            allDisc.setId(ID_ALL_DISC);
+        }return allDisc;
     }
 
     private void provideDisciplines(){

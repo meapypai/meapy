@@ -2,7 +2,6 @@ package project.meapy.meapy.groups.discussions;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -17,7 +16,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import project.meapy.meapy.ChatRoomActivity;
-import project.meapy.meapy.MyAppCompatActivity;
+import project.meapy.meapy.activities.MyAppCompatActivity;
 import project.meapy.meapy.R;
 import project.meapy.meapy.bean.Groups;
 

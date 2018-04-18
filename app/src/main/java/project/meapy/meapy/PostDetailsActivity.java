@@ -3,7 +3,6 @@ package project.meapy.meapy;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Notification;
-import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -14,8 +13,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,21 +22,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.reward.RewardItem;
-import com.google.android.gms.ads.reward.RewardedVideoAd;
-import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -59,14 +49,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
-import java.util.regex.Pattern;
 
+import project.meapy.meapy.activities.MyAppCompatWithRewardedVideo;
 import project.meapy.meapy.bean.Comment;
-import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.bean.Notifier;
 import project.meapy.meapy.bean.Post;
-import project.meapy.meapy.bean.User;
 import project.meapy.meapy.comments.CommentAdapter;
 import project.meapy.meapy.groups.OneGroupActivity;
 import project.meapy.meapy.utils.NotificationWorker;
@@ -75,7 +62,7 @@ import project.meapy.meapy.utils.firebase.CommentLink;
 import project.meapy.meapy.utils.firebase.FileLink;
 import project.meapy.meapy.utils.firebase.PostLink;
 
-public class PostDetailsActivity extends MyAppCompatWithRewardedVideo{
+public class PostDetailsActivity extends MyAppCompatWithRewardedVideo {
 
     public static final int MIN_COINS_TO_DOWNLOAD_FILE = 1;
     public static final int COINS_REMOVED_ON_DOWNLOADED_FILE = 1;

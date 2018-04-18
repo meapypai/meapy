@@ -1,16 +1,23 @@
-package project.meapy.meapy;
+package project.meapy.meapy.activities;
 
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import project.meapy.meapy.MyApplication;
+import project.meapy.meapy.R;
+import project.meapy.meapy.SettingsActivity;
 
 /**
  * Created by yassi on 23/03/2018.
@@ -75,14 +82,6 @@ public class MyAppCompatActivity extends AppCompatActivity {
         MyApplication.removeActivity();
     }
 
-    public int getColorSelectedOnSettings() {
-        return this.colorSelectedOnSettings;
-    }
-
-    public int getColorId() {
-        return this.colorId;
-    }
-
     public Map<String, Integer> getColorMessage() {
         return this.colorMessages;
     }
@@ -115,5 +114,12 @@ public class MyAppCompatActivity extends AppCompatActivity {
             colorMessages.put("Sent",R.color.messageSentBlue);
         }
         return color;
+    }
+
+    private static  final int REQUEST_PERMISSION_READ_EXTERNAL_STORAGE = 7;
+    protected void provideExternalStoragesPermission(){
+        if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMISSION_READ_EXTERNAL_STORAGE);
+        }
     }
 }
