@@ -136,7 +136,7 @@ public class PostDetailsActivity extends MyAppCompatWithRewardedVideo {
                     iconSeeDetails.startAnimation(animation);
 
                     detailsPost.setVisibility(View.VISIBLE);
-                    textViewSeeDetails.setText("Masquer détails");
+                    textViewSeeDetails.setText(getResources().getString(R.string.hide_details));
                     isVisibleDetails = true;
                 }
                 else {
@@ -145,7 +145,7 @@ public class PostDetailsActivity extends MyAppCompatWithRewardedVideo {
                     animation.reset();
 
                     detailsPost.setVisibility(View.GONE);
-                    textViewSeeDetails.setText("Voir détails");
+                    textViewSeeDetails.setText(getResources().getString(R.string.see_details));
                     isVisibleDetails = false;
                 }
             }
@@ -191,33 +191,35 @@ public class PostDetailsActivity extends MyAppCompatWithRewardedVideo {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.deletePostDetails) {
-            //Toast.makeText(getApplicationContext(),"delete post",Toast.LENGTH_LONG).show();
-            Handler mHandler = new Handler(Looper.getMainLooper());
-            mHandler.post(new Runnable() {
-                public void run() {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(PostDetailsActivity.this);
-                    builder.setMessage(R.string.confirm_delete_post);
-                    builder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            PostLink.deletePost(curPost);
-                            FileLink.deleteFilesPost(curPost);
-                            finish();
-                        }
-                    });
-                    builder.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
+        switch (item.getItemId()) {
+            case R.id.deletePostDetails:
+                //Toast.makeText(getApplicationContext(),"delete post",Toast.LENGTH_LONG).show();
+                Handler mHandler = new Handler(Looper.getMainLooper());
+                mHandler.post(new Runnable() {
+                    public void run() {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(PostDetailsActivity.this);
+                        builder.setMessage(R.string.confirm_delete_post);
+                        builder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                PostLink.deletePost(curPost);
+                                FileLink.deleteFilesPost(curPost);
+                                finish();
+                            }
+                        });
+                        builder.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
 
-                        }
-                    });
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                }
-            });
-
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    }
+                });
+            break;
         }
+
         return super.onOptionsItemSelected(item);
     }
 

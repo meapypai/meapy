@@ -12,6 +12,11 @@ import project.meapy.meapy.R;
 
 public class BuilderFormatDate {
 
+    /**
+     * return the date in the format: X minutes or X hours or X day...
+     * @param d : the date will be formated
+     * @return
+     */
     public static String formatDate(Date d) {
         //deprecated
         int hours = d.getHours();
@@ -33,6 +38,12 @@ public class BuilderFormatDate {
         return h + ":" + m;
     }
 
+    /**
+     * return the number of day pasted since the date
+     * @param context
+     * @param d : the date
+     * @return
+     */
     public static String getNbDayPastSinceToday(Context context, Date d) {
         Date dToday = new Date();
         Long s = (dToday.getTime() - d.getTime())/1000;
@@ -70,4 +81,6 @@ public class BuilderFormatDate {
             return days + " " + context.getResources().getString(R.string.days_text_post);
         }
     }
+
+
 }
