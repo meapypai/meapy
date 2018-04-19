@@ -86,6 +86,8 @@
     <string name="download_in_progress">en cours...</string>
     <string name="download_finished">terminé</string>
     <string name="write_ccmment_hint">Ecrire un commentaire...</string>
+    <string name="see_details">Voir détails</string>
+    <string name="hide_details">Masquer détails</string>
 
     <!-- discipline posts-->
     <string name="disc_post_textlabel">Discipline</string>

@@ -108,6 +108,8 @@
     <string name="download_in_progress">in progress...</string>
     <string name="download_finished">sucess</string>
     <string name="write_ccmment_hint">Write a comment...</string>
+    <string name="see_details">See détails</string>
+    <string name="hide_details">Hide détails</string>
 
     <!--comment post details -->
     <string name="comment_post">CONTENT</string>
