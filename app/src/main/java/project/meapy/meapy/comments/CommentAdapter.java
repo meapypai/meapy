@@ -102,8 +102,8 @@ public class CommentAdapter extends RecyclerView.Adapter {
                     }
                     else {
                         StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + user.getUid() + "/" + user.getNameImageProfil());
-                        if(!context.isRestricted())
-                            RetrieveImage.glide(ref, context /*MyApplication.getCurrentActivity()*/,imgUserComment);
+                        RetrieveImage.glide(ref, MyApplication.getCurrentActivity(),imgUserComment);
+
                     }
                 }
             });
