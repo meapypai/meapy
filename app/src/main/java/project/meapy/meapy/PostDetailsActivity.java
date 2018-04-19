@@ -22,6 +22,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -68,6 +71,8 @@ public class PostDetailsActivity extends MyAppCompatWithRewardedVideo {
     public static final int MIN_COINS_TO_DOWNLOAD_FILE = 1;
     public static final int COINS_REMOVED_ON_DOWNLOADED_FILE = 1;
 
+    private boolean isVisibleDetails = false;
+
     private Post curPost;
     private String idGroup;
     private Menu menu;
@@ -85,7 +90,12 @@ public class PostDetailsActivity extends MyAppCompatWithRewardedVideo {
     private TextView descFiles;
     private TextView contentPostTv;
 
+    private TextView textViewSeeDetails;
+    private ImageView iconSeeDetails;
+    private LinearLayout detailsPost;
     private LinearLayout layoutSeeDetails;
+
+    private Animation animation; //animation of the icon details post
 
     private String userAdminId;
 
@@ -109,7 +119,37 @@ public class PostDetailsActivity extends MyAppCompatWithRewardedVideo {
         titlePostTv           = findViewById(R.id.titlePostDetails);
         descFiles             = findViewById(R.id.descFilesPostDetails);
         contentPostTv         = findViewById(R.id.contentPostDetails);
-        layoutSeeDetails     = findViewById(R.id.layoutSeeDetails);
+
+        textViewSeeDetails    = findViewById(R.id.textViewSeeDetails);
+        iconSeeDetails        = findViewById(R.id.iconSeeDetails);
+        detailsPost           = findViewById(R.id.detailsPost);
+        layoutSeeDetails      = findViewById(R.id.layoutSeeDetails);
+
+        animation = AnimationUtils.loadAnimation(PostDetailsActivity.this, R.anim.rotate_see_details_icon);
+
+        layoutSeeDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!isVisibleDetails) {
+                    //start animation
+                    animation.setFillAfter(true); //to keep the final position
+                    iconSeeDetails.startAnimation(animation);
+
+                    detailsPost.setVisibility(View.VISIBLE);
+                    textViewSeeDetails.setText("Masquer détails");
+                    isVisibleDetails = true;
+                }
+                else {
+                    //reset animation
+                    animation.setFillAfter(false);
+                    animation.reset();
+
+                    detailsPost.setVisibility(View.GONE);
+                    textViewSeeDetails.setText("Voir détails");
+                    isVisibleDetails = false;
+                }
+            }
+        });
     }
 
     @Override
