@@ -51,6 +51,7 @@
     <string name="incorrect_mail">Mail not valid</string>
     <string name="incorrect_firstname">Firstname not valid</string>
     <string name="incorrect_lastname">Lastname not valid</string>
+    <string name="welcome_new_user">Welcome</string>
 
     <!-- add discipline activity -->
     <string name="creation_of_discipline">Creation of Discipline</string>
@@ -138,6 +139,7 @@
     <string name="post_added">Post added</string>
 
     <!-- one group activity -->
+    <string name="ALL_DISC_NAME">All</string>
     <string name="code_saved_clip_toast">code saved in the clipboard</string>
     <string name="leave_group_toast">leave group</string>
     <string name="group_name_one_group">GROUP NAME</string>

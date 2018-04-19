@@ -52,6 +52,7 @@
     <string name="incorrect_mail">Email non valide</string>
     <string name="incorrect_firstname">Prénom non valide</string>
     <string name="incorrect_lastname">Nom non valide</string>
+    <string name="welcome_new_user">Bienvenue</string>
 
     <!-- add discipline activity -->
     <string name="creation_of_discipline">Ajouter une discipline</string>
@@ -141,6 +142,7 @@
     <string name="group_must_be_selected">Veuillez d\'abord selectionner un groupe</string>
 
     <!-- one group activity -->
+    <string name="ALL_DISC_NAME">Tout</string>
     <string name="code_saved_clip_toast">Code copié dans le presse-papier</string>
     <string name="leave_group_toast">Groupe quitté</string>
     <string name="group_name_one_group">NOM DU GROUPE</string>
