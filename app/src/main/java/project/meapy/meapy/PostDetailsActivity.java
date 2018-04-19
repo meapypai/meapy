@@ -22,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -84,6 +85,8 @@ public class PostDetailsActivity extends MyAppCompatWithRewardedVideo {
     private TextView descFiles;
     private TextView contentPostTv;
 
+    private LinearLayout layoutSeeDetails;
+
     private String userAdminId;
 
     public static final String POST_EXTRA_NAME = "POST";
@@ -106,6 +109,7 @@ public class PostDetailsActivity extends MyAppCompatWithRewardedVideo {
         titlePostTv           = findViewById(R.id.titlePostDetails);
         descFiles             = findViewById(R.id.descFilesPostDetails);
         contentPostTv         = findViewById(R.id.contentPostDetails);
+        layoutSeeDetails     = findViewById(R.id.layoutSeeDetails);
     }
 
     @Override
@@ -114,6 +118,7 @@ public class PostDetailsActivity extends MyAppCompatWithRewardedVideo {
 
         sendComment.setBackgroundTintList(ContextCompat.getColorStateList(this,colorId));
         layoutDescriptionFile.setBackgroundColor(colorSelectedOnSettings);
+        layoutSeeDetails.setBackgroundColor(colorSelectedOnSettings);
     }
 
     private void configureUpDownMarkButton(){
