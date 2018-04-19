@@ -1,25 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:orientation="vertical">
+    android:background="@android:color/white">
 
-    <ImageView
-        android:id="@+id/imgUserProfil"
-        android:layout_marginTop="30dp"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_gravity="center"
-        android:scaleType="centerCrop"
-        android:background="@drawable/avatar"/>
-
-    <TextView
-        android:id="@+id/displayNameProfil"
-        android:layout_marginTop="10dp"
+    <LinearLayout
+        android:paddingTop="40dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/first_last_name"/>
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical">
 
-</LinearLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/round_image_profil_back"/>
+
+            <ImageView
+                android:id="@+id/imgUserProfil"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_centerInParent="true"
+                android:scaleType="centerCrop"
+                android:background="@drawable/avatar"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/displayNameProfil"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/first_last_name"/>
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btnEditProfil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="25dp"
+        android:layout_gravity="bottom|end"
+        android:src="@drawable/ic_create_white_24dp"/>
+
+</android.support.design.widget.CoordinatorLayout>

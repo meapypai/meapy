@@ -100,13 +100,13 @@ public class RegisterActivity extends MyAppCompatActivity {
         });
     }
 
-    private boolean isValidName(String name) {
+    public static boolean isValidName(String name) {
         Pattern pattern = Pattern.compile("[A-Za-zéàèù'ïöëüä -]{2,}");
         Matcher matcher = pattern.matcher(name);
         return matcher.matches();
     }
 
-    private boolean isValidMail(String mail) {
+    public static boolean isValidMail(String mail) {
         mail  = mail.trim();
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(mail);
         return matcher.matches();

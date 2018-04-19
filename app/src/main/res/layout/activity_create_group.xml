@@ -16,7 +16,7 @@
         <!--android:textSize="30dp"/>-->
 
     <LinearLayout
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="50dp"
         android:id="@+id/fieldNameGroup"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
@@ -37,23 +37,31 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/imageCreateGroup"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:hint="@string/image_name_hint"
-        android:layout_below="@id/fieldNameGroup"
-        android:layout_margin="@dimen/activity_horizontal_margin"/>
 
-    <ImageButton
-        android:id="@+id/insertCreateGroup"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/layoutImgGroup"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/fieldNameGroup"
-        android:layout_toEndOf="@+id/imageCreateGroup"
-        android:backgroundTint="@color/colorButton"
-        android:src="@drawable/ic_add_white_24dp" />
+        android:layout_below="@id/fieldNameGroup"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/imageCreateGroup"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/image_name_hint"
+            android:layout_margin="@dimen/activity_horizontal_margin"/>
+
+        <ImageButton
+            android:id="@+id/insertCreateGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fieldNameGroup"
+            android:layout_toEndOf="@+id/imageCreateGroup"
+            android:backgroundTint="@color/colorButton"
+            android:src="@drawable/ic_add_white_24dp" />
+    </LinearLayout>
 
    <EditText
         android:id="@+id/summuayCreateGroup"
@@ -61,26 +69,35 @@
        android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
         android:hint="@string/tag_name_hint"
-        android:layout_below="@id/imageCreateGroup"
+        android:layout_below="@id/layoutImgGroup"
         android:layout_margin="@dimen/activity_horizontal_margin"/>
 
-    <TextView
-        android:id="@+id/addUserTextcreateGroup"
-        android:layout_below="@+id/summuayCreateGroup"
-        android:layout_centerHorizontal="true"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_horizontal_margin"
-        android:hint="@string/add_user_create_group"/>
 
-    <ImageButton
-        android:id="@+id/addUserCreateGroup"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/layoutAddUser"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/insertCreateGroup"
         android:layout_below="@+id/summuayCreateGroup"
-        android:backgroundTint="@color/colorButton"
-        android:src="@drawable/ic_add_white_24dp" />
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/addUserTextcreateGroup"
+            android:layout_below="@+id/summuayCreateGroup"
+            android:layout_centerHorizontal="true"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:hint="@string/add_user_create_group"/>
+
+        <ImageButton
+            android:id="@+id/addUserCreateGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorButton"
+            android:src="@drawable/ic_add_white_24dp" />
+
+    </LinearLayout>
 
 
    <GridView
@@ -88,16 +105,15 @@
        android:layout_width="wrap_content"
        android:layout_height="200dp"
        android:layout_centerHorizontal="true"
-       android:layout_below="@+id/addUserCreateGroup">
+       android:layout_above="@+id/createNewGroupId"
+       android:layout_below="@+id/layoutAddUser">
     </GridView>
 
    <Button
         android:id="@+id/createNewGroupId"
-        android:layout_width="150dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/membersGridCreateGroup"
-       android:layout_centerHorizontal="true"
-        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_alignParentBottom="true"
         android:text="@string/create_group_button"
         android:textColor="@android:color/white"
         android:background="@color/colorButton"/>

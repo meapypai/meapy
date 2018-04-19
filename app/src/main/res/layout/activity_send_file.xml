@@ -57,6 +57,7 @@
                 android:id="@+id/filesSendFile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_below="@+id/fileNameSend"
                 android:layout_toLeftOf="@+id/importFileBtnSend"
                 />
@@ -195,17 +196,15 @@
         android:id="@+id/takePhotoSendFile"
         android:src="@drawable/ic_camera_alt_white_24dp"
         app:backgroundTint="@color/colorButton"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/fileBtnSend"
         android:layout_alignParentRight="true"
         android:layout_margin="25dp"/>
 
     <Button
         android:id="@+id/fileBtnSend"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="19dp"
         android:background="@color/colorButton"
         android:text="@string/send_btn_label"
         android:textColor="@android:color/white" />

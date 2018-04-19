@@ -16,6 +16,7 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.FirebaseDatabase;
 
 import project.meapy.meapy.MyApplication;
+import project.meapy.meapy.R;
 import project.meapy.meapy.bean.User;
 import project.meapy.meapy.groups.joined.MyGroupsActivity;
 import project.meapy.meapy.utils.firebase.UserLogined;
@@ -62,7 +63,7 @@ public class Registration {
 
                             user.updateProfile(profileUpdates);
 
-                            Toast.makeText(context,"Registration success",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context,context.getResources().getString(R.string.welcome_new_user) + " " + userBean.getFirstName(),Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(context, MyGroupsActivity.class);
                             context.startActivity(intent);
                         }

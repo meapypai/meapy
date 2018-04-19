@@ -180,7 +180,7 @@ public class OneGroupActivity extends MyAppCompatActivity {
         return critersAnd;
     }
     public static final int ID_ALL_DISC = 0;
-    private static final String ALL_DISC_NAME = "all";
+    private static final String ALL_DISC_NAME = "Tout"; //TODO: remove static to use strings.xml
     private Discipline constructAllDisc(){
         if(allDisc == null) {
             allDisc = new Discipline();

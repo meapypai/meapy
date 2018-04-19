@@ -35,6 +35,8 @@ import project.meapy.meapy.logins.DefaultLogin;
  */
 public class LoginActivity extends MyAppCompatActivity {
 
+    private LinearLayout mainLayoutLogin;
+
     private Button mSignButton;
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
@@ -55,6 +57,8 @@ public class LoginActivity extends MyAppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        mainLayoutLogin =  (LinearLayout)findViewById(R.id.mainLayoutLogin);
 
         mSignButton = (Button)findViewById(R.id.email_sign_in_button);
         mRegisterBtn = (TextView)findViewById(R.id.register);
@@ -145,6 +149,10 @@ public class LoginActivity extends MyAppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+
+        //set background with settings
+        mainLayoutLogin.setBackgroundColor(colorSelectedOnSettings);
+
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         if (currentUser != null){
