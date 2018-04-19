@@ -86,8 +86,19 @@
 
 
                     <LinearLayout
+                        android:id="@+id/detailsPost"
+                        android:layout_below="@+id/titleAndDescLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="visible">
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
                         android:id="@+id/layoutSeeDetails"
-                        android:layout_below="@+id/layoutDescriptionFile"
+                        android:layout_below="@+id/detailsPost"
                         android:layout_width="match_parent"
                         android:layout_height="25dp"
                         android:background="@color/colorPrimary"
