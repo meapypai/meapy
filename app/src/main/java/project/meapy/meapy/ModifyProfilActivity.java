@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -40,7 +41,7 @@ public class ModifyProfilActivity extends MyAppCompatActivity {
 
     private EditText firstNameModifyProfil;
     private EditText lastNameModifyProfil;
-    private Button btnValidateChangeProfil;
+    private FloatingActionButton btnValidateChangeProfil;
     private ImageView imgUserModifyProfil;
 
     @Override
@@ -49,10 +50,10 @@ public class ModifyProfilActivity extends MyAppCompatActivity {
 
         setContentView(R.layout.activity_modify_profil_activity);
 
-        firstNameModifyProfil   = (EditText)findViewById(R.id.firstNameModifyProfil);
-        lastNameModifyProfil    = (EditText)findViewById(R.id.lastNameModifyProfil);
-        btnValidateChangeProfil = (Button)findViewById(R.id.btnValidateChangeProfil);
-        imgUserModifyProfil     = (ImageView)findViewById(R.id.imgUserModifyProfil);
+        firstNameModifyProfil   = findViewById(R.id.firstNameModifyProfil);
+        lastNameModifyProfil    = findViewById(R.id.lastNameModifyProfil);
+        btnValidateChangeProfil = findViewById(R.id.btnValidateChangeProfil);
+        imgUserModifyProfil     = findViewById(R.id.imgUserModifyProfil);
 
         firstNameModifyProfil.setText(MyApplication.getUser().getFirstName());
         lastNameModifyProfil.setText(MyApplication.getUser().getLastName());

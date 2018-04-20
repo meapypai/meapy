@@ -40,6 +40,10 @@
         <item name="android:background">@drawable/divider_light_grey</item>
     </style>
 
+    <style name="dividerGrey" parent="divider">
+        <item name="android:background">@drawable/divider</item>
+    </style>
+
     <style name="correctFieldStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
