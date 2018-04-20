@@ -76,62 +76,8 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <android.support.design.widget.NavigationView
-        android:id="@+id/side_menu_one_group"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        app:menu="@menu/menu_side_one_group"
-        android:layout_gravity="start"
-        >
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-
-            <RelativeLayout
-                android:id="@+id/headerNavigationView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorButton">
-
-                <ImageButton
-                    android:id="@+id/addDiscOneGroup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:backgroundTint="@android:color/transparent"
-                    android:src="@drawable/ic_create_new_folder_white_24dp" />
-
-                <ImageButton
-                    android:id="@+id/leaveGroupPostDetails"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:backgroundTint="@android:color/transparent"
-                    android:src="@drawable/ic_exit_to_app_white_24dp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/footerNavigationView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:background="@color/colorButton">
-
-                <ImageButton
-                    android:id="@+id/manageGroupOneGroup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:backgroundTint="@android:color/transparent"
-                    android:src="@drawable/ic_build_white_24dp" />
-
-            </RelativeLayout>
-
-        </RelativeLayout>
-
-
-    </android.support.design.widget.NavigationView>
+    <!--navigation view-->
+    <include layout="@layout/navigation_view"></include>
 
 
 </android.support.v4.widget.DrawerLayout>
