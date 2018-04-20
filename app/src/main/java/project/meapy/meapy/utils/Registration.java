@@ -69,7 +69,7 @@ public class Registration {
                         }
                         else {
                             Log.w("error", "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(context,"Registration failed",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context,context.getResources().getString(R.string.registration_fail),Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

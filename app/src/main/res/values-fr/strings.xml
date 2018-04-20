@@ -53,6 +53,7 @@
     <string name="incorrect_firstname">Prénom non valide</string>
     <string name="incorrect_lastname">Nom non valide</string>
     <string name="welcome_new_user">Bienvenue</string>
+    <string name="registration_fail">Email ou mot de passe incorrect</string>
 
     <!-- add discipline activity -->
     <string name="creation_of_discipline">Ajouter une discipline</string>
@@ -177,7 +178,7 @@
     <string name="title_add_file_menu">Ajout de fichiers</string>
     <string name="title_settings_menu">Paramètres</string>
     <string name="title_disconnect_menu">Déconnexion</string>
-    <string name="title_my_account_menu">Mon Compte</string>
+    <string name="title_my_account_menu">Mon csompte</string>
 
     <!--Search user menu-->
     <string name="title_search_user_menu">Rechercher</string>

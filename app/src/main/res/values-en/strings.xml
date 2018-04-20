@@ -52,6 +52,7 @@
     <string name="incorrect_firstname">Firstname not valid</string>
     <string name="incorrect_lastname">Lastname not valid</string>
     <string name="welcome_new_user">Welcome</string>
+    <string name="registration_fail">Email or password incorrect</string>
 
     <!-- add discipline activity -->
     <string name="creation_of_discipline">Creation of Discipline</string>
@@ -147,7 +148,7 @@
     <string name="group_name_one_group">GROUP NAME</string>
     <string name="tag_group_one_group">Groupe de travail</string>
     <string name="invitation_code_to_group">Join my group in Meapy with this code: </string>
-    <string name="title_my_account_menu">My Account</string>
+    <string name="title_my_account_menu">My account</string>
     <string name="search_field_hint">search a post...</string>
 
     <!--profil activity-->

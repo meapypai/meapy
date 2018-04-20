@@ -2,12 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:icon="@drawable/ic_note_add_white_24dp"
-        android:title="@string/title_my_account_menu"
-        android:visible="true"
-        android:id="@+id/myAccountId">
-    </item>
 
     <item
         android:icon="@drawable/ic_note_add_white_24dp"
@@ -20,7 +14,15 @@
         android:title="@string/title_join_group_menu"
         android:visible="true"
         android:id="@+id/joinGrpMenu"
-        app:showAsAction="always"></item>
+        app:showAsAction="never"></item>
+
+    <item
+        android:icon="@drawable/ic_account_circle_white_24dp"
+        android:title="@string/title_my_account_menu"
+        android:visible="true"
+        app:showAsAction="always"
+        android:id="@+id/myAccountId">
+    </item>
 
     <item android:title="@string/title_settings_menu"
         android:id="@+id/settings"
