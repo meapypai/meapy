@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Date;
 
 import project.meapy.meapy.MyApplication;
+import project.meapy.meapy.R;
 import project.meapy.meapy.bean.User;
 import project.meapy.meapy.groups.joined.MyGroupsActivity;
 import project.meapy.meapy.utils.firebase.UserLink;
@@ -100,8 +101,7 @@ public class DefaultLogin {
                     c.startActivity(intent);
                 } else {
                     signInButton.setEnabled(true);
-                    Toast.makeText(c, "Authentication failed.",
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(c, c.getResources().getString(R.string.fail_login),Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
                     logoLogin.setVisibility(View.VISIBLE);
                 }

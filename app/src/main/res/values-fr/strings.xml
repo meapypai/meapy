@@ -23,6 +23,8 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="fail_login">Email ou mot de passe incorrect</string>
+
     <string name="send_file">Envoyer un fichier</string>
     <string name="sign_in_fb">Connexion avec Facebook</string>
     <string name="sign_in_gm">Connexion avec Gmail</string>
@@ -53,7 +55,7 @@
     <string name="incorrect_firstname">Prénom non valide</string>
     <string name="incorrect_lastname">Nom non valide</string>
     <string name="welcome_new_user">Bienvenue</string>
-    <string name="registration_fail">Email ou mot de passe incorrect</string>
+    <string name="registration_fail">Inscription échouée</string>
 
     <!-- add discipline activity -->
     <string name="creation_of_discipline">Ajouter une discipline</string>
@@ -178,7 +180,7 @@
     <string name="title_add_file_menu">Ajout de fichiers</string>
     <string name="title_settings_menu">Paramètres</string>
     <string name="title_disconnect_menu">Déconnexion</string>
-    <string name="title_my_account_menu">Mon csompte</string>
+    <string name="title_my_account_menu">Mon compte</string>
 
     <!--Search user menu-->
     <string name="title_search_user_menu">Rechercher</string>

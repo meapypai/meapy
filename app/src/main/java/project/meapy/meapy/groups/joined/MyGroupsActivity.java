@@ -121,6 +121,7 @@ public class MyGroupsActivity extends MyAppCompatActivity {
         adapter.remove(dGrp);
     }
 
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_my_groups, menu);
@@ -136,11 +137,6 @@ public class MyGroupsActivity extends MyAppCompatActivity {
                 break;
             case R.id.settings:
                 intent = new Intent(this, SettingsActivity.class);
-                break;
-            case R.id.disconnect:
-                intent = new Intent(this, LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                FirebaseAuth.getInstance().signOut();
                 break;
             case R.id.joinGrpMenu:
                 sendDialogForJoinGroup();

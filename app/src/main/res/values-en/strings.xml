@@ -23,6 +23,8 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="fail_login">Email or password incorrect</string>
+
     <string name="send_file">send a file</string>
     <string name="sign_in_fb">Sign in with Facebook</string>
     <string name="sign_in_gm">Sign in with Gmail</string>
@@ -52,7 +54,7 @@
     <string name="incorrect_firstname">Firstname not valid</string>
     <string name="incorrect_lastname">Lastname not valid</string>
     <string name="welcome_new_user">Welcome</string>
-    <string name="registration_fail">Email or password incorrect</string>
+    <string name="registration_fail">Regsitration failed</string>
 
     <!-- add discipline activity -->
     <string name="creation_of_discipline">Creation of Discipline</string>
