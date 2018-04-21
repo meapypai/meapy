@@ -12,7 +12,7 @@
     <item
         android:icon="@drawable/ic_group_work_white_24dp"
         android:title="@string/title_join_group_menu"
-        android:visible="true"
+        android:visible="false"
         android:id="@+id/joinGrpMenu"
         app:showAsAction="never"></item>
 
@@ -26,12 +26,12 @@
 
     <item android:title="@string/title_settings_menu"
         android:id="@+id/settings"
-        android:visible="true">
+        android:visible="false">
     </item>
 
     <item android:title="@string/title_disconnect_menu"
         android:id="@+id/disconnect"
-        android:visible="true">
+        android:visible="false">
     </item>
 
 </menu>
