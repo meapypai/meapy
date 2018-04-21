@@ -54,6 +54,7 @@ import project.meapy.meapy.ChatRoomActivity;
 import project.meapy.meapy.CreateGroupActivity;
 import project.meapy.meapy.DisciplinePostsActivity;
 import project.meapy.meapy.MembersActivity;
+import project.meapy.meapy.MyAccountActivity;
 import project.meapy.meapy.activities.MyAppCompatActivity;
 import project.meapy.meapy.PostDetailsActivity;
 import project.meapy.meapy.R;
@@ -109,8 +110,6 @@ public class OneGroupActivity extends MyAppCompatActivity {
 
         final Groups grp = (Groups) getIntent().getSerializableExtra(GROUP_NAME_EXTRA);
         group = grp;
-
-        setTitle(group.getName()); //set label activity
 
         configureFilterArea();
         configurePosts();
@@ -219,6 +218,8 @@ public class OneGroupActivity extends MyAppCompatActivity {
                 intent.setType("text/plain");
                 intent = Intent.createChooser(intent,"Share code");
                 break;
+            case R.id.myAccountId:
+                intent = new Intent(this, MyAccountActivity.class);
         }
         if(intent != null) {
             startActivity(intent);

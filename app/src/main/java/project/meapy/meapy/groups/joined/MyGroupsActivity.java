@@ -5,11 +5,16 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -22,7 +27,15 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,6 +53,7 @@ import project.meapy.meapy.SettingsActivity;
 import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.groups.OneGroupActivity;
 import project.meapy.meapy.utils.CodeGroupsGenerator;
+import project.meapy.meapy.utils.RetrieveImage;
 import project.meapy.meapy.utils.RunnableWithParam;
 import project.meapy.meapy.utils.firebase.GroupLink;
 import project.meapy.meapy.utils.firebase.NotificationLink;
@@ -122,9 +136,23 @@ public class MyGroupsActivity extends MyAppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_my_groups, menu);
+
+//        //to set drawable of account item
+//        StorageReference ref = FirebaseStorage.getInstance().getReference("users_img_profil/" + MyApplication.getUser().getUid() + "/" + MyApplication.getUser().getNameImageProfil());
+//        Glide.with(this).using(new FirebaseImageLoader()).load(ref).centerCrop().into(new SimpleTarget<GlideDrawable>() {
+//                                                                             @Override
+//                                                                             public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+//                                                                                 Bitmap bitmap1=((GlideBitmapDrawable) resource).getBitmap();
+//                                                                                 RoundedBitmapDrawable circularBitmapDrawable =
+//                                                                                         RoundedBitmapDrawableFactory.create(MyGroupsActivity.this.getApplicationContext().getResources(), bitmap1);
+//                                                                                 circularBitmapDrawable.setCircular(true);
+//                                                                                 menu.getItem(2).setIcon(circularBitmapDrawable);
+//                                                                             }
+//                                                                         });
+//
         return true;
     }
 
