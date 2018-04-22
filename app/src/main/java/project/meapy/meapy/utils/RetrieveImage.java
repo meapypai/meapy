@@ -12,6 +12,8 @@ import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.StorageReference;
 
+import static com.google.android.gms.internal.zzahn.runOnUiThread;
+
 /**
  * Created by yassi on 09/04/2018.
  */
@@ -22,10 +24,15 @@ public class RetrieveImage {
         Glide.with(context).using(new FirebaseImageLoader()).load(ref).asBitmap().centerCrop().into(new BitmapImageViewTarget(imageView) {
             @Override
             protected void setResource(Bitmap resource) {
-                RoundedBitmapDrawable circularBitmapDrawable =
+                final RoundedBitmapDrawable circularBitmapDrawable =
                         RoundedBitmapDrawableFactory.create(context.getResources(), resource);
                 circularBitmapDrawable.setCircular(true);
-                imageView.setImageDrawable(circularBitmapDrawable);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        imageView.setImageDrawable(circularBitmapDrawable);
+                    }
+                });
             }
         });
     }
