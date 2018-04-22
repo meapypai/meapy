@@ -60,7 +60,7 @@
             android:layout_below="@+id/fieldNameGroup"
             android:layout_toEndOf="@+id/imageCreateGroup"
             android:backgroundTint="@color/colorButton"
-            android:src="@drawable/ic_add_white_24dp" />
+            android:background="@android:drawable/ic_menu_add" />
     </LinearLayout>
 
    <EditText
@@ -95,7 +95,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorButton"
-            android:src="@drawable/ic_add_white_24dp" />
+            android:background="@android:drawable/ic_menu_add"/>
 
     </LinearLayout>
 
