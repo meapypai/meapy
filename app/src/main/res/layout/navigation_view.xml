@@ -71,6 +71,30 @@
                 android:layout_marginVertical="10dp"
                 android:layout_below="@+id/layoutLinesText" />
 
+            <!--layout membres du groupe-->
+            <RelativeLayout
+                android:id="@+id/membersNavigationView"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:backgroundTint="@android:color/black"
+                    android:background="@drawable/ic_people_black_24dp"/>
+
+                <TextView
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Membres du groupe"/>
+            </RelativeLayout>
+
+            <!--layout ajout d'ami-->
             <RelativeLayout
                 android:id="@+id/addUserNavigationView"
                 android:layout_width="200dp"
@@ -94,7 +118,7 @@
                     android:text="Inviter un ami"/>
             </RelativeLayout>
 
-
+            <!--layout quitter le groupe-->
             <RelativeLayout
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"

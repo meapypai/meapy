@@ -119,6 +119,8 @@ public class OneGroupActivity extends MyAppCompatActivity {
         final Groups grp = (Groups) getIntent().getSerializableExtra(GROUP_NAME_EXTRA);
         group = grp;
 
+        setTitle(group.getName());
+
         configureFilterArea();
         configurePosts();
         configureToolbar();
