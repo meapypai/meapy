@@ -44,6 +44,12 @@ import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -62,7 +68,9 @@ import project.meapy.meapy.SendFileActivity;
 import project.meapy.meapy.bean.Discipline;
 import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.bean.Post;
+import project.meapy.meapy.bean.User;
 import project.meapy.meapy.groups.joined.MyGroupsActivity;
+import project.meapy.meapy.members.MembersAdapter;
 import project.meapy.meapy.posts.PostAdapter2;
 import project.meapy.meapy.utils.DisciplineService;
 import project.meapy.meapy.utils.RunnableWithParam;
@@ -100,6 +108,11 @@ public class OneGroupActivity extends MyAppCompatActivity {
 
     private SearchView searchView;
 
+    private RecyclerView members_recycleview;
+    private List<String> idUsers = new ArrayList<>();
+    private List<User> users = new ArrayList<>();
+    private MembersAdapter membersAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,6 +133,65 @@ public class OneGroupActivity extends MyAppCompatActivity {
         provideDiscipline();
         configureSendFileAction();
         configureLeaveGroupAction();
+
+
+        //adapter member
+        members_recycleview = (RecyclerView)findViewById(R.id.members_recycleview);
+        membersAdapter = new MembersAdapter(users, OneGroupActivity.EXTRA_GROUP_USER_CREATOR);
+
+        DatabaseReference idUsersRef = FirebaseDatabase.getInstance().getReference("groups/" + group.getId() + "/usersId");
+        idUsersRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                String idUser = (String)dataSnapshot.getValue(String.class);
+                idUsers.add(idUser);
+
+                final DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users/"+idUser);
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        userRef.addValueEventListener(new ValueEventListener() {
+
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                User user = (User)dataSnapshot.getValue(User.class);
+                                users.add(user);
+                                membersAdapter.notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+                }.run();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        members_recycleview.setAdapter(membersAdapter);
+        members_recycleview.setLayoutManager(new LinearLayoutManager(this));
+
 
     }
 
