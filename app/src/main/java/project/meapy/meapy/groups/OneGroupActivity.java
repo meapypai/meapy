@@ -37,7 +37,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -73,6 +75,7 @@ import project.meapy.meapy.groups.joined.MyGroupsActivity;
 import project.meapy.meapy.members.MembersAdapter;
 import project.meapy.meapy.posts.PostAdapter2;
 import project.meapy.meapy.utils.DisciplineService;
+import project.meapy.meapy.utils.RetrieveImage;
 import project.meapy.meapy.utils.RunnableWithParam;
 import project.meapy.meapy.utils.firebase.DisciplineLink;
 import project.meapy.meapy.utils.firebase.GroupLink;
@@ -88,6 +91,13 @@ import project.meapy.meapy.utils.search.TitlePostContainsCriter;
 import project.meapy.meapy.utils.search.UsernamePostContainsCriter;
 
 public class OneGroupActivity extends MyAppCompatActivity {
+
+    //widgets of navigation view
+    ImageView imgGroupNavigationView;
+    TextView nameGroupNavigationView;
+    TextView tagGroupNavigationView;
+    RelativeLayout membersNavigationView;
+    RelativeLayout addUserNavigationView;
 
     RecyclerView recyclerViewPosts;
     PostAdapter2 adapterPost;
@@ -114,12 +124,16 @@ public class OneGroupActivity extends MyAppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_one_group);
 
-        recyclerViewPosts = findViewById(R.id.postsOneGroup);
+        recyclerViewPosts     = findViewById(R.id.postsOneGroup);
+        membersNavigationView = findViewById(R.id.membersNavigationView);
+        addUserNavigationView = findViewById(R.id.addUserNavigationView);
 
         final Groups grp = (Groups) getIntent().getSerializableExtra(GROUP_NAME_EXTRA);
         group = grp;
 
         setTitle(group.getName());
+
+        configureHeaderNavigationView();
 
         configureFilterArea();
         configurePosts();
@@ -131,6 +145,27 @@ public class OneGroupActivity extends MyAppCompatActivity {
         configureSendFileAction();
         configureLeaveGroupAction();
 
+
+        membersNavigationView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent  = new Intent(OneGroupActivity.this, MembersActivity.class);
+                intent.putExtra(ChatRoomActivity.EXTRA_GROUP_ID,group.getId()+"");
+                intent.putExtra(OneGroupActivity.EXTRA_GROUP_USER_CREATOR,group.getIdUserAdmin());
+                startActivity(intent);
+            }
+        });
+
+        addUserNavigationView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.putExtra(Intent.EXTRA_TEXT,getResources().getString(R.string.invitation_code_to_group) + group.getCodeToJoin() );
+                intent.setType("text/plain");
+                intent = Intent.createChooser(intent,"Share code");
+                startActivity(intent);
+            }
+        });
     }
 
     private ArrayAdapter<Discipline> discsFilterAdapter;
@@ -217,17 +252,6 @@ public class OneGroupActivity extends MyAppCompatActivity {
                 intent.putExtra(ChatRoomActivity.EXTRA_GROUP_ID,group.getId()+"");
                 intent.putExtra(ChatRoomActivity.EXTRA_GROUP_NAME,group.getName());
                 break;
-            case R.id.membersOneGroup:
-                intent  = new Intent(this, MembersActivity.class);
-                intent.putExtra(ChatRoomActivity.EXTRA_GROUP_ID,group.getId()+"");
-                intent.putExtra(OneGroupActivity.EXTRA_GROUP_USER_CREATOR,group.getIdUserAdmin());
-                break;
-            case R.id.shareGroup:
-                intent = new Intent(Intent.ACTION_SEND);
-                intent.putExtra(Intent.EXTRA_TEXT,getResources().getString(R.string.invitation_code_to_group) + group.getCodeToJoin() );
-                intent.setType("text/plain");
-                intent = Intent.createChooser(intent,"Share code");
-                break;
             case R.id.myAccountId:
                 intent = new Intent(this, MyAccountActivity.class);
         }
@@ -247,7 +271,7 @@ public class OneGroupActivity extends MyAppCompatActivity {
         return true;
     }
     private void configureLeaveGroupAction(){
-        findViewById(R.id.leaveGroupPostDetails).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.leaveGroupNavigationView).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Handler mHandler = new Handler(Looper.getMainLooper());
@@ -366,6 +390,19 @@ public class OneGroupActivity extends MyAppCompatActivity {
             }
         });
     }
+
+    private void configureHeaderNavigationView() {
+        //widgets of navigation view
+        imgGroupNavigationView  = findViewById(R.id.imgGroupNavigationView);
+        nameGroupNavigationView = findViewById(R.id.nameGroupNavigationView);
+        tagGroupNavigationView  = findViewById(R.id.tagGroupNavigationView);
+
+        StorageReference refImgGroup = FirebaseStorage.getInstance().getReference("data_groups/" + group.getId() + "/" + group.getImageName());
+        RetrieveImage.glide(refImgGroup,this, imgGroupNavigationView);
+        nameGroupNavigationView.setText(group.getName());
+        tagGroupNavigationView.setText(group.getSummary());
+    }
+
 
     private void configureColorNavigationView(){
         findViewById(R.id.headerNavigationView).setBackground(getColorDrawable());
