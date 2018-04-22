@@ -108,10 +108,6 @@ public class OneGroupActivity extends MyAppCompatActivity {
 
     private SearchView searchView;
 
-    private RecyclerView members_recycleview;
-    private List<String> idUsers = new ArrayList<>();
-    private List<User> users = new ArrayList<>();
-    private MembersAdapter membersAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +115,6 @@ public class OneGroupActivity extends MyAppCompatActivity {
         setContentView(R.layout.activity_one_group);
 
         recyclerViewPosts = findViewById(R.id.postsOneGroup);
-
 
         final Groups grp = (Groups) getIntent().getSerializableExtra(GROUP_NAME_EXTRA);
         group = grp;
@@ -133,65 +128,6 @@ public class OneGroupActivity extends MyAppCompatActivity {
         provideDiscipline();
         configureSendFileAction();
         configureLeaveGroupAction();
-
-
-        //adapter member
-        members_recycleview = (RecyclerView)findViewById(R.id.members_recycleview);
-        membersAdapter = new MembersAdapter(users, OneGroupActivity.EXTRA_GROUP_USER_CREATOR);
-
-        DatabaseReference idUsersRef = FirebaseDatabase.getInstance().getReference("groups/" + group.getId() + "/usersId");
-        idUsersRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                String idUser = (String)dataSnapshot.getValue(String.class);
-                idUsers.add(idUser);
-
-                final DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users/"+idUser);
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        userRef.addValueEventListener(new ValueEventListener() {
-
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                User user = (User)dataSnapshot.getValue(User.class);
-                                users.add(user);
-                                membersAdapter.notifyDataSetChanged();
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
-                    }
-                }.run();
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        members_recycleview.setAdapter(membersAdapter);
-        members_recycleview.setLayoutManager(new LinearLayoutManager(this));
-
 
     }
 
