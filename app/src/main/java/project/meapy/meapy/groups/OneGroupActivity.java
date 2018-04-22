@@ -418,19 +418,19 @@ public class OneGroupActivity extends MyAppCompatActivity {
     }
     private void onDisciplineAdded(final Discipline disc){
         listDiscipline.add(disc);
-        MenuItem it  =subMenuDisc.add(disc.getName());
-        it.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                menuItem.setChecked(true);
-                Intent intent = new Intent(getApplicationContext(),DisciplinePostsActivity.class);
-                intent.putExtra(DisciplinePostsActivity.GROUP_EXTRA_NAME,group);
-                intent.putExtra(DisciplinePostsActivity.CURR_DISC_EXTRA_NAME,disc.getId());
-                startActivity(intent);
-                menuItem.setChecked(false);
-                return false;
-            }
-        });
+//        MenuItem it  =subMenuDisc.add(disc.getName());
+//        it.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem menuItem) {
+//                menuItem.setChecked(true);
+//                Intent intent = new Intent(getApplicationContext(),DisciplinePostsActivity.class);
+//                intent.putExtra(DisciplinePostsActivity.GROUP_EXTRA_NAME,group);
+//                intent.putExtra(DisciplinePostsActivity.CURR_DISC_EXTRA_NAME,disc.getId());
+//                startActivity(intent);
+//                menuItem.setChecked(false);
+//                return false;
+//            }
+//        });
         PostLink.getPostsByDiscId(disc.getId(), new RunnableWithParam() {
             @Override
             public void run() {
