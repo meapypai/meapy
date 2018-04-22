@@ -20,6 +20,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -39,6 +40,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -125,6 +127,7 @@ public class OneGroupActivity extends MyAppCompatActivity {
         setContentView(R.layout.activity_one_group);
 
         recyclerViewPosts     = findViewById(R.id.postsOneGroup);
+
         membersNavigationView = findViewById(R.id.membersNavigationView);
         addUserNavigationView = findViewById(R.id.addUserNavigationView);
 
