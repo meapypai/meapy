@@ -44,9 +44,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="bottom"
-            android:paddingBottom="10dp"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp">
+            android:padding="10dp">
 
             <LinearLayout
                 android:id="@+id/layoutBarMessage"
@@ -90,6 +88,7 @@
                 android:backgroundTint="@color/colorButton"
                 android:layout_gravity="center"
                 android:padding="8dp"
+                android:visibility="gone"
                 android:src="@drawable/ic_send_white_24dp"
                 android:background="@drawable/edittext_round"/>
 

@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -58,6 +60,29 @@ public class ChatRoomActivity extends MyAppCompatActivity {
         sendChatRoom       = (ImageView)findViewById(R.id.sendChatRoom);
         messageIdChatRoom  = (EditText)findViewById(R.id.messageIdChatRoom);
         addSmileyChatRoom  = (ImageButton) findViewById(R.id.addSmileyChatRoom);
+
+
+        messageIdChatRoom.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(!TextUtils.isEmpty(messageIdChatRoom.getText().toString())) {
+                    sendChatRoom.setVisibility(View.VISIBLE);
+                }
+                else {
+                    sendChatRoom.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
     @Override
