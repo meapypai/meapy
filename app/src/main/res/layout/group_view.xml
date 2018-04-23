@@ -19,7 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/imgGroup"
-            android:background="@drawable/messenger_button_send_round_shadow"
+            android:background="@drawable/round"
+            android:backgroundTint="@android:color/transparent"
             android:scaleType="centerCrop" />
 
         <ImageView
