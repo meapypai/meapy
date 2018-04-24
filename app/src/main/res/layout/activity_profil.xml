@@ -6,8 +6,8 @@
 
     <LinearLayout
         android:paddingTop="40dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
         android:layout_gravity="center_horizontal"
         android:orientation="vertical">
 
@@ -37,6 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textColor="@android:color/black"
             android:text="@string/first_last_name"/>
 
     </LinearLayout>

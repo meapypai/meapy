@@ -63,4 +63,20 @@
         <item name="queryHint">@string/search_field_hint</item>
     </style>
 
+    <style name="relativeLayoutStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginBottom">15dp</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+
+    <style name="iconNavigationLayout">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:backgroundTint">@color/grey</item>
+    </style>
+
 </resources>

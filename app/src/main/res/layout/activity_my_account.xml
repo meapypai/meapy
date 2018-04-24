@@ -2,30 +2,77 @@
 <LinearLayout
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingTop="20dp">
 
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content">-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Mes meaps: "/>
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Mes meaps: "/>-->
 
-        <TextView
-            android:id="@+id/myMeapsPoints"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="10"/>
+        <!--<TextView-->
+            <!--android:id="@+id/myMeapsPoints"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="10"/>-->
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
-    <Button
-        android:id="@+id/reloadMeapsMyAccount"
-        android:layout_width="wrap_content"
+    <!--<Button-->
+        <!--android:id="@+id/reloadMeapsMyAccount"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Rechargez mes Meaps"/>-->
+
+
+    <RelativeLayout
+        android:id="@+id/profilMyAccount"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="Rechargez mes Meaps"/>
+        android:layout_gravity="center"
+        android:layout_marginBottom="15dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/ic_account_box_black_24dp"
+            android:backgroundTint="@android:color/black" />
+
+        <TextView
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Profil"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/settingsMyAccount"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="15dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:backgroundTint="@android:color/black"
+            android:background="@drawable/ic_settings_black_24dp"/>
+
+        <TextView
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Paramètres"/>
+    </RelativeLayout>
 
 </LinearLayout>

@@ -98,22 +98,22 @@ public class CreateGroupActivity extends MyAppCompatActivity {
 
         configureOnNewImageGroup();
 
-        // ??
-        nameCreateGroup.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-            @Override
-            public void afterTextChanged(Editable editable) {String nameGroup = nameCreateGroup.getText().toString();
-                ImageView correct_name_group = (ImageView)findViewById(R.id.correct_name_group);
-                if(checkNameGroup(nameGroup)){
-                    correct_name_group.setBackgroundTintList(ContextCompat.getColorStateList(CreateGroupActivity.this,android.R.color.holo_green_dark));
-                }else{
-                    correct_name_group.setBackgroundTintList(ContextCompat.getColorStateList(CreateGroupActivity.this,android.R.color.white));
-                }
-            }
-        });
+//        // ??
+//        nameCreateGroup.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+//            @Override
+//            public void afterTextChanged(Editable editable) {String nameGroup = nameCreateGroup.getText().toString();
+//                ImageView correct_name_group = (ImageView)findViewById(R.id.correct_name_group);
+//                if(checkNameGroup(nameGroup)){
+//                    correct_name_group.setBackgroundTintList(ContextCompat.getColorStateList(CreateGroupActivity.this,android.R.color.holo_green_dark));
+//                }else{
+//                    correct_name_group.setBackgroundTintList(ContextCompat.getColorStateList(CreateGroupActivity.this,android.R.color.white));
+//                }
+//            }
+//        });
 
         configureOnNewGroupClick();
         configureOnAddUserClick();
@@ -148,7 +148,7 @@ public class CreateGroupActivity extends MyAppCompatActivity {
                 ArrayList<User> tab = data.getParcelableArrayListExtra(SearchUserActivity.EXTRA_ARRAY_USERS);
                 for(int i = 0; i < tab.size(); i++) {
                     if(!usersSelected.contains(tab.get(i))) { //eviter les doublons d 'ajout
-                        dataGridView.add(tab.get(i).getEmail());
+                        dataGridView.add(tab.get(i).getFirstName() + " " + tab.get(i).getLastName());
                         usersList.add(tab.get(i));
                     }
                 }
