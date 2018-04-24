@@ -10,6 +10,20 @@
     <string name="others">autres</string>
     <string name="no_files">pas de fichier(s)</string>
 
+    <!--months-->
+    <string name="month_0">janv</string>
+    <string name="month_1">fev</string>
+    <string name="month_2">mar</string>
+    <string name="month_3">avr</string>
+    <string name="month_4">mai</string>
+    <string name="month_5">juin</string>
+    <string name="month_6">juil</string>
+    <string name="month_7">aout</string>
+    <string name="month_8">sept</string>
+    <string name="month_9">oct</string>
+    <string name="month_10">nov</string>
+    <string name="month_11">dec</string>
+
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Mot de passe</string>

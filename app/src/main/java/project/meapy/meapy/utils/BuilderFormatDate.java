@@ -2,6 +2,7 @@ package project.meapy.meapy.utils;
 
 import android.content.Context;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import project.meapy.meapy.R;
@@ -83,4 +84,58 @@ public class BuilderFormatDate {
     }
 
 
+    /**
+     *  return the date in a developped format
+     * @param date : the date will be formated
+     * @return
+     */
+    public static String formatDateInLongFr(Context c, Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(Calendar.DAY_OF_MONTH) + " " + getNameOfMonth(c,calendar.get(Calendar.MONTH)) + " " + calendar.get(Calendar.YEAR);
+    }
+
+
+    public static String getNameOfMonth(Context c, int month) {
+        String str = "";
+        switch(month) {
+            case 0:
+                str = c.getResources().getString(R.string.month_0);
+                break;
+            case 1:
+                str = c.getResources().getString(R.string.month_1);
+                break;
+            case 2:
+                str = c.getResources().getString(R.string.month_2);
+                break;
+            case 3:
+                str = c.getResources().getString(R.string.month_3);
+                break;
+            case 4:
+                str = c.getResources().getString(R.string.month_4);
+                break;
+            case 5:
+                str = c.getResources().getString(R.string.month_5);
+                break;
+            case 6:
+                str = c.getResources().getString(R.string.month_6);
+                break;
+            case 7:
+                str = c.getResources().getString(R.string.month_7);
+                break;
+            case 8:
+                str = c.getResources().getString(R.string.month_8);
+                break;
+            case 9:
+                str = c.getResources().getString(R.string.month_9);
+                break;
+            case 10:
+                str = c.getResources().getString(R.string.month_10);
+                break;
+            case 11:
+                str = c.getResources().getString(R.string.month_11);
+                break;
+        }
+        return str;
+    }
 }

@@ -60,6 +60,7 @@ import project.meapy.meapy.bean.Notifier;
 import project.meapy.meapy.bean.Post;
 import project.meapy.meapy.comments.CommentAdapter;
 import project.meapy.meapy.groups.OneGroupActivity;
+import project.meapy.meapy.utils.BuilderFormatDate;
 import project.meapy.meapy.utils.NotificationWorker;
 import project.meapy.meapy.utils.RunnableWithParam;
 import project.meapy.meapy.utils.firebase.CommentLink;
@@ -90,10 +91,12 @@ public class PostDetailsActivity extends MyAppCompatWithRewardedVideo {
     private TextView descFiles;
     private TextView contentPostTv;
 
+    //details post
     private TextView textViewSeeDetails;
     private ImageView iconSeeDetails;
     private LinearLayout detailsPost;
     private LinearLayout layoutSeeDetails;
+    private TextView datePostDetails;
 
     private Animation animation; //animation of the icon details post
 
@@ -120,13 +123,15 @@ public class PostDetailsActivity extends MyAppCompatWithRewardedVideo {
         descFiles             = findViewById(R.id.descFilesPostDetails);
         contentPostTv         = findViewById(R.id.contentPostDetails);
 
+        //details posts
         textViewSeeDetails    = findViewById(R.id.textViewSeeDetails);
         iconSeeDetails        = findViewById(R.id.iconSeeDetails);
         detailsPost           = findViewById(R.id.detailsPost);
         layoutSeeDetails      = findViewById(R.id.layoutSeeDetails);
+        datePostDetails       = findViewById(R.id.datePostDetails);
 
         animation = AnimationUtils.loadAnimation(PostDetailsActivity.this, R.anim.rotate_see_details_icon);
-
+        //listener about see/hide details of post
         layoutSeeDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -404,6 +409,9 @@ public class PostDetailsActivity extends MyAppCompatWithRewardedVideo {
         idGroup = getIntent().getStringExtra(ID_GROUP_EXTRA_NAME);
         userAdminId = getIntent().getStringExtra(OneGroupActivity.EXTRA_GROUP_USER_CREATOR);
         curPost = post;
+
+        //set date detail
+        datePostDetails.setText(BuilderFormatDate.formatDateInLongFr(this,curPost.getDate()));
 
         fillDescriptionAndTitle();
         configureFileRepresentation();
