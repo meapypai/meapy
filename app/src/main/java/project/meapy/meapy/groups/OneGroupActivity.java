@@ -243,6 +243,8 @@ public class OneGroupActivity extends MyAppCompatActivity {
 
         //change widgets'color in terms of settings
         fBtn.setBackgroundTintList(ContextCompat.getColorStateList(this,colorId));
+        RelativeLayout headerLayoutNavigationView = findViewById(R.id.headerLayoutNavigationView);
+        headerLayoutNavigationView.setBackgroundColor(colorSelectedOnSettings);
     }
 
     @Override

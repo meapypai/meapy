@@ -40,14 +40,14 @@
             android:text="Lastname"/>
     </LinearLayout>
 
-    <ImageView
-        app:layout_constraintLeft_toRightOf="@+id/nameLayoutMember"
-        app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintTop_toBottomOf="parent"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
-        android:background="@drawable/round"
-        android:backgroundTint="@android:color/holo_red_light"/>
+    <!--<ImageView-->
+        <!--app:layout_constraintLeft_toRightOf="@+id/nameLayoutMember"-->
+        <!--app:layout_constraintBottom_toTopOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="parent"-->
+        <!--android:layout_width="10dp"-->
+        <!--android:layout_height="10dp"-->
+        <!--android:background="@drawable/round"-->
+        <!--android:backgroundTint="@android:color/holo_red_light"/>-->
 
     <ImageView
         style="@style/divider"

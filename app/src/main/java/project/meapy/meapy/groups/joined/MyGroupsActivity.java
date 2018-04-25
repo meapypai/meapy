@@ -163,9 +163,6 @@ public class MyGroupsActivity extends MyAppCompatActivity {
             case R.id.addFileId:
                 intent = new Intent(this, SendFileActivity.class);
                 break;
-            case R.id.settings:
-                intent = new Intent(this, SettingsActivity.class);
-                break;
             case R.id.joinGrpMenu:
                 sendDialogForJoinGroup();
                 //intent = new Intent(getApplicationContext(), JoinGroupActivity.class);

@@ -54,6 +54,14 @@ public class MyAccountActivity extends MyAppCompatActivity{
             }
         });
 
+        settingsMyAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyAccountActivity.this,SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override

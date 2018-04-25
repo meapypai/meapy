@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -46,6 +47,11 @@ public class ProfilActivity extends MyAppCompatActivity {
         btnEditProfil     = (FloatingActionButton)findViewById(R.id.btnEditProfil);
 
         displayNameProfil.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setElevation(0);
+        }
 
         if(MyApplication.getUser() != null) {
             if(MyApplication.getUser().getNameImageProfil().equals(User.DEFAULT_IMAGE_USER_NAME)) {
