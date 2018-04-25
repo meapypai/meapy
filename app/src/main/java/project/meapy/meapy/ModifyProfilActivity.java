@@ -10,14 +10,10 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.firebase.ui.storage.images.FirebaseImageLoader;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -48,7 +44,7 @@ public class ModifyProfilActivity extends MyAppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_modify_profil_activity);
+        setContentView(R.layout.activity_modify_profil);
 
         firstNameModifyProfil   = findViewById(R.id.firstNameModifyProfil);
         lastNameModifyProfil    = findViewById(R.id.lastNameModifyProfil);

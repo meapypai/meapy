@@ -19,7 +19,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:paddingLeft="20dp"
-            android:layout_height="100dp">
+            android:layout_height="90dp">
 
             <ImageView
                 android:id="@+id/iconTitleSendFile"
@@ -48,7 +48,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:paddingLeft="20dp"
-            android:layout_height="100dp">
+            android:layout_height="90dp">
 
 
             <ImageView
@@ -68,7 +68,7 @@
                 android:layout_height="2dp"
                 android:layout_marginTop="20dp"
                 android:layout_alignLeft="@+id/descTextSend"
-                android:layout_below="@+id/descTextSend"
+                android:layout_alignParentBottom="true"
                 android:background="@drawable/divider_light_grey"
                 />
 
@@ -78,7 +78,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:paddingLeft="20dp"
-            android:layout_height="100dp">
+            android:layout_height="90dp">
 
             <ImageView
                 android:id="@+id/iconFilesSendFile"
@@ -109,7 +109,7 @@
                 android:layout_height="2dp"
                 android:layout_marginTop="20dp"
                 android:layout_alignLeft="@+id/fileNameSend"
-                android:layout_below="@+id/filesSendFile"
+                android:layout_alignParentBottom="true"
                 android:background="@drawable/divider_light_grey"
                 />
 
@@ -162,7 +162,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:paddingLeft="20dp"
-            android:layout_height="100dp">
+            android:layout_height="90dp">
 
             <ImageView
                 android:id="@+id/iconDisciplineSendFile"
