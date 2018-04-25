@@ -1,22 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/white">
 
-    <LinearLayout
+    <RelativeLayout
         android:paddingTop="40dp"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@color/colorButton"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center">
+        android:layout_height="150dp"
+        android:background="@color/colorButton">
 
             <!--<ImageView-->
                 <!--android:layout_width="120dp"-->
@@ -24,34 +17,35 @@
                 <!--android:layout_centerInParent="true"-->
                 <!--android:background="@drawable/round_image_profil_back"/>-->
 
-            <ImageView
-                android:id="@+id/imgUserProfil"
-                android:layout_width="110dp"
-                android:layout_height="110dp"
-                android:layout_centerInParent="true"
-                android:scaleType="centerCrop"
-                android:background="@drawable/avatar"/>
-        </RelativeLayout>
+    </RelativeLayout>
 
-        <TextView
-            android:id="@+id/displayNameProfil"
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"
-            android:text="@string/first_last_name"/>
+    <ImageView
+        android:id="@+id/imgUserProfil"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="80dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/avatar"
+        android:scaleType="centerCrop" />
 
-    </LinearLayout>
+    <TextView
+        android:id="@+id/displayNameProfil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/imgUserProfil"
+        android:layout_marginTop="5dp"
+        android:text="@string/first_last_name"
+        android:textColor="@android:color/black"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btnEditProfil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="25dp"
-        android:layout_gravity="bottom|end"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         app:backgroundTint="@color/colorButton"
         android:src="@drawable/ic_create_white_24dp"/>
 
-</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>
