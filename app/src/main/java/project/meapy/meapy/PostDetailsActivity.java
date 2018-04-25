@@ -63,6 +63,7 @@ import project.meapy.meapy.groups.OneGroupActivity;
 import project.meapy.meapy.utils.BuilderFormatDate;
 import project.meapy.meapy.utils.NotificationWorker;
 import project.meapy.meapy.utils.RunnableWithParam;
+import project.meapy.meapy.utils.SortService;
 import project.meapy.meapy.utils.firebase.CommentLink;
 import project.meapy.meapy.utils.firebase.FileLink;
 import project.meapy.meapy.utils.firebase.PostLink;
@@ -455,29 +456,13 @@ public class PostDetailsActivity extends MyAppCompatWithRewardedVideo {
             @Override
             public void run() {
                 comments.add((Comment)getParam());
-                sortComment(comments);
+                SortService.sortComment(comments);
                 adapter.notifyDataSetChanged();
             }
         });
         super.onResume();
     }
 
-    private void sortComment(List<Comment> comments){
-        Collections.sort(comments, new Comparator<Comment>() {
-            @Override
-            public int compare(Comment comment, Comment t1) {
-                Date d1 = comment.getDate();
-                Date d2 = t1.getDate();
-                if(d1.before(d2)){
-                    return -1;
-                }else if(d2.before(d1)){
-                    return 1;
-                }else {
-                    return 0;
-                }
-            }
-        });
-    }
     @Override
     protected void onDestroy() {
         rewardedVideoAd.destroy(this);

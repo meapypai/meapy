@@ -19,6 +19,7 @@ import project.meapy.meapy.activities.MyAppCompatActivity;
 import project.meapy.meapy.bean.User;
 import project.meapy.meapy.groups.OneGroupActivity;
 import project.meapy.meapy.members.MembersAdapter;
+import project.meapy.meapy.utils.SortService;
 
 /**
  * Created by yassi on 08/04/2018.
@@ -62,6 +63,7 @@ public class MembersActivity extends MyAppCompatActivity {
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 User user = (User)dataSnapshot.getValue(User.class);
                                 users.add(user);
+                                SortService.sortMembers(users);
                                 membersAdapter.notifyDataSetChanged();
                             }
 
@@ -98,5 +100,4 @@ public class MembersActivity extends MyAppCompatActivity {
         members_recycleview.setAdapter(membersAdapter);
         members_recycleview.setLayoutManager(new LinearLayoutManager(this));
     }
-
 }
