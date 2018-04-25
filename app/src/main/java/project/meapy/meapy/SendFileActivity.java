@@ -153,48 +153,6 @@ public class SendFileActivity extends MyAppCompatActivity {
             }
         });
 
-        //onDescTextChange();
-        descTextSend.addTextChangedListener(new TextWatcher() { // TODO REVOIR
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                String description = descTextSend.getText().toString();
-                ImageView correct_desc = (ImageView)findViewById(R.id.correct_desc);
-                if(checkDescription(description)){
-                    correct_desc.setBackgroundTintList(ContextCompat.getColorStateList(SendFileActivity.this,android.R.color.holo_green_dark));
-                }
-                else {
-                    correct_desc.setBackgroundTintList(ContextCompat.getColorStateList(SendFileActivity.this,android.R.color.white));
-                }
-            }
-        });
-
-        //onTitleTextChange();
-        titleTextSend.addTextChangedListener(new TextWatcher() { // TODO REVOIR
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                String title = titleTextSend.getText().toString();
-                ImageView correct_title = (ImageView)findViewById(R.id.correct_title);
-                if(checkTitle(title)){
-                    correct_title.setBackgroundTintList(ContextCompat.getColorStateList(SendFileActivity.this,android.R.color.holo_green_dark));
-                }
-                else {
-                    correct_title.setBackgroundTintList(ContextCompat.getColorStateList(SendFileActivity.this,android.R.color.white));
-                }
-            }
-        });
-
         //spinner list
         nameFiles = new ArrayList<>();
         adapterSpinnerFiles = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,nameFiles);
@@ -206,13 +164,10 @@ public class SendFileActivity extends MyAppCompatActivity {
         dataDiscsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         discTextSend.setAdapter(dataDiscsAdapter);
         final Map<Integer, Discipline> idToDisc = new HashMap<>();
-        findViewById(R.id.correct_group).setBackgroundTintList(ContextCompat.getColorStateList(SendFileActivity.this,android.R.color.white));
         groupNameSend.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 dataDiscsAdapter.clear();
-                findViewById(R.id.correct_group).
-                        setBackgroundTintList(ContextCompat.getColorStateList(SendFileActivity.this,android.R.color.holo_green_dark));
                 Groups grp = (Groups) groupNameSend.getSelectedItem();
                     DisciplineLink.getDisciplineByGroupId(grp.getId(), new RunnableWithParam() {
                         @Override
@@ -241,8 +196,7 @@ public class SendFileActivity extends MyAppCompatActivity {
         discTextSend.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ImageView correct_disc = (ImageView)findViewById(R.id.correct_disc);
-                correct_disc.setBackgroundTintList(ContextCompat.getColorStateList(SendFileActivity.this,android.R.color.holo_green_dark));
+
             }
 
             @Override
@@ -509,18 +463,15 @@ public class SendFileActivity extends MyAppCompatActivity {
     private List<Integer> idGroupsAddedCurrent = new ArrayList<>();
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        ImageView correct_file = (ImageView)findViewById(R.id.correct_file);
         if(requestCode == REQUEST_LOAD_FILE) {
             if(resultCode == RESULT_OK) {
                 Uri uri = data.getData();
-                correct_file.setBackgroundTintList(ContextCompat.getColorStateList(SendFileActivity.this,android.R.color.holo_green_dark));
                 addDocument(uri);
             }
         }
         if(requestCode == REQUEST_TAKE_PHOTO){
             if(resultCode == RESULT_OK) {
                 File file = new File(mCurrentPhotoPath);
-                correct_file.setBackgroundTintList(ContextCompat.getColorStateList(SendFileActivity.this,android.R.color.holo_green_dark));
                 addDocument(file);
             }
         }

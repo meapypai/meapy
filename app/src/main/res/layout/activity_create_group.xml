@@ -7,14 +7,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/white"
     tools:context="project.meapy.meapy.CreateGroupActivity">
-    <!--<TextView-->
-        <!--android:id="@+id/headTextSend"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Create a group"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:layout_marginTop="10dp"-->
-        <!--android:textSize="30dp"/>-->
 
     <RelativeLayout
         android:id="@+id/fieldNameGroup"
@@ -29,15 +21,9 @@
 
         <EditText
             android:id="@+id/nameCreateGroup"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/iconTitleCreateGroup"
-            android:layout_weight="2"
-            android:background="@android:color/transparent"
-            android:hint="@string/group_name_hint"
-            android:textSize="15sp" />
+            style="@style/editTextStyle"
+            android:hint="@string/group_name_hint" />
 
         <!--divider-->
         <ImageView
@@ -46,7 +32,7 @@
             android:layout_marginTop="20dp"
             android:layout_alignLeft="@+id/nameCreateGroup"
             android:layout_below="@+id/nameCreateGroup"
-            android:background="@drawable/divider"
+            android:background="@drawable/divider_light_grey"
             />
 
         <!--<ImageView-->
@@ -70,23 +56,12 @@
         <TextView
             android:id="@+id/imageCreateGroup"
             android:layout_toRightOf="@+id/iconImageCreateGroup"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:layout_marginLeft="10dp"
-            android:textSize="15sp"
+            style="@style/editTextStyle"
             android:hint="@string/image_name_hint" />
 
         <ImageButton
             android:id="@+id/insertCreateGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:backgroundTint="@color/colorButton"
-            android:background="@android:drawable/ic_menu_add" />
+            style="@style/btnInsertElem" />
 
 
         <!--divider-->
@@ -96,7 +71,7 @@
             android:layout_marginTop="20dp"
             android:layout_alignLeft="@+id/imageCreateGroup"
             android:layout_below="@+id/imageCreateGroup"
-            android:background="@drawable/divider"
+            android:background="@drawable/divider_light_grey"
             />
     </RelativeLayout>
 
@@ -113,14 +88,8 @@
 
         <EditText
             android:id="@+id/summuayCreateGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:textSize="15sp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
+            style="@style/editTextStyle"
             android:layout_toRightOf="@+id/iconTagCreateGroup"
-            android:background="@android:color/transparent"
             android:hint="@string/tag_name_hint" />
 
         <!--divider-->
@@ -130,7 +99,7 @@
             android:layout_marginTop="20dp"
             android:layout_alignLeft="@+id/summuayCreateGroup"
             android:layout_below="@+id/summuayCreateGroup"
-            android:background="@drawable/divider"
+            android:background="@drawable/divider_light_grey"
             />
     </RelativeLayout>
 
@@ -146,24 +115,13 @@
 
         <TextView
             android:id="@+id/addUserTextcreateGroup"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
+            style="@style/editTextStyle"
             android:layout_toRightOf="@+id/iconPersonAddCreateGroup"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="2"
-            android:textSize="15sp"
             android:hint="@string/add_user_create_group"/>
 
         <ImageButton
             android:id="@+id/addUserCreateGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorButton"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:background="@android:drawable/ic_menu_add"/>
+            style="@style/btnInsertElem"/>
 
 
         <!--divider-->
@@ -173,7 +131,7 @@
             android:layout_marginTop="20dp"
             android:layout_alignLeft="@+id/addUserTextcreateGroup"
             android:layout_below="@+id/addUserTextcreateGroup"
-            android:background="@drawable/divider"
+            android:background="@drawable/divider_light_grey"
             />
     </RelativeLayout>
 

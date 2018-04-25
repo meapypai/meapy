@@ -1,211 +1,210 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+
+<ScrollView android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="project.meapy.meapy.SendFileActivity"
-    android:background="@android:color/white"
-    android:id="@+id/sendFileLay">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-
-    <LinearLayout
-        android:id="@+id/layoutTitle"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_centerHorizontal="true"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:layout_weight="2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/titleTextSend"
-            android:hint="@string/title_send_hint" />
-
-        <ImageView
-            android:id="@+id/correct_title"
-            android:backgroundTint="@android:color/white"
-            style="@style/correctFieldStyle"/>
-
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_margin="20dp"
-        android:layout_width="250dp"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:layout_below="@id/layoutTitle"
-        >
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context="project.meapy.meapy.SendFileActivity"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:id="@+id/sendFileLay">
+
+
+        <!--title post-->
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/fileSendFile"
-            android:layout_marginBottom="10dp">
+            android:paddingLeft="20dp"
+            android:layout_height="100dp">
+
+            <ImageView
+                android:id="@+id/iconTitleSendFile"
+                style="@style/iconNavigationLayout"
+                android:background="@drawable/ic_title_black_24dp" />
+
+            <EditText
+                android:id="@+id/titleTextSend"
+                android:layout_toRightOf="@+id/iconTitleSendFile"
+                style="@style/editTextStyle"
+                android:hint="@string/group_name_hint" />
+
+            <!--divider-->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="20dp"
+                android:layout_alignLeft="@+id/titleTextSend"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/divider_light_grey"
+                />
+
+        </RelativeLayout>
+
+        <!--description post -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:paddingLeft="20dp"
+            android:layout_height="100dp">
+
+
+            <ImageView
+                android:id="@+id/iconDescriptionSendFile"
+                style="@style/iconNavigationLayout"
+                android:background="@drawable/ic_description_black_24dp" />
+
+            <EditText
+                android:id="@+id/descTextSend"
+                android:layout_toRightOf="@+id/iconDescriptionSendFile"
+                style="@style/editTextStyle"
+                android:hint="@string/descr_send_label" />
+
+            <!--divider-->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="20dp"
+                android:layout_alignLeft="@+id/descTextSend"
+                android:layout_below="@+id/descTextSend"
+                android:background="@drawable/divider_light_grey"
+                />
+
+        </RelativeLayout>
+
+        <!--files post-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:paddingLeft="20dp"
+            android:layout_height="100dp">
+
+            <ImageView
+                android:id="@+id/iconFilesSendFile"
+                style="@style/iconNavigationLayout"
+                android:background="@drawable/ic_photo_library_black_24dp" />
+
             <TextView
                 android:id="@+id/fileNameSend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="@string/filename_send_hint"
-                android:layout_centerVertical="true"
-                android:textAlignment="center"
-                />
+                android:layout_toRightOf="@+id/iconFilesSendFile"
+                style="@style/editTextStyle"
+                android:hint="@string/filename_send_hint" />
 
             <Spinner
                 android:id="@+id/filesSendFile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_below="@+id/fileNameSend"
-                android:layout_toLeftOf="@+id/importFileBtnSend"
-                />
+                android:layout_alignLeft="@+id/fileNameSend"/>
+
 
             <ImageButton
                 android:id="@+id/importFileBtnSend"
-                android:src="@drawable/ic_add_white_24dp"
-                android:backgroundTint="@color/colorButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/correct_file"
-                android:textColor="@android:color/white"
-                android:text="+"/>
+                style="@style/btnInsertElem" />
 
+            <!--divider-->
             <ImageView
-                android:id="@+id/correct_file"
-                style="@style/correctFieldStyle"
-                android:layout_centerVertical="true"
-                android:backgroundTint="@android:color/white"
-                android:layout_alignParentRight="true"/>
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="20dp"
+                android:layout_alignLeft="@+id/fileNameSend"
+                android:layout_below="@+id/filesSendFile"
+                android:background="@drawable/divider_light_grey"
+                />
 
         </RelativeLayout>
 
+        <!--group destination -->
         <RelativeLayout
-            android:layout_marginBottom="10dp"
-            android:id="@+id/groupSendFile"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/fileSendFile">
+            android:paddingLeft="20dp"
+            android:layout_height="90dp">
+
+            <ImageView
+                android:id="@+id/iconGroupSendFile"
+                style="@style/iconNavigationLayout"
+                android:background="@drawable/ic_group_work_white_24dp" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/txtGrp"
+                android:layout_toRightOf="@+id/iconGroupSendFile"
                 android:text="@string/group_send_hint"
-                android:layout_centerVertical="true"
-                android:id="@+id/txtGrp"/>
+                style="@style/editTextStyle"
+                android:hint="@string/image_name_hint" />
 
             <Spinner
                 android:id="@+id/groupNameSend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/txtGrp"
-                android:layout_toLeftOf="@id/addGroupSendFile"
                 android:layout_centerVertical="true"
-
-                ></Spinner>
+                android:layout_below="@+id/txtGrp"
+                android:layout_alignLeft="@+id/txtGrp"
+                />
 
             <ImageButton
-                android:layout_centerVertical="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="+"
-                android:layout_toLeftOf="@+id/correct_group"
                 android:id="@+id/addGroupSendFile"
-                android:textColor="@android:color/white"
-                android:src="@drawable/ic_add_white_24dp"
-                android:backgroundTint="@color/colorButton"/>
+                style="@style/btnInsertElem" />
 
+            <!--divider-->
             <ImageView
-                android:id="@+id/correct_group"
-                style="@style/correctFieldStyle"
-                android:layout_centerVertical="true"
-                android:backgroundTint="@android:color/holo_green_dark"
-                android:layout_alignParentRight="true"/>
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="20dp"
+                android:layout_alignLeft="@+id/txtGrp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/divider_light_grey"
+                />
 
         </RelativeLayout>
 
+        <!--discipline post -->
         <RelativeLayout
-
-            android:id="@+id/discSendFile"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/groupSendFile">
+            android:paddingLeft="20dp"
+            android:layout_height="100dp">
+
+            <ImageView
+                android:id="@+id/iconDisciplineSendFile"
+                style="@style/iconNavigationLayout"
+                android:background="@drawable/ic_folder_black_24dp" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
+                android:id="@+id/txtDisc"
+                android:layout_toRightOf="@+id/iconDisciplineSendFile"
                 android:text="@string/discipline_send_hint"
-                android:id="@+id/txtDisc"/>
-            />
-            <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/discNameSend"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@id/addDiscSendFile"
-                android:layout_toRightOf="@id/txtDisc"
-                ></Spinner>
+                style="@style/editTextStyle" />
 
             <ImageButton
+                android:id="@+id/addDiscSendFile"
+                style="@style/btnInsertElem" />
+
+            <Spinner
+                android:id="@+id/discNameSend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/correct_disc"
-                android:text="+"
-                android:id="@+id/addDiscSendFile"
-                android:textColor="@android:color/white"
-                android:src="@drawable/ic_add_white_24dp"
-                android:backgroundTint="@color/colorButton"/>
-
-            <ImageView
-                android:id="@+id/correct_disc"
-                style="@style/correctFieldStyle"
-                android:layout_centerVertical="true"
-                android:backgroundTint="@android:color/white"
-                android:layout_alignParentRight="true"/>
+                android:layout_below="@+id/txtDisc"
+                android:layout_alignLeft="@+id/txtDisc"/>
 
         </RelativeLayout>
 
-        <LinearLayout
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/takePhotoSendFile"
+            android:src="@drawable/ic_camera_alt_white_24dp"
+            app:backgroundTint="@color/colorButton"
+            android:layout_margin="25dp"/>
+
+        <Button
+            android:id="@+id/fileBtnSend"
             android:layout_width="match_parent"
-            android:layout_below="@id/discSendFile"
-            android:layout_centerHorizontal="true"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorButton"
+            android:text="@string/send_btn_label"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
 
-            <EditText
-                android:id="@+id/descTextSend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:hint="@string/descr_send_label" />
 
-            <ImageView
-                android:id="@+id/correct_desc"
-               style="@style/correctFieldStyle"
-                android:backgroundTint="@android:color/white"/>
-
-        </LinearLayout>
-
-    </RelativeLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/takePhotoSendFile"
-        android:src="@drawable/ic_camera_alt_white_24dp"
-        app:backgroundTint="@color/colorButton"
-        android:layout_above="@+id/fileBtnSend"
-        android:layout_alignParentRight="true"
-        android:layout_margin="25dp"/>
-
-    <Button
-        android:id="@+id/fileBtnSend"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorButton"
-        android:text="@string/send_btn_label"
-        android:textColor="@android:color/white" />
-</RelativeLayout>
+</ScrollView>
