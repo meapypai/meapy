@@ -59,6 +59,7 @@ import project.meapy.meapy.bean.Discipline;
 import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.bean.Post;
 import project.meapy.meapy.utils.BuilderColor;
+import project.meapy.meapy.utils.BuilderDialog;
 import project.meapy.meapy.utils.ProviderFilePath;
 import project.meapy.meapy.utils.RunnableWithParam;
 import project.meapy.meapy.utils.firebase.DisciplineLink;
@@ -135,7 +136,7 @@ public class SendFileActivity extends MyAppCompatActivity {
         dateEventSendFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DateDialog(SendFileActivity.this);
+                BuilderDialog.dateDialog(SendFileActivity.this,dateEventSendFile);
             }
         });
 
@@ -578,16 +579,4 @@ public class SendFileActivity extends MyAppCompatActivity {
         return mo <= MAX_LENGTH_FILES;
     }
 
-
-    public void DateDialog(Context context) {
-        DatePickerDialog.OnDateSetListener listener=new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
-            {
-                dateEventSendFile.setText(dayOfMonth + "/" + monthOfYear + "/" + year);
-            }};
-        Calendar c = Calendar.getInstance();
-        DatePickerDialog dpDialog=new DatePickerDialog(context, listener, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
-        dpDialog.show();
-    }
 }
