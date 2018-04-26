@@ -144,6 +144,8 @@
                     <ImageButton
                         android:id="@+id/importFileBtnSend"
                         style="@style/btnInsertElem"
+                        android:background="@drawable/ic_file_upload_black_24dp"
+                        android:backgroundTint="@color/grey"
                         android:layout_marginRight="0dp"/>
 
                     <TextView
