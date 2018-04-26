@@ -47,6 +47,8 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import org.w3c.dom.Text;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -98,6 +100,7 @@ public class PostDetailsActivity extends MyAppCompatWithRewardedVideo {
     private LinearLayout detailsPost;
     private LinearLayout layoutSeeDetails;
     private TextView datePostDetails;
+    private TextView nameDisciplinePostDetails;
 
     private Animation animation; //animation of the icon details post
 
@@ -130,6 +133,7 @@ public class PostDetailsActivity extends MyAppCompatWithRewardedVideo {
         detailsPost           = findViewById(R.id.detailsPost);
         layoutSeeDetails      = findViewById(R.id.layoutSeeDetails);
         datePostDetails       = findViewById(R.id.datePostDetails);
+        nameDisciplinePostDetails = findViewById(R.id.nameDisciplinePostDetails);
 
         animation = AnimationUtils.loadAnimation(PostDetailsActivity.this, R.anim.rotate_see_details_icon);
         //listener about see/hide details of post
@@ -339,6 +343,11 @@ public class PostDetailsActivity extends MyAppCompatWithRewardedVideo {
         }
     }
 
+    private void configureDetails()  {
+        datePostDetails.setText(BuilderFormatDate.formatDateInLongFr(this,curPost.getDate()));
+        nameDisciplinePostDetails.setText(curPost.getDisciplineName());
+    }
+
     private void configureSendCommentListener(){
         sendComment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -411,8 +420,6 @@ public class PostDetailsActivity extends MyAppCompatWithRewardedVideo {
         userAdminId = getIntent().getStringExtra(OneGroupActivity.EXTRA_GROUP_USER_CREATOR);
         curPost = post;
 
-        //set date detail
-        datePostDetails.setText(BuilderFormatDate.formatDateInLongFr(this,curPost.getDate()));
 
         fillDescriptionAndTitle();
         configureFileRepresentation();

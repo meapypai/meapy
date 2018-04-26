@@ -51,6 +51,7 @@
         <activity
             android:name=".SendFileActivity"
             android:label="@string/add_file_label"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"
             android:screenOrientation="portrait"></activity>
 
         <activity

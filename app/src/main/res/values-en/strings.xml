@@ -83,7 +83,7 @@
 
 
     <!-- create group activity -->
-    <string name="group_name_hint">Name</string>
+    <string name="group_name_hint">Name*</string>
     <string name="image_name_hint">Image group</string>
     <string name="tag_name_hint">Tag group</string>
     <string name="limit_hint">Limit</string>

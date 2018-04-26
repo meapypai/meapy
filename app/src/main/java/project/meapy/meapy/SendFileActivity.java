@@ -2,6 +2,8 @@ package project.meapy.meapy;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -21,6 +23,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -44,6 +47,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -77,7 +81,7 @@ public class SendFileActivity extends MyAppCompatActivity {
     private ImageButton importFileBtnSend;
 
     private Button fileBtnSend;
-    private FloatingActionButton addPhoto;
+    private ImageButton addPhoto;
 
     private TextView fileNameSend;
 
@@ -98,6 +102,8 @@ public class SendFileActivity extends MyAppCompatActivity {
 
     private Groups groupsProvided;
 
+    private TextView dateEventSendFile;
+
     public static final String GROUP_EXTRA_NAME = "GROUP";
 
     @Override
@@ -111,7 +117,7 @@ public class SendFileActivity extends MyAppCompatActivity {
         addGrpBtn         = (ImageButton) findViewById(R.id.addGroupSendFile);
 
         fileBtnSend       = (Button)findViewById(R.id.fileBtnSend);
-        addPhoto          = (FloatingActionButton) findViewById(R.id.takePhotoSendFile);
+        addPhoto          = findViewById(R.id.takePhotoSendFile);
 
         //edittext
         fileNameSend      = (TextView)findViewById(R.id.fileNameSend);
@@ -122,6 +128,16 @@ public class SendFileActivity extends MyAppCompatActivity {
         groupNameSend     = (Spinner)findViewById(R.id.groupNameSend);
         discTextSend      = (Spinner)findViewById(R.id.discNameSend);
         filesSendFile     = (Spinner)findViewById(R.id.filesSendFile);
+
+
+        //listener of date event
+        dateEventSendFile = findViewById(R.id.dateEventSendFile);
+        dateEventSendFile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DateDialog(SendFileActivity.this);
+            }
+        });
 
         //permission
         if(ContextCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -560,5 +576,18 @@ public class SendFileActivity extends MyAppCompatActivity {
         double ko = totalLength / 1024; // nb kilobytes
         double mo = ko / 2024; //nb megabytes
         return mo <= MAX_LENGTH_FILES;
+    }
+
+
+    public void DateDialog(Context context) {
+        DatePickerDialog.OnDateSetListener listener=new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
+            {
+                dateEventSendFile.setText(dayOfMonth + "/" + monthOfYear + "/" + year);
+            }};
+        Calendar c = Calendar.getInstance();
+        DatePickerDialog dpDialog=new DatePickerDialog(context, listener, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+        dpDialog.show();
     }
 }

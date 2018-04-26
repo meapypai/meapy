@@ -1,205 +1,272 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="project.meapy.meapy.SendFileActivity"
+    android:background="@android:color/white">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        tools:context="project.meapy.meapy.SendFileActivity"
-        android:background="@android:color/white"
-        android:orientation="vertical"
-        android:id="@+id/sendFileLay">
+        android:layout_height="match_parent">
 
-
-        <!--title post-->
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:paddingLeft="20dp"
-            android:layout_height="80dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/sendFileLay">
 
-            <ImageView
-                android:id="@+id/iconTitleSendFile"
-                style="@style/iconNavigationLayout"
-                android:background="@drawable/ic_title_black_24dp" />
 
-            <EditText
-                android:id="@+id/titleTextSend"
-                android:layout_toRightOf="@+id/iconTitleSendFile"
-                style="@style/editTextStyle"
-                android:hint="@string/group_name_hint" />
-
-            <!--divider-->
-            <ImageView
+            <!--title post-->
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="20dp"
-                android:layout_alignLeft="@+id/titleTextSend"
-                android:layout_alignParentBottom="true"
-                android:background="@drawable/divider_light_grey"
-                />
+                android:paddingLeft="20dp"
+                android:layout_height="80dp">
 
-        </RelativeLayout>
+                <ImageView
+                    android:id="@+id/iconTitleSendFile"
+                    style="@style/iconNavigationLayout"
+                    android:background="@drawable/ic_title_black_24dp" />
 
-        <!--description post -->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:paddingLeft="20dp"
-            android:layout_height="80dp">
+                <EditText
+                    android:id="@+id/titleTextSend"
+                    android:layout_toRightOf="@+id/iconTitleSendFile"
+                    style="@style/editTextStyle"
+                    android:hint="@string/group_name_hint" />
 
+                <!--divider-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_alignLeft="@+id/titleTextSend"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/divider_light_grey"
+                    />
 
-            <ImageView
-                android:id="@+id/iconDescriptionSendFile"
-                style="@style/iconNavigationLayout"
-                android:background="@drawable/ic_description_black_24dp" />
+            </RelativeLayout>
 
-            <EditText
-                android:id="@+id/descTextSend"
-                android:layout_toRightOf="@+id/iconDescriptionSendFile"
-                style="@style/editTextStyle"
-                android:hint="@string/descr_send_label" />
-
-            <!--divider-->
-            <ImageView
+            <!--description post -->
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="20dp"
-                android:layout_alignLeft="@+id/descTextSend"
-                android:layout_alignParentBottom="true"
-                android:background="@drawable/divider_light_grey"
-                />
-
-        </RelativeLayout>
-
-        <!--files post-->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:paddingLeft="20dp"
-            android:layout_height="80dp">
-
-            <ImageView
-                android:id="@+id/iconFilesSendFile"
-                style="@style/iconNavigationLayout"
-                android:background="@drawable/ic_photo_library_black_24dp" />
-
-            <TextView
-                android:id="@+id/fileNameSend"
-                android:layout_toRightOf="@+id/iconFilesSendFile"
-                style="@style/editTextStyle"
-                android:hint="@string/filename_send_hint" />
-
-            <Spinner
-                android:id="@+id/filesSendFile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/fileNameSend"
-                android:layout_alignLeft="@+id/fileNameSend"/>
+                android:paddingLeft="20dp"
+                android:layout_height="80dp">
 
 
-            <ImageButton
-                android:id="@+id/importFileBtnSend"
-                style="@style/btnInsertElem" />
+                <ImageView
+                    android:id="@+id/iconDescriptionSendFile"
+                    style="@style/iconNavigationLayout"
+                    android:background="@drawable/ic_description_black_24dp" />
 
-            <!--divider-->
-            <ImageView
+                <EditText
+                    android:id="@+id/descTextSend"
+                    android:layout_toRightOf="@+id/iconDescriptionSendFile"
+                    style="@style/editTextStyle"
+                    android:hint="@string/descr_send_label" />
+
+                <!--divider-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_alignLeft="@+id/descTextSend"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/divider_light_grey"
+                    />
+
+            </RelativeLayout>
+
+            <!--date session -->
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="20dp"
-                android:layout_alignLeft="@+id/fileNameSend"
-                android:layout_alignParentBottom="true"
-                android:background="@drawable/divider_light_grey"
-                />
+                android:paddingLeft="20dp"
+                android:layout_height="80dp">
 
-        </RelativeLayout>
+                <ImageView
+                    android:id="@+id/iconCalendarSendFile"
+                    style="@style/iconNavigationLayout"
+                    android:background="@drawable/ic_event_note_black_24dp"/>
 
-        <!--group destination -->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:paddingLeft="20dp"
-            android:layout_height="80dp">
+                <TextView
+                    android:id="@+id/dateEventSendFile"
+                    android:layout_toRightOf="@+id/iconCalendarSendFile"
+                    style="@style/editTextStyle"
+                    android:hint="@string/filename_send_hint"
+                    android:text="Date de l'évenement"/>
 
-            <ImageView
-                android:id="@+id/iconGroupSendFile"
-                style="@style/iconNavigationLayout"
-                android:background="@drawable/ic_group_work_white_24dp" />
+                <!--divider-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_alignLeft="@+id/dateEventSendFile"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/divider_light_grey"
+                    />
 
-            <TextView
-                android:id="@+id/txtGrp"
-                android:layout_toRightOf="@+id/iconGroupSendFile"
-                android:text="@string/group_send_hint"
-                style="@style/editTextStyle"
-                android:hint="@string/image_name_hint" />
+            </RelativeLayout>
 
-            <Spinner
-                android:id="@+id/groupNameSend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_below="@+id/txtGrp"
-                android:layout_alignLeft="@+id/txtGrp"
-                />
-
-            <ImageButton
-                android:id="@+id/addGroupSendFile"
-                style="@style/btnInsertElem" />
-
-            <!--divider-->
-            <ImageView
+            <!--files post-->
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="20dp"
-                android:layout_alignLeft="@+id/txtGrp"
-                android:layout_alignParentBottom="true"
-                android:background="@drawable/divider_light_grey"
-                />
+                android:paddingLeft="20dp"
+                android:layout_height="80dp">
 
-        </RelativeLayout>
+                <ImageView
+                    android:id="@+id/iconFilesSendFile"
+                    style="@style/iconNavigationLayout"
+                    android:background="@drawable/ic_photo_library_black_24dp" />
 
-        <!--discipline post -->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:paddingLeft="20dp"
-            android:layout_height="80dp">
+                <TextView
+                    android:id="@+id/fileNameSend"
+                    android:layout_toRightOf="@+id/iconFilesSendFile"
+                    style="@style/editTextStyle"
+                    android:hint="@string/filename_send_hint" />
 
-            <ImageView
-                android:id="@+id/iconDisciplineSendFile"
-                style="@style/iconNavigationLayout"
-                android:background="@drawable/ic_folder_black_24dp" />
+                <Spinner
+                    android:id="@+id/filesSendFile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/fileNameSend"
+                    android:layout_alignLeft="@+id/fileNameSend"/>
 
-            <TextView
-                android:id="@+id/txtDisc"
-                android:layout_toRightOf="@+id/iconDisciplineSendFile"
-                android:text="@string/discipline_send_hint"
-                style="@style/editTextStyle" />
 
-            <ImageButton
-                android:id="@+id/addDiscSendFile"
-                style="@style/btnInsertElem" />
 
-            <Spinner
-                android:id="@+id/discNameSend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txtDisc"
-                android:layout_alignLeft="@+id/txtDisc"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:orientation="horizontal">
 
-        </RelativeLayout>
+                    <ImageButton
+                        android:id="@+id/importFileBtnSend"
+                        style="@style/btnInsertElem"
+                        android:layout_marginRight="0dp"/>
 
-    </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="|"/>
 
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/takePhotoSendFile"
-        android:layout_above="@+id/fileBtnSend"
-        android:layout_alignParentRight="true"
-        android:src="@drawable/ic_camera_alt_white_24dp"
-        app:backgroundTint="@color/colorButton"
-        android:layout_margin="25dp"/>
+                    <ImageButton
+                        android:id="@+id/takePhotoSendFile"
+                        android:padding="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/ic_camera_alt_white_24dp"
+                        android:backgroundTint="@color/grey"/>
+
+                </LinearLayout>
+
+                <!--divider-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_alignLeft="@+id/fileNameSend"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/divider_light_grey"
+                    />
+
+            </RelativeLayout>
+
+            <!--group destination -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:paddingLeft="20dp"
+                android:layout_height="80dp">
+
+                <ImageView
+                    android:id="@+id/iconGroupSendFile"
+                    style="@style/iconNavigationLayout"
+                    android:background="@drawable/ic_group_work_white_24dp" />
+
+                <TextView
+                    android:id="@+id/txtGrp"
+                    android:layout_toRightOf="@+id/iconGroupSendFile"
+                    android:text="@string/group_send_hint"
+                    style="@style/editTextStyle"
+                    android:hint="@string/image_name_hint" />
+
+                <Spinner
+                    android:id="@+id/groupNameSend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_below="@+id/txtGrp"
+                    android:layout_alignLeft="@+id/txtGrp"
+                    />
+
+                <ImageButton
+                    android:id="@+id/addGroupSendFile"
+                    style="@style/btnInsertElem" />
+
+                <!--divider-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_alignLeft="@+id/txtGrp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/divider_light_grey"
+                    />
+
+            </RelativeLayout>
+
+            <!--discipline post -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:paddingLeft="20dp"
+                android:layout_height="80dp">
+
+                <ImageView
+                    android:id="@+id/iconDisciplineSendFile"
+                    style="@style/iconNavigationLayout"
+                    android:background="@drawable/ic_folder_black_24dp" />
+
+                <TextView
+                    android:id="@+id/txtDisc"
+                    android:layout_toRightOf="@+id/iconDisciplineSendFile"
+                    android:text="@string/discipline_send_hint"
+                    style="@style/editTextStyle" />
+
+                <ImageButton
+                    android:id="@+id/addDiscSendFile"
+                    style="@style/btnInsertElem" />
+
+                <Spinner
+                    android:id="@+id/discNameSend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txtDisc"
+                    android:layout_alignLeft="@+id/txtDisc"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="100dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_above="@+id/fileBtnSend"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:src="@drawable/ic_camera_alt_white_24dp"-->
+        <!--app:backgroundTint="@color/colorButton"-->
+        <!--android:layout_margin="25dp"-->
+        <!--android:visibility="visible"/>-->
 
     <Button
         android:id="@+id/fileBtnSend"
