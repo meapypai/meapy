@@ -198,11 +198,12 @@ public class CreateGroupActivity extends MyAppCompatActivity {
                     newGroup.setSummary(summary);
                     generateCodeForGroup(newGroup);
                     createGroup(newGroup);
+                    finish();
                 }
                 else {
+                    nameCreateGroup.setHintTextColor(getResources().getColor(android.R.color.holo_red_light));
                     Toast.makeText(CreateGroupActivity.this,getResources().getString(R.string.invalid_name_group),Toast.LENGTH_SHORT).show();
                 }
-                finish();
 
                 btn.setEnabled(true);
             }

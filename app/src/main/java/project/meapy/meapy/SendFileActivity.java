@@ -92,6 +92,7 @@ public class SendFileActivity extends MyAppCompatActivity {
 
     private EditText descTextSend;
     private EditText titleTextSend;
+    private TextView dateEventSendFile;
 
     private List<String> nameFiles;
     private List<File> files = new ArrayList<>();
@@ -101,9 +102,9 @@ public class SendFileActivity extends MyAppCompatActivity {
 
     final ArrayList<Discipline> listDisc = new ArrayList<>();
 
-    private Groups groupsProvided;
+    private Calendar calendarEvent; //date of event post
 
-    private TextView dateEventSendFile;
+    private Groups groupsProvided;
 
     public static final String GROUP_EXTRA_NAME = "GROUP";
 
@@ -136,7 +137,7 @@ public class SendFileActivity extends MyAppCompatActivity {
         dateEventSendFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BuilderDialog.dateDialog(SendFileActivity.this,dateEventSendFile);
+                SendFileActivity.this.calendarEvent = BuilderDialog.dateDialog(SendFileActivity.this,dateEventSendFile);
             }
         });
 
@@ -256,6 +257,7 @@ public class SendFileActivity extends MyAppCompatActivity {
                                 post.setGroupId(group.getId());
                                 post.setDisciplineId(disc.getId());
                                 post.setDisciplineName(disc.getName());
+                                post.setDateEvent(SendFileActivity.this.calendarEvent);
                                 if (MyApplication.getUser() != null) {
                                     post.setNameImageUser(MyApplication.getUser().getNameImageProfil());
                                 }
@@ -296,10 +298,12 @@ public class SendFileActivity extends MyAppCompatActivity {
                                 Toast.makeText(SendFileActivity.this, getResources().getString(R.string.error_fields_file), Toast.LENGTH_SHORT).show();
                             }
                         } else {
+                            descTextSend.setHintTextColor(getResources().getColor(android.R.color.holo_red_light));
                             Toast.makeText(SendFileActivity.this, getResources().getString(R.string.error_description_file) + " " + LIMIT_DESCRIPTION_LENGTH + " " + getResources().getString(R.string.caracters), Toast.LENGTH_SHORT).show();
                         }
                     }
                     else {
+                        titleTextSend.setHintTextColor(getResources().getColor(android.R.color.holo_red_light));
                         Toast.makeText(SendFileActivity.this, getResources().getString(R.string.error_title_file) + " " + LIMIT_TITLE_LENGTH + " " + getResources().getString(R.string.caracters), Toast.LENGTH_SHORT).show();
                     }
                 }

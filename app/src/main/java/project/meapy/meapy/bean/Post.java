@@ -1,6 +1,7 @@
 package project.meapy.meapy.bean;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +27,7 @@ public class Post extends DomainObject{
     private Date date;
     private List<String> notifiedUser = new ArrayList<>();
     private Map<String,String> markedByUserId = new HashMap<>(); //users id who marked the post and in value positive or negative
+    private Calendar dateEvent;
 
     public List<String> getNotifiedUser() {
         return notifiedUser;
@@ -149,5 +151,13 @@ public class Post extends DomainObject{
 
     public void addUserIdMark(String userId, String negOrPosMark) {
         this.markedByUserId.put(userId, negOrPosMark);
+    }
+
+    public Calendar getDateEvent() {
+        return dateEvent;
+    }
+
+    public void setDateEvent(Calendar dateEvent) {
+        this.dateEvent = dateEvent;
     }
 }
