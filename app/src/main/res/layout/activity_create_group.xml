@@ -1,157 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+
+<RelativeLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@android:color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     tools:context="project.meapy.meapy.CreateGroupActivity">
 
-    <RelativeLayout
-        android:id="@+id/fieldNameGroup"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:paddingLeft="20dp"
-        android:layout_height="70dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/iconTitleCreateGroup"
-            style="@style/iconNavigationLayout"
-            android:background="@drawable/ic_title_black_24dp" />
-
-        <EditText
-            android:id="@+id/nameCreateGroup"
-            android:layout_toRightOf="@+id/iconTitleCreateGroup"
-            style="@style/editTextStyle"
-            android:hint="@string/group_name_hint" />
-
-        <!--divider-->
-        <ImageView
+        <RelativeLayout
+            android:id="@+id/fieldNameGroup"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="20dp"
-            android:layout_alignLeft="@+id/nameCreateGroup"
-            android:layout_below="@+id/nameCreateGroup"
-            android:background="@drawable/divider_light_grey"
-            />
+            android:paddingLeft="20dp"
+            android:layout_height="70dp">
 
-        <!--<ImageView-->
-        <!--android:id="@+id/correct_name_group"-->
-        <!--android:backgroundTint="@android:color/white"-->
-        <!--style="@style/correctFieldStyle"/>-->
+            <ImageView
+                android:id="@+id/iconTitleCreateGroup"
+                style="@style/iconNavigationLayout"
+                android:background="@drawable/ic_title_black_24dp" />
 
-    </RelativeLayout>
+            <EditText
+                android:id="@+id/nameCreateGroup"
+                android:layout_toRightOf="@+id/iconTitleCreateGroup"
+                style="@style/editTextStyle"
+                android:hint="@string/group_name_hint" />
 
-    <RelativeLayout
-        android:id="@+id/layoutImgGroup"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:paddingLeft="20dp">
+            <!--divider-->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="20dp"
+                android:layout_alignLeft="@+id/nameCreateGroup"
+                android:layout_below="@+id/nameCreateGroup"
+                android:background="@drawable/divider_light_grey"
+                />
 
-        <ImageView
-            android:id="@+id/iconImageCreateGroup"
-            style="@style/iconNavigationLayout"
-            android:background="@drawable/ic_insert_photo_black_24dp"/>
+            <!--<ImageView-->
+            <!--android:id="@+id/correct_name_group"-->
+            <!--android:backgroundTint="@android:color/white"-->
+            <!--style="@style/correctFieldStyle"/>-->
 
-        <TextView
-            android:id="@+id/imageCreateGroup"
-            android:layout_toRightOf="@+id/iconImageCreateGroup"
-            style="@style/editTextStyle"
-            android:hint="@string/image_name_hint" />
+        </RelativeLayout>
 
-        <ImageButton
-            android:id="@+id/insertCreateGroup"
-            style="@style/btnInsertElem" />
-
-
-        <!--divider-->
-        <ImageView
+        <RelativeLayout
+            android:id="@+id/layoutImgGroup"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="20dp"
-            android:layout_alignLeft="@+id/imageCreateGroup"
-            android:layout_below="@+id/imageCreateGroup"
-            android:background="@drawable/divider_light_grey"
-            />
-    </RelativeLayout>
+            android:layout_height="70dp"
+            android:paddingLeft="20dp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:paddingLeft="20dp">
+            <ImageView
+                android:id="@+id/iconImageCreateGroup"
+                style="@style/iconNavigationLayout"
+                android:background="@drawable/ic_insert_photo_black_24dp"/>
 
-        <ImageView
-            android:id="@+id/iconTagCreateGroup"
-            android:layout_centerVertical="true"
-            style="@style/iconNavigationLayout"
-            android:background="@drawable/ic_short_text_black_24dp"/>
+            <TextView
+                android:id="@+id/imageCreateGroup"
+                android:layout_toRightOf="@+id/iconImageCreateGroup"
+                style="@style/editTextStyle"
+                android:hint="@string/image_name_hint" />
 
-        <EditText
-            android:id="@+id/summuayCreateGroup"
-            style="@style/editTextStyle"
-            android:layout_toRightOf="@+id/iconTagCreateGroup"
-            android:hint="@string/tag_name_hint" />
+            <ImageButton
+                android:id="@+id/insertCreateGroup"
+                style="@style/btnInsertElem" />
 
-        <!--divider-->
-        <ImageView
+
+            <!--divider-->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="20dp"
+                android:layout_alignLeft="@+id/imageCreateGroup"
+                android:layout_below="@+id/imageCreateGroup"
+                android:background="@drawable/divider_light_grey"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="20dp"
-            android:layout_alignLeft="@+id/summuayCreateGroup"
-            android:layout_below="@+id/summuayCreateGroup"
-            android:background="@drawable/divider_light_grey"
-            />
-    </RelativeLayout>
+            android:layout_height="70dp"
+            android:paddingLeft="20dp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:paddingLeft="20dp">
+            <ImageView
+                android:id="@+id/iconTagCreateGroup"
+                android:layout_centerVertical="true"
+                style="@style/iconNavigationLayout"
+                android:background="@drawable/ic_short_text_black_24dp"/>
 
-        <ImageView
-            android:id="@+id/iconPersonAddCreateGroup"
-            style="@style/iconNavigationLayout"
-            android:background="@drawable/ic_person_add_white_24dp"/>
+            <EditText
+                android:id="@+id/summuayCreateGroup"
+                style="@style/editTextStyle"
+                android:layout_toRightOf="@+id/iconTagCreateGroup"
+                android:hint="@string/tag_name_hint" />
 
-        <TextView
-            android:id="@+id/addUserTextcreateGroup"
-            style="@style/editTextStyle"
-            android:layout_toRightOf="@+id/iconPersonAddCreateGroup"
-            android:hint="@string/add_user_create_group"/>
+            <!--divider-->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="20dp"
+                android:layout_alignLeft="@+id/summuayCreateGroup"
+                android:layout_below="@+id/summuayCreateGroup"
+                android:background="@drawable/divider_light_grey"
+                />
+        </RelativeLayout>
 
-        <ImageButton
-            android:id="@+id/addUserCreateGroup"
-            style="@style/btnInsertElem"/>
-
-
-        <!--divider-->
-        <ImageView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="20dp"
-            android:layout_alignLeft="@+id/addUserTextcreateGroup"
-            android:layout_below="@+id/addUserTextcreateGroup"
-            android:background="@drawable/divider_light_grey"
-            />
-    </RelativeLayout>
+            android:layout_height="70dp"
+            android:paddingLeft="20dp">
+
+            <ImageView
+                android:id="@+id/iconPersonAddCreateGroup"
+                style="@style/iconNavigationLayout"
+                android:background="@drawable/ic_person_add_white_24dp"/>
+
+            <TextView
+                android:id="@+id/addUserTextcreateGroup"
+                style="@style/editTextStyle"
+                android:layout_toRightOf="@+id/iconPersonAddCreateGroup"
+                android:hint="@string/add_user_create_group"/>
+
+            <ImageButton
+                android:id="@+id/addUserCreateGroup"
+                style="@style/btnInsertElem"/>
 
 
-   <GridView
-       android:id="@+id/membersGridCreateGroup"
-       android:layout_width="wrap_content"
-       android:layout_height="200dp"
-       android:numColumns="2"
-       android:layout_centerHorizontal="true"
-       android:layout_above="@+id/createNewGroupId"
-       android:layout_below="@+id/layoutAddUser">
-    </GridView>
+            <!--divider-->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="20dp"
+                android:layout_alignLeft="@+id/addUserTextcreateGroup"
+                android:layout_below="@+id/addUserTextcreateGroup"
+                android:background="@drawable/divider_light_grey"
+                />
+        </RelativeLayout>
 
-   <Button
+
+       <GridView
+           android:id="@+id/membersGridCreateGroup"
+           android:layout_width="wrap_content"
+           android:layout_height="200dp"
+           android:numColumns="2"
+           android:layout_centerHorizontal="true"
+           android:layout_above="@+id/createNewGroupId"
+           android:layout_below="@+id/layoutAddUser">
+        </GridView>
+
+    </LinearLayout>
+
+    <Button
         android:id="@+id/createNewGroupId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/create_group_button"
+        android:layout_alignParentBottom="true"
         android:textColor="@android:color/white"
         android:background="@color/colorButton"/>
-
-</LinearLayout>
+</RelativeLayout>
