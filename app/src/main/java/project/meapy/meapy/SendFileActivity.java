@@ -89,6 +89,7 @@ public class SendFileActivity extends MyAppCompatActivity {
     private Spinner filesSendFile;
     private Spinner groupNameSend;
     private Spinner discTextSend;
+    private Spinner typeEventSpinner;
 
     private EditText descTextSend;
     private EditText titleTextSend;
@@ -130,7 +131,11 @@ public class SendFileActivity extends MyAppCompatActivity {
         groupNameSend     = (Spinner)findViewById(R.id.groupNameSend);
         discTextSend      = (Spinner)findViewById(R.id.discNameSend);
         filesSendFile     = (Spinner)findViewById(R.id.filesSendFile);
+        typeEventSpinner  = (Spinner)findViewById(R.id.typeEventSpinner);
 
+
+        //configure spinner of type event
+        configureTypeEventsSpinner();
 
         //listener of date event
         dateEventSendFile = findViewById(R.id.dateEventSendFile);
@@ -571,6 +576,16 @@ public class SendFileActivity extends MyAppCompatActivity {
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
         }
+    }
+
+    private void configureTypeEventsSpinner() {
+        List<String> events = new ArrayList<>();
+        Events[]types = Events.values();
+        for(Events event: types) {
+            events.add(event.toString());
+        }
+        ArrayAdapter<String> adapterTypeEventsSpinner = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,events);
+        typeEventSpinner.setAdapter(adapterTypeEventsSpinner);
     }
 
     private boolean isGoodLength(List<File> files) {

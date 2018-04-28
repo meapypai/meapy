@@ -149,6 +149,8 @@
     <string name="title_send_hint">Titre</string>
     <string name="filename_send_hint">Fichier(s)</string>
     <string name="group_send_hint">Groupe</string>
+    <string name="date_event_hint">Date de l\'évenement</string>
+    <string name="type_event_hint">Type de l\évenement</string>
     <string name="discipline_send_hint">Discipline</string>
     <string name="descr_send_label">Description</string>
     <string name="send_btn_label">Ajouter</string>

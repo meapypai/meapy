@@ -78,7 +78,7 @@
 
             </RelativeLayout>
 
-            <!--date session -->
+            <!--date event -->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:paddingLeft="20dp"
@@ -93,8 +93,7 @@
                     android:id="@+id/dateEventSendFile"
                     android:layout_toRightOf="@+id/iconCalendarSendFile"
                     style="@style/editTextStyle"
-                    android:hint="@string/filename_send_hint"
-                    android:text="Date de l'évenement"/>
+                    android:hint="@string/date_event_hint" />
 
                 <!--divider-->
                 <ImageView
@@ -102,6 +101,45 @@
                     android:layout_height="2dp"
                     android:layout_marginTop="20dp"
                     android:layout_alignLeft="@+id/dateEventSendFile"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/divider_light_grey"
+                    />
+
+            </RelativeLayout>
+
+            <!--type event-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:paddingLeft="20dp"
+                android:layout_height="80dp">
+
+                <ImageView
+                    android:id="@+id/iconTypeEventSendFile"
+                    style="@style/iconNavigationLayout"
+                    android:background="@drawable/ic_label_white_24dp" />
+
+                <TextView
+                    android:id="@+id/textViewTypeEvent"
+                    android:layout_toRightOf="@+id/iconTypeEventSendFile"
+                    style="@style/editTextStyle"
+                    android:layout_width="wrap_content"
+                    android:text="@string/type_event_hint"/>
+
+                <Spinner
+                    android:id="@+id/typeEventSpinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="5dp"
+                    />
+
+                <!--divider-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_alignLeft="@+id/textViewTypeEvent"
                     android:layout_alignParentBottom="true"
                     android:background="@drawable/divider_light_grey"
                     />
@@ -123,7 +161,7 @@
                     android:id="@+id/fileNameSend"
                     android:layout_toRightOf="@+id/iconFilesSendFile"
                     style="@style/editTextStyle"
-                    android:hint="@string/filename_send_hint" />
+                    android:text="@string/filename_send_hint" />
 
                 <Spinner
                     android:id="@+id/filesSendFile"
@@ -193,9 +231,8 @@
                 <TextView
                     android:id="@+id/txtGrp"
                     android:layout_toRightOf="@+id/iconGroupSendFile"
-                    android:text="@string/group_send_hint"
                     style="@style/editTextStyle"
-                    android:hint="@string/image_name_hint" />
+                    android:text="@string/group_send_hint" />
 
                 <Spinner
                     android:id="@+id/groupNameSend"

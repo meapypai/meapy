@@ -146,6 +146,8 @@
     <string name="title_send_hint">Title</string>
     <string name="filename_send_hint">File(s)</string>
     <string name="group_send_hint">Group</string>
+    <string name="date_event_hint">Date of event</string>
+    <string name="type_event_hint">Type of event</string>
     <string name="discipline_send_hint">Discipline</string>
     <string name="descr_send_label">Description</string>
     <string name="send_btn_label">Send</string>
