@@ -136,6 +136,24 @@
 
             </RelativeLayout>
 
+            <!--layout information sur le groupe-->
+            <RelativeLayout
+                android:id="@+id/aboutGroupNavigationView"
+                style="@style/relativeLayoutStyle">
+
+                <ImageView
+                    android:layout_marginLeft="30dp"
+                    style="@style/iconNavigationLayout"
+                    android:background="@drawable/ic_help_white_24dp"/>
+
+                <TextView
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Informations"/>
+
+            </RelativeLayout>
+
             <!--layout quitter le groupe-->
             <RelativeLayout
                 android:id="@+id/leaveGroupNavigationView"
