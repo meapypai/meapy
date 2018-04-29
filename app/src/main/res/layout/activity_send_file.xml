@@ -78,35 +78,6 @@
 
             </RelativeLayout>
 
-            <!--date event -->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:paddingLeft="20dp"
-                android:layout_height="80dp">
-
-                <ImageView
-                    android:id="@+id/iconCalendarSendFile"
-                    style="@style/iconNavigationLayout"
-                    android:background="@drawable/ic_event_note_black_24dp"/>
-
-                <TextView
-                    android:id="@+id/dateEventSendFile"
-                    android:layout_toRightOf="@+id/iconCalendarSendFile"
-                    style="@style/editTextStyle"
-                    android:hint="@string/date_event_hint" />
-
-                <!--divider-->
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_alignLeft="@+id/dateEventSendFile"
-                    android:layout_alignParentBottom="true"
-                    android:background="@drawable/divider_light_grey"
-                    />
-
-            </RelativeLayout>
-
             <!--type event-->
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -140,6 +111,35 @@
                     android:layout_height="2dp"
                     android:layout_marginTop="20dp"
                     android:layout_alignLeft="@+id/textViewTypeEvent"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/divider_light_grey"
+                    />
+
+            </RelativeLayout>
+
+            <!--date event -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:paddingLeft="20dp"
+                android:layout_height="80dp">
+
+                <ImageView
+                    android:id="@+id/iconCalendarSendFile"
+                    style="@style/iconNavigationLayout"
+                    android:background="@drawable/ic_event_note_black_24dp"/>
+
+                <TextView
+                    android:id="@+id/dateEventSendFile"
+                    android:layout_toRightOf="@+id/iconCalendarSendFile"
+                    style="@style/editTextStyle"
+                    android:hint="@string/date_event_hint" />
+
+                <!--divider-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_alignLeft="@+id/dateEventSendFile"
                     android:layout_alignParentBottom="true"
                     android:background="@drawable/divider_light_grey"
                     />

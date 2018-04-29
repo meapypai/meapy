@@ -91,7 +91,7 @@
                         android:layout_height="wrap_content"
                         android:padding="10dp"
                         android:orientation="vertical"
-                        android:visibility="visible">
+                        android:visibility="gone">
 
                         <LinearLayout
                             android:id="@+id/eventLayoutPostDetails"
