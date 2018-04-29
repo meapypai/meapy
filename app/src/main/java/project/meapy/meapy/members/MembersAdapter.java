@@ -47,6 +47,7 @@ public class MembersAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         User u = users.get(position);
+        holder.setIsRecyclable(false);
         ((MemberHolder)holder).bind(u);
     }
 
