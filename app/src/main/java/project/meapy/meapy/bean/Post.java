@@ -27,7 +27,8 @@ public class Post extends DomainObject{
     private Date date;
     private List<String> notifiedUser = new ArrayList<>();
     private Map<String,String> markedByUserId = new HashMap<>(); //users id who marked the post and in value positive or negative
-    private Calendar dateEvent;
+    private String dateEvent;
+    private String typeEvent;
 
     public List<String> getNotifiedUser() {
         return notifiedUser;
@@ -153,11 +154,19 @@ public class Post extends DomainObject{
         this.markedByUserId.put(userId, negOrPosMark);
     }
 
-    public Calendar getDateEvent() {
+    public String getDateEvent() {
         return dateEvent;
     }
 
-    public void setDateEvent(Calendar dateEvent) {
+    public void setDateEvent(String dateEvent) {
         this.dateEvent = dateEvent;
+    }
+
+    public String getTypeEvent() {
+        return typeEvent;
+    }
+
+    public void setTypeEvent(String typeEvent) {
+        this.typeEvent = typeEvent;
     }
 }

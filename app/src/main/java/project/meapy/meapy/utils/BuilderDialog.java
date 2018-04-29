@@ -6,6 +6,7 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by yassi on 26/04/2018.
@@ -13,7 +14,7 @@ import java.util.Calendar;
 
 public class BuilderDialog {
 
-    public static Calendar dateDialog(Context context, final TextView dateTextView) {
+    public static void dateDialog(Context context, final TextView dateTextView) {
         DatePickerDialog.OnDateSetListener listener=new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
@@ -23,6 +24,5 @@ public class BuilderDialog {
         Calendar c = Calendar.getInstance();
         DatePickerDialog dpDialog=new DatePickerDialog(context, listener, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
         dpDialog.show();
-        return c;
     }
 }

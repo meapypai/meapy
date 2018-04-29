@@ -101,6 +101,9 @@ public class PostDetailsActivity extends MyAppCompatWithRewardedVideo {
     private LinearLayout layoutSeeDetails;
     private TextView datePostDetails;
     private TextView nameDisciplinePostDetails;
+    private TextView userPostDetails;
+    private TextView typeEventPostDetails;
+    private TextView dateEventPostDetails;
 
     private Animation animation; //animation of the icon details post
 
@@ -134,6 +137,9 @@ public class PostDetailsActivity extends MyAppCompatWithRewardedVideo {
         layoutSeeDetails      = findViewById(R.id.layoutSeeDetails);
         datePostDetails       = findViewById(R.id.datePostDetails);
         nameDisciplinePostDetails = findViewById(R.id.nameDisciplinePostDetails);
+        userPostDetails       = findViewById(R.id.userPostDetails);
+        typeEventPostDetails  = findViewById(R.id.typeEventPostDetails);
+        dateEventPostDetails  = findViewById(R.id.dateEventPostDetails);
 
         animation = AnimationUtils.loadAnimation(PostDetailsActivity.this, R.anim.rotate_see_details_icon);
         //listener about see/hide details of post
@@ -346,6 +352,12 @@ public class PostDetailsActivity extends MyAppCompatWithRewardedVideo {
     private void configureDetails()  {
         datePostDetails.setText(BuilderFormatDate.formatDateInLongFr(this,curPost.getDate()));
         nameDisciplinePostDetails.setText(curPost.getDisciplineName());
+        userPostDetails.setText(curPost.getUser());
+        if(curPost.getDateEvent() != null)
+            findViewById(R.id.eventLayoutPostDetails).setVisibility(View.VISIBLE);
+            typeEventPostDetails.setText(curPost.getTypeEvent());
+            if(curPost.getDateEvent()!= null)
+                dateEventPostDetails.setText(curPost.getDateEvent());
     }
 
     private void configureSendCommentListener(){
@@ -425,6 +437,7 @@ public class PostDetailsActivity extends MyAppCompatWithRewardedVideo {
         configureFileRepresentation();
         configureUpDownMarkButton();
         configureSendCommentListener();
+        configureDetails();
 
         // ??
         commentContent.addTextChangedListener(new TextWatcher() {

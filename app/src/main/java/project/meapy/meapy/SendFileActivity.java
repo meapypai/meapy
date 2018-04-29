@@ -18,6 +18,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
@@ -103,8 +104,6 @@ public class SendFileActivity extends MyAppCompatActivity {
 
     final ArrayList<Discipline> listDisc = new ArrayList<>();
 
-    private Calendar calendarEvent; //date of event post
-
     private Groups groupsProvided;
 
     public static final String GROUP_EXTRA_NAME = "GROUP";
@@ -142,7 +141,7 @@ public class SendFileActivity extends MyAppCompatActivity {
         dateEventSendFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SendFileActivity.this.calendarEvent = BuilderDialog.dateDialog(SendFileActivity.this,dateEventSendFile);
+                BuilderDialog.dateDialog(SendFileActivity.this,dateEventSendFile);
             }
         });
 
@@ -262,10 +261,14 @@ public class SendFileActivity extends MyAppCompatActivity {
                                 post.setGroupId(group.getId());
                                 post.setDisciplineId(disc.getId());
                                 post.setDisciplineName(disc.getName());
-                                post.setDateEvent(SendFileActivity.this.calendarEvent);
+                                if(!TextUtils.isEmpty(dateEventSendFile.getText().toString())) {
+                                    Toast.makeText(SendFileActivity.this,"oui",Toast.LENGTH_LONG).show();
+                                    post.setDateEvent(dateEventSendFile.getText().toString());
+                                }
                                 if (MyApplication.getUser() != null) {
                                     post.setNameImageUser(MyApplication.getUser().getNameImageProfil());
                                 }
+                                post.setTypeEvent((String) typeEventSpinner.getSelectedItem());
                                 post.setUser(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
                                 post.setDate(new Date());
                                 FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();

@@ -91,7 +91,32 @@
                         android:layout_height="wrap_content"
                         android:padding="10dp"
                         android:orientation="vertical"
-                        android:visibility="gone">
+                        android:visibility="visible">
+
+                        <LinearLayout
+                            android:id="@+id/eventLayoutPostDetails"
+                            android:layout_marginBottom="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:visibility="visible">
+
+                            <TextView
+                                android:id="@+id/typeEventPostDetails"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Evenement"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" du "/>
+
+                            <TextView
+                                android:id="@+id/dateEventPostDetails"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="non défini"/>
+                        </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -110,7 +135,23 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_marginTop="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:text="Par "/>
+
+                            <TextView
+                                android:id="@+id/userPostDetails"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="User"/>
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
 

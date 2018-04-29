@@ -5,5 +5,5 @@ package project.meapy.meapy;
  */
 
 public enum Events {
-    Examen,Cours,Autre;
+    Cours,DS,TD,TP,Autre;
 }
