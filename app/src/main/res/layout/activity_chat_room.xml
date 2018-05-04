@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/input"
     tools:context="project.meapy.meapy.ChatRoomActivity">
 
 
@@ -38,61 +39,44 @@
             <!--android:layout_centerHorizontal="true"-->
             <!--android:background="@drawable/divider"/>-->
 
-        <LinearLayout
-            android:id="@+id/writeMessageChatroom"
+        <ImageView
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:src="@drawable/divider"/>
+
+        <RelativeLayout
+            android:id="@+id/writeCommentPostDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
             android:gravity="bottom"
-            android:padding="10dp">
+            android:layout_centerHorizontal="true"
+            android:background="@color/colorWhite">
 
-            <LinearLayout
-                android:id="@+id/layoutBarMessage"
-                android:layout_weight="2"
-                android:layout_width="wrap_content"
-                android:orientation="horizontal"
-                android:background="@drawable/edittext_round"
-                android:layout_height="wrap_content">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/sendCommentPostDetails"
+                android:hint="@string/write_message_hint"
+                android:padding="7dp"
+                android:textSize="13sp"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="5dp"
+                android:id="@+id/messageIdChatRoom"
+                android:background="@android:color/transparent"/>
 
-                <EditText
-                    android:layout_weight="1"
-                    android:id="@+id/messageIdChatRoom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="0dp"
-                    android:layout_toLeftOf="@id/sendChatRoom"
-                    android:background="@android:color/transparent"
-                    android:hint="@string/write_message_hint"
-                    android:padding="10dp"
-                    android:textColorHint="@color/colorInputMessage" />
-
-                <ImageButton
-                    android:id="@+id/addSmileyChatRoom"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_insert_emoticon_grey_24dp"/>
-
-            </LinearLayout>
-
-            <ImageView
+            <ImageButton
                 android:id="@+id/sendChatRoom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
                 android:layout_centerInParent="true"
-                android:layout_marginLeft="5dp"
+                android:src="@drawable/ic_send_grey_24dp"
                 android:layout_marginRight="5dp"
-                android:backgroundTint="@color/colorButton"
-                android:layout_gravity="center"
-                android:padding="8dp"
-                android:visibility="gone"
-                android:src="@drawable/ic_send_white_24dp"
-                android:background="@drawable/edittext_round"/>
+                android:background="@android:color/transparent"/>
+        </RelativeLayout>
 
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/allSmileyChatRoom"

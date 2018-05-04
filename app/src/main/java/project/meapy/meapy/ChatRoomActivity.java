@@ -54,35 +54,35 @@ public class ChatRoomActivity extends MyAppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_room);
 
-        getWindow().setBackgroundDrawableResource(R.drawable.background_chat); //solution for the background not be resize
+        //getWindow().setBackgroundDrawableResource(R.drawable.background_chat); //solution for the background not be resize
 
         scrollMessagesChat = (RecyclerView)findViewById(R.id.scrollMessagesChat);
         sendChatRoom       = (ImageView)findViewById(R.id.sendChatRoom);
         messageIdChatRoom  = (EditText)findViewById(R.id.messageIdChatRoom);
-        addSmileyChatRoom  = (ImageButton) findViewById(R.id.addSmileyChatRoom);
+//        addSmileyChatRoom  = (ImageButton) findViewById(R.id.addSmileyChatRoom);
 
 
-        messageIdChatRoom.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if(!TextUtils.isEmpty(messageIdChatRoom.getText().toString())) {
-                    sendChatRoom.setVisibility(View.VISIBLE);
-                }
-                else {
-                    sendChatRoom.setVisibility(View.GONE);
-                }
-            }
-        });
+//        messageIdChatRoom.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                if(!TextUtils.isEmpty(messageIdChatRoom.getText().toString())) {
+//                    sendChatRoom.setVisibility(View.VISIBLE);
+//                }
+//                else {
+//                    sendChatRoom.setVisibility(View.GONE);
+//                }
+//            }
+//        });
     }
 
     @Override
@@ -101,7 +101,7 @@ public class ChatRoomActivity extends MyAppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        sendChatRoom.setBackgroundTintList(ContextCompat.getColorStateList(this,colorId));
+//        sendChatRoom.setBackgroundTintList(ContextCompat.getColorStateList(this,colorId));
     }
 
     protected void onPause(){
@@ -126,22 +126,22 @@ public class ChatRoomActivity extends MyAppCompatActivity {
         setOnSendClick();
 
         // ??
-        sendChatRoom.setImageResource(R.drawable.ic_send_white_24dp);
+//        sendChatRoom.setImageResource(R.drawable.ic_send_white_24dp);
 
-        addSmileyChatRoom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LinearLayout layout = (LinearLayout) findViewById(R.id.allSmileyChatRoom);
-                if(smileyCpt == 0) {
-                    layout.setVisibility(View.VISIBLE);
-                    smileyCpt += 1;
-                }
-                else {
-                    smileyCpt-=1;
-                    layout.setVisibility(View.GONE);
-                }
-            }
-        });
+//        addSmileyChatRoom.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                LinearLayout layout = (LinearLayout) findViewById(R.id.allSmileyChatRoom);
+//                if(smileyCpt == 0) {
+//                    layout.setVisibility(View.VISIBLE);
+//                    smileyCpt += 1;
+//                }
+//                else {
+//                    smileyCpt-=1;
+//                    layout.setVisibility(View.GONE);
+//                }
+//            }
+//        });
         NotificationThread.setStartedChatRoom(idGroup,true);
     }
 
