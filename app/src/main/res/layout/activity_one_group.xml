@@ -52,12 +52,6 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"></Spinner>
 
-                <Spinner
-                    android:id="@+id/spinnerRecentFilter"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/spinnerDiscFilter"></Spinner>
-
             </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView

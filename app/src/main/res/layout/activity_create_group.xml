@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <!--name group-->
         <RelativeLayout
             android:id="@+id/fieldNameGroup"
             android:layout_width="match_parent"
@@ -46,6 +47,7 @@
 
         </RelativeLayout>
 
+        <!--image group-->
         <RelativeLayout
             android:id="@+id/layoutImgGroup"
             android:layout_width="match_parent"
@@ -79,6 +81,7 @@
                 />
         </RelativeLayout>
 
+        <!--tag group-->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="70dp"
@@ -107,6 +110,59 @@
                 />
         </RelativeLayout>
 
+        <!--close/open group-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:paddingLeft="20dp">
+
+            <ImageView
+                android:id="@+id/iconOpenCloseCreateGroup"
+                style="@style/iconNavigationLayout"
+                android:background="@drawable/ic_lock_outline_black_24dp"/>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/iconOpenCloseCreateGroup"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textViewOpenCreateGroup"
+                    android:layout_toRightOf="@+id/iconOpenCloseCreateGroup"
+                    style="@style/editTextStyle"
+                    android:text="Groupe fermé" />
+
+                <TextView
+                    style="@style/editTextStyle"
+                    android:textSize="10sp"
+                    android:text="- Seul l'admin du groupe peut\n ajouter/supprimer du contenu" />
+
+            </LinearLayout>
+
+           <android.support.v7.widget.SwitchCompat
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_alignParentRight="true"
+               android:layout_marginRight="20dp"
+               android:layout_centerVertical="true"/>
+
+
+            <!--divider-->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="20dp"
+                android:layout_alignLeft="@+id/iconOpenCloseCreateGroup"
+                android:layout_below="@+id/iconOpenCloseCreateGroup"
+                android:background="@drawable/divider_light_grey"
+                />
+        </RelativeLayout>
+
+
+        <!--users group-->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="70dp"

@@ -8,8 +8,48 @@
     android:background="@android:color/white"
     tools:context="project.meapy.meapy.groups.joined.MyGroupsActivity">
 
+    <LinearLayout
+        android:id="@+id/layoutSearchGroup"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="20dp"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:background="@drawable/background_search_group"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_weight="1"
+            android:id="@+id/messageIdChatRoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="0dp"
+            android:layout_toLeftOf="@id/sendChatRoom"
+            android:background="@android:color/transparent"
+            android:hint="Entrer la clé d'un groupe"
+            android:padding="5dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:textColorHint="@color/lightGrey" />
+
+        <ImageButton
+            android:id="@+id/addSmileyChatRoom"
+            android:layout_gravity="center"
+            android:layout_marginRight="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_search_white_24dp"
+            android:backgroundTint="@color/lightGrey"/>
+
+    </LinearLayout>
+
     <ListView
         android:id="@+id/listMyGroups"
+        android:layout_below="@+id/layoutSearchGroup"
         android:layout_width="match_parent"
         android:divider="@android:color/transparent"
         android:layout_height="match_parent">

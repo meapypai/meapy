@@ -6,13 +6,13 @@
     <item
         android:icon="@drawable/ic_note_add_white_24dp"
         android:title="@string/title_add_file_menu"
-        android:visible="true"
+        android:visible="false"
         android:id="@+id/addFileId"
         app:showAsAction="always"></item>
     <item
         android:icon="@drawable/ic_group_work_white_24dp"
         android:title="@string/title_join_group_menu"
-        android:visible="true"
+        android:visible="false"
         android:id="@+id/joinGrpMenu"
         app:showAsAction="always"></item>
 
