@@ -1,5 +1,6 @@
 package project.meapy.meapy.utils.firebase;
 
+import android.content.Context;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -10,6 +11,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import project.meapy.meapy.R;
 import project.meapy.meapy.bean.Groups;
 import project.meapy.meapy.utils.RunnableWithParam;
 
@@ -70,7 +72,7 @@ public class GroupLink {
         FirebaseDatabase.getInstance().getReference("users/" + uidUser + "/groupsId/"+group.getId()).removeValue();
     }
 
-    public static void joinGroupByCode(String code){
+    public static void joinGroupByCode(final Context context, String code){
         code = code.toUpperCase();
         FirebaseDatabase.getInstance().getReference("codeToGroups/"+code).addValueEventListener(new ValueEventListener() {
             @Override
@@ -81,6 +83,9 @@ public class GroupLink {
                     String uid = fUser.getUid();
                     FirebaseDatabase.getInstance().getReference("groups/"+idGroup+"/usersId/"+uid).setValue(uid);
                     FirebaseDatabase.getInstance().getReference("users/"+uid+"/groupsId/"+idGroup).setValue(idGroup.intValue());
+                }
+                else {
+                    Toast.makeText(context,context.getResources().getString(R.string.key_group_invalid),Toast.LENGTH_SHORT).show();
                 }
             }
 

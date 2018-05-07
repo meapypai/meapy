@@ -70,6 +70,9 @@
     <string name="welcome_new_user">Welcome</string>
     <string name="registration_fail">Regsitration failed</string>
 
+    <!--my groups activity-->
+    <string name="key_group_invalid">Invalid key</string>
+
     <!-- add discipline activity -->
     <string name="creation_of_discipline">Creation of Discipline</string>
     <string name="discipline_name_hint">discipline name</string>

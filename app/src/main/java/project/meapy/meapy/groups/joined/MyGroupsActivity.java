@@ -16,6 +16,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -24,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -65,6 +67,8 @@ import project.meapy.meapy.utils.firebase.NotificationLink;
 public class MyGroupsActivity extends MyAppCompatActivity {
 
     private FloatingActionButton createGroupId;
+    private ImageButton enterCodeMyGroups;
+    private EditText codeIdMyGroups;
 
     final Map<Integer,GroupsForView> idGroups = new HashMap<>();
     final Map<GroupsForView, Groups> viewToBean = new HashMap<>();
@@ -79,7 +83,11 @@ public class MyGroupsActivity extends MyAppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_groups);
-        listView = findViewById(R.id.listMyGroups);
+
+        enterCodeMyGroups = findViewById(R.id.enterCodeMyGroups);
+        codeIdMyGroups    = findViewById(R.id.codeIdMyGroups);
+        listView          = findViewById(R.id.listMyGroups);
+
         adapter = new GroupsAdapter(getApplicationContext(),android.R.layout.simple_expandable_list_item_2,new ArrayList<GroupsForView>());
         // listeners
         createGroupId = (FloatingActionButton)findViewById(R.id.createGroupId);
@@ -92,6 +100,7 @@ public class MyGroupsActivity extends MyAppCompatActivity {
         });
         // providing datas
         provideGroups();
+        condifureBtnToJoinGroup();
     }
 
     private void provideGroups(){
@@ -192,7 +201,7 @@ public class MyGroupsActivity extends MyAppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String code = codeEdit.getText().toString();
-                        GroupLink.joinGroupByCode(code);
+                        GroupLink.joinGroupByCode(MyGroupsActivity.this,code);
                     }
                 });
                 final AlertDialog dialog = builder.create();
@@ -268,5 +277,17 @@ public class MyGroupsActivity extends MyAppCompatActivity {
 
         //change widgets'color in terms of settings
         createGroupId.setBackgroundTintList(ContextCompat.getColorStateList(this,colorId));
+    }
+
+    private void condifureBtnToJoinGroup() {
+        enterCodeMyGroups.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String code = codeIdMyGroups.getText().toString();
+                if(!TextUtils.isEmpty(code)) {
+                    GroupLink.joinGroupByCode(MyGroupsActivity.this,code);
+                }
+            }
+        });
     }
 }

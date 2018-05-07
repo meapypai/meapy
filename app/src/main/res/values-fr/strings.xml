@@ -71,6 +71,9 @@
     <string name="welcome_new_user">Bienvenue</string>
     <string name="registration_fail">Inscription échouée</string>
 
+    <!--my groups activity-->
+    <string name="key_group_invalid">Clé invalide</string>
+
     <!-- add discipline activity -->
     <string name="creation_of_discipline">Ajouter une discipline</string>
     <string name="discipline_name_hint">Nom de la discipline</string>

@@ -22,7 +22,7 @@
 
         <EditText
             android:layout_weight="1"
-            android:id="@+id/messageIdChatRoom"
+            android:id="@+id/codeIdMyGroups"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -37,7 +37,7 @@
             android:textColorHint="@color/lightGrey" />
 
         <ImageButton
-            android:id="@+id/addSmileyChatRoom"
+            android:id="@+id/enterCodeMyGroups"
             android:layout_gravity="center"
             android:layout_marginRight="20dp"
             android:layout_width="wrap_content"
