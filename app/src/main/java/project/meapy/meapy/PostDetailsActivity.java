@@ -356,8 +356,7 @@ public class PostDetailsActivity extends MyAppCompatWithRewardedVideo {
         if(curPost.getDateEvent() != null)
             findViewById(R.id.eventLayoutPostDetails).setVisibility(View.VISIBLE);
             typeEventPostDetails.setText(curPost.getTypeEvent());
-            if(curPost.getDateEvent()!= null)
-                dateEventPostDetails.setText(curPost.getDateEvent());
+            dateEventPostDetails.setText(curPost.getDateEvent());
     }
 
     private void configureSendCommentListener(){

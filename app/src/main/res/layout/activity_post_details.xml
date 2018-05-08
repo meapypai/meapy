@@ -98,7 +98,7 @@
                             android:layout_marginBottom="10dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:visibility="visible">
+                            android:visibility="gone">
 
                             <TextView
                                 android:id="@+id/typeEventPostDetails"
@@ -292,13 +292,7 @@
         android:layout_alignParentBottom="true"
         android:gravity="bottom"
         android:layout_centerHorizontal="true"
-        android:background="@color/colorWhite">
-
-        <ImageView
-            android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:src="@drawable/divider"/>
+        android:background="@drawable/background_edittext_message">
 
         <EditText
             android:layout_width="match_parent"

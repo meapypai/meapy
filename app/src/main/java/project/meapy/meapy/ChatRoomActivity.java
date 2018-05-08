@@ -83,18 +83,18 @@ public class ChatRoomActivity extends MyAppCompatActivity {
         });
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        LinearLayout layout = (LinearLayout) findViewById(R.id.allSmileyChatRoom);
-        if(keyCode == KeyEvent.KEYCODE_BACK) {
-            if(smileyCpt == 1) {
-                layout.setVisibility(View.GONE);
-                smileyCpt-=1;
-                return true;
-            }
-        }
-        return super.onKeyDown(keyCode,event);
-    }
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        LinearLayout layout = (LinearLayout) findViewById(R.id.allSmileyChatRoom);
+//        if(keyCode == KeyEvent.KEYCODE_BACK) {
+//            if(smileyCpt == 1) {
+//                layout.setVisibility(View.GONE);
+//                smileyCpt-=1;
+//                return true;
+//            }
+//        }
+//        return super.onKeyDown(keyCode,event);
+//    }
 
     @Override
     protected void onStart() {
