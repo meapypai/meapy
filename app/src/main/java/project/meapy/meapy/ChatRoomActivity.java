@@ -59,30 +59,28 @@ public class ChatRoomActivity extends MyAppCompatActivity {
         scrollMessagesChat = (RecyclerView)findViewById(R.id.scrollMessagesChat);
         sendChatRoom       = (ImageView)findViewById(R.id.sendChatRoom);
         messageIdChatRoom  = (EditText)findViewById(R.id.messageIdChatRoom);
-//        addSmileyChatRoom  = (ImageButton) findViewById(R.id.addSmileyChatRoom);
 
+        messageIdChatRoom.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-//        messageIdChatRoom.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                if(!TextUtils.isEmpty(messageIdChatRoom.getText().toString())) {
-//                    sendChatRoom.setVisibility(View.VISIBLE);
-//                }
-//                else {
-//                    sendChatRoom.setVisibility(View.GONE);
-//                }
-//            }
-//        });
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(messageIdChatRoom.getText().length() == 0) {
+                    sendChatRoom.setImageResource(R.drawable.ic_send_grey_24dp);
+                }
+                else {
+                    sendChatRoom.setImageResource(R.drawable.ic_send_black_24dp);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     @Override

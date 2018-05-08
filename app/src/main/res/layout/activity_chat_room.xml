@@ -55,6 +55,7 @@
             android:background="@color/colorWhite">
 
             <EditText
+                android:id="@+id/messageIdChatRoom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/sendCommentPostDetails"
@@ -63,7 +64,6 @@
                 android:textSize="13sp"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="5dp"
-                android:id="@+id/messageIdChatRoom"
                 android:background="@android:color/transparent"/>
 
             <ImageButton

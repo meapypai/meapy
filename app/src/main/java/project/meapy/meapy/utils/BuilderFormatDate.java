@@ -1,6 +1,7 @@
 package project.meapy.meapy.utils;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -37,6 +38,25 @@ public class BuilderFormatDate {
             m += minutes;
         }
         return h + ":" + m;
+    }
+
+    public static String formatDateMessage(Context context, Date d) {
+        String res = "";
+        Calendar dateMessage = Calendar.getInstance();
+        dateMessage.setTime(d);
+        Calendar dateToday = Calendar.getInstance();
+        dateToday.setTime(new Date());
+        Long diff = dateToday.getTimeInMillis() - dateMessage.getTimeInMillis();
+//        if(diff <= 3600*24*1000) { //temps inférieur à une journée
+//            res = "hier";
+//        }
+//        else if (3600*24*1000 <= diff && diff <= (3600*24*1000)*2) { //temps inférieur à deux jours
+//            res = "avant-hier";
+//        }
+//        else {
+//            res = dateMessage.get(Calendar.DAY_OF_MONTH) + " " + getNameOfMonth(context,dateMessage.get(Calendar.MONTH));
+//        }
+        return dateMessage.get(Calendar.DAY_OF_MONTH) + " " + getNameOfMonth(context,dateMessage.get(Calendar.MONTH)) + ", " + formatDate(d);
     }
 
     /**
