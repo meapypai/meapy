@@ -65,6 +65,7 @@ import project.meapy.meapy.CreateGroupActivity;
 import project.meapy.meapy.DisciplinePostsActivity;
 import project.meapy.meapy.MembersActivity;
 import project.meapy.meapy.MyAccountActivity;
+import project.meapy.meapy.MyApplication;
 import project.meapy.meapy.activities.MyAppCompatActivity;
 import project.meapy.meapy.PostDetailsActivity;
 import project.meapy.meapy.R;
@@ -402,8 +403,14 @@ public class OneGroupActivity extends MyAppCompatActivity {
         nameGroupNavigationView = findViewById(R.id.nameGroupNavigationView);
         tagGroupNavigationView  = findViewById(R.id.tagGroupNavigationView);
 
-        StorageReference refImgGroup = FirebaseStorage.getInstance().getReference("data_groups/" + group.getId() + "/" + group.getImageName());
-        RetrieveImage.glide(refImgGroup,this, imgGroupNavigationView);
+        if(group.getImageName().equals(CreateGroupActivity.DEFAULT_IMAGE_GROUP)) {
+            imgGroupNavigationView.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.group_default));
+        }
+        else {
+            StorageReference refImgGroup = FirebaseStorage.getInstance().getReference("data_groups/" + group.getId() + "/" + group.getImageName());
+            RetrieveImage.glide(refImgGroup, this, imgGroupNavigationView);
+        }
+        
         nameGroupNavigationView.setText(group.getName());
         tagGroupNavigationView.setText(group.getSummary());
     }
@@ -424,14 +431,19 @@ public class OneGroupActivity extends MyAppCompatActivity {
     }
     private void configureSendFileAction(){
         fBtn = findViewById(R.id.sendFileOneGroup);
-        fBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        //si le group n'est pas fermé OU si le groupe est fermé et que l'user est admin
+        if(!group.isClosed() || (group.isClosed() && (group.getIdUserAdmin().equals(MyApplication.getUser().getUid())))) {
+            fBtn.setVisibility(View.VISIBLE);
+            fBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
                 Intent intent = new Intent(OneGroupActivity.this, SendFileActivity.class);
-                intent.putExtra(SendFileActivity.GROUP_EXTRA_NAME,group);
+                intent.putExtra(SendFileActivity.GROUP_EXTRA_NAME, group);
                 startActivity(intent);
-            }
-        });
+                }
+            });
+        }
+
     }
 
     private void configureToolbar(){

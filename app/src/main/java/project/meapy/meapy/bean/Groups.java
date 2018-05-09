@@ -12,6 +12,7 @@ public class Groups extends DomainObject{
     private String imageName;
     private String codeToJoin;
     private String summary;
+    private boolean isClosed;
 
     public String getCodeToJoin() {
         return codeToJoin;
@@ -53,6 +54,14 @@ public class Groups extends DomainObject{
 
     public void setSummary(String summary) {
         this.summary = summary;
+    }
+
+    public boolean isClosed() {
+        return isClosed;
+    }
+
+    public void setClosed(boolean closed) {
+        isClosed = closed;
     }
 
     @Override

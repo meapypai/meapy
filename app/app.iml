@@ -164,6 +164,7 @@
     <orderEntry type="library" name="com.firebaseui:firebase-ui-database-0.6.0" level="project" />
     <orderEntry type="library" name="com.android.support:support-core-utils-26.1.0" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-analytics-11.8.0" level="project" />
+    <orderEntry type="library" name="com.github.skydoves:colorpickerpreference-1.0.2" level="project" />
     <orderEntry type="library" scope="TEST" name="com.android.support.test:rules-1.0.1" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-ads-license-11.8.0" level="project" />
     <orderEntry type="library" name="com.firebaseui:firebase-ui-0.6.0" level="project" />

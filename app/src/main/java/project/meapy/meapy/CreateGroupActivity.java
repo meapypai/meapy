@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.SwitchCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -62,6 +63,8 @@ public class CreateGroupActivity extends MyAppCompatActivity {
     private ImageView insertCreateGroup;
     private ImageView addUserCreateGroup;
 
+    private SwitchCompat switchCloseCreateGroup;
+
     private Button createNewGroupId;
 
     private GridView membersGridCreateGroup;
@@ -76,10 +79,11 @@ public class CreateGroupActivity extends MyAppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_group);
-        nameCreateGroup = (EditText)findViewById(R.id.nameCreateGroup);
-        imageCreateGroup = (TextView)findViewById(R.id.imageCreateGroup);
-        summuayCreateGroup = (EditText)findViewById(R.id.summuayCreateGroup);
-        insertCreateGroup = (ImageView)findViewById(R.id.insertCreateGroup);
+        nameCreateGroup    = findViewById(R.id.nameCreateGroup);
+        imageCreateGroup   = findViewById(R.id.imageCreateGroup);
+        summuayCreateGroup = findViewById(R.id.summuayCreateGroup);
+        insertCreateGroup  = findViewById(R.id.insertCreateGroup);
+        switchCloseCreateGroup       = findViewById(R.id.switchCloseCreateGroup);
 
         createNewGroupId = (Button)findViewById(R.id.createNewGroupId);
         addUserCreateGroup = (ImageView)findViewById(R.id.addUserCreateGroup);
@@ -189,13 +193,14 @@ public class CreateGroupActivity extends MyAppCompatActivity {
                 String summary     = summuayCreateGroup.getText().toString();
                 String nameGroup = nameCreateGroup.getText().toString();
 
-                String errorMessage = "";
-
                 if (checkNameGroup(nameGroup)) {
                     // START TEST INSERTION INTO DATABASE WITHOUT FILE
                     final Groups newGroup = new Groups();
                     newGroup.setName(nameGroup);
                     newGroup.setSummary(summary);
+                    if(switchCloseCreateGroup.isChecked()) {
+                        newGroup.setClosed(true);
+                    }
                     generateCodeForGroup(newGroup);
                     createGroup(newGroup);
                     finish();
