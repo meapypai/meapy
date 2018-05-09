@@ -60,6 +60,19 @@ public class ChatRoomActivity extends MyAppCompatActivity {
         sendChatRoom       = (ImageView)findViewById(R.id.sendChatRoom);
         messageIdChatRoom  = (EditText)findViewById(R.id.messageIdChatRoom);
 
+        provideExtraData();
+
+        setTitle(nameGroup);
+
+        provideMessages();
+
+        //to push the recycler view when keyboard is open
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setStackFromEnd(true);
+        scrollMessagesChat.setLayoutManager(layoutManager);
+
+        setOnSendClick();
+
         messageIdChatRoom.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -109,19 +122,6 @@ public class ChatRoomActivity extends MyAppCompatActivity {
 
     protected void onResume(){
         super.onResume();
-
-        provideExtraData();
-
-        setTitle(nameGroup);
-
-        provideMessages();
-
-        //to push the recycler view when keyboard is open
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setStackFromEnd(true);
-        scrollMessagesChat.setLayoutManager(layoutManager);
-
-        setOnSendClick();
 
         // ??
 //        sendChatRoom.setImageResource(R.drawable.ic_send_white_24dp);
