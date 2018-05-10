@@ -9,6 +9,8 @@
             <!--android:targetClass="project.meapy.meapy.NotificationActivity"-->
             <!--/>-->
     <!--</Preference>-->
+    <PreferenceCategory android:title="Theme">
+    </PreferenceCategory>
 
     <ListPreference
         android:title="@string/title_theme_color"
@@ -17,15 +19,15 @@
         android:dialogTitle="@string/dialog_theme_color"
         android:entryValues="@array/colors_save"/>
 
-    <com.skydoves.colorpickerpreference.ColorPickerPreference
-        android:key="ToolbarColorPickerPreference"
-        android:title="Toolbar Color"
-        android:summary="changes toolbar color"
-        app:preference_dialog_title="Toolbar ColorPickerDialog"
-        app:preference_dialog_positive="confirm"
-        app:preference_dialog_negative="cancel"
-        app:preference_palette="@drawable/palette"
-        app:preference_selector="@drawable/wheel"
-        app:default_color="@color/colorPrimary"/>
+    <!--<com.skydoves.colorpickerpreference.ColorPickerPreference-->
+        <!--android:key="ToolbarColorPickerPreference"-->
+        <!--android:title="Toolbar Color"-->
+        <!--android:summary="changes toolbar color"-->
+        <!--app:preference_dialog_title="Toolbar ColorPickerDialog"-->
+        <!--app:preference_dialog_positive="confirm"-->
+        <!--app:preference_dialog_negative="cancel"-->
+        <!--app:preference_palette="@drawable/palette"-->
+        <!--app:preference_selector="@drawable/wheel"-->
+        <!--app:default_color="@color/colorPrimary"/>-->
 
 </PreferenceScreen>

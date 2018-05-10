@@ -184,7 +184,7 @@
     <string name="question_reload_coins">Recharger mes Meaps ?</string>
 
     <!--settings activity-->
-    <string name="title_theme_color">Thème</string>
+    <string name="title_theme_color">Couleur du thème</string>
     <string name="dialog_theme_color">Choisir une couleur</string>
 
     <!--colors in theme color-->
