@@ -28,6 +28,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
@@ -290,5 +291,22 @@ public class MyGroupsActivity extends MyAppCompatActivity {
                 }
             }
         });
+       codeIdMyGroups.addTextChangedListener(new TextWatcher() {
+           @Override
+           public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+           }
+
+           @Override
+           public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+           }
+
+           @Override
+           public void afterTextChanged(Editable editable) {
+               String code = editable.toString();
+                if(editable.toString().length() == CodeGroupsGenerator.CODE_SIZE){
+                    GroupLink.joinGroupByCode(MyGroupsActivity.this,code);
+                }
+           }
+       });
     }
 }
