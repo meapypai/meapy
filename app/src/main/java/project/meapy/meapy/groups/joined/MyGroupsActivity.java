@@ -286,6 +286,7 @@ public class MyGroupsActivity extends MyAppCompatActivity {
                 String code = codeIdMyGroups.getText().toString();
                 if(!TextUtils.isEmpty(code)) {
                     GroupLink.joinGroupByCode(MyGroupsActivity.this,code);
+                    codeIdMyGroups.setText("");
                 }
             }
         });
