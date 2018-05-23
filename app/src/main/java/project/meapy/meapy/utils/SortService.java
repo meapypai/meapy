@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import project.meapy.meapy.bean.Comment;
+import project.meapy.meapy.bean.Post;
 import project.meapy.meapy.bean.User;
 
 /**
@@ -43,6 +44,15 @@ public class SortService {
                 }else {
                     return 0;
                 }
+            }
+        });
+    }
+
+    public static void sortPosts(List<Post> posts){
+        Collections.sort(posts, new Comparator<Post>() {
+            @Override
+            public int compare(Post post, Post t1) {
+                return - post.getDate().compareTo(t1.getDate());
             }
         });
     }

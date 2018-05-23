@@ -80,6 +80,7 @@ import project.meapy.meapy.posts.PostAdapter2;
 import project.meapy.meapy.utils.DisciplineService;
 import project.meapy.meapy.utils.RetrieveImage;
 import project.meapy.meapy.utils.RunnableWithParam;
+import project.meapy.meapy.utils.SortService;
 import project.meapy.meapy.utils.firebase.DisciplineLink;
 import project.meapy.meapy.utils.firebase.GroupLink;
 import project.meapy.meapy.utils.firebase.PostLink;
@@ -210,6 +211,7 @@ public class OneGroupActivity extends MyAppCompatActivity {
                 adapterPost.notifyDataSetChanged();
             }
         }
+        SortService.sortPosts(postsForView);
     }
     private Criter getCritersForPosts(String searched){
         MultipleAndCriter critersAnd = new MultipleAndCriter();
@@ -492,7 +494,9 @@ public class OneGroupActivity extends MyAppCompatActivity {
             public void run() {
                 Post post = (Post) getParam();
                 posts.add(post);
-                adapterPost.sort();
+                postsForView.add(post);
+                SortService.sortPosts(postsForView);
+                //adapterPost.sort();
                 adapterPost.notifyDataSetChanged();
             }
         }, new RunnableWithParam() {
