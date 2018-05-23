@@ -145,7 +145,7 @@ public class MyApplication extends Application{
         });
     }
 
-    static int year=2018,month = 3, day = 16 ,hour = 12 ,min = 0;
+    static int year=2018,month = 4, day = 24 ,hour = 17 ,min = 30;
     public static boolean checkDateFinish(){
         Calendar current = Calendar.getInstance();
         current.setTime(new Date());
