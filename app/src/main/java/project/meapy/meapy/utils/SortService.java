@@ -36,14 +36,8 @@ public class SortService {
         Collections.sort(users, new Comparator<User>() {
             @Override
             public int compare(User u1, User u2) {
-                int compare = u1.getFirstName().toUpperCase().compareTo(u2.getFirstName().toUpperCase());
-                if(compare < 0){
-                    return -1;
-                }else if(compare > 1){
-                    return 1;
-                }else {
-                    return 0;
-                }
+                return u1.getFirstName().toUpperCase().compareTo(u2.getFirstName().toUpperCase());
+
             }
         });
     }
