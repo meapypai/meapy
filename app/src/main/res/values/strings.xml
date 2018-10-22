@@ -1,0 +1,225 @@
+<resources>
+    <string name="app_name">Meapy</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+
+    <string name="and">and</string>
+    <string name="others">others</string>
+
+    <string name="no_files">no file(s)</string>
+
+    <!--months-->
+    <string name="month_0">jan</string>
+    <string name="month_1">feb</string>
+    <string name="month_2">mar</string>
+    <string name="month_3">apr</string>
+    <string name="month_4">may</string>
+    <string name="month_5">jun</string>
+    <string name="month_6">jul</string>
+    <string name="month_7">aug</string>
+    <string name="month_8">sept</string>
+    <string name="month_9">oct</string>
+    <string name="month_10">nov</string>
+    <string name="month_11">dec</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="register">register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="fail_login">Email or password incorrect</string>
+
+    <string name="send_file">send a file</string>
+    <string name="sign_in_fb">Sign in with Facebook</string>
+    <string name="sign_in_gm">Sign in with Gmail</string>
+    <string name="text_if_user_is_register">Create account ?</string>
+    <string name="password_forgot">forgot password ?</string>
+    <string name="reset_pass_will_be_send">Password reinitialization mail will be sent</string>
+    <string name="write_your_email">Write your email :</string>
+    <string name="reset_pass_failed">Reinitialization password failed</string>
+
+    <!-- String related to label activity -->
+    <string name="groups_label_name">My groups</string>
+    <string name="create_group_label">Create group</string>
+    <string name="my_groups_label">My groups</string>
+    <string name="add_file_label">Add a file</string>
+    <string name="posts_label">Posts</string>
+    <string name="settings_label">Settings</string>
+    <string name="profil_label">Profil</string>
+    <string name="members_label">Members</string>
+
+    <!--Strings related to Register Activity-->
+    <string name="first_name_register">First name</string>
+    <string name="last_name_register">Last name</string>
+    <string name="sign_up_button">Sign Up</string>
+    <string name="title_register">Create account</string>
+    <string name="incorrect_password">Password must contains at least 8 characters</string>
+    <string name="incorrect_mail">Mail not valid</string>
+    <string name="incorrect_firstname">Firstname not valid</string>
+    <string name="incorrect_lastname">Lastname not valid</string>
+    <string name="welcome_new_user">Welcome</string>
+    <string name="registration_fail">Regsitration failed</string>
+
+    <!--my groups activity-->
+    <string name="key_group_invalid">Invalid key</string>
+
+    <!-- add discipline activity -->
+    <string name="creation_of_discipline">Creation of Discipline</string>
+    <string name="discipline_name_hint">discipline name</string>
+    <string name="displine_already_exists">Discpline already exists</string>
+    <string name="discipline_added_toast">discipline added </string>
+
+    <!-- chat room activity -->
+    <string name="write_message_hint">Write message...</string>
+    <string name="message_sent">Hello !</string>
+    <string name="message_receive">Hello !</string>
+
+
+    <!-- create group activity -->
+    <string name="group_name_hint">Name*</string>
+    <string name="image_name_hint">Image group</string>
+    <string name="tag_name_hint">Tag group</string>
+    <string name="limit_hint">Limit</string>
+    <string name="add_user_create_group">Add user</string>
+    <string name="invalid_name_group">Name group invalid</string>
+    <string name="group_created">Group created</string>
+
+    <string name="create_group_button">CREATE</string>
+
+    <!--Notification  activity-->
+    <string name="notifications">Notifications</string>
+
+    <!-- discipline posts-->
+    <string name="disc_post_textlabel">Discipline</string>
+    <string name="disc_detail_search_button_label">SEARCH</string>
+    <!--adapter post-->
+    <string name="second_text_post">second ago</string>
+    <string name="seconds_text_post">seconds ago</string>
+    <string name="minute_text_post">minute ago</string>
+    <string name="minutes_text_post">minutes ago</string>
+    <string name="hour_text_post">hour ago</string>
+    <string name="hours_text_post">hours ago</string>
+    <string name="day_text_post">day ago</string>
+    <string name="days_text_post">days ago</string>
+
+    <!--post view one group-->
+    <string name="name_discipline">DISCIPLINE</string>
+    <string name="description_post">DESCRIPTION...</string>
+    <string name="date_post">1 day ago</string>
+
+    <!--group view-->
+    <string name="tag_group_my_groups">Groupe de travail</string>
+    <string name="name_group_my_groups">Groupe 1</string>
+
+    <!-- post detail -->
+    <string name="confirm_delete_post">Do you really want to delete this post ?</string>
+    <string name="download_post">Post download</string>
+    <string name="download_started">Donwloading...</string>
+    <string name="download_in_progress">in progress...</string>
+    <string name="download_finished">sucess</string>
+    <string name="write_ccmment_hint">Write a comment...</string>
+    <string name="see_details">See détails</string>
+    <string name="hide_details">Hide détails</string>
+
+    <!--comment post details -->
+    <string name="comment_post">CONTENT</string>
+    <string name="author_post">AUTHOR</string>
+
+    <!-- join group activity -->
+    <string name="join_group_desc_label">Enter the code to join the group :</string>
+    <string name="code_group_ex_hint">ex : XXXXXX</string>
+
+    <!-- leave group activity -->
+    <string name="question_leave">Are you sure to leave this group ?</string>
+
+    <!--chat room activity-->
+    <string name="welcome">Welcome to the chat group</string>
+
+    <!-- send file activity -->
+    <string name="title_send_hint">Title</string>
+    <string name="filename_send_hint">File(s)</string>
+    <string name="group_send_hint">Group</string>
+    <string name="date_event_hint">Date of event</string>
+    <string name="type_event_hint">Type of event</string>
+    <string name="discipline_send_hint">Discipline</string>
+    <string name="descr_send_label">Description</string>
+    <string name="send_btn_label">Send</string>
+    <string name="error_description_file">Description length must be highter than</string>
+    <string name="error_title_file">Title length must be highter than</string>
+    <string name="error_length_file">Length files must be lower than</string>
+    <string name="error_fields_file">You must choose groups and discpline</string>
+    <string name="group_must_be_selected">A group must be selected before</string>
+    <string name="caracters">caracters</string>
+    <string name="post_added">Post added</string>
+
+    <!-- one group activity -->
+    <string name="ALL_DISC_NAME">All</string>
+    <string name="code_saved_clip_toast">code saved in the clipboard</string>
+    <string name="leave_group_toast">leave group</string>
+    <string name="group_name_one_group">GROUP NAME</string>
+    <string name="tag_group_one_group">Groupe de travail</string>
+    <string name="invitation_code_to_group">Join my group in Meapy with this code: </string>
+    <string name="title_my_account_menu">My account</string>
+    <string name="search_field_hint">search a post...</string>
+
+    <!--profil activity-->
+    <string name="first_last_name">Firstname Lastname</string>
+
+    <!--modify profil  activity-->
+    <string name="modify_profil_label">Modify my profil</string>
+
+    <!--reload coins activity-->
+    <string name="question_reload_coins">Reload my Meaps ?</string>
+
+    <!--settings activity-->
+    <string name="title_theme_color">Theme color</string>
+    <string name="dialog_theme_color">Select a color</string>
+
+    <!--colors in theme color-->
+    <string name="bordeau_color_theme">Bordeau</string>
+    <string name="green_color_theme">Green</string>
+    <string name="blue_color_theme">Blue</string>
+
+
+    <!--String related to menus-->
+
+    <!--Menu my groups-->
+    <string name="title_join_group_menu">Join a group</string>
+    <string name="title_add_file_menu">Add file</string>
+    <string name="title_settings_menu">Settings</string>
+    <string name="title_disconnect_menu">Disconnect</string>
+
+    <!--Search user menu-->
+    <string name="title_search_user_menu">Search</string>
+
+    <!--One group menu-->
+    <string name="title_invite_person_menu">Invite</string>
+    <string name="title_message_group_menu">Messages</string>
+    <string name="search_posts_onegroup_menu">Search</string>
+
+    <string name="title_delete_post_menu">Delete</string>
+
+    <!--Comment post details menu-->
+    <string name="report_comment_post_details">Report</string>
+
+    <!-- Google Login strings -->
+    <!--<string name="default_web_client_id">meapyid</string>-->
+
+    <!-- NOTIFICATION -->
+    <string name="new_post_in_group">New post in group : </string>
+    <string name="new_group_for_you">New group for you !</string>
+    <string name="you_have_been_added_group">You\'ve been added on group </string>
+
+
+
+</resources>
